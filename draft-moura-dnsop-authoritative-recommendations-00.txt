@@ -582,7 +582,7 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    of each paper has a clear contribution.  Here we mention the papers
    co-authors and thank them for their work: Ricardo de O Schmidt,
    Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian Hesselman, Jan
-   Harm Kuipers, Wes Hardaker, Pieter-Tjerk de Boer and Aiko Pras.
+   Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
 
    Besides those, we would like thank those who have been individually
    thanked in each research work, RIPE NCC and DNS OARC for their tools
@@ -716,7 +716,7 @@ Authors' Addresses
    U.S.A.
 
    Phone: +1 (310) 448-8708
-   Email: johnh@isi.edu
+   Email: hardaker@isi.edu
 
 
 

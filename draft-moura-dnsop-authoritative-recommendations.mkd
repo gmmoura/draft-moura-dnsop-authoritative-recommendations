@@ -48,7 +48,7 @@ author:
         code: 90292-6695
         country: U.S.A.
         phone:  +1 (310) 448-8708
-        email: johnh@isi.edu
+        email: hardaker@isi.edu
       -
         ins: J. Heidemann
         name: John Heidemann
