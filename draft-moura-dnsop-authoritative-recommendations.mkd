@@ -1,0 +1,328 @@
+---
+title: Recommendations for Authoritative Servers Operators
+abbrev: Recomm-Authoritative-Ops
+docname: draft-moura-dnsop-authoritative-recommendations-00
+date: 2018-10-9
+# date: 2012-01
+# date: 2012
+
+# stand_alone: true
+
+ipr: trust200902
+area: Internet
+wg: DNSOP Working Group  
+kw: Internet-Draft
+cat: info
+
+coding: us-ascii
+pi:    # can use array (if all yes) or hash here
+#  - toc
+#  - sortrefs
+#  - symrefs
+  toc: yes
+  sortrefs:   # defaults to yes
+  symrefs: yes
+
+author:
+      -
+        ins: G. C.M. Moura
+        name: Giovane C. M. Moura
+        org: SIDN Labs/TU Delft
+        # abbrev: TZI
+        # street:
+        # - Postfach 330440
+        # - Bibliothekstr. 1  
+        street: Meander 501
+        city: Arnhem
+        code: 6825 MD
+        country: The Netherlands
+        phone: +31-6-352-55-00
+        facsimile:  +31-6-352-55-05
+        email: giovane.moura@sidn.nl
+      -
+        ins: W. Hardaker
+        name: Wes Hardaker
+        org: USC/Information Sciences Institute
+        street: 4676 Admiralty Way
+        city: Marina Del Rey
+        code: 90292-6695
+        country: U.S.A.
+        phone:  +1 (310) 448-8708
+        email: johnh@isi.edu
+      -
+        ins: J. Heidemann
+        name: John Heidemann
+        org: USC/Information Sciences Institute
+        street: 4676 Admiralty Way
+        city: Marina Del Rey
+        code: 90292-6695
+        country: U.S.A.
+        phone:  +1 (310) 448-8708
+        email: johnh@isi.edu        
+    #  -
+       #ins: M. Davids
+      # name: Marco Davids
+       #org: SIDN Labs
+       #street: Meander 501
+       #city: Arnhem
+       #code: 6825 MD
+      # country: The Netherlands
+      # phone: +31-6-352-55-00
+       #facsimile:  +31-6-352-55-05
+       #email: marco.davids@sidn.nl        
+
+normative:
+
+  I-D.ietf-dnsop-terminology-bis:
+  rfc2182:
+  rfc1034:
+  rfc7094:
+  rfc1546:
+  rfc1035:
+#have to see how to add these references on rfcs
+#https://tools.ietf.org/html/rfc7764#section-4.6
+informative:
+
+
+  Moura16b:
+      title: Anycast vs DDoS Evaluating the November 2015 Root DNS Events. In Proceedings of 2016 ACM Internet Measurement Conference
+      target: https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf
+      author:
+          ins: Giovane  C M Moura, Ricardo de O Schmidt, John Heidemann, Wouter de Vries, Moritz Müller, Lan Wei,  and Cristian Hesselman
+      date: October 2016
+
+  Schmidt17a:
+      title: Anycast Latency - How Many Sites Are Enough. In Proceedings of the Passive and Active Measurement Workshop
+      target: https://www.isi.edu/%7ejohnh/PAPERS/Schmidt17a.pdf
+      author:
+            ins: Ricardo de O  Schmidt, John Heidemann and Jan Harm Kuipers.
+      date: March 2017      
+
+  Moura18b:
+    title: When the Dike breaks - Dissecting DNS defenses during DDoS. In Proceedings of 2018 ACM Internet Measurement Conference
+    target: https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf
+    author:
+        ins: Giovane  C M Moura, John Heidemann, Moritz Müller, Ricardo de O Schmidt, Marco Davids
+    date: October 2018
+
+  Sigla2014:
+    title:   The Internet at the speed of light. In Proceedings of the 13th ACM
+      Workshop on Hot Topics in Networks (Oct 2014)
+
+    target: https://dl.acm.org/citation.cfm?id=2673876
+    author:
+        ins: Ankit Singla, Balakrishnan Chandrasekaran, P Brighten Godfrey, and Bruce Maggs
+
+    date: October 2014
+
+  Vries17b:
+    title: Verfploeter - Broad and Load-Aware Anycast Mapping. Proceedings of the 2017 ACM Internet Measurement Conference
+    target: https://www.isi.edu/%7ejohnh/PAPERS/Vries17b.pdf
+    author:
+      ins: Wouter B de Vries, Ricardo de O Schmidt, Wes Hardaker, John Heidemann, Pieter-Tjerk de Boer and Aiko Pras.
+    date: October 2017      
+
+  Mueller17b:
+      title: Recursives in the Wild-  Engineering Authoritative DNS Servers. Proceedings of the 2017 ACM Internet Measurement Conference
+      target: https://www.isi.edu/%7ejohnh/PAPERS/Mueller17b.pdf
+      author:
+        ins: Moritz Müller, Giovane C  M Moura, Ricardo de O Schmidt and John Heidemann.
+      date: October 2017      
+
+  IcannHedge18:
+          title: DNS-STATS -  Hedgehog 2.4.1
+          target: http://stats.dns.icann.org/hedgehog/
+          author:
+            ins: ICANN
+          date: October 2018     
+
+  Ditl17:
+          title: 2017 DITL data
+          target: https://www.dns-oarc.net/oarc/data/ditl/2017
+          author:
+            ins: DNS OARC
+          date: October 2018    
+
+  Perlroth16:
+          title: Hackers Used New Weapons to Disrupt Major Websites Across U.S.
+          target: https://www.nytimes.com/2016/10/22/business/internet-problems-attack.html
+          author:
+              ins: Nicole Perlroth
+          date: October 2016
+
+
+--- abstract
+
+This document summarizes recent research work exploring DNS configurations in terms of specific, tangible recommendations for authoritative servers operators.
+
+
+--- middle
+
+Introduction        {#intro}
+============
+
+The Domain Name System (DNS) has main two types of "DNS servers": authoritative servers and resolvers. {{recuath}} shows their relationship. An authoritative server is "a server that knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers" {{RFC2182}}. A resolver, in turn, is "a program "that extract(s) information from name servers in response to client requests" {{RFC1034}}. A client, in {{recuath}}, is shown as  "stub", which is a stub resolver {{RFC1034}} that is located on the client side.
+
+                +-----+   +-----+   +-----+   +-----+
+                | AT1 |   | AT2 |   | AT3 |   | AT4 |
+                +--+--+   +--+--+   +---+-+   +--+--+
+                   ^         ^          ^        ^
+                   |         |          |        |
+                   |      +--+--+       |        |
+                   +------+ Rn  +-------+        |
+                   |      +--^--+                |
+                   |         |                   |
+                   |      +--+--+   +-----+      |
+                   +------+R1_1 |   |R1_2 +------+
+                          +-+---+   +----+
+                            ^           ^
+                            |           |
+                            | +------+  |
+                            +-+ stub +--+
+                              +------+
+{: #recuath title="Relationship between recursive resolvers (R) and authoritative name servers (AT)"}
+
+DNS exchanges can contribute to web latency and user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial-of-Service (DoS) attacks (for example, in November 2015 {{Moura16b}}). To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication can be achieved with the deployment of multiple authoritative servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), IP anycast {{RFC1546}}{{RFC7094}} and load balancers. As a consequence, there are many possible ways a DNS provider could engineer its authoritative servers, with multiple viable choices and no single optimal design.
+
+
+This document  summarizes recent research work exploring DNS configurations in specific tangible recommendations for authoritative servers operators (DNS operators hereafter). We have carried out studies with the goal of improving DNS engineering, to understand how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, accurately mapping anycast {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolvers caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) we present in this document are backed by these studies that used wide-scale Internet measurements. This document describes the key engineering options, and points readers to the pertinent papers for details.
+
+#R1: all authoritative server should have similar latency
+
+
+Authoritative DNS servers operators, such as Top-level domain (TLD) operators (e.g.,: .org and .nl) announce their authoritative servers in the form of NS records. Different authoritatives return the same content typically using DNS zone transfers to share a master copy.
+
+DNS heavily relies upon replication to support high reliability and
+capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate service. First, the protocol itself supports nameserver replication of DNS service for
+a DNS zone  where multiple servers operate on different IP addresses, listed by that zone's NS records. Second, each of these servers can run from multiple physical locations with
+IP anycast, by announcing the same IP address from each and allowing Internet routing
+(BGP) to associate clients with each anycast site. Outside the protocol, replication can be achieved by deployed load balancers in which anycast site location.  Nameserver replication is recommended for all zones, and IP anycast is used by most large zones such as the DNS Root and most top-level domains{{Moura16b}}.
+
+DNS operators strive to reduce latency for users of their service.
+However, because they control only their authoritative servers,
+  and not the recursive resolvers using those servers,
+  it is difficult to insure that recursives will be served by the closest authoritative
+  server. Server selection is up to the software in the  recursive resolvers,
+  and different vendors and releases employ different criteria when
+choosing authoritatives.
+
+Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. We therefore set out to answer this question with a measurement study {{Mueller17b}} in which we deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points---VPs) and their respective recursive resolvers.
+
+
+In the wild, we found that recursives query all available authoritative servers, regardless of latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between authoritative and recursive, the more often the recursive will send queries to this authoritative. Our hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all recursives to determine which is closer and to provide alternatives if one is unavailable.
+
+
+For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example), we recommend DNS operators to deploy equally strong IP anycast in every authoritative server (thus phase out unicast), so they can deliver similar latency values to recursives. Having one or few unicast authoritative will limit the worst-case latency for most users. Note that DNS operators should take also architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+
+This recommendation was deployed on .nl, which used to have a mixed unicast/anycast setup, and since early 2018 has 4 anycast authoritative name servers.
+
+
+# R2: Routing Can Matter More Than Locations
+
+A common metric when choosing an anycast DNS provider or setting up an anycast service is the number of anycast sites, i.e., the number of global locations from which the same address is announced with BGP. Intuitively, one could think that more sites would lead to shorter response times.
+
+However, this is not necessarily true. In fact, we found in a previous study {{Schmidt17a}}  that routing can matter more than the total number of locations. We analyzed the relationship between the number of anycast sites and performance of a service (latency-wise, RTT). We measured the overall performance of four DNS Root servers, namely C, F, K and L, from more than 7.9K RIPE Atlas probes.
+
+
+We found that the C-Root, a smaller anycast deployment with 8 sites, provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 sites respectively. We observed a median RTT between 30ms and 32ms for C, K and L roots, and 25ms for F.
+
+
+Our recommendation for DNS operators when engineering anycast services is to not only consider the number of sites as a metric for performance. We showed in {{Schmidt17a}} that 12 sites can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more sites can be useful in handling DoS attacks {{Mueller17b}}.
+
+
+
+#R3: Detailed Anycast Maps of Catchments Requires Active Measurement
+
+An anycast service may have several dozens sites, as L-Root. Anycast leverages BGP to distribute the incoming queries to anycast sites; in theory, BGP forwards incoming queries to a nearby anycast site (in terms of BGP distance). However, usually queries are not evenly distributed across anycast sites, as in the case of L-Root {{IcannHedge18}}.
+
+Adding new sites to an anycast service may change the load distribution across all sites, leading to suboptimal usage of the service or even stressing some sites while others remain underutilized. This is a scenario that operators constantly face when expanding an anycast service. Besides, when setting up a new anycast server, operators cannot directly estimate the query distribution among the sites.
+
+To estimate the query loads across sites of an expanding service or a setting up a new service, operators need detailed anycast maps, i.e., to know which prefixes will be matched to each anycast site. To do that, we recommend operators carrying out active measurements, using a technique and tool we have developed called Verfploeter {{Vries17b}}. Verfploeter maps the entire IPv4 space and allows DNS operators to predict both query distribution and clients catchment before deploying new anycast sites.
+
+
+
+We have used this technique to predict both the catchment and query load distribution for the new anycast service of B-Root. First, we have set up two anycast sites Miami (MIA) and Los Angeles (LAX) which were exact copies of those sites from the operational B-Root server. We then sent ICMP packets to multiple IPs from each /24 in on the Internet, and used an IP within the anycast range as the source of these ICMP packets. Then, we observed to which site BGP mapped the ICMP echo replies, generating a catchment map. We then weighted the incoming traffic of 1 day of B-Root traffic (2017-04-12, DITL datasets  {{Ditl17}}) using this catchment mapping, and estimated that 81.6% of the traffic would go to the LAX site. The actual value was 81.4% of traffic going to LAX, which means our estimation was pretty close.
+
+Besides that, Verfploeter can be used to estimate how traffic shifts among sites in case some of BGP manipulations are executed, such as AS Path prepending also used during DDoS attacks.We created a new catchmentmapping for each configuration: no prepending, and prepeding with 1, 2 or 3
+hops. Then, we used this mappings to estimate the load distribution for each
+configuration and show it in {{Vries17b}}.
+
+Therefore, our recommendation for DNS operators is to make informed choices when engineering new anycast sites or expand current ones by using catchment maps with active measurements carried out with Verfploeter. Besides, operators can spot suboptimal routing situations early, with a fine granularity, and with better coverage than using traditional measurement platforms such as Ripe Atlas.
+
+
+#R4: When under stress, two strategies
+
+DDoS attacks are becoming bigger, cheaper, and more frequent {{Mueller17b}}. The most powerful recorded DDoS attack to DNS servers to date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such attacks call for an answer for the following question: how should a DNS operator engineer its anycast authoritative DNS server react to the stress of a DDoS attack? We have investigated this question in study {{Moura16b}} in which we ground empirical observations with the following theoretical evaluation of options.
+
+An authoritative DNS server deployed using anycast will have many sites distributed over many networks. Ultimately, the relationship between the DNS provider network and a client's ISP will determine which anycast site will answer for queries for a given client. As a consequence, when an anycast authoritative server is under attack, the load that each anycast site receives is likely to be unevenly distributed (a function of the source of the attacks), thus some sites may be more overloaded than others which is what we observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different sites may have different capacity (bandwidth, CPU, etc.), the choice of how to react to stress becomes even more difficult.
+
+In practice, an anycast site under stress, overloaded with incoming traffic, has two options:
+
+* It can withdraw/prepend route to some or to all of its neighbors, shrinking its catchment (number of clients that BGP maps to it) and shifting both legitimate and attack traffic to other anycast sites. Possibly those sites will have greater capacity and service the queries.
+* Alternatively, it can be become a degraded absorber, continuing to operate, but with overloaded ingress routers, dropping some incoming legitimate requests due to queue overflow. However, continued operation will also absorb traffic from attackers in its catchment, protecting other anycast sites.
+
+
+We saw both of these behaviors in practice in the Root DNS events {{Moura16b}} and observe them through site reachability and RTTs. These options represent different uses of an anycast deployment. A withdrawal strategy causes anycast to respond as a waterbed, with stress displacing queries from one site to others. The absorption strategy behaves as a conventional mattress,  compressing under load, with queries getting delayed or dropped.
+
+Although described as strategies and policies, these outcomes are the result of several factors: the combination of operator and host ISP routing policy, routing implementations withdrawing under load, the nature of the attack, and the locations of the sites and attackers. Some policies are explicit, such as the choice of local-only anycast sites, or operators removing a site for maintenance or modifying routing to manage load. However, under stress, the choices of withdrawal and absorption can also be results that emerge from a mix of explicit choices and implementation details, such as BGP timeout values.
+
+We speculate that more careful, explicit, and automated management of policies may provide stronger defenses to overload, an area we are currently working on. For DNS operators, that means that besides traditional filtering, two other options are available (withdraw/prepend or isolate sites), and the best choice depends on the specifics of the attack.
+
+
+#R5: Be careful on how to choose your records time-to-live values
+
+In a DNS response, each resource record is accompanied by a time-to-live value, which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by authoritative DNS server operators at their zone files -- either specifically per record or as default values for the entire zone. Sometimes the same research record may have different TTL values -- one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2182}}.
+
+While set by authoritative server operators (ATs in {{recuath}}), the TTL value in fact influences the behavior of recursive resolvers (and their operators -- Rn in the same figure), by setting an upper limit on how long a record should be cached before discarded.
+In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times (by avoiding repeated queries between recursive resolvers and authoritative).
+
+Besides improving performance, caching may play a significant role during DoS attacks against authoritative servers. To investigate that, we carried out a study {{Moura18b}} that evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. We configured two authoritative name servers for our newly registered domain and carried out a series of experiments with various TTL values (60,1800, 3600, 86400s) for records and sent unique DNS queries from roughly 15,000 vantage points, using Ripe Atlas.
+
+We found that caching, in the wild, works as expected 70% of the times -- for various TTL values we found. We believe that complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of non cached records. We confirmed the results from our experiments by analyzing authoritative traffic for the .nl TLD, which showed similar figures.
+
+We then set out to emulate DDoS attacks on authoritative servers by  dropping all incoming pakcets for various TTLs values. We found that:
+
+   * At 100% of packets dropped, the TTL value of the record set by the authoritative determined how long clients received responses, together with the status of the cache at the attack time. Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.  
+   * Once TTL values expire, we also saw evidence of some recursives serving stale content {{  I-D.ietf-dnsop-terminology-bis}}. Serve stale was the only option when TTL values expire in recursives cache and authoritative servers were completely unavailable.
+
+We also emulated partial-failure DDoS (similar to Dyn 2016 {{Perlroth16}}), when authoritative are partially available, by dropping packet at rates of 50-90%, for various TTL values. We found that:
+
+   *  For various TTL values, caching was a key component in the success of queries. For example, for a 50% packet drop rate at the authoritatives, still most of clients got an answer.
+   *  When caching could not help (for a scenario with TTL of 60s, and time in between probing of 10minutes), recursive servers kept on retrying queries to authoritatives: at 90% packet drop with TTL of 60s, we found that 27% of clients still got an answer, at the price of increased response times.
+   * We also found that these retries have a significant effect on the authoriative side: we saw a 8.1x times increase in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries -- what we refer to "friendly fire".
+
+Therefore, given the role of TTL, our recommendation for DNS operators is to set their TTL values carefully, knowing that they will influence (i) the success of client's queries and (ii) the amount of "friendly fire" traffic they will receive. Many operators may as well reconsider their 10x overprovision metric for DNS servers, given this significant increase legitimate traffic during DDoS.
+
+
+#R6: Shared Infrastructure Risks Collateral Damage During Attacks
+
+Co-locating services, such as authoritative servers, creates some degree of shared risk, in that stress on one service may spill over into another, resulting in collateral damage. Collateral damage is a common side-effect of DDoS, and data centers and operators strive to minimize collateral damage through redundancy, overcapacity, and isolation.
+
+We have also seen this in practice during the DDoS attack against the Root DNS system in November 2015 {{Moura16b}}. In this study, we found that two services not directly targeted by the attack, namely D-Root and the .nl TLD, suffered collateral damage. These services showed reduced end-to-end performance (i.e., higher latency and reduced reachability) with timing consistent with the DDoS event, strongly suggesting a shared resource with original targets of the attack.
+
+Another example of collateral damage was the 1.2 Tbps attack against Dyn, a major DNS provider on October 2017 {{Perlroth16}}. As a result, many of their customers, including Airbnb, HBO, Netflix, and Twitter experience issues in resolving their domains, since they partially shared the same infrastructure.
+
+Our recommendation, therefore, is when choosing third-party DNS providers, operators should be aware of shared infrastructure risks. By sharing infrastructure, there is an increased attack surface.
+
+
+# Security considerations
+
+  * to be added
+
+# IANA considerations
+
+  * to be added
+
+#Summary
+DNS operators strive to deliver both high-performance and resilient services. However, a DNS operators controls only part of the infrastructure involved in the name resolution process, which makes their task more challenging. Moreover, the rise of terabit-scale IoT-based DDoS attacks against authoritative servers has only made the problem worse.
+
+We have presented in this paper six tangible recommendation obtained from various measurements
+studies we have carried over the last years.
+
+#Acknowledgements
+
+This document is a summary of the main lessons of the research works mentioned on each recommendation here provided. As such, each author of each paper has a clear contribution.
+Here we mention the papers co-authors and  thank them for their work:
+ Ricardo de O Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian  Hesselman,   Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
+
+Besides those, we would like thank those who have been individually thanked in each research work, RIPE NCC and DNS OARC for their tools and datasets used in this research, as well as the funding agencies sponsoring the individual research works.
