@@ -135,31 +135,31 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
         Figure 1: Relationship between recursive resolvers (R) and
                       authoritative name servers (AT)
 
-   DNS exchanges can contribute to web latency and user experience
+   DNS queries can contribute to web latency and affect user experience
    [Sigla2014], and the DNS system has been subject to repeated Denial-
    of-Service (DoS) attacks (for example, in November 2015 [Moura16b]).
    To reduce latency and improve resiliency against DoS attacks, DNS
    uses several types of server replication.  Replication can be
    achieved with the deployment of multiple authoritative servers for
    the same zone [RFC1035] (AT1--AT4 in Figure 1), IP anycast
-   [RFC1546][RFC7094] and load balancers.  As a consequence, there are
+   [RFC1546][RFC7094] and and with load balancers supporting multiple
+   servers inside a single anycast site.  As a consequence, there are
    many possible ways a DNS provider could engineer its authoritative
    servers, with multiple viable choices and no single optimal design.
 
    This document summarizes recent research work exploring DNS
    configurations in specific tangible recommendations for authoritative
-   servers operators (DNS operators hereafter).  We have carried out
-   studies with the goal of improving DNS engineering, to understand how
-   anycast reacts to DoS attacks[Moura16b], how anycast affects query
-   latency[Schmidt17a], accurately mapping anycast [Vries17b], how
-   recursive and authoritative resolvers interact[Mueller17b], and how
-   recursive resolvers caching and retries help clients during DDoS
-   attacks on authoritatives[Moura18b].  The recommendations (R1-R6) we
-   present in this document are backed by these studies that used wide-
-   scale Internet measurements.  This document describes the key
-   engineering options, and points readers to the pertinent papers for
-   details.
-
+   servers operators (DNS operators hereafter).  It presents
+   recommendations from studies with the goal of improving DNS
+   engineering, to understand how anycast reacts to DoS
+   attacks[Moura16b], how anycast affects query latency[Schmidt17a],
+   accurately mapping anycast [Vries17b], how recursive and
+   authoritative resolvers interact[Mueller17b], and how recursive
+   resolvers caching and retries help clients during DDoS attacks on
+   authoritatives[Moura18b].  The recommendations (R1-R6) presented in
+   this document are backed by these studies that used wide-scale
+   Internet measurements.  This document describes the key engineering
+   options, and points readers to the pertinent papers for details.
 
 
 
@@ -200,14 +200,14 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    criteria when choosing authoritatives.
 
    Knowing how recursives choose authoritative servers is a key step to
-   better engineer the deployment of authoritative servers.  We
-   therefore set out to answer this question with a measurement study
-   [Mueller17b] in which we deployed seven unicast authoritative name
-   servers in different global locations and queried these authoritative
-   servers from more than 9,000 RIPE Atlas probes (Vantage Points--VPs)
-   and their respective recursive resolvers.
+   better engineer the deployment of authoritative servers.
+   [Mueller17b] evaluates this with measurement study in which they
+   deployed seven unicast authoritative name servers in different global
+   locations and queried these authoritative servers from more than
+   9,000 RIPE Atlas probes (Vantage Points--VPs) and their respective
+   recursive resolvers.
 
-   In the wild, we found that recursives query all available
+   In the wild, [Mueller17b] found that recursives query all available
    authoritative servers, regardless of latency.  But the distribution
    of queries tend to be skewed towards authoritatives with lower
    latency: the lower the latency between authoritative and recursive,
@@ -231,10 +231,10 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    available authoritatives will be queried by most recursives.  Since
    unicast cannot deliver good latency worldwide (a site in Europe will
    always have a high latency to resolvers in California, for example),
-   we recommend DNS operators to deploy equally strong IP anycast in
-   every authoritative server (thus phase out unicast), so they can
-   deliver similar latency values to recursives.  Having one or few
-   unicast authoritative will limit the worst-case latency for most
+   [Mueller17b] recommends DNS operators to deploy equally strong IP
+   anycast in every authoritative server (thus phase out unicast), so
+   they can deliver similar latency values to recursives.  Having one or
+   few unicast authoritative will limit the worst-case latency for most
    users.  Note that DNS operators should take also architectural
    considerations into account when planning for deploying anycast
    [RFC1546].
@@ -251,25 +251,25 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    BGP.  Intuitively, one could think that more sites would lead to
    shorter response times.
 
-   However, this is not necessarily true.  In fact, we found in a
-   previous study [Schmidt17a] that routing can matter more than the
-   total number of locations.  We analyzed the relationship between the
-   number of anycast sites and performance of a service (latency-wise,
-   RTT).  We measured the overall performance of four DNS Root servers,
-   namely C, F, K and L, from more than 7.9K RIPE Atlas probes.
+   However, this is not necessarily true.  In fact, [Schmidt17a] found
+   that routing can matter more than the total number of locations.
+   They analyzed the relationship between the number of anycast sites
+   and performance of a service (latency-wise, RTT) and measured the
+   overall performance of four DNS Root servers, namely C, F, K and L,
+   from more than 7.9K RIPE Atlas probes.
 
-   We found that the C-Root, a smaller anycast deployment with 8 sites,
-   provided a very similar overall performance than that of the much
-   larger deployments of K and L, with 33 and 144 sites respectively.
-   We observed a median RTT between 30ms and 32ms for C, K and L roots,
-   and 25ms for F.
+   [Schmidt17a] found that the C-Root, a smaller anycast deployment with
+   8 sites, provided a very similar overall performance than that of the
+   much larger deployments of K and L, with 33 and 144 sites
+   respectively.  We observed a median RTT between 30ms and 32ms for C,
+   K and L roots, and 25ms for F.
 
-   Our recommendation for DNS operators when engineering anycast
+   Their recommendation for DNS operators when engineering anycast
    services is to not only consider the number of sites as a metric for
-   performance.  We showed in [Schmidt17a] that 12 sites can provide
-   reasonable latency, given they are globally distributed and have good
-   local interconnectivity.  However, more sites can be useful in
-   handling DoS attacks [Mueller17b].
+   performance.. They showed that 12 sites can provide reasonable
+   latency, given they are globally distributed and have good local
+   interconnectivity.  However, more sites can be useful in handling DoS
+   attacks [Mueller17b].
 
 
 
@@ -302,32 +302,32 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    To estimate the query loads across sites of an expanding service or a
    setting up a new service, operators need detailed anycast maps, i.e.,
    to know which prefixes will be matched to each anycast site.  To do
-   that, we recommend operators carrying out active measurements, using
-   a technique and tool we have developed called Verfploeter [Vries17b].
-   Verfploeter maps the entire IPv4 space and allows DNS operators to
-   predict both query distribution and clients catchment before
-   deploying new anycast sites.
+   that, [Vries17b] recommends operators carrying out active
+   measurements, using a technique and tool we have developed called
+   Verfploeter.  Verfploeter maps the entire IPv4 space and allows DNS
+   operators to predict both query distribution and clients catchment
+   before deploying new anycast sites.
 
-   We have used this technique to predict both the catchment and query
-   load distribution for the new anycast service of B-Root.  First, we
-   have set up two anycast sites Miami (MIA) and Los Angeles (LAX) which
-   were exact copies of those sites from the operational B-Root server.
-   We then sent ICMP packets to multiple IPs from each /24 in on the
-   Internet, and used an IP within the anycast range as the source of
-   these ICMP packets.  Then, we observed to which site BGP mapped the
-   ICMP echo replies, generating a catchment map.  We then weighted the
-   incoming traffic of 1 day of B-Root traffic (2017-04-12, DITL
-   datasets [Ditl17]) using this catchment mapping, and estimated that
-   81.6% of the traffic would go to the LAX site.  The actual value was
-   81.4% of traffic going to LAX, which means our estimation was pretty
-   close.
+   [Vries17b] have used this technique to predict both the catchment and
+   query load distribution for the new anycast service of B-Root.
+   First, they set up two anycast sites Miami (MIA) and Los Angeles
+   (LAX) which were exact copies of those sites from the operational
+   B-Root server.  Next, they sent ICMP packets to multiple IPs from
+   each /24 in on the Internet, and used an IP within the anycast range
+   as the source of these ICMP packets.  Then, they observed to which
+   site BGP mapped the ICMP echo replies, generating a catchment map.
+   They then weighted the incoming traffic of 1 day of B-Root traffic
+   (2017-04-12, DITL datasets [Ditl17]) using this catchment mapping,
+   and estimated that 81.6% of the traffic would go to the LAX site.
+   The actual value was 81.4% of traffic going to LAX, which means that
+   the estimation was pretty close.
 
    Besides that, Verfploeter can be used to estimate how traffic shifts
    among sites in case some of BGP manipulations are executed, such as
-   AS Path prepending also used during DDoS attacks.We created a new
-   catchmentmapping for each configuration: no prepending, and prepeding
-   with 1, 2 or 3 hops.  Then, we used this mappings to estimate the
-   load distribution for each configuration and show it in [Vries17b].
+   AS Path prepending also used during DDoS attacks.  We created a new
+   catchment mapping for each configuration: no prepending, and
+   prepeding with 1, 2 or 3 hops.  Then, [Vries17b] used this mappings
+   to estimate the load distribution for each configuration.
 
 
 
@@ -338,10 +338,10 @@ Moura, et al.            Expires April 12, 2019                 [Page 6]
 Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
-   Therefore, our recommendation for DNS operators is to make informed
-   choices when engineering new anycast sites or expand current ones by
-   using catchment maps with active measurements carried out with
-   Verfploeter.  Besides, operators can spot suboptimal routing
+   Therefore, [Vries17b] recommendation for DNS operators is to make
+   informed choices when engineering new anycast sites or expand current
+   ones by using catchment maps with active measurements carried out
+   with Verfploeter.  Besides, operators can spot suboptimal routing
    situations early, with a fine granularity, and with better coverage
    than using traditional measurement platforms such as Ripe Atlas.
 
@@ -353,7 +353,7 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    attacks call for an answer for the following question: how should a
    DNS operator engineer its anycast authoritative DNS server react to
    the stress of a DDoS attack?  We have investigated this question in
-   study [Moura16b] in which we ground empirical observations with the
+   study [Moura16b] in which they ground empirical observations with the
    following theoretical evaluation of options.
 
    An authoritative DNS server deployed using anycast will have many
@@ -363,7 +363,7 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    consequence, when an anycast authoritative server is under attack,
    the load that each anycast site receives is likely to be unevenly
    distributed (a function of the source of the attacks), thus some
-   sites may be more overloaded than others which is what we observed
+   sites may be more overloaded than others which is what was observed
    analyzing the Root DNS events of Nov. 2015 [Moura16b].  Given the
    fact that different sites may have different capacity (bandwidth,
    CPU, etc.), the choice of how to react to stress becomes even more
