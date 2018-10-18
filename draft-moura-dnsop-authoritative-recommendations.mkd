@@ -43,12 +43,12 @@ author:
         ins: W. Hardaker
         name: Wes Hardaker
         org: USC/Information Sciences Institute
-        street: 4676 Admiralty Way
-        city: Marina Del Rey
-        code: 90292-6695
+        street: PO Box 382
+        city: Davis
+        code: 95617-0382
         country: U.S.A.
-        phone:  +1 (310) 448-8708
-        email: hardaker@isi.edu
+        phone:  +1 (530) 404-0099
+        email: ietf@hardakers.net
       -
         ins: J. Heidemann
         name: John Heidemann
