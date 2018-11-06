@@ -5,9 +5,9 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: April 12, 2019                                     J. Heidemann
+Expires: May 10, 2019                                       J. Heidemann
                                       USC/Information Sciences Institute
-                                                        October 09, 2018
+                                                       November 06, 2018
 
 
           Recommendations for Authoritative Servers Operators
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 12, 2019.
+   This Internet-Draft will expire on May 10, 2019.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 1]
+Moura, et al.             Expires May 10, 2019                  [Page 1]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 2]
+Moura, et al.             Expires May 10, 2019                  [Page 2]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
                +-----+   +-----+   +-----+   +-----+
@@ -165,9 +165,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 3]
+Moura, et al.             Expires May 10, 2019                  [Page 3]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 2.  R1: all authoritative server should have similar latency
@@ -221,9 +221,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 4]
+Moura, et al.             Expires May 10, 2019                  [Page 4]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
    For a DNS operator, this policy means that latency of all
@@ -277,9 +277,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 5]
+Moura, et al.             Expires May 10, 2019                  [Page 5]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 4.  R3: Detailed Anycast Maps of Catchments Requires Active Measurement
@@ -333,9 +333,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 6]
+Moura, et al.             Expires May 10, 2019                  [Page 6]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
    Therefore, [Vries17b] recommendation for DNS operators is to make
@@ -389,9 +389,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 7]
+Moura, et al.             Expires May 10, 2019                  [Page 7]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
    options represent different uses of an anycast deployment.  A
@@ -445,9 +445,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 8]
+Moura, et al.             Expires May 10, 2019                  [Page 8]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
    that, we carried out a study [Moura18b] that evaluates the role of
@@ -501,9 +501,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                 [Page 9]
+Moura, et al.             Expires May 10, 2019                  [Page 9]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
       during a 90% packet drop with TTL of 60s, as recursives attempt to
@@ -557,9 +557,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                [Page 10]
+Moura, et al.             Expires May 10, 2019                 [Page 10]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 10.  Summary
@@ -613,9 +613,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                [Page 11]
+Moura, et al.             Expires May 10, 2019                 [Page 11]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
    [RFC2182]  Elz, R., Bush, R., Bradner, S., and M. Patton, "Selection
@@ -669,9 +669,9 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                [Page 12]
+Moura, et al.             Expires May 10, 2019                 [Page 12]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
    [Schmidt17a]
@@ -725,9 +725,9 @@ Authors' Addresses
 
 
 
-Moura, et al.            Expires April 12, 2019                [Page 13]
+Moura, et al.             Expires May 10, 2019                 [Page 13]
 
-Internet-Draft          Recomm-Authoritative-Ops            October 2018
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
    John Heidemann
@@ -781,4 +781,4 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
 
-Moura, et al.            Expires April 12, 2019                [Page 14]
+Moura, et al.             Expires May 10, 2019                 [Page 14]
