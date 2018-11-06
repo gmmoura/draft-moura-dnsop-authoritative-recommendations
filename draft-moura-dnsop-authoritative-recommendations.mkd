@@ -59,17 +59,17 @@ author:
         country: U.S.A.
         phone:  +1 (310) 448-8708
         email: johnh@isi.edu        
-    #  -
-       #ins: M. Davids
-      # name: Marco Davids
-       #org: SIDN Labs
-       #street: Meander 501
-       #city: Arnhem
-       #code: 6825 MD
-      # country: The Netherlands
-      # phone: +31-6-352-55-00
-       #facsimile:  +31-6-352-55-05
-       #email: marco.davids@sidn.nl        
+      -
+       ins: M. Davids
+       name: Marco Davids
+       org: SIDN Labs
+       city: Arnhem
+       street: Meander 501
+       code: 6825 MD
+       country: The Netherlands
+       phone: +31-6-352-55-00
+       facsimile:  +31-6-352-55-05
+       email: marco.davids@sidn.nl        
 
 normative:
 
