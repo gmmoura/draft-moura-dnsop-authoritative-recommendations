@@ -85,25 +85,65 @@ informative:
 
 
   Moura16b:
-      title: Anycast vs DDoS Evaluating the November 2015 Root DNS Events. In Proceedings of 2016 ACM Internet Measurement Conference
+      target: https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf
+      title: Anycast vs DDoS Evaluating the November 2015 Root DNS Events.
       target: https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf
       author:
-          ins: Giovane  C M Moura, Ricardo de O Schmidt, John Heidemann, Wouter de Vries, Moritz Müller, Lan Wei,  and Cristian Hesselman
-      date: October 2016
+        -
+          name: Giovane C. M. Moura
+        -
+          name: Ricardo de O. Schmidt        
+        -
+          name: John Heidemann
+        -
+          name: Wouter de Vries
+        -
+          name: Moritz Müller
+        -
+          name: Lan Wei
+        -
+          name: Cristian Hesselman
+      date:  2016-10-14
+      seriesinfo:
+        ACM: 2016 Internet Measurement Conference
+        DOI: /10.1145/2987443.2987446
+
 
   Schmidt17a:
       title: Anycast Latency - How Many Sites Are Enough. In Proceedings of the Passive and Active Measurement Workshop
       target: https://www.isi.edu/%7ejohnh/PAPERS/Schmidt17a.pdf
       author:
-            ins: Ricardo de O  Schmidt, John Heidemann and Jan Harm Kuipers.
+        -
+          name: Ricardo de O. Schmidt        
+        -
+          name: John Heidemann
+        -
+          name: Jam Harm Kuipers
       date: March 2017      
+      seriesinfo:
+        PAM: Passive and Active Measurement Conference
+
 
   Moura18b:
-    title: When the Dike breaks - Dissecting DNS defenses during DDoS. In Proceedings of 2018 ACM Internet Measurement Conference
     target: https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf
+    title: "When the Dike Breaks: Dissecting DNS Defenses During DDos"
     author:
-        ins: Giovane  C M Moura, John Heidemann, Moritz Müller, Ricardo de O Schmidt, Marco Davids
-    date: October 2018
+     -
+       name: Giovane C. M. Moura
+     -
+       name: John Heidemann
+     -
+       name: Moritz Mueller
+     -
+       name: Ricardo de O. Schmidt
+     -
+      name: Marco Davids
+
+    date: 2018-10-31
+    seriesinfo:
+      ACM: 2018 Internet Measurement Conference
+      DOI: 10.1145/3278532.3278534
+
 
   Sigla2014:
     title:   The Internet at the speed of light. In Proceedings of the 13th ACM
@@ -111,43 +151,78 @@ informative:
 
     target: https://dl.acm.org/citation.cfm?id=2673876
     author:
-        ins: Ankit Singla, Balakrishnan Chandrasekaran, P Brighten Godfrey, and Bruce Maggs
-
+      -
+        name: Ankit Singla
+      -
+        name: Balakrishnan Chandrasekaran
+      -
+        name: P Brighten Godfrey
+      -
+        name: Bruce Maggs
+    seriesinfo:
+        ACM:  Workshop on Hot Topics in Networks
     date: October 2014
 
   Vries17b:
-    title: Verfploeter - Broad and Load-Aware Anycast Mapping. Proceedings of the 2017 ACM Internet Measurement Conference
+    title: Verfploeter - Broad and Load-Aware Anycast Mapping
     target: https://www.isi.edu/%7ejohnh/PAPERS/Vries17b.pdf
     author:
-      ins: Wouter B de Vries, Ricardo de O Schmidt, Wes Hardaker, John Heidemann, Pieter-Tjerk de Boer and Aiko Pras.
-    date: October 2017      
+     -
+       name: Wouter de Vries
+     -
+       name: Ricardo de O. Schmidt       
+     -
+       name: Wes Hardaker
+     -
+       name: John Heidemann
+     -
+       name: Pieter-Tjerk de Boer    
+     -
+      name: Aiko Pras
+    date: October 2017  
+    seriesinfo:
+      ACM: 2017 Internet Measurement Conference
+      DOI: 10.1145/3131365.3131371
 
   Mueller17b:
-      title: Recursives in the Wild-  Engineering Authoritative DNS Servers. Proceedings of the 2017 ACM Internet Measurement Conference
+      title: Recursives in the Wild-  Engineering Authoritative DNS Servers.
       target: https://www.isi.edu/%7ejohnh/PAPERS/Mueller17b.pdf
       author:
-        ins: Moritz Müller, Giovane C  M Moura, Ricardo de O Schmidt and John Heidemann.
-      date: October 2017      
+       -
+         name: Moritz Mueller
+       -
+         name: Giovane C. M. Moura
+       -
+         name: Ricardo de O. Schmidt         
+       -
+         name: John Heidemann
+      date: October 2017   
+      seriesinfo:
+        ACM: 2017 Internet Measurement Conference
+        DOI: 10.1145/3131365.3131366
 
   IcannHedge18:
           title: DNS-STATS -  Hedgehog 2.4.1
           target: http://stats.dns.icann.org/hedgehog/
           author:
-            ins: ICANN
+            -
+              name: ICANN
           date: October 2018     
 
   Ditl17:
           title: 2017 DITL data
           target: https://www.dns-oarc.net/oarc/data/ditl/2017
           author:
-            ins: DNS OARC
+            -
+              name: DNS OARC
           date: October 2018    
 
   Perlroth16:
           title: Hackers Used New Weapons to Disrupt Major Websites Across U.S.
           target: https://www.nytimes.com/2016/10/22/business/internet-problems-attack.html
           author:
-              ins: Nicole Perlroth
+            -
+              name: Nicole Perlroth
           date: October 2016
 
 

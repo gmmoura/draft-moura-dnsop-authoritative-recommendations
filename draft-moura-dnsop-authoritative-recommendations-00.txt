@@ -384,8 +384,8 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
       continued operation will also absorb traffic from attackers in its
       catchment, protecting other anycast sites.
 
-   We saw both of these behaviors in practice in the Root DNS events
-   [Moura16b] and observe them through site reachability and RTTs.
+   [Moura16b] saw both of these behaviors in practice in the Root DNS
+   events and observe them through site reachability and RTTs.  These
 
 
 
@@ -394,7 +394,7 @@ Moura, et al.            Expires April 12, 2019                 [Page 7]
 Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
-   These options represent different uses of an anycast deployment.  A
+   options represent different uses of an anycast deployment.  A
    withdrawal strategy causes anycast to respond as a waterbed, with
    stress displacing queries from one site to others.  The absorption
    strategy behaves as a conventional mattress, compressing under load,
@@ -411,12 +411,12 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
    of explicit choices and implementation details, such as BGP timeout
    values.
 
-   We speculate that more careful, explicit, and automated management of
-   policies may provide stronger defenses to overload, an area we are
-   currently working on.  For DNS operators, that means that besides
-   traditional filtering, two other options are available (withdraw/
-   prepend or isolate sites), and the best choice depends on the
-   specifics of the attack.
+   [Moura16b] speculates that more careful, explicit, and automated
+   management of policies may provide stronger defenses to overload, an
+   area we are currently working on.  For DNS operators, that means that
+   besides traditional filtering, two other options are available
+   (withdraw/prepend or isolate sites), and the best choice depends on
+   the specifics of the attack.
 
 6.  R5: Be careful on how to choose your records time-to-live values
 
@@ -630,7 +630,7 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 12.2.  Informative References
 
-   [Ditl17]   DNS OARC, ., "2017 DITL data", October 2018,
+   [Ditl17]   OARC, D., "2017 DITL data", October 2018,
               <https://www.dns-oarc.net/oarc/data/ditl/2017>.
 
    [IcannHedge18]
@@ -638,30 +638,30 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
               <http://stats.dns.icann.org/hedgehog/>.
 
    [Moura16b]
-              Giovane C M Moura, Ricardo de O Schmidt, John Heidemann,
-              Wouter de Vries, Moritz Mueller, Lan Wei, and Cristian
-              Hesselman, ., "Anycast vs DDoS Evaluating the November
-              2015 Root DNS Events. In Proceedings of 2016 ACM Internet
-              Measurement Conference", October 2016,
+              Moura, G., Schmidt, R., Heidemann, J., Vries, W., Mueller,
+              M., Wei, L., and C. Hesselman, "Anycast vs DDoS Evaluating
+              the November 2015 Root DNS Events.", ACM 2016 Internet
+              Measurement Conference, DOI /10.1145/2987443.2987446,
+              October 2016,
               <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
 
    [Moura18b]
-              Giovane C M Moura, John Heidemann, Moritz Mueller, Ricardo
-              de O Schmidt, Marco Davids, ., "When the Dike breaks -
-              Dissecting DNS defenses during DDoS. In Proceedings of
-              2018 ACM Internet Measurement Conference", October 2018,
+              Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
+              Davids, "When the Dike Breaks: Dissecting DNS Defenses
+              During DDos", ACM 2018 Internet Measurement Conference,
+              DOI 10.1145/3278532.3278534, October 2018,
               <https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf>.
 
    [Mueller17b]
-              Moritz Mueller, Giovane C M Moura, Ricardo de O Schmidt
-              and John Heidemann, ., "Recursives in the Wild-
-              Engineering Authoritative DNS Servers. Proceedings of the
-              2017 ACM Internet Measurement Conference", October 2017,
+              Mueller, M., Moura, G., Schmidt, R., and J. Heidemann,
+              "Recursives in the Wild- Engineering Authoritative DNS
+              Servers.", ACM 2017 Internet Measurement Conference,
+              DOI 10.1145/3131365.3131366, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Mueller17b.pdf>.
 
    [Perlroth16]
-              Nicole Perlroth, ., "Hackers Used New Weapons to Disrupt
-              Major Websites Across U.S.", October 2016,
+              Perlroth, N., "Hackers Used New Weapons to Disrupt Major
+              Websites Across U.S.", October 2016,
               <https://www.nytimes.com/2016/10/22/business/
               internet-problems-attack.html>.
 
@@ -675,25 +675,24 @@ Internet-Draft          Recomm-Authoritative-Ops            October 2018
 
 
    [Schmidt17a]
-              Ricardo de O Schmidt, John Heidemann and Jan Harm Kuipers,
-              ., "Anycast Latency - How Many Sites Are Enough. In
-              Proceedings of the Passive and Active Measurement
-              Workshop", March 2017,
+              Schmidt, R., Heidemann, J., and J. Kuipers, "Anycast
+              Latency - How Many Sites Are Enough. In Proceedings of the
+              Passive and Active Measurement Workshop", PAM Passive and
+              Active Measurement Conference, March 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Schmidt17a.pdf>.
 
    [Sigla2014]
-              Ankit Singla, Balakrishnan Chandrasekaran, P Brighten
-              Godfrey, and Bruce Maggs, ., "The Internet at the speed of
-              light. In Proceedings of the 13th ACM Workshop on Hot
-              Topics in Networks (Oct 2014)", October 2014,
+              Singla, A., Chandrasekaran, B., Godfrey, P., and B. Maggs,
+              "The Internet at the speed of light. In Proceedings of the
+              13th ACM Workshop on Hot Topics in Networks (Oct 2014)",
+              ACM Workshop on Hot Topics in Networks, October 2014,
               <https://dl.acm.org/citation.cfm?id=2673876>.
 
    [Vries17b]
-              Wouter B de Vries, Ricardo de O Schmidt, Wes Hardaker,
-              John Heidemann, Pieter-Tjerk de Boer and Aiko Pras, .,
-              "Verfploeter - Broad and Load-Aware Anycast Mapping.
-              Proceedings of the 2017 ACM Internet Measurement
-              Conference", October 2017,
+              Vries, W., Schmidt, R., Hardaker, W., Heidemann, J., Boer,
+              P., and A. Pras, "Verfploeter - Broad and Load-Aware
+              Anycast Mapping", ACM 2017 Internet Measurement
+              Conference, DOI 10.1145/3131365.3131371, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Vries17b.pdf>.
 
 Authors' Addresses
@@ -711,12 +710,13 @@ Authors' Addresses
 
    Wes Hardaker
    USC/Information Sciences Institute
-   4676 Admiralty Way
-   Marina Del Rey  90292-6695
+   PO Box 382
+   Davis  95617-0382
    U.S.A.
 
-   Phone: +1 (310) 448-8708
-   Email: hardaker@isi.edu
+   Phone: +1 (530) 404-0099
+   Email: ietf@hardakers.net
+
 
 
 
