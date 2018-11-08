@@ -274,7 +274,12 @@ you might even put it as the first para.
 BUT more importantly, we should chat if you've shopped this around,
 particularly to the DNSOP chairs.
 The question they will ask is: WHY do an RFC?  Aren't the existing technical pubs
-sufficient?
+sufficient? - Wes
+
+XXX:
+@Wes: I think the whole idea of an RFC is to present the academic measurements results to the ops folks, who tipically are not interested in the details of the process, but on the Recommendations
+Also, in a more direct language, applied
+- givoane
 -->
 
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter). It presents recommendations derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, how to accurately map anycast network reanch {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
