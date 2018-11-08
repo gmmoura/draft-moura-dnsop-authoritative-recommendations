@@ -3,7 +3,6 @@ title: Recommendations for Authoritative Servers Operators
 abbrev: Recomm-Authoritative-Ops
 docname: draft-moura-dnsop-authoritative-recommendations-00
 date: 2018-11-6
-# date: 2012-01
 # date: 2012
 
 # stand_alone: true
