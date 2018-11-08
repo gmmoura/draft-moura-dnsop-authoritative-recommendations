@@ -228,7 +228,7 @@ informative:
 
 --- abstract
 
-This document summarizes recent research work exploring DNS configurations in terms of specific, tangible recommendations for authoritative servers operators.
+This document summarizes recent research work exploring DNS configurations and offers specific, tangible recommendations to operators for configuring authoritative servers.
 
 
 --- middle
@@ -243,7 +243,7 @@ XXX: need to used Paul HOffman terminology draft.
 
 
 
-The Domain Name System (DNS) has main two types of "DNS servers": authoritative servers and resolvers. {{recuath}} shows their relationship. An authoritative server is "a server that knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers" {{RFC2182}}. A resolver, in turn, is "a program "that extract(s) information from name servers in response to client requests" {{RFC1034}}. A client, in {{recuath}}, is shown as  "stub", which is a stub resolver {{RFC1034}} that is located on the client side.
+The Domain Name System (DNS) has main two types of "DNS servers": authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server is "a server that knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers" {{RFC2182}}. A recursive resolver, in turn, is "a program "that extract(s) information from name servers in response to client requests" {{RFC1034}}. A client, in {{recuath}}, is shown as  "stub", which is shorthand for a "stub resolver" {{RFC1034}} that is typically located within the client software.
 
                 +-----+   +-----+   +-----+   +-----+
                 | AT1 |   | AT2 |   | AT3 |   | AT4 |
@@ -264,7 +264,7 @@ The Domain Name System (DNS) has main two types of "DNS servers": authoritative 
                               +------+
 {: #recuath title="Relationship between recursive resolvers (R) and authoritative name servers (AT)"}
 
-DNS queries can contribute to web latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial-of-Service (DoS) attacks (for example, in November 2015 {{Moura16b}}). To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication can be achieved with the deployment of multiple authoritative servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), IP anycast {{RFC1546}}{{RFC7094}} and and with load balancers supporting multiple servers inside a single anycast site. As a consequence, there are many possible ways a DNS provider could engineer its authoritative servers, with multiple viable choices and no single optimal design.
+DNS queries contribute to web latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial-of-Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC7094}} and by using load balancers to support multiple servers inside a single (potentially anycasted) site. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
 <!---
 XXX:
@@ -276,36 +276,36 @@ The question they will ask is: WHY do an RFC?  Aren't the existing technical pub
 sufficient?
 -->
 
-This document  summarizes recent research work exploring DNS configurations in specific tangible recommendations for authoritative servers operators (DNS operators hereafter). It presents recommendations from  studies with the goal of improving DNS engineering, to understand how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, accurately mapping anycast {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolvers caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) presented in this document are backed by these studies that used wide-scale Internet measurements. This document describes the key engineering options, and points readers to the pertinent papers for details.
+This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter). It presents recommendations derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, how to accurately map anycast network reanch {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
 
-#R1: all authoritative server should have similar latency
+# R1: All authoritative server should have similar latency
 
 
-Authoritative DNS servers operators, such as Top-level domain (TLD) operators (e.g.,: .org and .nl) announce their authoritative servers in the form of NS records. Different authoritatives return the same content typically using DNS zone transfers to share a master copy.
+Authoritative DNS servers operators, such as Top-level domain (TLD) operators (e.g.,: .org and .nl), announce their authoritative servers in the form of Name Server (NS) records. Different authoritatives should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
 
-DNS heavily relies upon replication to support high reliability and
-capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate service. First, the protocol itself supports nameserver replication of DNS service for
-a DNS zone  where multiple servers operate on different IP addresses, listed by that zone's NS records. Second, each of these servers can run from multiple physical locations with
-IP anycast, by announcing the same IP address from each and allowing Internet routing
-(BGP) to associate clients with each anycast site. Outside the protocol, replication can be achieved by deployed load balancers in which anycast site location.  Nameserver replication is recommended for all zones, and IP anycast is used by most large zones such as the DNS Root and most top-level domains{{Moura16b}}.
+DNS heavily relies upon replication to support high reliability,
+capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
+a DNS zone through the use of multiple nameservers that each operate on different IP addresses, listed by a zone's NS records. Second, each of these network addresses can run from multiple physical locations through the use of
+IP anycast{{RFC1546}}, by announcing the same IP address from each site and allowing Internet routing
+(BGP{{RFC4271}}) to associate clients with their topologically nearest anycast site. Outside the DNS protocol, replication can be achieved by deploying load balancers at each physical location.  Nameserver replication is recommended for all zones, and IP anycast is used by most large zones such as the DNS Root, most top-level domains{{Moura16b}} and large commercial enterprises, governments and other organizations.
 
-DNS operators strive to reduce latency for users of their service.
+Most DNS operators strive to reduce latency for users of their service.
 However, because they control only their authoritative servers,
-  and not the recursive resolvers using those servers,
-  it is difficult to insure that recursives will be served by the closest authoritative
-  server. Server selection is up to the software in the  recursive resolvers,
-  and different vendors and releases employ different criteria when
-choosing authoritatives.
+  and not the recursive resolvers communicating with those servers,
+  it is difficult to ensure that recursives will be served by the closest authoritative
+  server. Server selection is up to the recursive resolver's software implementation,
+  and different software vendors and releases employ different criteria to
+chose which authoritative servers with which to communicate.
 
-Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. {{Mueller17b}}  evaluates this with  measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points---VPs) and their respective recursive resolvers.
-
-
-In the wild,  {{Mueller17b}}  found that recursives query all available authoritative servers, regardless of latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between authoritative and recursive, the more often the recursive will send queries to this authoritative. Our hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all recursives to determine which is closer and to provide alternatives if one is unavailable.
+Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. {{Mueller17b}}  evaluates this with a measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points---VPs) and their respective recursive resolvers.
 
 
-For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  {{Mueller17b}}  recommends DNS operators to deploy equally strong IP anycast in every authoritative server (thus phase out unicast), so they can deliver similar latency values to recursives. Having one or few unicast authoritative will limit the worst-case latency for most users. Note that DNS operators should take also architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+In the wild,  {{Mueller17b}}  found that recursives query all available authoritative servers, regardless of latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between a recursive resolver and an authoritative server, the more often the recursive will send queries to that authoritative. Our hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all recursives to determine which is closer and to provide alternatives if one is unavailable.
 
-This recommendation was deployed on .nl, which used to have a mixed unicast/anycast setup, and since early 2018 has 4 anycast authoritative name servers.
+
+For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (and thus to phase out unicast), so they can deliver similar [xxx: I don't think similar is the right word here. "good" or "best possible"? -- Wes] latency values to recursives. Having one or few unicast authoritative will limit the worst-case latency for most users [xxx: I don't understand what this sentence is trying to bring up as a point but can't fix it without potentially changing the meaning in a way that wasn't intended -- Wes]. Note that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+
+This recommendation was deployed at the ".nl" TLD zone, which originally had a mixed unicast/anycast setup; since early 2018 it now has 4 anycast authoritative name servers.
 
 
 # R2: Routing Can Matter More Than Locations
@@ -401,6 +401,8 @@ Our recommendation, therefore, is when choosing third-party DNS providers, opera
 # IANA considerations
 
   * to be added
+
+<!-- this would be an unusual ending section to have; not that it can't be used but summaries aren't common in IETF documents -- WJH -->
 
 #Summary
 DNS operators strive to deliver both high-performance and resilient services. However, a DNS operators controls only part of the infrastructure involved in the name resolution process, which makes their task more challenging. Moreover, the rise of terabit-scale IoT-based DDoS attacks against authoritative servers has only made the problem worse.
