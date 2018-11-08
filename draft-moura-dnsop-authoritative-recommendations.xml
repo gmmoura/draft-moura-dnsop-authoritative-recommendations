@@ -9,6 +9,9 @@
 <!ENTITY RFC7094 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7094.xml">
 <!ENTITY RFC1546 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1546.xml">
 <!ENTITY RFC1035 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1035.xml">
+<!ENTITY RFC1995 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1995.xml">
+<!ENTITY RFC5936 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5936.xml">
+<!ENTITY RFC4271 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4271.xml">
 ]>
 
 <?rfc toc="yes"?>
@@ -84,7 +87,7 @@
     <abstract>
 
 
-<t>This document summarizes recent research work exploring DNS configurations in terms of specific, tangible recommendations for authoritative servers operators.</t>
+<t>This document summarizes recent research work exploring DNS configurations and offers specific, tangible recommendations to operators for configuring authoritative servers.</t>
 
 
 
@@ -102,7 +105,7 @@
 XXX: need to used Paul HOffman terminology draft.
 -->
 
-<t>The Domain Name System (DNS) has main two types of "DNS servers": authoritative servers and resolvers. <xref target="recuath"/> shows their relationship. An authoritative server is "a server that knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers" <xref target="RFC2182"/>. A resolver, in turn, is "a program "that extract(s) information from name servers in response to client requests" <xref target="RFC1034"/>. A client, in <xref target="recuath"/>, is shown as  "stub", which is a stub resolver <xref target="RFC1034"/> that is located on the client side.</t>
+<t>The Domain Name System (DNS) has main two types of "DNS servers": authoritative servers and recursive resolvers. <xref target="recuath"/> shows their relationship. An authoritative server is "a server that knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers" <xref target="RFC2182"/>. A recursive resolver, in turn, is "a program "that extract(s) information from name servers in response to client requests" <xref target="RFC1034"/>. A client, in <xref target="recuath"/>, is shown as  "stub", which is shorthand for a "stub resolver" <xref target="RFC1034"/> that is typically located within the client software.</t>
 
 <figure title="Relationship between recursive resolvers (R) and authoritative name servers (AT)" anchor="recuath"><artwork><![CDATA[
             +-----+   +-----+   +-----+   +-----+
@@ -124,11 +127,10 @@ XXX: need to used Paul HOffman terminology draft.
                           +------+
 ]]></artwork></figure>
 
-<t>DNS queries can contribute to web latency and affect user experience <xref target="Sigla2014"/>, and the DNS system has been subject to repeated Denial-of-Service (DoS) attacks (for example, in November 2015 <xref target="Moura16b"/>). To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication can be achieved with the deployment of multiple authoritative servers for the same zone <xref target="RFC1035"/> (AT1&#8212;AT4 in <xref target="recuath"/>), IP anycast <xref target="RFC1546"/><xref target="RFC7094"/> and and with load balancers supporting multiple servers inside a single anycast site. As a consequence, there are many possible ways a DNS provider could engineer its authoritative servers, with multiple viable choices and no single optimal design.</t>
+<t>DNS queries contribute to web latency and affect user experience <xref target="Sigla2014"/>, and the DNS system has been subject to repeated Denial-of-Service (DoS) attacks (for example, in November 2015 <xref target="Moura16b"/>) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone <xref target="RFC1035"/> (AT1&#8212;AT4 in <xref target="recuath"/>), the use of IP anycast <xref target="RFC1546"/><xref target="RFC7094"/> and by using load balancers to support multiple servers inside a single (potentially anycasted) site. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.</t>
 
 <!---
-XXX:
-xxx: this next para is key: what are you trying to accomplish.
+this next para is key: what are you trying to accomplish.
 you might even put it as the first para.
 BUT more importantly, we should chat if you've shopped this around,
 particularly to the DNSOP chairs.
@@ -136,34 +138,34 @@ The question they will ask is: WHY do an RFC?  Aren't the existing technical pub
 sufficient?
 -->
 
-<t>This document  summarizes recent research work exploring DNS configurations in specific tangible recommendations for authoritative servers operators (DNS operators hereafter). It presents recommendations from  studies with the goal of improving DNS engineering, to understand how anycast reacts to DoS attacks<xref target="Moura16b"/>, how anycast affects query latency<xref target="Schmidt17a"/>, accurately mapping anycast <xref target="Vries17b"/>, how recursive and authoritative resolvers interact<xref target="Mueller17b"/>, and how recursive resolvers caching and retries help clients during DDoS attacks on authoritatives<xref target="Moura18b"/>. The recommendations (R1&#8211;R6) presented in this document are backed by these studies that used wide-scale Internet measurements. This document describes the key engineering options, and points readers to the pertinent papers for details.</t>
+<t>This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter). It presents recommendations derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks<xref target="Moura16b"/>, how anycast affects query latency<xref target="Schmidt17a"/>, how to accurately map anycast network reanch <xref target="Vries17b"/>, how recursive and authoritative resolvers interact<xref target="Mueller17b"/>, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives<xref target="Moura18b"/>. The recommendations (R1&#8211;R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.</t>
 
 </section>
-<section anchor="r1-all-authoritative-server-should-have-similar-latency" title="R1: all authoritative server should have similar latency">
+<section anchor="r1-all-authoritative-server-should-have-similar-latency" title="R1: All authoritative server should have similar latency">
 
-<t>Authoritative DNS servers operators, such as Top-level domain (TLD) operators (e.g.,: .org and .nl) announce their authoritative servers in the form of NS records. Different authoritatives return the same content typically using DNS zone transfers to share a master copy.</t>
+<t>Authoritative DNS servers operators, such as Top-level domain (TLD) operators (e.g.,: .org and .nl), announce their authoritative servers in the form of Name Server (NS) records. Different authoritatives should return the same content, typically by staying synchronized using DNS zone transfers (AXFR<xref target="RFC5936"/> and IXFR<xref target="RFC1995"/>) to coordinate the authoritative zone data to return to their clients.</t>
 
-<t>DNS heavily relies upon replication to support high reliability and
-capacity and to reduce latency <xref target="Moura16b"/>. DNS has two complementary mechanisms to replicate service. First, the protocol itself supports nameserver replication of DNS service for
-a DNS zone  where multiple servers operate on different IP addresses, listed by that zone's NS records. Second, each of these servers can run from multiple physical locations with
-IP anycast, by announcing the same IP address from each and allowing Internet routing
-(BGP) to associate clients with each anycast site. Outside the protocol, replication can be achieved by deployed load balancers in which anycast site location.  Nameserver replication is recommended for all zones, and IP anycast is used by most large zones such as the DNS Root and most top-level domains<xref target="Moura16b"/>.</t>
+<t>DNS heavily relies upon replication to support high reliability,
+capacity and to reduce latency <xref target="Moura16b"/>. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
+a DNS zone through the use of multiple nameservers that each operate on different IP addresses, listed by a zone's NS records. Second, each of these network addresses can run from multiple physical locations through the use of
+IP anycast<xref target="RFC1546"/>, by announcing the same IP address from each site and allowing Internet routing
+(BGP<xref target="RFC4271"/>) to associate clients with their topologically nearest anycast site. Outside the DNS protocol, replication can be achieved by deploying load balancers at each physical location.  Nameserver replication is recommended for all zones, and IP anycast is used by most large zones such as the DNS Root, most top-level domains<xref target="Moura16b"/> and large commercial enterprises, governments and other organizations.</t>
 
-<t>DNS operators strive to reduce latency for users of their service.
+<t>Most DNS operators strive to reduce latency for users of their service.
 However, because they control only their authoritative servers,
-  and not the recursive resolvers using those servers,
-  it is difficult to insure that recursives will be served by the closest authoritative
-  server. Server selection is up to the software in the  recursive resolvers,
-  and different vendors and releases employ different criteria when
-choosing authoritatives.</t>
+  and not the recursive resolvers communicating with those servers,
+  it is difficult to ensure that recursives will be served by the closest authoritative
+  server. Server selection is up to the recursive resolver's software implementation,
+  and different software vendors and releases employ different criteria to
+chose which authoritative servers with which to communicate.</t>
 
-<t>Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. <xref target="Mueller17b"/>  evaluates this with  measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points&#8212;VPs) and their respective recursive resolvers.</t>
+<t>Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. <xref target="Mueller17b"/>  evaluates this with a measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points&#8212;VPs) and their respective recursive resolvers.</t>
 
-<t>In the wild,  <xref target="Mueller17b"/>  found that recursives query all available authoritative servers, regardless of latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between authoritative and recursive, the more often the recursive will send queries to this authoritative. Our hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all recursives to determine which is closer and to provide alternatives if one is unavailable.</t>
+<t>In the wild,  <xref target="Mueller17b"/>  found that recursives query all available authoritative servers, regardless of latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between a recursive resolver and an authoritative server, the more often the recursive will send queries to that authoritative. Our hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all recursives to determine which is closer and to provide alternatives if one is unavailable.</t>
 
-<t>For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  <xref target="Mueller17b"/>  recommends DNS operators to deploy equally strong IP anycast in every authoritative server (thus phase out unicast), so they can deliver similar latency values to recursives. Having one or few unicast authoritative will limit the worst-case latency for most users. Note that DNS operators should take also architectural considerations into account when planning for deploying anycast <xref target="RFC1546"/>.</t>
+<t>For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  <xref target="Mueller17b"/>  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (and thus to phase out unicast), so they can deliver similar {xxx: I don't think similar is the right word here. "good" or "best possible"? &#8211; Wes} latency values to recursives. Having one or few unicast authoritative will limit the worst-case latency for most users {xxx: I don't understand what this sentence is trying to bring up as a point but can't fix it without potentially changing the meaning in a way that wasn't intended &#8211; Wes}. Note that DNS operators should also take architectural considerations into account when planning for deploying anycast <xref target="RFC1546"/>.</t>
 
-<t>This recommendation was deployed on .nl, which used to have a mixed unicast/anycast setup, and since early 2018 has 4 anycast authoritative name servers.</t>
+<t>This recommendation was deployed at the ".nl" TLD zone, which originally had a mixed unicast/anycast setup; since early 2018 it now has 4 anycast authoritative name servers.</t>
 
 </section>
 <section anchor="r2-routing-can-matter-more-than-locations" title="R2: Routing Can Matter More Than Locations">
@@ -267,6 +269,8 @@ In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., 
   <t>to be added</t>
 </list></t>
 
+<!-- this would be an unusual ending section to have; not that it can't be used but summaries aren't common in IETF documents - WJH -->
+
 </section>
 <section anchor="summary" title="Summary">
 <t>DNS operators strive to deliver both high-performance and resilient services. However, a DNS operators controls only part of the infrastructure involved in the name resolution process, which makes their task more challenging. Moreover, the rise of terabit-scale IoT-based DDoS attacks against authoritative servers has only made the problem worse.</t>
@@ -298,6 +302,9 @@ Here we mention the papers co-authors and  thank them for their work:
 &RFC7094;
 &RFC1546;
 &RFC1035;
+&RFC1995;
+&RFC5936;
+&RFC4271;
 
 
     </references>
@@ -473,228 +480,238 @@ Here we mention the papers co-authors and  thank them for their work:
   </back>
 
 <!-- ##markdown-source:
-H4sIAA5j4lsAA7V963Ijudnef14FMlMuS16yJeo8TBxbI+3ujD0HlaT1OPnh
-r5rdIIlVs8E0usXhrieVe8jt5F/uJFeS9wQ0uklpZv0l6yovRaIbwHt83gOw
-o9FoUJu60BN1qzO7XOoyT2tjS6dmtlKXTb2wlanhq0et7nT1qCunPq50lda2
-coN0Oq30o3921Bk++rhyg9xmZbqEt+dVOqtHS9tU6SgvnV2N0s7gqjv76PBw
-AB/hwaPD8cVoPB6dDV6q8M3RAP5ydVrm/5YWtoQv66rRg4FZVfTR1UeHh68O
-jwZppdOJelvWuip1PVjPJ+r6w93HG/XJVg+mnKsfK9uslBo8rNtho2tc7CBL
-64ky5cwOBpnNYfBENW6UusyYwcpMFPzzUmVpCd9qlVZVulF7ZqbSolAb7fYV
-0G+RuoVa6ErDctVI1TbjD85WdaVnTv7aLOkPhQMm+DB89EMmNE2uZ2lT1A5G
-+N/5IR4+YGJOBor+Gcm/FSwfRvyYqKvkfaLeI/XDT8yXH419TEsNA9TWCFvB
-lu/eXn9Q79KpO7j/SV3rAgjjf3+pPP/v/+vb6FsHC9f1JPpmpG6sq2dptlDH
-x4cnJ4ed316baWFsvdAP8GSixsAO/7O8Sr3XwGtdqdPDcfgtM/Vmoi6rcqGX
-7Zc2h12dXRydqvfX0bdNWVcw+n6h1QcNU1UFvNCFAasFSdF3xyBoo+PTo9Hp
-KYqg/xlW7szSoJr0xpyGMXqZmmKi5kzQhET9z87kZVIWu/nyKVFv0ipPH3TV
-48on7bZ/Inb8dHd18BZkslqSoqi7zOgyg+FvSweK3NR6i3Y3H9Vr+1kdXxz1
-SHedPhrXo9yr07Px+eiwM9gT76fkLrlM+jRT343V3unx4b46OTwBor161SeJ
-0fXszwvZjktQEXfS4y9AD21yeKosewT5i12UO378V0lycnZ+pi7zpanSot6o
-T+mmR5r3aWXKFOUdbNumT6PDo1dHo7OzV6e/iUbHY6TRycXo4vzwok+jn2GD
-iz8bZxKdN/63PpmISqCmyLhWeJlCsOLM9n7pKrD/dpfePKNnOzXqawr1vD59
-gzoJWZa4qySnXXllCtQZlMzzRz0ZwHNvR9cJipr4F7DlS1Paws43o6lxaI6q
-WXY0vjiSj+PD4xP5eH74yn8cn56ctQNOJ4OXixR8H9hdp7Va2DV+TPNcwZ7B
-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
-SOdgzlEcKYixAWm0i+xJTjL4v4TcRkhjawAA
+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
+R1NFgDzNInuSEw3+Hwbr+2S2bwAA
 
 -->
 
