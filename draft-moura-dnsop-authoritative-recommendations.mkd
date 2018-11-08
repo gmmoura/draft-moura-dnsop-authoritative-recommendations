@@ -321,7 +321,7 @@ Their recommendation for DNS operators when engineering anycast services is to n
 
 
 
-#R3: Detailed Anycast Maps of Catchments Requires Active Measurement
+# R3: Detailed Anycast Maps of Catchments Requires Active Measurement
 
 An anycast service may have several dozens sites, as L-Root. Anycast leverages BGP to distribute the incoming queries to anycast sites; in theory, BGP forwards incoming queries to a nearby anycast site (in terms of BGP distance). However, usually queries are not evenly distributed across anycast sites, as in the case of L-Root {{IcannHedge18}}.
 
@@ -339,7 +339,7 @@ configuration.
 Therefore, {{Vries17b}} recommendation for DNS operators is to make informed choices when engineering new anycast sites or expand current ones by using catchment maps with active measurements carried out with Verfploeter. Besides, operators can spot suboptimal routing situations early, with a fine granularity, and with better coverage than using traditional measurement platforms such as Ripe Atlas.
 
 
-#R4: When under stress, two strategies
+# R4: When under stress, two strategies
 
 DDoS attacks are becoming bigger, cheaper, and more frequent {{Mueller17b}}. The most powerful recorded DDoS attack to DNS servers to date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such attacks call for an answer for the following question: how should a DNS operator engineer its anycast authoritative DNS server react to the stress of a DDoS attack? We have investigated this question in study {{Moura16b}} in which they ground empirical observations with the following theoretical evaluation of options.
 
@@ -358,7 +358,7 @@ Although described as strategies and policies, these outcomes are the result of 
 {{Moura16b}} speculates that more careful, explicit, and automated management of policies may provide stronger defenses to overload, an area we are currently working on. For DNS operators, that means that besides traditional filtering, two other options are available (withdraw/prepend or isolate sites), and the best choice depends on the specifics of the attack.
 
 
-#R5: Be careful on how to choose your records time-to-live values
+# R5: Be careful on how to choose your records time-to-live values
 
 In a DNS response, each resource record is accompanied by a time-to-live value, which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by authoritative DNS server operators at their zone files -- either specifically per record or as default values for the entire zone. Sometimes the same research record may have different TTL values -- one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2182}}.
 
@@ -383,7 +383,7 @@ We also emulated partial-failure DDoS (similar to Dyn 2016 {{Perlroth16}}), when
 Therefore, given the role of TTL, our recommendation for DNS operators is to set their TTL values carefully, knowing that they will influence (i) the success of client's queries and (ii) the amount of "friendly fire" traffic they will receive. Many operators may as well reconsider their 10x overprovision metric for DNS servers, given this significant increase legitimate traffic during DDoS.
 
 
-#R6: Shared Infrastructure Risks Collateral Damage During Attacks
+# R6: Shared Infrastructure Risks Collateral Damage During Attacks
 
 Co-locating services, such as authoritative servers, creates some degree of shared risk, in that stress on one service may spill over into another, resulting in collateral damage. Collateral damage is a common side-effect of DDoS, and data centers and operators strive to minimize collateral damage through redundancy, overcapacity, and isolation.
 
