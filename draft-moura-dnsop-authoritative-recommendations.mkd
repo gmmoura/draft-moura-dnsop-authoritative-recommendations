@@ -316,14 +316,14 @@ This recommendation was deployed at the ".nl" TLD zone, which originally had a m
 
 # R2: Routing Can Matter More Than Locations
 
-A common metric when choosing an anycast DNS provider or setting up an anycast service is the number of anycast sites, i.e., the number of global locations from which the same address is announced with BGP. Intuitively, one could think that more sites would lead to shorter response times.
+A common metric when choosing an anycast DNS provider or setting up an anycast service is the number of anycast sites, i.e., the number of global locations from which the same address is announced with BGP. Intuitively, one could think that more sites will lead to shorter response times.
 
-However, this is not necessarily true. In fact,  {{Schmidt17a}}  found   that routing can matter more than the total number of locations. They analyzed the relationship between the number of anycast sites and performance of a service (latency-wise, RTT) and measured the overall performance of four DNS Root servers, namely C, F, K and L, from more than 7.9K RIPE Atlas probes.
+However, this is not necessarily true. In fact,  {{Schmidt17a}}  found   that routing can matter more than the total number of locations. They analyzed the relationship between the number of anycast sites and the performance of a service (latency-wise, RTT) and measured the overall performance of four DNS Root servers, namely C, F, K and L, from more than 7.9K RIPE Atlas probes.
 
-{{Schmidt17a}}  found  that the C-Root, a smaller anycast deployment with 8 sites, provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 sites respectively. We observed a median RTT between 30ms and 32ms for C, K and L roots, and 25ms for F.
+{{Schmidt17a}}  found  that C-Root, a smaller anycast deployment consisting of only 8 sites, provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 sites respectively. A median RTT was measured between 30ms and 32ms for C, K and L roots, and 25ms for F.
 
 
-Their recommendation for DNS operators when engineering anycast services is to not only consider the number of sites as a metric for performance.. They showed that 12 sites can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more sites can be useful in handling DoS attacks {{Mueller17b}}.
+Their recommendation for DNS operators when engineering anycast services is consider factors other than just the number of sites (such as local routing connectivity) when designing for performance. They showed that 12 sites can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more sites can be useful for other reasons, such as when handling DoS attacks {{Mueller17b}}.
 
 
 
