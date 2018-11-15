@@ -66,20 +66,20 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  R1: All authoritative server should have similar latency  . .   4
    3.  R2: Routing Can Matter More Than Locations  . . . . . . . . .   5
-   4.  R3: Detailed Anycast Maps of Catchments Requires Active
-       Measurement . . . . . . . . . . . . . . . . . . . . . . . . .   6
+   4.  R3: Collecting Detailed Anycast Catchment Maps Ahead of
+       Actual Deployment Can Improve Engineering Designs . . . . . .   6
    5.  R4: When under stress, two strategies . . . . . . . . . . . .   7
    6.  R5: Be careful on how to choose your records time-to-live
-       values  . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+       values  . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
    7.  R6: Shared Infrastructure Risks Collateral Damage During
        Attacks . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
    8.  Security considerations . . . . . . . . . . . . . . . . . . .  11
    9.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  11
    10. Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
    11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  11
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  12
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  12
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  13
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
 1.  Introduction
@@ -209,13 +209,13 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
    Knowing how recursives choose authoritative servers is a key step to
    better engineer the deployment of authoritative servers.
-   [Mueller17b] evaluates this with a measurement study in which they
+   [Mueller17b]  evaluates this with a measurement study in which they
    deployed seven unicast authoritative name servers in different global
    locations and queried these authoritative servers from more than
    9,000 RIPE Atlas probes (Vantage Points--VPs) and their respective
    recursive resolvers.
 
-   In the wild, [Mueller17b] found that recursives query all available
+   In the wild, [Mueller17b]  found that recursives query all available
    authoritative servers, regardless of latency.  But the distribution
    of queries tend to be skewed towards authoritatives with lower
 
@@ -239,7 +239,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    available authoritatives will be queried by most recursives.  Since
    unicast cannot deliver good latency worldwide (a site in Europe will
    always have a high latency to resolvers in California, for example),
-   [Mueller17b] recommends to DNS operators that they deploy equally
+   [Mueller17b]  recommends to DNS operators that they deploy equally
    strong IP anycast in every authoritative server (and thus to phase
    out unicast), so they can deliver similar {xxx: I don't think similar
    is the right word here. "good" or "best possible"? - Wes} latency
@@ -260,19 +260,19 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    A common metric when choosing an anycast DNS provider or setting up
    an anycast service is the number of anycast sites, i.e., the number
    of global locations from which the same address is announced with
-   BGP.  Intuitively, one could think that more sites would lead to
+   BGP.  Intuitively, one could think that more sites will lead to
    shorter response times.
 
-   However, this is not necessarily true.  In fact, [Schmidt17a] found
+   However, this is not necessarily true.  In fact, [Schmidt17a]  found
    that routing can matter more than the total number of locations.
    They analyzed the relationship between the number of anycast sites
-   and performance of a service (latency-wise, RTT) and measured the
+   and the performance of a service (latency-wise, RTT) and measured the
    overall performance of four DNS Root servers, namely C, F, K and L,
    from more than 7.9K RIPE Atlas probes.
 
-   [Schmidt17a] found that the C-Root, a smaller anycast deployment with
-   8 sites, provided a very similar overall performance than that of the
-   much larger deployments of K and L, with 33 and 144 sites
+   [Schmidt17a]  found that C-Root, a smaller anycast deployment
+   consisting of only 8 sites, provided a very similar overall
+   performance than that of the much larger deployments of K and L, with
 
 
 
@@ -282,23 +282,27 @@ Moura, et al.             Expires May 10, 2019                  [Page 5]
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
-   respectively.  We observed a median RTT between 30ms and 32ms for C,
-   K and L roots, and 25ms for F.
+   33 and 144 sites respectively.  A median RTT was measured between
+   30ms and 32ms for C, K and L roots, and 25ms for F.
 
    Their recommendation for DNS operators when engineering anycast
-   services is to not only consider the number of sites as a metric for
-   performance.. They showed that 12 sites can provide reasonable
-   latency, given they are globally distributed and have good local
-   interconnectivity.  However, more sites can be useful in handling DoS
-   attacks [Mueller17b].
+   services is consider factors other than just the number of sites
+   (such as local routing connectivity) when designing for performance.
+   They showed that 12 sites can provide reasonable latency, given they
+   are globally distributed and have good local interconnectivity.
+   However, more sites can be useful for other reasons, such as when
+   handling DoS attacks [Mueller17b].
 
-4.  R3: Detailed Anycast Maps of Catchments Requires Active Measurement
+4.  R3: Collecting Detailed Anycast Catchment Maps Ahead of Actual
+    Deployment Can Improve Engineering Designs
 
-   An anycast service may have several dozens sites, as L-Root.  Anycast
-   leverages BGP to distribute the incoming queries to anycast sites; in
-   theory, BGP forwards incoming queries to a nearby anycast site (in
-   terms of BGP distance).  However, usually queries are not evenly
-   distributed across anycast sites, as in the case of L-Root
+   An anycast DNS service may have several dozens or even hundreds sites
+   (such as L-Root does).  Anycast leverages Internet routing to
+   distribute the incoming queries to a service's distributed anycast
+   sites; in theory, BGP (the Internet's defacto routing protocol)
+   forwards incoming queries to a nearby anycast site (in terms of BGP
+   distance).  However, usually queries are not evenly distributed
+   across all anycast sites, as found in the case of L-Root
    [IcannHedge18].
 
    Adding new sites to an anycast service may change the load
@@ -306,30 +310,26 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    service or even stressing some sites while others remain
    underutilized.  This is a scenario that operators constantly face
    when expanding an anycast service.  Besides, when setting up a new
-   anycast server, operators cannot directly estimate the query
-   distribution among the sites.
+   anycast service instance, operators cannot directly estimate the
+   query distribution among the sites in advance of enabling the site.
 
    To estimate the query loads across sites of an expanding service or a
-   setting up a new service, operators need detailed anycast maps, i.e.,
-   to know which prefixes will be matched to each anycast site.  To do
-   that, [Vries17b] recommends operators carrying out active
-   measurements, using a technique and tool we have developed called
-   Verfploeter.  Verfploeter maps the entire IPv4 space and allows DNS
-   operators to predict both query distribution and clients catchment
-   before deploying new anycast sites.
+   when setting up an entirely new service, operators need detailed
+   anycast maps and catchment estimates (i.e., operators need to know
+   which prefixes will be matched to which anycast site).  To do that,
+   [Vries17b] developed a new technique enabling operators to carry out
+   active measurements, using a technique and tool called Verfploeter.
+   Verfploeter maps a large portion of the IPv4 address space, allowing
+   DNS operators to predict both query distribution and clients
+   catchment before deploying new anycast sites.
 
-   [Vries17b] have used this technique to predict both the catchment and
-   query load distribution for the new anycast service of B-Root.
-   First, they set up two anycast sites Miami (MIA) and Los Angeles
-   (LAX) which were exact copies of those sites from the operational
-   B-Root server.  Next, they sent ICMP packets to multiple IPs from
-   each /24 in on the Internet, and used an IP within the anycast range
-   as the source of these ICMP packets.  Then, they observed to which
-   site BGP mapped the ICMP echo replies, generating a catchment map.
-   They then weighted the incoming traffic of 1 day of B-Root traffic
-   (2017-04-12, DITL datasets [Ditl17]) using this catchment mapping,
-   and estimated that 81.6% of the traffic would go to the LAX site.
-
+   [Vries17b] shows how this technique was used to predict both the
+   catchment and query load distribution for the new anycast service of
+   B-Root.  Using two anycast sites in Miami (MIA) and Los Angeles (LAX)
+   from the operational B-Root server, they sent ICMP echo packets to IP
+   addresses from each IPv4 /24 in on the Internet using a source
+   address within the anycast prefix.  Then, they recorded which site
+   the ICMP echo replies arrived at based on the Internet's BGP routing.
 
 
 
@@ -338,22 +338,36 @@ Moura, et al.             Expires May 10, 2019                  [Page 6]
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
-   The actual value was 81.4% of traffic going to LAX, which means that
-   the estimation was pretty close.
+   This analysis resulted in an Internet wide catchment map.  Weighting
+   was then applied to the incoming traffic prefixes based on of 1 day
+   of B-Root traffic (2017-04-12, DITL datasets [Ditl17]).  The
+   combination of the created catchment mapping and the load per prefix
+   created an estimate predicting that 81.6% of the traffic would go to
+   the LAX site.  The actual value was 81.4% of traffic going to LAX,
+   showing that the estimation was pretty close and the Verfploeter
+   technique was a excellent method of predicting traffic loads in
+   advance of a new anycast instance deployment.
 
-   Besides that, Verfploeter can be used to estimate how traffic shifts
-   among sites in case some of BGP manipulations are executed, such as
-   AS Path prepending also used during DDoS attacks.  We created a new
-   catchment mapping for each configuration: no prepending, and
-   prepeding with 1, 2 or 3 hops.  Then, [Vries17b] used this mappings
-   to estimate the load distribution for each configuration.
+   Besides that, Verfploeter can also be used to estimate how traffic
+   shifts among sites when BGP manipulations are executed, such as AS
+   Path prepending that is frequently used by production networks during
+   DDoS attacks.  A new catchment mapping for each prepending
+   configuration configuration: no prepending, and prepending with 1, 2
+   or 3 hops at each site.  Then, [Vries17b] shows that this mapping can
+   accurately estimate the load distribution for each configuration.
 
-   Therefore, [Vries17b] recommendation for DNS operators is to make
-   informed choices when engineering new anycast sites or expand current
-   ones by using catchment maps with active measurements carried out
-   with Verfploeter.  Besides, operators can spot suboptimal routing
-   situations early, with a fine granularity, and with better coverage
-   than using traditional measurement platforms such as Ripe Atlas.
+   An important operational takeaway from [Vries17b] is that DNS
+   operators can make informed choices when engineering new anycast
+   sites or when expending new ones by carrying out active measurements
+   using Verfploeter in advance of operationally enabling the fully
+   anycast service.  Operators can spot sub-optimal routing situations
+   early, with a fine granularity, and with significantly better
+   coverage than using traditional measurement platforms such as RIPE
+   Atlas.  Deploying a small test Verfploeter-enabled platform in
+   advance at a potential anycast site may reveal the realizable
+   benefits of using that site as an anycast interest, potentially
+   saving significant financial and labor costs of deploying hardware to
+   a new site that was less effective as had been hoped.
 
 5.  R4: When under stress, two strategies
 
@@ -372,6 +386,14 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    which anycast site will answer for queries for a given client.  As a
    consequence, when an anycast authoritative server is under attack,
    the load that each anycast site receives is likely to be unevenly
+
+
+
+Moura, et al.             Expires May 10, 2019                  [Page 7]
+
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
+
+
    distributed (a function of the source of the attacks), thus some
    sites may be more overloaded than others which is what was observed
    analyzing the Root DNS events of Nov. 2015 [Moura16b].  Given the
@@ -385,15 +407,6 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    o  It can withdraw/prepend route to some or to all of its neighbors,
       shrinking its catchment (number of clients that BGP maps to it)
       and shifting both legitimate and attack traffic to other anycast
-
-
-
-
-Moura, et al.             Expires May 10, 2019                  [Page 7]
-
-Internet-Draft          Recomm-Authoritative-Ops           November 2018
-
-
       sites.  Possibly those sites will have greater capacity and
       service the queries.
 
@@ -429,6 +442,14 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    (withdraw/prepend or isolate sites), and the best choice depends on
    the specifics of the attack.
 
+
+
+
+Moura, et al.             Expires May 10, 2019                  [Page 8]
+
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
+
+
 6.  R5: Be careful on how to choose your records time-to-live values
 
    In a DNS response, each resource record is accompanied by a time-to-
@@ -440,15 +461,6 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    one from the parent and one from the child DNS server.  In this
    cases, resolvers are expected to prioritize the answer according to
    Section 5.4.1 in [RFC2182].
-
-
-
-
-
-Moura, et al.             Expires May 10, 2019                  [Page 8]
-
-Internet-Draft          Recomm-Authoritative-Ops           November 2018
-
 
    While set by authoritative server operators (ATs in Figure 1), the
    TTL value in fact influences the behavior of recursive resolvers (and
@@ -487,6 +499,13 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
       the TTL value decreases as time passes at the cache, it protected
       clients for up to its value in cache.
 
+
+
+Moura, et al.             Expires May 10, 2019                  [Page 9]
+
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
+
+
    o  Once TTL values expire, we also saw evidence of some recursives
       serving stale content [I-D.ietf-dnsop-terminology-bis].  Serve
       stale was the only option when TTL values expire in recursives
@@ -496,15 +515,6 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    [Perlroth16]), when authoritative are partially available, by
    dropping packet at rates of 50-90%, for various TTL values.  We found
    that:
-
-
-
-
-
-Moura, et al.             Expires May 10, 2019                  [Page 9]
-
-Internet-Draft          Recomm-Authoritative-Ops           November 2018
-
 
    o  For various TTL values, caching was a key component in the success
       of queries.  For example, for a 50% packet drop rate at the
@@ -543,16 +553,6 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    that two services not directly targeted by the attack, namely D-Root
    and the .nl TLD, suffered collateral damage.  These services showed
    reduced end-to-end performance (i.e., higher latency and reduced
-   reachability) with timing consistent with the DDoS event, strongly
-   suggesting a shared resource with original targets of the attack.
-
-   Another example of collateral damage was the 1.2 Tbps attack against
-   Dyn, a major DNS provider on October 2017 [Perlroth16].  As a result,
-   many of their customers, including Airbnb, HBO, Netflix, and Twitter
-   experience issues in resolving their domains, since they partially
-   shared the same infrastructure.
-
-
 
 
 
@@ -561,6 +561,15 @@ Moura, et al.             Expires May 10, 2019                 [Page 10]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
+
+   reachability) with timing consistent with the DDoS event, strongly
+   suggesting a shared resource with original targets of the attack.
+
+   Another example of collateral damage was the 1.2 Tbps attack against
+   Dyn, a major DNS provider on October 2017 [Perlroth16].  As a result,
+   many of their customers, including Airbnb, HBO, Netflix, and Twitter
+   experience issues in resolving their domains, since they partially
+   shared the same infrastructure.
 
    Our recommendation, therefore, is when choosing third-party DNS
    providers, operators should be aware of shared infrastructure risks.
@@ -572,7 +581,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 9.  IANA considerations
 
-   o  to be added
+   This document has no actions for IANA.
 
 10.  Summary
 
@@ -601,6 +610,14 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    and datasets used in this research, as well as the funding agencies
    sponsoring the individual research works.
 
+
+
+
+Moura, et al.             Expires May 10, 2019                 [Page 11]
+
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
+
+
 12.  References
 
 12.1.  Normative References
@@ -609,14 +626,6 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
               Terminology", draft-ietf-dnsop-terminology-bis-14 (work in
               progress), September 2018.
-
-
-
-
-Moura, et al.             Expires May 10, 2019                 [Page 11]
-
-Internet-Draft          Recomm-Authoritative-Ops           November 2018
-
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
@@ -653,15 +662,6 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               DOI 10.17487/RFC7094, January 2014,
               <https://www.rfc-editor.org/info/rfc7094>.
 
-12.2.  Informative References
-
-   [Ditl17]   OARC, D., "2017 DITL data", October 2018,
-              <https://www.dns-oarc.net/oarc/data/ditl/2017>.
-
-   [IcannHedge18]
-              ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
-              <http://stats.dns.icann.org/hedgehog/>.
-
 
 
 
@@ -673,6 +673,15 @@ Moura, et al.             Expires May 10, 2019                 [Page 12]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
+
+12.2.  Informative References
+
+   [Ditl17]   OARC, D., "2017 DITL data", October 2018,
+              <https://www.dns-oarc.net/oarc/data/ditl/2017>.
+
+   [IcannHedge18]
+              ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
+              <http://stats.dns.icann.org/hedgehog/>.
 
    [Moura16b]
               Moura, G., Schmidt, R., Heidemann, J., Vries, W., Mueller,
@@ -709,6 +718,18 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               Active Measurement Conference, March 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Schmidt17a.pdf>.
 
+
+
+
+
+
+
+
+Moura, et al.             Expires May 10, 2019                 [Page 13]
+
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
+
+
    [Sigla2014]
               Singla, A., Chandrasekaran, B., Godfrey, P., and B. Maggs,
               "The Internet at the speed of light. In Proceedings of the
@@ -722,13 +743,6 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               Anycast Mapping", ACM 2017 Internet Measurement
               Conference, DOI 10.1145/3131365.3131371, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Vries17b.pdf>.
-
-
-
-Moura, et al.             Expires May 10, 2019                 [Page 13]
-
-Internet-Draft          Recomm-Authoritative-Ops           November 2018
-
 
 Authors' Addresses
 
@@ -763,6 +777,15 @@ Authors' Addresses
    Email: johnh@isi.edu
 
 
+
+
+
+
+Moura, et al.             Expires May 10, 2019                 [Page 14]
+
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
+
+
    Marco Davids
    SIDN Labs
    Meander 501
@@ -781,4 +804,37 @@ Authors' Addresses
 
 
 
-Moura, et al.             Expires May 10, 2019                 [Page 14]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Moura, et al.             Expires May 10, 2019                 [Page 15]
