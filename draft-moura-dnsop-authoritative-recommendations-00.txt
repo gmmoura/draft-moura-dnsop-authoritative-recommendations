@@ -21,6 +21,9 @@ Abstract
    configurations and offers specific, tangible recommendations to
    operators for configuring authoritative servers.
 
+   This document is not an Internet Standards Track specification; it is
+   published for informational purposes.
+
 Status of This Memo
 
    This Internet-Draft is submitted in full conformance with the
@@ -47,9 +50,6 @@ Copyright Notice
    Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
-   carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
 
 
 
@@ -58,6 +58,9 @@ Moura, et al.             Expires May 19, 2019                  [Page 1]
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
@@ -84,18 +87,15 @@ Table of Contents
 
 1.  Introduction
 
-   The Domain Name System (DNS) has main two types of "DNS servers":
+   The domain name system (DNS) has main two types of DNS servers:
    authoritative servers and recursive resolvers.  Figure 1 shows their
-   relationship.  An authoritative server is "a server that knows the
-   content of a DNS zone from local knowledge, and thus can answer
-   queries about that zone needing to query other servers" [RFC2182].  A
-   recursive resolver, in turn, is "a program "that extract(s)
-   information from name servers in response to client requests"
-   [RFC1034].  A client, in Figure 1, is shown as "stub", which is
-   shorthand for a "stub resolver" [RFC1034] that is typically located
-   within the client software.
-
-
+   relationship.  An authoritative server knows the content of a DNS
+   zone from local knowledge, and thus can answer queries about that
+   zone needing to query other servers [RFC2182].  A recursive resolver
+   is a program that extracts information from name servers in response
+   to client requests [RFC1034].  A client, in Figure 1, is shown as
+   stub, which is shorthand for stub resolver [RFC1034] that is
+   typically located within the client software.
 
 
 
@@ -136,8 +136,8 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
                       authoritative name servers (AT)
 
    DNS queries contribute to web latency and affect user experience
-   [Sigla2014], and the DNS system has been subject to repeated Denial-
-   of-Service (DoS) attacks (for example, in November 2015 [Moura16b])
+   [Sigla2014], and the DNS system has been subject to repeated Denial
+   of Service (DoS) attacks (for example, in November 2015 [Moura16b])
    in order to degrade user experience.  To reduce latency and improve
    resiliency against DoS attacks, DNS uses several types of server
    replication.  Replication at the authoritative server level can be
@@ -752,8 +752,7 @@ Authors' Addresses
    Arnhem  6825 MD
    The Netherlands
 
-   Phone: +31-6-352-55-00
-   Fax:   +31-6-352-55-05
+   Phone: +31 26 352 5500
    Email: giovane.moura@sidn.nl
 
 
@@ -781,6 +780,7 @@ Authors' Addresses
 
 
 
+
 Moura, et al.             Expires May 19, 2019                 [Page 14]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
@@ -792,9 +792,9 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    Arnhem  6825 MD
    The Netherlands
 
-   Phone: +31-6-352-55-00
-   Fax:   +31-6-352-55-05
+   Phone: +31 26 352 5500
    Email: marco.davids@sidn.nl
+
 
 
 
