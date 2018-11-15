@@ -403,7 +403,7 @@ Our recommendation, therefore, is when choosing third-party DNS providers, opera
 
 # IANA considerations
 
-This document has no actions for IANA.
+This document has no IANA actions.
 
 <!-- this would be an unusual ending section to have; not that it can't be used but summaries aren't common in IETF documents - WJH -->
 

@@ -268,7 +268,7 @@ In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., 
 </section>
 <section anchor="iana-considerations" title="IANA considerations">
 
-<t>This document has no actions for IANA.</t>
+<t>This document has no IANA actions.</t>
 
 <!-- this would be an unusual ending section to have; not that it can't be used but summaries aren't common in IETF documents - WJH -->
 
@@ -481,7 +481,7 @@ Here we mention the papers co-authors and  thank them for their work:
   </back>
 
 <!-- ##markdown-source:
-H4sIAAZ67VsAA7V97XLjuNXmf10F1lOp2BmJtvzdzr6buO2ZaSf94XJ70tn9
+H4sIAAF/7VsAA7V97XLjuNXmf10F1lOp2BmJtvzdzr6buO2ZaSf94XJ70tn9
 kbcgEpIYU6SWoOzWdHpr72FvZ//tneyV7HnOAUCQkt2T1L6dqoxsgSBwPp/z
 AXg0Gg2avCnMhbozabVYmDLTTV6VVk2rWl2umnlV5w396tGoj6Z+NLVVH5am
 1k1V24GeTGrz6J8ddYaPPiztIKvSUi9o9qzW02a0qFa1HmWlrZYj3Rlcd98+
@@ -712,18 +712,18 @@ IuGgCpxqgH5MVa5mDF1OEs0Vq9nMyIkWHcTW59KkNuROnTm6bOb1LkVavXtm
 iprjxh/OCVzm9aScDNWb1x+GuJh+WuSfRWDvab9N9yLC3NqV8XemkpNwEkpz
 u7sm/PFaNpYtunKUDLmdbsxGRPuw4RvcnXTiUfL+6WcS5Dob4QXrDnnscPMs
 I+7z4LaX1hL1YkYYJgJVr2WhYl/iAf5+PO4MjVCAY5pd1eiTF8v7ET4VZa/u
-UUngwN+5WrzOMpNh7M3l+8uNcd0LmFAILivu5fJ/qg9PuQvxRKGfwjbRlcNn
-I5Txneupv3IHBuf37qYM3bhK6W+b0IqI6qe7IU3ys/jSmU5i+M0P9z+GZVnc
-MPenN4ovWfvuIz+1Hjx3HYg/98vlRujvKNZr0WBJuLQno6Iqiu73z8nlIFbi
-EciA18EeW/PyEUAmHPAoXV63KqTXL9w8J4E0evL8zckNLuKTksccHet8zjbh
-c55VuDMAF6bwq2llk7zxl29V9yNp573+1TkuZjNvZ6HdHTXuwm8+eGwil7F5
-UxhfrEV69/m5++hUNWk0R8mcevBhSNwYOAi3x7nXhKzUY7hmgRa/NppPwn53
-mYaLn+X5ntjK+RKRi3CoDxkv9JhF1b3OBXxYEhdQpRXaFTI6O2E19EcL2dgB
-kbiih5CWc2fci8p0mUtxtqDXtJevshd+g7mejH+py9sv5c4Y90crBQ9wW8uD
-1LldFoZkBEu+GHT+RoH/EwVD/6cxXoc/jjHs/X2Eof8LUMP2Dz21f+lpSAHF
-n/Cnn6I/DDTc/mct+E/9+L9h0ek+rqwkC8Q+oB0obETufRGjIB1+ORkMoqqc
-q+JhImK+nNSyaShNlO+vrvjd/qb9iDL8184CtOIOdTYxXmL9dMMAl/09nCt3
-xGhG7gbiyFFWFZBQu8ie5CSD/wfuWBh94HQAAA==
+UUngwN+5WrzOMpNh7M3l+8uNcd0LmFAILisZqVPfVYHL8ESZn8IW0ZHD5yKU
+8V3rqb9uB8bm9+6WDN24Kulvm9CGiMqnux1NcrP40plNYvbND/c/hiVZ3C73
+pzeKL1j77iM/tR48dxWIP/PLpUbo7ijWadFeSba0p6KiCoru987JxSBWYhHw
+3+tfj6V5+QgQEw53lC6nWxXS5xdunZMgGv14/tbkBpfwSbljjm51PmOb8BnP
+KtwXgMtS+NW0skne+Iu3qvuRtPJe/+r8FrOYt7PQ7n4ad9k3Hzo2kbvYvCWM
+L9Uinfv83F10qpo0miNkTjv4ECRuChyEm+Pca0JG6jFcsUCLXxvNp2C/u0zD
+pc/yfE9k5WyJyEU40IdsF/rLospe5/I9LImLp9IG7YoYnZ2wCvpjhWzogEZc
+wUNIy3kz7kNlusylMFvQa9qLV9kDv8FcT8a/1OXsl3JfjPuDlYIFuKXlQWrc
+LgNDMoIlXww6f5/A/3mCof+zGK/DH8YY9v42wtD/9adh+0ee2r/yNKRg4k/4
+s0/RHwUabv+TFvxnfvzfr+h0HldWEgViH9AKFDYid76IUZDuvpwMBlFVzlTx
+MBExX0pq2TSUBsr3V1f8bn/LfkQZ/ktnAVZxdzqbGC+xfrphgMr+Ds6VO140
+I1cDceQIqwooqF1kT3KSwf8Dk7oqt9x0AAA=
 
 -->
 
