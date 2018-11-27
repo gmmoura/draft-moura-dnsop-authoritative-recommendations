@@ -359,28 +359,31 @@ Although described as strategies and policies, these outcomes are the result of 
 
 # R5: Be careful on how to choose your records time-to-live values
 
-In a DNS response, each resource record is accompanied by a time-to-live value, which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by authoritative DNS server operators at their zone files -- either specifically per record or as default values for the entire zone. Sometimes the same research record may have different TTL values -- one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2182}}.
+In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by zone owners in their zone files -- either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values -- one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2182}}.
 
-While set by authoritative server operators (ATs in {{recuath}}), the TTL value in fact influences the behavior of recursive resolvers (and their operators -- Rn in the same figure), by setting an upper limit on how long a record should be cached before discarded.
+XXX: WJH: there is no 5.4.1 of 2182.  Is that the wrong RFC?
+
+While set by authoritative server operators (labeled "AT"s in {{recuath}}), the TTL value in fact influences the behavior of recursive resolvers (and their operators -- "Rn" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
 In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times (by avoiding repeated queries between recursive resolvers and authoritative).
 
-Besides improving performance, caching may play a significant role during DoS attacks against authoritative servers. To investigate that, we carried out a study {{Moura18b}} that evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. We configured two authoritative name servers for our newly registered domain and carried out a series of experiments with various TTL values (60,1800, 3600, 86400s) for records and sent unique DNS queries from roughly 15,000 vantage points, using Ripe Atlas.
+Besides improving performance, caching may play a significant role during DoS attacks against authoritative servers. To investigate that, {{Moura18b}} evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.
 
-We found that caching, in the wild, works as expected 70% of the times -- for various TTL values we found. We believe that complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of non cached records. We confirmed the results from our experiments by analyzing authoritative traffic for the .nl TLD, which showed similar figures.
+{{Moura18b}} found that caching, in the wild, works as expected 70% of the times -- for various TTL values. It is believe that Complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of the non-cached records. The results from the experiments were confirmed by analyzing authoritative traffic for the .nl TLD, which showed similar figures.
 
-We then set out to emulate DDoS attacks on authoritative servers by  dropping all incoming pakcets for various TTLs values. We found that:
+DDoS attacks on authoritative servers were emulated by dropping all incoming pakcets for various TTLs values. The results showed:
 
-   * At 100% of packets dropped, the TTL value of the record set by the authoritative determined how long clients received responses, together with the status of the cache at the attack time. Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.  
-   * Once TTL values expire, we also saw evidence of some recursives serving stale content {{  I-D.ietf-dnsop-terminology-bis}}. Serve stale was the only option when TTL values expire in recursives cache and authoritative servers were completely unavailable.
+* When 100% of requests were dropped, the TTL value of the record set by the zone owner determined how long clients received responses, together with the status of the cache at the attack time. Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.  
+   * Once the TTL values expired, there was some evidence of some recursives serving stale content {{  I-D.ietf-dnsop-terminology-bis}}. Serving stale is the only viable option when TTL values expire in recursive caches and authoritative servers became completely unavailable.
 
-We also emulated partial-failure DDoS (similar to Dyn 2016 {{Perlroth16}}), when authoritative are partially available, by dropping packet at rates of 50-90%, for various TTL values. We found that:
+Partial-failure DDoS failures were also emulated (similar to Dyn 2016 {{Perlroth16}}), simulating when authoritative are partially available, by dropping packet at rates of 50-90%, for various TTL values. The results showed:
 
-   *  For various TTL values, caching was a key component in the success of queries. For example, for a 50% packet drop rate at the authoritatives, still most of clients got an answer.
-   *  When caching could not help (for a scenario with TTL of 60s, and time in between probing of 10minutes), recursive servers kept on retrying queries to authoritatives: at 90% packet drop with TTL of 60s, we found that 27% of clients still got an answer, at the price of increased response times.
-   * We also found that these retries have a significant effect on the authoriative side: we saw a 8.1x times increase in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries -- what we refer to "friendly fire".
+   *  For various TTL values, caching was a key component in the success of queries. For example, with a 50% packet drop rate at the authoritatives,  most clients eventually got an answer.
+   *  When caching could not help (for a scenario with TTL of 60s, and time in between probing of 10 minutes), recursive servers kept retrying queries to authoritatives: at 90% packet drop with TTL of 60s, 27% of clients still got an answer, at the price of increased response times.
+   * The study also showed that these retries have a significant effect on the authoriative side: A 8.1x times increase was seen in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries -- thus effectively creating "friendly fire".
 
-Therefore, given the role of TTL, our recommendation for DNS operators is to set their TTL values carefully, knowing that they will influence (i) the success of client's queries and (ii) the amount of "friendly fire" traffic they will receive. Many operators may as well reconsider their 10x overprovision metric for DNS servers, given this significant increase legitimate traffic during DDoS.
+Therefore, given the important role of the TTL, it is recommended that DNS zone owners set their TTL values carefully, knowing that they will influence (i) the success of client's queries and (ii) the amount of "friendly fire" traffic they will receive. Many operators may as well reconsider their 10x overprovision metric for DNS servers, given this significant increase legitimate traffic during DDoS.
 
+XXX: WJH: I don't understand what that last sentence is trying to suggest.  Specifically "reconsider their 10x overprovision metric".   Is it suggested that it doesn't need to be that high if the TTL values are chosen more carefully?  We should state that specifically, if that's the case as it's hard to derive from that sentence.  Or is it trying to say it needs to be higher than 10x with short TTLs?  Or both!
 
 # R6: Shared Infrastructure Risks Collateral Damage During Attacks
 
