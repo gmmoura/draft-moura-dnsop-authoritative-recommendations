@@ -2,8 +2,7 @@
 title: Recommendations for Authoritative Servers Operators
 abbrev: Recomm-Authoritative-Ops
 docname: draft-moura-dnsop-authoritative-recommendations-00
-date: 2018-11-6
-# date: 2012
+date: 
 
 # stand_alone: true
 
@@ -27,16 +26,11 @@ author:
         ins: G. C.M. Moura
         name: Giovane C. M. Moura
         org: SIDN Labs/TU Delft
-        # abbrev: TZI
-        # street:
-        # - Postfach 330440
-        # - Bibliothekstr. 1  
         street: Meander 501
         city: Arnhem
         code: 6825 MD
         country: The Netherlands
-        phone: +31-6-352-55-00
-        facsimile:  +31-6-352-55-05
+        phone: +31 26 352 5500
         email: giovane.moura@sidn.nl
       -
         ins: W. Hardaker
@@ -66,8 +60,7 @@ author:
        street: Meander 501
        code: 6825 MD
        country: The Netherlands
-       phone: +31-6-352-55-00
-       facsimile:  +31-6-352-55-05
+       phone: +31 26 352 5500
        email: marco.davids@sidn.nl        
 
 normative:
@@ -232,6 +225,8 @@ informative:
 
 This document summarizes recent research work exploring DNS configurations and offers specific, tangible recommendations to operators for configuring authoritative servers.
 
+<!-- should be part of 'status of this memo'-section, but was unable to figure out for now how to do that - MD -->
+This document is not an Internet Standards Track specification; it is published for informational purposes.
 
 --- middle
 
@@ -240,12 +235,10 @@ Introduction        {#intro}
 
 
 <!---
-XXX: need to used Paul HOffman terminology draft.
+XXX: need to use DNS terminology RFC7719.
 -->
 
-
-
-The Domain Name System (DNS) has main two types of "DNS servers": authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server is "a server that knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers" {{RFC2182}}. A recursive resolver, in turn, is "a program "that extract(s) information from name servers in response to client requests" {{RFC1034}}. A client, in {{recuath}}, is shown as  "stub", which is shorthand for a "stub resolver" {{RFC1034}} that is typically located within the client software.
+The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2182}}. A recursive resolver is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client, in {{recuath}}, is shown as stub, which is shorthand for stub resolver {{RFC1034}} that is typically located within the client software.
 
                 +-----+   +-----+   +-----+   +-----+
                 | AT1 |   | AT2 |   | AT3 |   | AT4 |
@@ -266,7 +259,8 @@ The Domain Name System (DNS) has main two types of "DNS servers": authoritative 
                               +------+
 {: #recuath title="Relationship between recursive resolvers (R) and authoritative name servers (AT)"}
 
-DNS queries contribute to web latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial-of-Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC7094}} and by using load balancers to support multiple servers inside a single (potentially anycasted) site. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
+<!-- I prefer not to use 'web latency' here, is it needed? - MD -->
+DNS queries contribute to web latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC7094}} <!-- also RFC4786 ? - MD -->and by using load balancers to support multiple servers inside a single (potentially anycasted) site. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
 <!---
 this next para is key: what are you trying to accomplish.
@@ -405,9 +399,11 @@ Our recommendation, therefore, is when choosing third-party DNS providers, opera
 
 # IANA considerations
 
-  * to be added
+This document has no IANA actions.
+<!-- RFC8126 style - MD -->
 
 <!-- this would be an unusual ending section to have; not that it can't be used but summaries aren't common in IETF documents - WJH -->
+<!-- Indeed, this is unusual, see RFC7322 for guidance - MD -->
 
 #Summary
 DNS operators strive to deliver both high-performance and resilient services. However, a DNS operators controls only part of the infrastructure involved in the name resolution process, which makes their task more challenging. Moreover, the rise of terabit-scale IoT-based DDoS attacks against authoritative servers has only made the problem worse.
