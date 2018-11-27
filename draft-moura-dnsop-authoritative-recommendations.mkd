@@ -408,13 +408,7 @@ This document has no IANA actions.
 <!-- this would be an unusual ending section to have; not that it can't be used but summaries aren't common in IETF documents - WJH -->
 <!-- Indeed, this is unusual, see RFC7322 for guidance - MD -->
 
-#Summary
-DNS operators strive to deliver both high-performance and resilient services. However, a DNS operators controls only part of the infrastructure involved in the name resolution process, which makes their task more challenging. Moreover, the rise of terabit-scale IoT-based DDoS attacks against authoritative servers has only made the problem worse.
-
-We have presented in this paper six tangible recommendation obtained from various measurements
-studies we have carried over the last years.
-
-#Acknowledgements
+# Acknowledgements
 
 This document is a summary of the main lessons of the research works mentioned on each recommendation here provided. As such, each author of each paper has a clear contribution.
 Here we mention the papers co-authors and  thank them for their work:
