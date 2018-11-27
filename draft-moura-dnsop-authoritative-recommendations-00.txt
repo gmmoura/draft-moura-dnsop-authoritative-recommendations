@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: May 19, 2019                                       J. Heidemann
+Expires: May 31, 2019                                       J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                       November 15, 2018
+                                                       November 27, 2018
 
 
           Recommendations for Authoritative Servers Operators
@@ -32,14 +32,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 19, 2019.
+   This Internet-Draft will expire on May 31, 2019.
 
 Copyright Notice
 
@@ -48,12 +48,12 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
+   (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 1]
+Moura, et al.             Expires May 31, 2019                  [Page 1]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -71,18 +71,17 @@ Table of Contents
    3.  R2: Routing Can Matter More Than Locations  . . . . . . . . .   5
    4.  R3: Collecting Detailed Anycast Catchment Maps Ahead of
        Actual Deployment Can Improve Engineering Designs . . . . . .   6
-   5.  R4: When under stress, two strategies . . . . . . . . . . . .   7
+   5.  R4: When under stress, employ two strategies  . . . . . . . .   7
    6.  R5: Be careful on how to choose your records time-to-live
        values  . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
    7.  R6: Shared Infrastructure Risks Collateral Damage During
-       Attacks . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+       Attacks . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
    8.  Security considerations . . . . . . . . . . . . . . . . . . .  11
    9.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  11
-   10. Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  12
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  13
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  12
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  13
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
 1.  Introduction
@@ -109,7 +108,8 @@ Table of Contents
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 2]
+
+Moura, et al.             Expires May 31, 2019                  [Page 2]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -165,7 +165,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 3]
+Moura, et al.             Expires May 31, 2019                  [Page 3]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -221,7 +221,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 4]
+Moura, et al.             Expires May 31, 2019                  [Page 4]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -277,7 +277,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 5]
+Moura, et al.             Expires May 31, 2019                  [Page 5]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -333,7 +333,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 6]
+Moura, et al.             Expires May 31, 2019                  [Page 6]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -363,181 +363,204 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    anycast service.  Operators can spot sub-optimal routing situations
    early, with a fine granularity, and with significantly better
    coverage than using traditional measurement platforms such as RIPE
-   Atlas.  Deploying a small test Verfploeter-enabled platform in
-   advance at a potential anycast site may reveal the realizable
-   benefits of using that site as an anycast interest, potentially
-   saving significant financial and labor costs of deploying hardware to
-   a new site that was less effective as had been hoped.
+   Atlas.
 
-5.  R4: When under stress, two strategies
+   Deploying a small test Verfploeter-enabled platform in advance at a
+   potential anycast site may reveal the realizable benefits of using
+   that site as an anycast interest, potentially saving significant
+   financial and labor costs of deploying hardware to a new site that
+   was less effective than as had been hoped.
+
+5.  R4: When under stress, employ two strategies
 
    DDoS attacks are becoming bigger, cheaper, and more frequent
    [Mueller17b].  The most powerful recorded DDoS attack to DNS servers
    to date reached 1.2 Tbps, by using IoT devices [Perlroth16].  Such
    attacks call for an answer for the following question: how should a
    DNS operator engineer its anycast authoritative DNS server react to
-   the stress of a DDoS attack?  We have investigated this question in
-   study [Moura16b] in which they ground empirical observations with the
+   the stress of a DDoS attack?  This question is investigated in study
+   [Moura16b] in which empirical observations are grounded with the
    following theoretical evaluation of options.
 
    An authoritative DNS server deployed using anycast will have many
-   sites distributed over many networks.  Ultimately, the relationship
-   between the DNS provider network and a client's ISP will determine
-   which anycast site will answer for queries for a given client.  As a
-   consequence, when an anycast authoritative server is under attack,
-   the load that each anycast site receives is likely to be unevenly
+   server instances distributed over many networks and sites.
+   Ultimately, the relationship between the DNS provider's network and a
+   client's ISP will determine which anycast site will answer for
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 7]
+Moura, et al.             Expires May 31, 2019                  [Page 7]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
-   distributed (a function of the source of the attacks), thus some
-   sites may be more overloaded than others which is what was observed
-   analyzing the Root DNS events of Nov. 2015 [Moura16b].  Given the
-   fact that different sites may have different capacity (bandwidth,
-   CPU, etc.), the choice of how to react to stress becomes even more
-   difficult.
+   queries for a given client.  As a consequence, when an anycast
+   authoritative server is under attack, the load that each anycast site
+   receives is likely to be unevenly distributed (a function of the
+   source of the attacks), thus some sites may be more overloaded than
+   others which is what was observed analyzing the Root DNS events of
+   Nov. 2015 [Moura16b].  Given the fact that different sites may have
+   different capacity (bandwidth, CPU, etc.), making a decision about
+   how to react to stress becomes even more difficult.
 
    In practice, an anycast site under stress, overloaded with incoming
    traffic, has two options:
 
-   o  It can withdraw/prepend route to some or to all of its neighbors,
-      shrinking its catchment (number of clients that BGP maps to it)
-      and shifting both legitimate and attack traffic to other anycast
-      sites.  Possibly those sites will have greater capacity and
-      service the queries.
+   o  It can withdraw or pre-prepend its route to some or to all of its
+      neighbors, shrinking its catchment (the number of clients that BGP
+      maps to it), shifting both legitimate and attack traffic to other
+      anycast sites.  The other sites will hopefully have greater
+      capacity and be able to service the queries.
 
    o  Alternatively, it can be become a degraded absorber, continuing to
       operate, but with overloaded ingress routers, dropping some
       incoming legitimate requests due to queue overflow.  However,
       continued operation will also absorb traffic from attackers in its
-      catchment, protecting other anycast sites.
+      catchment, protecting the other anycast sites.
 
    [Moura16b] saw both of these behaviors in practice in the Root DNS
-   events and observe them through site reachability and RTTs.  These
-   options represent different uses of an anycast deployment.  A
-   withdrawal strategy causes anycast to respond as a waterbed, with
-   stress displacing queries from one site to others.  The absorption
-   strategy behaves as a conventional mattress, compressing under load,
-   with queries getting delayed or dropped.
+   events, observed through site reachability and RTTs.  These options
+   represent different uses of an anycast deployment.  The withdrawal
+   strategy causes anycast to respond as a waterbed, with stress
+   displacing queries from one site to others.  The absorption strategy
+   behaves as a conventional mattress, compressing under load, with some
+   queries getting delayed or dropped.
 
    Although described as strategies and policies, these outcomes are the
    result of several factors: the combination of operator and host ISP
-   routing policy, routing implementations withdrawing under load, the
-   nature of the attack, and the locations of the sites and attackers.
-   Some policies are explicit, such as the choice of local-only anycast
-   sites, or operators removing a site for maintenance or modifying
-   routing to manage load.  However, under stress, the choices of
-   withdrawal and absorption can also be results that emerge from a mix
-   of explicit choices and implementation details, such as BGP timeout
-   values.
+   routing policies, routing implementations withdrawing under load, the
+   nature of the attack, and the locations of the sites and the
+   attackers.  Some policies are explicit, such as the choice of local-
+   only anycast sites, or operators removing a site for maintenance or
+   modifying routing to manage load.  However, under stress, the choices
+   of withdrawal and absorption can also be results that emerge from a
+   mix of explicit choices and implementation details, such as BGP
+   timeout values.
 
    [Moura16b] speculates that more careful, explicit, and automated
    management of policies may provide stronger defenses to overload, an
-   area we are currently working on.  For DNS operators, that means that
+   area currently under study.  For DNS operators, that means that
    besides traditional filtering, two other options are available
-   (withdraw/prepend or isolate sites), and the best choice depends on
-   the specifics of the attack.
 
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 8]
+Moura, et al.             Expires May 31, 2019                  [Page 8]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
+
+   (withdraw/prepend or isolate sites), and the best choice depends on
+   the specifics of the attack.
 
 6.  R5: Be careful on how to choose your records time-to-live values
 
    In a DNS response, each resource record is accompanied by a time-to-
-   live value, which "describes how long a RR can be cached before it
-   should be discarded" [RFC1034].  The TTL values are set by
-   authoritative DNS server operators at their zone files - either
-   specifically per record or as default values for the entire zone.
-   Sometimes the same research record may have different TTL values -
-   one from the parent and one from the child DNS server.  In this
-   cases, resolvers are expected to prioritize the answer according to
-   Section 5.4.1 in [RFC2182].
+   live value (TTL), which "describes how long a RR can be cached before
+   it should be discarded" [RFC1034].  The TTL values are set by zone
+   owners in their zone files - either specifically per record or by
+   using default values for the entire zone.  Sometimes the same
+   resource record may have different TTL values - one from the parent
+   and one from the child DNS server.  In this cases, resolvers are
+   expected to prioritize the answer according to Section 5.4.1 in
+   [RFC2182].
 
-   While set by authoritative server operators (ATs in Figure 1), the
-   TTL value in fact influences the behavior of recursive resolvers (and
-   their operators - Rn in the same figure), by setting an upper limit
-   on how long a record should be cached before discarded.  In this
-   sense, caching can be seen as a sort of "ephemeral replication",
-   i.e., the contents of an authoritative server are placed at a
-   recursive resolver cache for a period of time up to the TTL value.
-   Caching improves response times (by avoiding repeated queries between
-   recursive resolvers and authoritative).
+   XXX: WJH: there is no 5.4.1 of 2182.  Is that the wrong RFC?
+
+   While set by authoritative server operators (labeled "AT"s in
+   Figure 1), the TTL value in fact influences the behavior of recursive
+   resolvers (and their operators - "Rn" in the same figure), by setting
+   an upper limit on how long a record should be cached before
+   discarded.  In this sense, caching can be seen as a sort of
+   "ephemeral replication", i.e., the contents of an authoritative
+   server are placed at a recursive resolver cache for a period of time
+   up to the TTL value.  Caching improves response times (by avoiding
+   repeated queries between recursive resolvers and authoritative).
 
    Besides improving performance, caching may play a significant role
    during DoS attacks against authoritative servers.  To investigate
-   that, we carried out a study [Moura18b] that evaluates the role of
-   caching (and retries) in DNS resiliency to DDoS attacks.  We
-   configured two authoritative name servers for our newly registered
-   domain and carried out a series of experiments with various TTL
-   values (60,1800, 3600, 86400s) for records and sent unique DNS
-   queries from roughly 15,000 vantage points, using Ripe Atlas.
+   that, [Moura18b] evaluates the role of caching (and retries) in DNS
+   resiliency to DDoS attacks.  Two authoritative servers were
+   configured for a newly registered domain and a series of experiments
+   were carried out using various TTL values (60,1800, 3600, 86400s) for
+   records.  Unique DNS queries were sent from roughly 15,000 vantage
+   points, using RIPE Atlas.
 
-   We found that caching, in the wild, works as expected 70% of the
-   times - for various TTL values we found.  We believe that complex
+   [Moura18b] found that caching, in the wild, works as expected 70% of
+   the times - for various TTL values.  It is believe that Complex
    recursive infrastructure (such as anycast recursives with fragmented
    cache), besides cache flushing and hierarchy explains these other 30%
-   of non cached records.  We confirmed the results from our experiments
-   by analyzing authoritative traffic for the .nl TLD, which showed
-   similar figures.
+   of the non-cached records.  The results from the experiments were
+   confirmed by analyzing authoritative traffic for the .nl TLD, which
+   showed similar figures.
 
-   We then set out to emulate DDoS attacks on authoritative servers by
-   dropping all incoming pakcets for various TTLs values.  We found
-   that:
-
-   o  At 100% of packets dropped, the TTL value of the record set by the
-      authoritative determined how long clients received responses,
-      together with the status of the cache at the attack time.  Given
-      the TTL value decreases as time passes at the cache, it protected
-      clients for up to its value in cache.
+   DDoS attacks on authoritative servers were emulated by dropping all
+   incoming pakcets for various TTLs values.  The results showed:
 
 
 
-Moura, et al.             Expires May 19, 2019                  [Page 9]
+
+
+Moura, et al.             Expires May 31, 2019                  [Page 9]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
-   o  Once TTL values expire, we also saw evidence of some recursives
-      serving stale content [I-D.ietf-dnsop-terminology-bis].  Serve
-      stale was the only option when TTL values expire in recursives
-      cache and authoritative servers were completely unavailable.
+   o  When 100% of requests were dropped, the TTL value of the record
+      set by the zone owner determined how long clients received
+      responses, together with the status of the cache at the attack
+      time.  Given the TTL value decreases as time passes at the cache,
+      it protected clients for up to its value in cache.
 
-   We also emulated partial-failure DDoS (similar to Dyn 2016
-   [Perlroth16]), when authoritative are partially available, by
-   dropping packet at rates of 50-90%, for various TTL values.  We found
-   that:
+      *  Once the TTL values expired, there was some evidence of some
+         recursives serving stale content
+         [I-D.ietf-dnsop-terminology-bis].  Serving stale is the only
+         viable option when TTL values expire in recursive caches and
+         authoritative servers became completely unavailable.
+
+   Partial-failure DDoS failures were also emulated (similar to Dyn 2016
+   [Perlroth16]), simulating when authoritative are partially available,
+   by dropping packet at rates of 50-90%, for various TTL values.  The
+   results showed:
 
    o  For various TTL values, caching was a key component in the success
-      of queries.  For example, for a 50% packet drop rate at the
-      authoritatives, still most of clients got an answer.
+      of queries.  For example, with a 50% packet drop rate at the
+      authoritatives, most clients eventually got an answer.
 
    o  When caching could not help (for a scenario with TTL of 60s, and
-      time in between probing of 10minutes), recursive servers kept on
+      time in between probing of 10 minutes), recursive servers kept
       retrying queries to authoritatives: at 90% packet drop with TTL of
-      60s, we found that 27% of clients still got an answer, at the
-      price of increased response times.
+      60s, 27% of clients still got an answer, at the price of increased
+      response times.
 
-   o  We also found that these retries have a significant effect on the
-      authoriative side: we saw a 8.1x times increase in normal traffic
-      during a 90% packet drop with TTL of 60s, as recursives attempt to
-      resolve queries - what we refer to "friendly fire".
+   o  The study also showed that these retries have a significant effect
+      on the authoriative side: A 8.1x times increase was seen in normal
+      traffic during a 90% packet drop with TTL of 60s, as recursives
+      attempt to resolve queries - thus effectively creating "friendly
+      fire".
 
-   Therefore, given the role of TTL, our recommendation for DNS
-   operators is to set their TTL values carefully, knowing that they
-   will influence (i) the success of client's queries and (ii) the
+   Therefore, given the important role of the TTL, it is recommended
+   that DNS zone owners set their TTL values carefully, knowing that
+   they will influence (i) the success of client's queries and (ii) the
    amount of "friendly fire" traffic they will receive.  Many operators
    may as well reconsider their 10x overprovision metric for DNS
    servers, given this significant increase legitimate traffic during
    DDoS.
+
+   XXX: WJH: I don't understand what that last sentence is trying to
+   suggest.  Specifically "reconsider their 10x overprovision metric".
+   Is it suggested that it doesn't need to be that high if the TTL
+   values are chosen more carefully?  We should state that specifically,
+   if that's the case as it's hard to derive from that sentence.  Or is
+   it trying to say it needs to be higher than 10x with short TTLs?  Or
+   both!
+
+
+
+Moura, et al.             Expires May 31, 2019                 [Page 10]
+
+Internet-Draft          Recomm-Authoritative-Ops           November 2018
+
 
 7.  R6: Shared Infrastructure Risks Collateral Damage During Attacks
 
@@ -548,30 +571,22 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    minimize collateral damage through redundancy, overcapacity, and
    isolation.
 
-   We have also seen this in practice during the DDoS attack against the
-   Root DNS system in November 2015 [Moura16b].  In this study, we found
-   that two services not directly targeted by the attack, namely D-Root
-   and the .nl TLD, suffered collateral damage.  These services showed
-   reduced end-to-end performance (i.e., higher latency and reduced
-
-
-
-
-Moura, et al.             Expires May 19, 2019                 [Page 10]
-
-Internet-Draft          Recomm-Authoritative-Ops           November 2018
-
-
-   reachability) with timing consistent with the DDoS event, strongly
-   suggesting a shared resource with original targets of the attack.
+   This has been seen in practice during the DDoS attack against the
+   Root DNS system in November 2015 [Moura16b].  In this study, it was
+   shown that two services not directly targeted by the attack, namely
+   D-Root and the .nl TLD, suffered collateral damage.  These services
+   showed reduced end-to-end performance (i.e., higher latency and
+   reduced reachability) with timing consistent with the DDoS event,
+   strongly suggesting a shared resource with original targets of the
+   attack.
 
    Another example of collateral damage was the 1.2 Tbps attack against
    Dyn, a major DNS provider on October 2017 [Perlroth16].  As a result,
    many of their customers, including Airbnb, HBO, Netflix, and Twitter
-   experience issues in resolving their domains, since they partially
-   shared the same infrastructure.
+   experienced issues with clients failing to resolve their domains,
+   since the servers partially shared the same infrastructure.
 
-   Our recommendation, therefore, is when choosing third-party DNS
+   It is recommended, therefore, when choosing third-party DNS
    providers, operators should be aware of shared infrastructure risks.
    By sharing infrastructure, there is an increased attack surface.
 
@@ -583,20 +598,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
    This document has no IANA actions.
 
-10.  Summary
-
-   DNS operators strive to deliver both high-performance and resilient
-   services.  However, a DNS operators controls only part of the
-   infrastructure involved in the name resolution process, which makes
-   their task more challenging.  Moreover, the rise of terabit-scale
-   IoT-based DDoS attacks against authoritative servers has only made
-   the problem worse.
-
-   We have presented in this paper six tangible recommendation obtained
-   from various measurements studies we have carried over the last
-   years.
-
-11.  Acknowledgements
+10.  Acknowledgements
 
    This document is a summary of the main lessons of the research works
    mentioned on each recommendation here provided.  As such, each author
@@ -607,20 +609,21 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
    Besides those, we would like thank those who have been individually
    thanked in each research work, RIPE NCC and DNS OARC for their tools
-   and datasets used in this research, as well as the funding agencies
-   sponsoring the individual research works.
 
 
 
 
-Moura, et al.             Expires May 19, 2019                 [Page 11]
+Moura, et al.             Expires May 31, 2019                 [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
-12.  References
+   and datasets used in this research, as well as the funding agencies
+   sponsoring the individual research works.
 
-12.1.  Normative References
+11.  References
+
+11.1.  Normative References
 
    [I-D.ietf-dnsop-terminology-bis]
               Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
@@ -640,18 +643,18 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               November 1993, <https://www.rfc-editor.org/info/rfc1546>.
 
    [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
-              DOI 10.17487/RFC1995, August 1996,
-              <https://www.rfc-editor.org/info/rfc1995>.
+              DOI 10.17487/RFC1995, August 1996, <https://www.rfc-
+              editor.org/info/rfc1995>.
 
    [RFC2182]  Elz, R., Bush, R., Bradner, S., and M. Patton, "Selection
               and Operation of Secondary DNS Servers", BCP 16, RFC 2182,
-              DOI 10.17487/RFC2182, July 1997,
-              <https://www.rfc-editor.org/info/rfc2182>.
+              DOI 10.17487/RFC2182, July 1997, <https://www.rfc-
+              editor.org/info/rfc2182>.
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006,
-              <https://www.rfc-editor.org/info/rfc4271>.
+              DOI 10.17487/RFC4271, January 2006, <https://www.rfc-
+              editor.org/info/rfc4271>.
 
    [RFC5936]  Lewis, E. and A. Hoenes, Ed., "DNS Zone Transfer Protocol
               (AXFR)", RFC 5936, DOI 10.17487/RFC5936, June 2010,
@@ -659,22 +662,19 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
    [RFC7094]  McPherson, D., Oran, D., Thaler, D., and E. Osterweil,
               "Architectural Considerations of IP Anycast", RFC 7094,
-              DOI 10.17487/RFC7094, January 2014,
-              <https://www.rfc-editor.org/info/rfc7094>.
+              DOI 10.17487/RFC7094, January 2014, <https://www.rfc-
+              editor.org/info/rfc7094>.
 
 
 
 
 
-
-
-
-Moura, et al.             Expires May 19, 2019                 [Page 12]
+Moura, et al.             Expires May 31, 2019                 [Page 12]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
-12.2.  Informative References
+11.2.  Informative References
 
    [Ditl17]   OARC, D., "2017 DITL data", October 2018,
               <https://www.dns-oarc.net/oarc/data/ditl/2017>.
@@ -688,8 +688,8 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               M., Wei, L., and C. Hesselman, "Anycast vs DDoS Evaluating
               the November 2015 Root DNS Events.", ACM 2016 Internet
               Measurement Conference, DOI /10.1145/2987443.2987446,
-              October 2016,
-              <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
+              October 2016, <https://www.isi.edu/~johnh/PAPERS/
+              Moura16b.pdf>.
 
    [Moura18b]
               Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
@@ -708,8 +708,8 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    [Perlroth16]
               Perlroth, N., "Hackers Used New Weapons to Disrupt Major
               Websites Across U.S.", October 2016,
-              <https://www.nytimes.com/2016/10/22/business/
-              internet-problems-attack.html>.
+              <https://www.nytimes.com/2016/10/22/business/internet-
+              problems-attack.html>.
 
    [Schmidt17a]
               Schmidt, R., Heidemann, J., and J. Kuipers, "Anycast
@@ -725,7 +725,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 19, 2019                 [Page 13]
+Moura, et al.             Expires May 31, 2019                 [Page 13]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -781,7 +781,7 @@ Authors' Addresses
 
 
 
-Moura, et al.             Expires May 19, 2019                 [Page 14]
+Moura, et al.             Expires May 31, 2019                 [Page 14]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -837,4 +837,4 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 19, 2019                 [Page 15]
+Moura, et al.             Expires May 31, 2019                 [Page 15]
