@@ -389,11 +389,11 @@ XXX: WJH: I don't understand what that last sentence is trying to suggest.  Spec
 
 Co-locating services, such as authoritative servers, creates some degree of shared risk, in that stress on one service may spill over into another, resulting in collateral damage. Collateral damage is a common side-effect of DDoS, and data centers and operators strive to minimize collateral damage through redundancy, overcapacity, and isolation.
 
-We have also seen this in practice during the DDoS attack against the Root DNS system in November 2015 {{Moura16b}}. In this study, we found that two services not directly targeted by the attack, namely D-Root and the .nl TLD, suffered collateral damage. These services showed reduced end-to-end performance (i.e., higher latency and reduced reachability) with timing consistent with the DDoS event, strongly suggesting a shared resource with original targets of the attack.
+This has been seen in practice during the DDoS attack against the Root DNS system in November 2015 {{Moura16b}}. In this study, it was shown that two services not directly targeted by the attack, namely D-Root and the .nl TLD, suffered collateral damage. These services showed reduced end-to-end performance (i.e., higher latency and reduced reachability) with timing consistent with the DDoS event, strongly suggesting a shared resource with original targets of the attack.
 
-Another example of collateral damage was the 1.2 Tbps attack against Dyn, a major DNS provider on October 2017 {{Perlroth16}}. As a result, many of their customers, including Airbnb, HBO, Netflix, and Twitter experience issues in resolving their domains, since they partially shared the same infrastructure.
+Another example of collateral damage was the 1.2 Tbps attack against Dyn, a major DNS provider on October 2017 {{Perlroth16}}. As a result, many of their customers, including Airbnb, HBO, Netflix, and Twitter experienced issues with clients failing to resolve their domains, since the servers partially shared the same infrastructure.
 
-Our recommendation, therefore, is when choosing third-party DNS providers, operators should be aware of shared infrastructure risks. By sharing infrastructure, there is an increased attack surface.
+It is recommended, therefore, when choosing third-party DNS providers, operators should be aware of shared infrastructure risks. By sharing infrastructure, there is an increased attack surface.
 
 
 # Security considerations
