@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: May 31, 2019                                       J. Heidemann
+Expires: June 1, 2019                                       J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                       November 27, 2018
+                                                       November 28, 2018
 
 
           Recommendations for Authoritative Servers Operators
@@ -32,14 +32,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 31, 2019.
+   This Internet-Draft will expire on June 1, 2019.
 
 Copyright Notice
 
@@ -48,12 +48,12 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 1]
+Moura, et al.             Expires June 1, 2019                  [Page 1]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -90,7 +90,7 @@ Table of Contents
    authoritative servers and recursive resolvers.  Figure 1 shows their
    relationship.  An authoritative server knows the content of a DNS
    zone from local knowledge, and thus can answer queries about that
-   zone needing to query other servers [RFC2182].  A recursive resolver
+   zone needing to query other servers [RFC2181].  A recursive resolver
    is a program that extracts information from name servers in response
    to client requests [RFC1034].  A client, in Figure 1, is shown as
    stub, which is shorthand for stub resolver [RFC1034] that is
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 2]
+Moura, et al.             Expires June 1, 2019                  [Page 2]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -165,7 +165,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 3]
+Moura, et al.             Expires June 1, 2019                  [Page 3]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -209,19 +209,19 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
    Knowing how recursives choose authoritative servers is a key step to
    better engineer the deployment of authoritative servers.
-   [Mueller17b]  evaluates this with a measurement study in which they
+   [Mueller17b] evaluates this with a measurement study in which they
    deployed seven unicast authoritative name servers in different global
    locations and queried these authoritative servers from more than
    9,000 RIPE Atlas probes (Vantage Points--VPs) and their respective
    recursive resolvers.
 
-   In the wild, [Mueller17b]  found that recursives query all available
+   In the wild, [Mueller17b] found that recursives query all available
    authoritative servers, regardless of latency.  But the distribution
    of queries tend to be skewed towards authoritatives with lower
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 4]
+Moura, et al.             Expires June 1, 2019                  [Page 4]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -239,7 +239,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    available authoritatives will be queried by most recursives.  Since
    unicast cannot deliver good latency worldwide (a site in Europe will
    always have a high latency to resolvers in California, for example),
-   [Mueller17b]  recommends to DNS operators that they deploy equally
+   [Mueller17b] recommends to DNS operators that they deploy equally
    strong IP anycast in every authoritative server (and thus to phase
    out unicast), so they can deliver similar {xxx: I don't think similar
    is the right word here. "good" or "best possible"? - Wes} latency
@@ -263,21 +263,21 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    BGP.  Intuitively, one could think that more sites will lead to
    shorter response times.
 
-   However, this is not necessarily true.  In fact, [Schmidt17a]  found
+   However, this is not necessarily true.  In fact, [Schmidt17a] found
    that routing can matter more than the total number of locations.
    They analyzed the relationship between the number of anycast sites
    and the performance of a service (latency-wise, RTT) and measured the
    overall performance of four DNS Root servers, namely C, F, K and L,
    from more than 7.9K RIPE Atlas probes.
 
-   [Schmidt17a]  found that C-Root, a smaller anycast deployment
+   [Schmidt17a] found that C-Root, a smaller anycast deployment
    consisting of only 8 sites, provided a very similar overall
    performance than that of the much larger deployments of K and L, with
 
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 5]
+Moura, et al.             Expires June 1, 2019                  [Page 5]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -333,7 +333,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 6]
+Moura, et al.             Expires June 1, 2019                  [Page 6]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -389,7 +389,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 7]
+Moura, et al.             Expires June 1, 2019                  [Page 7]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -445,7 +445,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                  [Page 8]
+Moura, et al.             Expires June 1, 2019                  [Page 8]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -463,9 +463,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    resource record may have different TTL values - one from the parent
    and one from the child DNS server.  In this cases, resolvers are
    expected to prioritize the answer according to Section 5.4.1 in
-   [RFC2182].
-
-   XXX: WJH: there is no 5.4.1 of 2182.  Is that the wrong RFC?
+   [RFC2181].
 
    While set by authoritative server operators (labeled "AT"s in
    Figure 1), the TTL value in fact influences the behavior of recursive
@@ -497,18 +495,17 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    DDoS attacks on authoritative servers were emulated by dropping all
    incoming pakcets for various TTLs values.  The results showed:
 
+   o  When 100% of requests were dropped, the TTL value of the record
+      set by the zone owner determined how long clients received
+      responses, together with the status of the cache at the attack
 
 
 
-
-Moura, et al.             Expires May 31, 2019                  [Page 9]
+Moura, et al.             Expires June 1, 2019                  [Page 9]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
-   o  When 100% of requests were dropped, the TTL value of the record
-      set by the zone owner determined how long clients received
-      responses, together with the status of the cache at the attack
       time.  Given the TTL value decreases as time passes at the cache,
       it protected clients for up to its value in cache.
 
@@ -557,7 +554,10 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                 [Page 10]
+
+
+
+Moura, et al.             Expires June 1, 2019                 [Page 10]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -613,7 +613,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                 [Page 11]
+Moura, et al.             Expires June 1, 2019                 [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -643,18 +643,17 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               November 1993, <https://www.rfc-editor.org/info/rfc1546>.
 
    [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
-              DOI 10.17487/RFC1995, August 1996, <https://www.rfc-
-              editor.org/info/rfc1995>.
+              DOI 10.17487/RFC1995, August 1996,
+              <https://www.rfc-editor.org/info/rfc1995>.
 
-   [RFC2182]  Elz, R., Bush, R., Bradner, S., and M. Patton, "Selection
-              and Operation of Secondary DNS Servers", BCP 16, RFC 2182,
-              DOI 10.17487/RFC2182, July 1997, <https://www.rfc-
-              editor.org/info/rfc2182>.
+   [RFC2181]  Elz, R. and R. Bush, "Clarifications to the DNS
+              Specification", RFC 2181, DOI 10.17487/RFC2181, July 1997,
+              <https://www.rfc-editor.org/info/rfc2181>.
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006, <https://www.rfc-
-              editor.org/info/rfc4271>.
+              DOI 10.17487/RFC4271, January 2006,
+              <https://www.rfc-editor.org/info/rfc4271>.
 
    [RFC5936]  Lewis, E. and A. Hoenes, Ed., "DNS Zone Transfer Protocol
               (AXFR)", RFC 5936, DOI 10.17487/RFC5936, June 2010,
@@ -662,14 +661,15 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
    [RFC7094]  McPherson, D., Oran, D., Thaler, D., and E. Osterweil,
               "Architectural Considerations of IP Anycast", RFC 7094,
-              DOI 10.17487/RFC7094, January 2014, <https://www.rfc-
-              editor.org/info/rfc7094>.
+              DOI 10.17487/RFC7094, January 2014,
+              <https://www.rfc-editor.org/info/rfc7094>.
 
 
 
 
 
-Moura, et al.             Expires May 31, 2019                 [Page 12]
+
+Moura, et al.             Expires June 1, 2019                 [Page 12]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -688,8 +688,8 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
               M., Wei, L., and C. Hesselman, "Anycast vs DDoS Evaluating
               the November 2015 Root DNS Events.", ACM 2016 Internet
               Measurement Conference, DOI /10.1145/2987443.2987446,
-              October 2016, <https://www.isi.edu/~johnh/PAPERS/
-              Moura16b.pdf>.
+              October 2016,
+              <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
 
    [Moura18b]
               Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
@@ -708,8 +708,8 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
    [Perlroth16]
               Perlroth, N., "Hackers Used New Weapons to Disrupt Major
               Websites Across U.S.", October 2016,
-              <https://www.nytimes.com/2016/10/22/business/internet-
-              problems-attack.html>.
+              <https://www.nytimes.com/2016/10/22/business/
+              internet-problems-attack.html>.
 
    [Schmidt17a]
               Schmidt, R., Heidemann, J., and J. Kuipers, "Anycast
@@ -725,7 +725,7 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                 [Page 13]
+Moura, et al.             Expires June 1, 2019                 [Page 13]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -781,7 +781,7 @@ Authors' Addresses
 
 
 
-Moura, et al.             Expires May 31, 2019                 [Page 14]
+Moura, et al.             Expires June 1, 2019                 [Page 14]
 
 Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
@@ -837,4 +837,4 @@ Internet-Draft          Recomm-Authoritative-Ops           November 2018
 
 
 
-Moura, et al.             Expires May 31, 2019                 [Page 15]
+Moura, et al.             Expires June 1, 2019                 [Page 15]

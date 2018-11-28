@@ -2,7 +2,7 @@
 title: Recommendations for Authoritative Servers Operators
 abbrev: Recomm-Authoritative-Ops
 docname: draft-moura-dnsop-authoritative-recommendations-00
-date: 
+date:
 
 # stand_alone: true
 
@@ -66,7 +66,7 @@ author:
 normative:
 
   I-D.ietf-dnsop-terminology-bis:
-  rfc2182:
+  rfc2181:
   rfc1034:
   rfc7094:
   rfc1546:
@@ -238,7 +238,7 @@ Introduction        {#intro}
 XXX: need to use DNS terminology RFC7719.
 -->
 
-The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2182}}. A recursive resolver is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client, in {{recuath}}, is shown as stub, which is shorthand for stub resolver {{RFC1034}} that is typically located within the client software.
+The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2181}}. A recursive resolver is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client, in {{recuath}}, is shown as stub, which is shorthand for stub resolver {{RFC1034}} that is typically located within the client software.
 
                 +-----+   +-----+   +-----+   +-----+
                 | AT1 |   | AT2 |   | AT3 |   | AT4 |
@@ -359,9 +359,8 @@ Although described as strategies and policies, these outcomes are the result of 
 
 # R5: Be careful on how to choose your records time-to-live values
 
-In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by zone owners in their zone files -- either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values -- one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2182}}.
+In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by zone owners in their zone files -- either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values -- one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2181}}.
 
-XXX: WJH: there is no 5.4.1 of 2182.  Is that the wrong RFC?
 
 While set by authoritative server operators (labeled "AT"s in {{recuath}}), the TTL value in fact influences the behavior of recursive resolvers (and their operators -- "Rn" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
 In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times (by avoiding repeated queries between recursive resolvers and authoritative).
