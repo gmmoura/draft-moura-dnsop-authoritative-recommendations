@@ -276,7 +276,17 @@ Also, in a more direct language, applied
 - givoane
 -->
 
-This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter). It presents recommendations derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, how to accurately map anycast network reanch {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
+This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
+It presents recommendations for operators of large authoritative servers (such as those for top-level domains).
+These recommendations are derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, how to accurately map anycast network reanch {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
+
+These recommendations are designed for operators of "large" authoritative
+servers for domains like TLDs.
+"Large" authoritative servers mean those with a significant global user population.
+These recommendations may not be appropriate for smaller domains,
+such as those used by an organization with users in one city or region,
+where goals such as uniform low latency are less strict.
+
 
 # R1: All authoritative server should have similar latency
 
