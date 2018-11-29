@@ -85,7 +85,7 @@
     <abstract>
 
 
-<t>This document summarizes recent research work exploring DNS configurations and offers specific, tangible recommendations to operators for configuring authoritative servers.</t>
+<t>This document summarizes recent research work exploring DNS configurations and offers specific, tangible recommendations to operators of for configuring authoritative servers.</t>
 
 <!-- should be part of 'status of this memo'-section, but was unable to figure out for now how to do that - MD -->
 <t>This document is not an Internet Standards Track specification; it is published for informational purposes.</t>
@@ -145,7 +145,18 @@ Also, in a more direct language, applied
 - givoane
 -->
 
-<t>This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter). It presents recommendations derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks<xref target="Moura16b"/>, how anycast affects query latency<xref target="Schmidt17a"/>, how to accurately map anycast network reanch <xref target="Vries17b"/>, how recursive and authoritative resolvers interact<xref target="Mueller17b"/>, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives<xref target="Moura18b"/>. The recommendations (R1&#8211;R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.</t>
+<t>This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
+It presents recommendations for operators of large authoritative servers (such as those for top-level domains).
+These recommendations are derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks<xref target="Moura16b"/>, how anycast affects query latency<xref target="Schmidt17a"/>, how to accurately map anycast network reanch <xref target="Vries17b"/>, how recursive and authoritative resolvers interact<xref target="Mueller17b"/>, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives<xref target="Moura18b"/>. The recommendations (R1&#8211;R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.</t>
+
+<t>
+These recommendations are designed for operators of "large" authoritative
+servers for domains like TLDs.
+"Large" authoritative servers mean those with a significant global user population.
+These recommendations may not be appropriate for smaller domains,
+such as those used by an organization with users in one city or region,
+where goals such as uniform low latency are less strict.
+</t>
 
 </section>
 <section anchor="r1-all-authoritative-server-should-have-similar-latency" title="R1: All authoritative server should have similar latency">
