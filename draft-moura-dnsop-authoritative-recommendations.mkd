@@ -74,6 +74,7 @@ normative:
   rfc1995:
   rfc5936:
   rfc4271:
+  #rfc4786:
 #have to see how to add these references on rfcs
 #https://tools.ietf.org/html/rfc7764#section-4.6
 informative:
@@ -92,7 +93,7 @@ informative:
           name: John Heidemann
         -
           name: Wouter de Vries
-        -
+    
           name: Moritz Müller
         -
           name: Lan Wei
@@ -220,23 +221,39 @@ informative:
               name: Nicole Perlroth
           date: October 2016
 
+  VerfSrc:
+          title: Verfploeter source code
+          target: https://github.com/Woutifier/verfploeter
+          author:
+            -
+              name: Wouter de Vries
+          date: November 2018
 
 --- abstract
 
 This document summarizes recent research work exploring DNS configurations and offers specific, tangible recommendations to operators for configuring authoritative servers.
 
+
 <!-- should be part of 'status of this memo'-section, but was unable to figure out for now how to do that - MD -->
 This document is not an Internet Standards Track specification; it is published for informational purposes.
+
+--- note_Ed_note
+
+Text inside square brackets (\[RF:ABC\])  refers to individual comments we have received about the draft, and enumerated under \<https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/blob/master/reviews/reviews-dnsop.md\>. They will be removed before publication.
+
+This draft is being hosted on GitHub -- \<https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations\>, where the most recent version of the document and open issues can be found. The authors gratefully accept pull requests.
+
 
 --- middle
 
 Introduction        {#intro}
 ============
 
-
 <!---
 XXX: need to use DNS terminology RFC7719.
+Open an issue on github to remind us of that - GMo
 -->
+
 
 The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2181}}. A recursive resolver is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client, in {{recuath}}, is shown as stub, which is shorthand for stub resolver {{RFC1034}} that is typically located within the client software.
 
@@ -277,7 +294,8 @@ Also, in a more direct language, applied
 -->
 
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
-It presents recommendations for operators of large authoritative servers (such as those for top-level domains).
+\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  It presents recommendations for operators of large authoritative servers (such as those for top-level domains) that have as goal both high availability and lower latency to clients.
+
 These recommendations are derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, how to accurately map anycast network reanch {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
 
 These recommendations are designed for operators of "large" authoritative
@@ -288,7 +306,7 @@ such as those used by an organization with users in one city or region,
 where goals such as uniform low latency are less strict.
 
 
-# R1: All authoritative server should have similar latency
+# R1:  Use equaly strong IP anycast in every authoritative server to achieve even load distribution
 
 
 Authoritative DNS servers operators, such as Top-level domain (TLD) operators (e.g.,: .org and .nl), announce their authoritative servers in the form of Name Server (NS) records. Different authoritatives should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
@@ -297,15 +315,10 @@ DNS heavily relies upon replication to support high reliability,
 capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
 a DNS zone through the use of multiple nameservers that each operate on different IP addresses, listed by a zone's NS records. Second, each of these network addresses can run from multiple physical locations through the use of
 IP anycast{{RFC1546}}, by announcing the same IP address from each site and allowing Internet routing
-(BGP{{RFC4271}}) to associate clients with their topologically nearest anycast site. Outside the DNS protocol, replication can be achieved by deploying load balancers at each physical location.  Nameserver replication is recommended for all zones, and IP anycast is used by most large zones such as the DNS Root, most top-level domains{{Moura16b}} and large commercial enterprises, governments and other organizations.
+(BGP{{RFC4271}}) to associate clients with their topologically nearest anycast site. Outside the DNS protocol, replication can be achieved by deploying load balancers at each physical location.  Nameserver replication is recommended for all zones (multiple NS records), and IP anycast is used by most large zones such as the DNS Root, most top-level domains{{Moura16b}} and large commercial enterprises, governments and other organizations.
 
 Most DNS operators strive to reduce latency for users of their service.
-However, because they control only their authoritative servers,
-  and not the recursive resolvers communicating with those servers,
-  it is difficult to ensure that recursives will be served by the closest authoritative
-  server. Server selection is up to the recursive resolver's software implementation,
-  and different software vendors and releases employ different criteria to
-chose which authoritative servers with which to communicate.
+However, because they control only their authoritative servers, and not the recursive resolvers communicating with those servers, it is difficult to ensure that recursives will be served by the closest authoritative server. Server selection is up to the recursive resolver's software implementation, and different software vendors and releases employ different criteria to chose which authoritative servers with which to communicate.
 
 Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. {{Mueller17b}}  evaluates this with a measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points---VPs) and their respective recursive resolvers.
 
@@ -313,7 +326,7 @@ Knowing how recursives choose authoritative servers is a key step to better engi
 In the wild,  {{Mueller17b}}  found that recursives query all available authoritative servers, regardless of latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between a recursive resolver and an authoritative server, the more often the recursive will send queries to that authoritative. Our hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all recursives to determine which is closer and to provide alternatives if one is unavailable.
 
 
-For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (and thus to phase out unicast), so they can deliver similar {xxx: I don't think similar is the right word here. "good" or "best possible"? -- Wes} latency values to recursives. Having one or few unicast authoritative will limit the worst-case latency for most users {xxx: I don't understand what this sentence is trying to bring up as a point but can't fix it without potentially changing the meaning in a way that wasn't intended -- Wes}. Note that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (and thus to phase out unicast), so they can deliver similar and lower {xxx: I don't think similar is the right word here. "good" or "best possible"? -- Wes} latency values to recursiv. Note that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
 
 This recommendation was deployed at the ".nl" TLD zone, which originally had a mixed unicast/anycast setup; since early 2018 it now has 4 anycast authoritative name servers.
 
@@ -327,7 +340,7 @@ However, this is not necessarily true. In fact,  {{Schmidt17a}}  found   that ro
 {{Schmidt17a}}  found  that C-Root, a smaller anycast deployment consisting of only 8 sites, provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 sites respectively. A median RTT was measured between 30ms and 32ms for C, K and L roots, and 25ms for F.
 
 
-Their recommendation for DNS operators when engineering anycast services is consider factors other than just the number of sites (such as local routing connectivity) when designing for performance. They showed that 12 sites can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more sites can be useful for other reasons, such as when handling DoS attacks {{Mueller17b}}.
+Their recommendation for DNS operators when engineering anycast services is consider factors other than just the number of sites (such as local routing connectivity) when designing for performance. They showed that 12 sites can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more sites can be useful for other reasons, such as when handling DDoS attacks {{Mueller17b}}.
 
 
 
@@ -337,7 +350,7 @@ An anycast DNS service may have several dozens or even hundreds sites (such as L
 
 Adding new sites to an anycast service may change the load distribution across all sites, leading to suboptimal usage of the service or even stressing some sites while others remain underutilized. This is a scenario that operators constantly face when expanding an anycast service. Besides, when setting up a new anycast service instance, operators cannot directly estimate the query distribution among the sites in advance of enabling the site.
 
-To estimate the query loads across sites of an expanding service or a when setting up an entirely new service, operators need detailed anycast maps and catchment estimates (i.e., operators need to know which prefixes will be matched to which anycast site). To do that, {{Vries17b}} developed a new technique enabling operators to carry out active measurements, using a technique and tool called Verfploeter. Verfploeter maps a large portion of the IPv4 address space, allowing DNS operators to predict both query distribution and clients catchment before deploying new anycast sites.
+To estimate the query loads across sites of an expanding service or a when setting up an entirely new service, operators need detailed anycast maps and catchment estimates (i.e., operators need to know which prefixes will be matched to which anycast site). To do that, {{Vries17b}} developed a new technique enabling operators to carry out active measurements, using a technique and an open-source tool called Verfploeter (available at [VerfSrc]). Verfploeter maps a large portion of the IPv4 address space, allowing DNS operators to predict both query distribution and clients catchment before deploying new anycast sites.
 
 
 {{Vries17b}} shows how this technique was used to predict both the catchment and query load distribution for the new anycast service of B-Root. Using two anycast sites in Miami (MIA) and Los Angeles (LAX) from the operational B-Root server, they sent ICMP echo packets to IP addresses from each IPv4 /24 in on the Internet using a source address within the anycast prefix. Then, they recorded which site the ICMP echo replies arrived at based on the Internet's BGP routing.  This analysis resulted in an Internet wide catchment map. Weighting was then applied to the incoming traffic prefixes based on of 1 day of B-Root traffic (2017-04-12, DITL datasets {{Ditl17}}).  The combination of the created catchment mapping and the load per prefix created an estimate predicting that 81.6% of the traffic would go to the LAX site. The actual value was 81.4% of traffic going to LAX, showing that the estimation was pretty close and the Verfploeter technique was a excellent method of predicting traffic loads in advance of a new anycast instance deployment.
@@ -367,32 +380,33 @@ Although described as strategies and policies, these outcomes are the result of 
 {{Moura16b}} speculates that more careful, explicit, and automated management of policies may provide stronger defenses to overload, an area currently under study. For DNS operators, that means that besides traditional filtering, two other options are available (withdraw/prepend or isolate sites), and the best choice depends on the specifics of the attack.
 
 
-# R5: Be careful on how to choose your records time-to-live values
+# R5: Consider longer time-to-live values whenever possible
 
 In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by zone owners in their zone files -- either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values -- one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2181}}.
 
-
 While set by authoritative server operators (labeled "AT"s in {{recuath}}), the TTL value in fact influences the behavior of recursive resolvers (and their operators -- "Rn" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
-In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times (by avoiding repeated queries between recursive resolvers and authoritative).
+In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times by avoiding repeated queries between recursive resolvers and authoritative.
 
-Besides improving performance, caching may play a significant role during DoS attacks against authoritative servers. To investigate that, {{Moura18b}} evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.
 
-{{Moura18b}} found that caching, in the wild, works as expected 70% of the times -- for various TTL values. It is believe that Complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of the non-cached records. The results from the experiments were confirmed by analyzing authoritative traffic for the .nl TLD, which showed similar figures.
+Besides improving performance, it has been argued that caching plays a significant role in protecting users during DDoS attacks against authoritative servers.  To investigate that, {{Moura18b}} evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.
 
-DDoS attacks on authoritative servers were emulated by dropping all incoming pakcets for various TTLs values. The results showed:
+{{Moura18b}} found that , under normal operations, caching works as expected 70% of the times in the wild.  It is believe that complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of the non-cached records. The results from the experiments were confirmed by analyzing authoritative traffic for the .nl TLD, which showed similar figures.
 
-* When 100% of requests were dropped, the TTL value of the record set by the zone owner determined how long clients received responses, together with the status of the cache at the attack time. Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.  
-   * Once the TTL values expired, there was some evidence of some recursives serving stale content {{  I-D.ietf-dnsop-terminology-bis}}. Serving stale is the only viable option when TTL values expire in recursive caches and authoritative servers became completely unavailable.
+{{Moura18b}} also emulated DDoS attacks  on authoritative servers were emulated by dropping all incoming packets for various TTLs values. For experiments when all authoritative servers were completely unreachable, they found that TTL value on the DNS records  determined how long clients received responses, together with the status of the cache at the attack time.  Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.
+Once the TTL expires,  there was some evidence of some recursives serving stale content {{  I-D.ietf-dnsop-terminology-bis}}. Serving stale is the only viable option when TTL values expire in recursive caches and authoritative servers became completely unavailable.
 
-Partial-failure DDoS failures were also emulated (similar to Dyn 2016 {{Perlroth16}}), simulating when authoritative are partially available, by dropping packet at rates of 50-90%, for various TTL values. The results showed:
+They also emulated  partial-failure DDoS failures were also emulated (similar to Dyn 2016 {{Perlroth16}},  by dropping packet at rates of 50-90%, for various TTL values. They found that:
 
-   *  For various TTL values, caching was a key component in the success of queries. For example, with a 50% packet drop rate at the authoritatives,  most clients eventually got an answer.
-   *  When caching could not help (for a scenario with TTL of 60s, and time in between probing of 10 minutes), recursive servers kept retrying queries to authoritatives: at 90% packet drop with TTL of 60s, 27% of clients still got an answer, at the price of increased response times.
-   * The study also showed that these retries have a significant effect on the authoriative side: A 8.1x times increase was seen in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries -- thus effectively creating "friendly fire".
+   *  Caching was a key component in the success of queries. For example, with a 50% packet drop rate at the authoritatives,  most clients eventually got an answer.
+   *  Recursives retries was also a key part of resilience: when caching could not help (for a scenario with TTL of 60s, and time in between probing of 10 minutes), recursive servers kept retrying queries to authoritatives. With 90% packet drop on both authoritatives (with TTL of 60s), 27% of clients still got an answer due to retries, at the price of increased response times. However, this came with a price for authroritative servers: a 8.1 times increase in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries -- thus effectively creating "friendly fire".
 
-Therefore, given the important role of the TTL, it is recommended that DNS zone owners set their TTL values carefully, knowing that they will influence (i) the success of client's queries and (ii) the amount of "friendly fire" traffic they will receive. Many operators may as well reconsider their 10x overprovision metric for DNS servers, given this significant increase legitimate traffic during DDoS.
 
-XXX: WJH: I don't understand what that last sentence is trying to suggest.  Specifically "reconsider their 10x overprovision metric".   Is it suggested that it doesn't need to be that high if the TTL values are chosen more carefully?  We should state that specifically, if that's the case as it's hard to derive from that sentence.  Or is it trying to say it needs to be higher than 10x with short TTLs?  Or both!
+Altogether, these results help to explain why previous attacks against the Roots were not noticed by most users {{Moura18b}} and why other attacks (such as Dyn 2016 {{Perlroth16}}\) had significant impact on users experience: records on the Root zone have TTL values ranging from 1 to 6 days, while some of unreachable Dyn clients had TTL values ranging from 120 to 300s, which limit how long records ought to be cached.
+
+Therefore, given the important role of the TTL on user's experience during a DDoS attack (and in reducing ''friendly fire''), it is recommended that DNS zone owners set their TTL values carefully, using reasonable TTL values (at least 1 hour) whenever possible, given its role in DNS resilience against DDoS attacks.
+However, the choice of the value depends on the specifics of each operator (CDNs are known for using TTL values in the range of few minutes).
+The drawback of setting larger TTL values is that changes on the authoritative system infrastructure (e.g.: adding a new authoritative server or changing IP address) will take at least as long as the TTL to propagate among clients.
+
 
 # R6: Shared Infrastructure Risks Collateral Damage During Attacks
 

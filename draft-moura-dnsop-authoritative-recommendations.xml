@@ -95,6 +95,17 @@
     </abstract>
 
 
+    <note title="Ed note">
+
+
+<t>Text inside square brackets ([RF:ABC])  refers to individual comments we have received about the draft, and enumerated under &lt;https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/blob/master/reviews/reviews-dnsop.md&gt;. They will be removed before publication.</t>
+
+<t>This draft is being hosted on GitHub &#8211; &lt;https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations&gt;, where the most recent version of the document and open issues can be found. The authors gratefully accept pull requests.</t>
+
+
+    </note>
+
+
   </front>
 
   <middle>
@@ -104,6 +115,7 @@
 
 <!---
 XXX: need to use DNS terminology RFC7719.
+Open an issue on github to remind us of that - GMo
 -->
 
 <t>The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. <xref target="recuath"/> shows their relationship. An authoritative server knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers <xref target="RFC2181"/>. A recursive resolver is a program that extracts information from name servers in response to client requests <xref target="RFC1034"/>. A client, in <xref target="recuath"/>, is shown as stub, which is shorthand for stub resolver <xref target="RFC1034"/> that is typically located within the client software.</t>
@@ -146,8 +158,9 @@ Also, in a more direct language, applied
 -->
 
 <t>This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
-It presents recommendations for operators of large authoritative servers (such as those for top-level domains).
-These recommendations are derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks<xref target="Moura16b"/>, how anycast affects query latency<xref target="Schmidt17a"/>, how to accurately map anycast network reanch <xref target="Vries17b"/>, how recursive and authoritative resolvers interact<xref target="Mueller17b"/>, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives<xref target="Moura18b"/>. The recommendations (R1&#8211;R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.</t>
+[RF:JAb2]],  [RF:MSJ1], [RF:DW2].  It presents recommendations for operators of large authoritative servers (such as those for top-level domains) that have as goal both high availability and lower latency to clients.</t>
+
+<t>These recommendations are derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks<xref target="Moura16b"/>, how anycast affects query latency<xref target="Schmidt17a"/>, how to accurately map anycast network reanch <xref target="Vries17b"/>, how recursive and authoritative resolvers interact<xref target="Mueller17b"/>, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives<xref target="Moura18b"/>. The recommendations (R1&#8211;R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.</t>
 
 <t>These recommendations are designed for operators of "large" authoritative
 servers for domains like TLDs.
@@ -157,7 +170,7 @@ such as those used by an organization with users in one city or region,
 where goals such as uniform low latency are less strict.</t>
 
 </section>
-<section anchor="r1-all-authoritative-server-should-have-similar-latency" title="R1: All authoritative server should have similar latency">
+<section anchor="r1-use-equaly-strong-ip-anycast-in-every-authoritative-server-to-achieve-even-load-distribution" title="R1:  Use equaly strong IP anycast in every authoritative server to achieve even load distribution">
 
 <t>Authoritative DNS servers operators, such as Top-level domain (TLD) operators (e.g.,: .org and .nl), announce their authoritative servers in the form of Name Server (NS) records. Different authoritatives should return the same content, typically by staying synchronized using DNS zone transfers (AXFR<xref target="RFC5936"/> and IXFR<xref target="RFC1995"/>) to coordinate the authoritative zone data to return to their clients.</t>
 
@@ -165,21 +178,16 @@ where goals such as uniform low latency are less strict.</t>
 capacity and to reduce latency <xref target="Moura16b"/>. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
 a DNS zone through the use of multiple nameservers that each operate on different IP addresses, listed by a zone's NS records. Second, each of these network addresses can run from multiple physical locations through the use of
 IP anycast<xref target="RFC1546"/>, by announcing the same IP address from each site and allowing Internet routing
-(BGP<xref target="RFC4271"/>) to associate clients with their topologically nearest anycast site. Outside the DNS protocol, replication can be achieved by deploying load balancers at each physical location.  Nameserver replication is recommended for all zones, and IP anycast is used by most large zones such as the DNS Root, most top-level domains<xref target="Moura16b"/> and large commercial enterprises, governments and other organizations.</t>
+(BGP<xref target="RFC4271"/>) to associate clients with their topologically nearest anycast site. Outside the DNS protocol, replication can be achieved by deploying load balancers at each physical location.  Nameserver replication is recommended for all zones (multiple NS records), and IP anycast is used by most large zones such as the DNS Root, most top-level domains<xref target="Moura16b"/> and large commercial enterprises, governments and other organizations.</t>
 
 <t>Most DNS operators strive to reduce latency for users of their service.
-However, because they control only their authoritative servers,
-  and not the recursive resolvers communicating with those servers,
-  it is difficult to ensure that recursives will be served by the closest authoritative
-  server. Server selection is up to the recursive resolver's software implementation,
-  and different software vendors and releases employ different criteria to
-chose which authoritative servers with which to communicate.</t>
+However, because they control only their authoritative servers, and not the recursive resolvers communicating with those servers, it is difficult to ensure that recursives will be served by the closest authoritative server. Server selection is up to the recursive resolver's software implementation, and different software vendors and releases employ different criteria to chose which authoritative servers with which to communicate.</t>
 
 <t>Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. <xref target="Mueller17b"/>  evaluates this with a measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points&#8212;VPs) and their respective recursive resolvers.</t>
 
 <t>In the wild,  <xref target="Mueller17b"/>  found that recursives query all available authoritative servers, regardless of latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between a recursive resolver and an authoritative server, the more often the recursive will send queries to that authoritative. Our hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all recursives to determine which is closer and to provide alternatives if one is unavailable.</t>
 
-<t>For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  <xref target="Mueller17b"/>  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (and thus to phase out unicast), so they can deliver similar {xxx: I don't think similar is the right word here. "good" or "best possible"? &#8211; Wes} latency values to recursives. Having one or few unicast authoritative will limit the worst-case latency for most users {xxx: I don't understand what this sentence is trying to bring up as a point but can't fix it without potentially changing the meaning in a way that wasn't intended &#8211; Wes}. Note that DNS operators should also take architectural considerations into account when planning for deploying anycast <xref target="RFC1546"/>.</t>
+<t>For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursives. Since unicast cannot deliver good latency worldwide (a site in Europe will always have a high latency to resolvers in California, for example),  <xref target="Mueller17b"/>  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (and thus to phase out unicast), so they can deliver similar and lower {xxx: I don't think similar is the right word here. "good" or "best possible"? &#8211; Wes} latency values to recursiv. Note that DNS operators should also take architectural considerations into account when planning for deploying anycast <xref target="RFC1546"/>.</t>
 
 <t>This recommendation was deployed at the ".nl" TLD zone, which originally had a mixed unicast/anycast setup; since early 2018 it now has 4 anycast authoritative name servers.</t>
 
@@ -192,7 +200,7 @@ chose which authoritative servers with which to communicate.</t>
 
 <t><xref target="Schmidt17a"/>  found  that C-Root, a smaller anycast deployment consisting of only 8 sites, provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 sites respectively. A median RTT was measured between 30ms and 32ms for C, K and L roots, and 25ms for F.</t>
 
-<t>Their recommendation for DNS operators when engineering anycast services is consider factors other than just the number of sites (such as local routing connectivity) when designing for performance. They showed that 12 sites can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more sites can be useful for other reasons, such as when handling DoS attacks <xref target="Mueller17b"/>.</t>
+<t>Their recommendation for DNS operators when engineering anycast services is consider factors other than just the number of sites (such as local routing connectivity) when designing for performance. They showed that 12 sites can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more sites can be useful for other reasons, such as when handling DDoS attacks <xref target="Mueller17b"/>.</t>
 
 </section>
 <section anchor="r3-collecting-detailed-anycast-catchment-maps-ahead-of-actual-deployment-can-improve-engineering-designs" title="R3: Collecting Detailed Anycast Catchment Maps Ahead of Actual Deployment Can Improve Engineering Designs">
@@ -201,7 +209,7 @@ chose which authoritative servers with which to communicate.</t>
 
 <t>Adding new sites to an anycast service may change the load distribution across all sites, leading to suboptimal usage of the service or even stressing some sites while others remain underutilized. This is a scenario that operators constantly face when expanding an anycast service. Besides, when setting up a new anycast service instance, operators cannot directly estimate the query distribution among the sites in advance of enabling the site.</t>
 
-<t>To estimate the query loads across sites of an expanding service or a when setting up an entirely new service, operators need detailed anycast maps and catchment estimates (i.e., operators need to know which prefixes will be matched to which anycast site). To do that, <xref target="Vries17b"/> developed a new technique enabling operators to carry out active measurements, using a technique and tool called Verfploeter. Verfploeter maps a large portion of the IPv4 address space, allowing DNS operators to predict both query distribution and clients catchment before deploying new anycast sites.</t>
+<t>To estimate the query loads across sites of an expanding service or a when setting up an entirely new service, operators need detailed anycast maps and catchment estimates (i.e., operators need to know which prefixes will be matched to which anycast site). To do that, <xref target="Vries17b"/> developed a new technique enabling operators to carry out active measurements, using a technique and an open-source tool called Verfploeter (available at <xref target="VerfSrc"></xref>). Verfploeter maps a large portion of the IPv4 address space, allowing DNS operators to predict both query distribution and clients catchment before deploying new anycast sites.</t>
 
 <t><xref target="Vries17b"/> shows how this technique was used to predict both the catchment and query load distribution for the new anycast service of B-Root. Using two anycast sites in Miami (MIA) and Los Angeles (LAX) from the operational B-Root server, they sent ICMP echo packets to IP addresses from each IPv4 /24 in on the Internet using a source address within the anycast prefix. Then, they recorded which site the ICMP echo replies arrived at based on the Internet's BGP routing.  This analysis resulted in an Internet wide catchment map. Weighting was then applied to the incoming traffic prefixes based on of 1 day of B-Root traffic (2017-04-12, DITL datasets <xref target="Ditl17"/>).  The combination of the created catchment mapping and the load per prefix created an estimate predicting that 81.6% of the traffic would go to the LAX site. The actual value was 81.4% of traffic going to LAX, showing that the estimation was pretty close and the Verfploeter technique was a excellent method of predicting traffic loads in advance of a new anycast instance deployment.</t>
 
@@ -232,37 +240,32 @@ chose which authoritative servers with which to communicate.</t>
 <t><xref target="Moura16b"/> speculates that more careful, explicit, and automated management of policies may provide stronger defenses to overload, an area currently under study. For DNS operators, that means that besides traditional filtering, two other options are available (withdraw/prepend or isolate sites), and the best choice depends on the specifics of the attack.</t>
 
 </section>
-<section anchor="r5-be-careful-on-how-to-choose-your-records-time-to-live-values" title="R5: Be careful on how to choose your records time-to-live values">
+<section anchor="r5-consider-longer-time-to-live-values-whenever-possible" title="R5: Consider longer time-to-live values whenever possible">
 
 <t>In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" <xref target="RFC1034"/>. The TTL values are set by zone owners in their zone files &#8211; either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values &#8211; one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in <xref target="RFC2181"/>.</t>
 
 <t>While set by authoritative server operators (labeled "AT"s in <xref target="recuath"/>), the TTL value in fact influences the behavior of recursive resolvers (and their operators &#8211; "Rn" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
-In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times (by avoiding repeated queries between recursive resolvers and authoritative).</t>
+In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times by avoiding repeated queries between recursive resolvers and authoritative.</t>
 
-<t>Besides improving performance, caching may play a significant role during DoS attacks against authoritative servers. To investigate that, <xref target="Moura18b"/> evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.</t>
+<t>Besides improving performance, it has been argued that caching plays a significant role in protecting users during DDoS attacks against authoritative servers.  To investigate that, <xref target="Moura18b"/> evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.</t>
 
-<t><xref target="Moura18b"/> found that caching, in the wild, works as expected 70% of the times &#8211; for various TTL values. It is believe that Complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of the non-cached records. The results from the experiments were confirmed by analyzing authoritative traffic for the .nl TLD, which showed similar figures.</t>
+<t><xref target="Moura18b"/> found that , under normal operations, caching works as expected 70% of the times in the wild.  It is believe that complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of the non-cached records. The results from the experiments were confirmed by analyzing authoritative traffic for the .nl TLD, which showed similar figures.</t>
 
-<t>DDoS attacks on authoritative servers were emulated by dropping all incoming pakcets for various TTLs values. The results showed:</t>
+<t><xref target="Moura18b"/> also emulated DDoS attacks  on authoritative servers were emulated by dropping all incoming packets for various TTLs values. For experiments when all authoritative servers were completely unreachable, they found that TTL value on the DNS records  determined how long clients received responses, together with the status of the cache at the attack time.  Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.
+Once the TTL expires,  there was some evidence of some recursives serving stale content <xref target="  I-D.ietf-dnsop-terminology-bis"/>. Serving stale is the only viable option when TTL values expire in recursive caches and authoritative servers became completely unavailable.</t>
 
-<t><list style="symbols">
-  <t>When 100% of requests were dropped, the TTL value of the record set by the zone owner determined how long clients received responses, together with the status of the cache at the attack time. Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.
-  <list style="symbols">
-      <t>Once the TTL values expired, there was some evidence of some recursives serving stale content <xref target="  I-D.ietf-dnsop-terminology-bis"/>. Serving stale is the only viable option when TTL values expire in recursive caches and authoritative servers became completely unavailable.</t>
-    </list></t>
-</list></t>
-
-<t>Partial-failure DDoS failures were also emulated (similar to Dyn 2016 <xref target="Perlroth16"/>), simulating when authoritative are partially available, by dropping packet at rates of 50-90%, for various TTL values. The results showed:</t>
+<t>They also emulated  partial-failure DDoS failures were also emulated (similar to Dyn 2016 <xref target="Perlroth16"/>,  by dropping packet at rates of 50-90%, for various TTL values. They found that:</t>
 
 <t><list style="symbols">
-  <t>For various TTL values, caching was a key component in the success of queries. For example, with a 50% packet drop rate at the authoritatives,  most clients eventually got an answer.</t>
-  <t>When caching could not help (for a scenario with TTL of 60s, and time in between probing of 10 minutes), recursive servers kept retrying queries to authoritatives: at 90% packet drop with TTL of 60s, 27% of clients still got an answer, at the price of increased response times.</t>
-  <t>The study also showed that these retries have a significant effect on the authoriative side: A 8.1x times increase was seen in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries &#8211; thus effectively creating "friendly fire".</t>
+  <t>Caching was a key component in the success of queries. For example, with a 50% packet drop rate at the authoritatives,  most clients eventually got an answer.</t>
+  <t>Recursives retries was also a key part of resilience: when caching could not help (for a scenario with TTL of 60s, and time in between probing of 10 minutes), recursive servers kept retrying queries to authoritatives. With 90% packet drop on both authoritatives (with TTL of 60s), 27% of clients still got an answer due to retries, at the price of increased response times. However, this came with a price for authroritative servers: a 8.1 times increase in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries &#8211; thus effectively creating "friendly fire".</t>
 </list></t>
 
-<t>Therefore, given the important role of the TTL, it is recommended that DNS zone owners set their TTL values carefully, knowing that they will influence (i) the success of client's queries and (ii) the amount of "friendly fire" traffic they will receive. Many operators may as well reconsider their 10x overprovision metric for DNS servers, given this significant increase legitimate traffic during DDoS.</t>
+<t>Altogether, these results help to explain why previous attacks against the Roots were not noticed by most users <xref target="Moura18b"/> and why other attacks (such as Dyn 2016 <xref target="Perlroth16"/>) had significant impact on users experience: records on the Root zone have TTL values ranging from 1 to 6 days, while some of unreachable Dyn clients had TTL values ranging from 120 to 300s, which limit how long records ought to be cached.</t>
 
-<t>XXX: WJH: I don't understand what that last sentence is trying to suggest.  Specifically "reconsider their 10x overprovision metric".   Is it suggested that it doesn't need to be that high if the TTL values are chosen more carefully?  We should state that specifically, if that's the case as it's hard to derive from that sentence.  Or is it trying to say it needs to be higher than 10x with short TTLs?  Or both!</t>
+<t>Therefore, given the important role of the TTL on user's experience during a DDoS attack (and in reducing ''friendly fire''), it is recommended that DNS zone owners set their TTL values carefully, using reasonable TTL values (at least 1 hour) whenever possible, given its role in DNS resilience against DDoS attacks.
+However, the choice of the value depends on the specifics of each operator (CDNs are known for using TTL values in the range of few minutes).
+The drawback of setting larger TTL values is that changes on the authoritative system infrastructure (e.g.: adding a new authoritative server or changing IP address) will take at least as long as the TTL to propagate among clients.</t>
 
 </section>
 <section anchor="r6-shared-infrastructure-risks-collateral-damage-during-attacks" title="R6: Shared Infrastructure Risks Collateral Damage During Attacks">
@@ -334,9 +337,6 @@ Here we mention the papers co-authors and  thank them for their work:
       <organization></organization>
     </author>
     <author initials="J." surname="Heidemann" fullname="John Heidemann">
-      <organization></organization>
-    </author>
-    <author initials="W.d." surname="Vries" fullname="Wouter de Vries">
       <organization></organization>
     </author>
     <author initials="M." surname="Mueller" fullname="Moritz Mueller">
@@ -484,6 +484,15 @@ Here we mention the papers co-authors and  thank them for their work:
     <date year="2016" month="October"/>
   </front>
 </reference>
+<reference anchor="VerfSrc" target="https://github.com/Woutifier/verfploeter">
+  <front>
+    <title>Verfploeter source code</title>
+    <author initials="W.d." surname="Vries" fullname="Wouter de Vries">
+      <organization></organization>
+    </author>
+    <date year="2018" month="November"/>
+  </front>
+</reference>
 
 
     </references>
@@ -493,255 +502,264 @@ Here we mention the papers co-authors and  thank them for their work:
   </back>
 
 <!-- ##markdown-source:
-H4sIAAzeAFwAA7V963LjyJXmfz5FjjocLblJlKh7yettq6TuLrXrolCpXd4/
-ngDBJAkLBLhIUCp2uTbmHeZ19t++yT7Jnu+ck4kESanajp2eiDGLBPJyrt+5
-ZGowGPSavCnsubm1WTWf23KcNnlVOjOpanOxbGZVnTf01YM1H2z9YGtn3i9s
-nTZV7XrpaFTbB//uoPP44P3C9cZVVqZzGn1cp5NmMK+WdToYl65aDNLOw3V3
-9sH+fo8+2vNe7xvjmrQc/3taVCUN1NRL2+vli5o/uuZgf//l/kEvrW16bq7L
-xtalbXqP03Nz9e7D+xvzsarv83Jqfqqr5cKY3v1j+9jgCqvqZWlzbvJyUvV6
-WTWmh8/N0g1Sl+V5b5GfG/rvG5OlJX1rTVrX6crs5hOTFoVZWbdniFCz1M3M
-zNaWlmsGpqky+eCquqntxOm/VnP+h8ED53iZPvpHznmasZ2ky6Jx9IT/XV6S
-x3tCtfOe4f8G+r+Glk9P/JSYy+RtYt6CzOEnYcBPefWQlpYeMBtPVDVt+cP1
-1TvzJh25F3e/mCtbEGH8744WaIlGby0xwtbmeH8YfsvyZnVuLupyZuftl9WY
-pjw5Ozg2b6+ib5dlU9PTdzNr3tmG6FXQgC48sJgxi787HJqDE3N4fGCOj0kQ
-/M92nubFuZnKThIWpj+5fFwmZbGdIB8T8zqtx+m9rdfI8dG6zZ+YDr98uHxx
-TcJQz1kUzYcst2VGj1+XjlRl2dgNuty8N6+qT+bw7GCNLFfpQ+7WqPLy+GR4
-OtjvPOwJ80vyIblI1ulhvhua3ePD/T1ztH9EmvHy5TpJcttM/jTT7bgEGrCV
-Hj8TPWw+prfKco0gP1ezcsuP/ypJjk5OT8zFeJ7XadGszMd0tUaat2mdlykE
-jazHap1G+wcvDwYnJy+P/ykaHQ5Bo6Ozwdnp/tk6jf5OG5z9KXd5YsdL/9s6
-mZhKpB9gXCuYQiFacVat/dLVHP/tNp14Roe2asvXlOV5XdE9z7HkZMxL9poS
-tt4rhaEPsLLGXA+uEsiRmmeykPO8rIpquhqMcgeLU0+yg+HZUD8O9w+P9OPp
-/kv/cXh8dNI+cOw/vnzpPx6/PPQPHB2c0mDfzFLyLWTunLVmVj3iYzoeG9ox
-mVsyfWRVWdhI8OglMqWzplm48xcvmqoqHK85IT68mDXz4gVWc3py9I2zGUR1
-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
+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
+lZxo8P8Bgcmq6gF8AAA=
 
 -->
 
