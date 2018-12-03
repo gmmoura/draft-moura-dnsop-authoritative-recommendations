@@ -93,7 +93,7 @@ informative:
           name: John Heidemann
         -
           name: Wouter de Vries
-    
+
           name: Moritz Müller
         -
           name: Lan Wei
@@ -276,8 +276,7 @@ The domain name system (DNS) has main two types of DNS servers: authoritative se
                               +------+
 {: #recuath title="Relationship between recursive resolvers (R) and authoritative name servers (AT)"}
 
-<!-- I prefer not to use 'web latency' here, is it needed? - MD -->
-DNS queries contribute to web latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC7094}} <!-- also RFC4786 ? - MD -->and by using load balancers to support multiple servers inside a single (potentially anycasted) site. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
+DNS queries contribute to user's perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC7094}} <!-- also RFC4786 ? - MD -->and by using load balancers to support multiple servers inside a single (potentially anycasted) site. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
 <!---
 this next para is key: what are you trying to accomplish.
@@ -294,16 +293,23 @@ Also, in a more direct language, applied
 -->
 
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
-\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  It presents recommendations for operators of large authoritative servers (such as those for top-level domains) that have as goal both high availability and lower latency to clients.
+\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
 
-These recommendations are derived from multiple studies with the goal of improving DNS engineering, to promote understanding about how anycast reacts to DoS attacks{{Moura16b}}, how anycast affects query latency{{Schmidt17a}}, how to accurately map anycast network reanch {{Vries17b}}, how recursive and authoritative resolvers interact{{Mueller17b}}, and how recursive resolver caching and retries help clients during DDoS attacks on authoritatives{{Moura18b}}. The recommendations (R1–R6) presented in this document are backed by these studies, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
-
+\[RF:JAb1].
 These recommendations are designed for operators of "large" authoritative
 servers for domains like TLDs.
 "Large" authoritative servers mean those with a significant global user population.
 These recommendations may not be appropriate for smaller domains,
 such as those used by an organization with users in one city or region,
 where goals such as uniform low latency are less strict.
+
+This recommendations  provided here are for authoritative DNS zone owners and
+server operators, as the studies cited in this publication were analyzing authoritative DNS zones and services.  It is likely that these recommendations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
+conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only.
+
+
+
+
 
 
 # R1:  Use equaly strong IP anycast in every authoritative server to achieve even load distribution
