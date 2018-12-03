@@ -295,7 +295,7 @@ Also, in a more direct language, applied
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
 \[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
 
-\[RF:JAb1].
+\[RF:JAb1, Issue#2].
 These recommendations are designed for operators of "large" authoritative
 servers for domains like TLDs.
 "Large" authoritative servers mean those with a significant global user population.
