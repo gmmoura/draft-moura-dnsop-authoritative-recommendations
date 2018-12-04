@@ -9,7 +9,7 @@
 
    * Please edit *draft-moura-dnsop-authoritative-recommendations.mkd*
    * See Makefile 
-   * Please use https://github.com/cabo/kramdown-rfc2629/blob/master/README.md to compile the draft
+   * Please use https://github.com/cabo/kramdown-rfc2629 to compile the draft
 
 
    
