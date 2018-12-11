@@ -457,8 +457,6 @@ It is recommended, therefore, when choosing third-party DNS providers, operators
 This document has no IANA actions.
 <!-- RFC8126 style - MD -->
 
-<!-- this would be an unusual ending section to have; not that it can't be used but summaries aren't common in IETF documents - WJH -->
-<!-- Indeed, this is unusual, see RFC7322 for guidance - MD -->
 
 # Acknowledgements
 
