@@ -379,7 +379,7 @@ Besides that, Verfploeter can also be used to estimate how traffic shifts among 
 
 An important operational takeaway from {{Vries17b}} is that DNS operators can make informed choices when engineering new anycast sites or when expending new ones by carrying out active measurements using Verfploeter in advance of operationally enabling the fully anycast service.  Operators can spot sub-optimal routing situations early, with a fine granularity, and with significantly better coverage than using traditional measurement platforms such as RIPE Atlas.
 
- To date, Verfploeter has been deployed on B-Root{{Vries17b}}, on a operational testbed (Anycast testbed) {{AnyTest}}, and a large unnamed operator.
+ To date, Verfploeter has been deployed on B-Root{{Vries17b}}, on a operational testbed (Anycast testbed) {{AnyTest}}, and on a large unnamed operator.
 
 The recommendation is therefore to deploy  a small test Verfploeter-enabled platform in advance at a potential anycast site may reveal the realizable benefits of using that site as an anycast interest, potentially saving significant financial and labor costs of deploying hardware to a new site that was less effective than as had been hoped.
 
@@ -459,7 +459,7 @@ This document has no IANA actions.
 
 
 # Acknowledgements
-
+4
 This document is a summary of the main lessons of the research works mentioned on each recommendation here provided. As such, each author of each paper has a clear contribution.
 
 Here we mention the papers co-authors and  thank them for their work:
