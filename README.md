@@ -14,3 +14,8 @@
 
    
    *  Fri Nov 30 13:00:34 UTC 2018
+
+## Discussion on IETF-DNSOP list:
+
+   * Version 00 discussion thread: https://mailarchive.ietf.org/arch/msg/dnsop/AMMr6dDDUmShnG90URv6AJCY_VQ
+   
