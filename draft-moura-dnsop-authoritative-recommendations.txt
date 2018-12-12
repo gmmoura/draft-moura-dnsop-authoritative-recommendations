@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: June 14, 2019                                      J. Heidemann
+Expires: June 15, 2019                                      J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                       December 11, 2018
+                                                       December 12, 2018
 
 
           Recommendations for Authoritative Servers Operators
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 1]
+Moura, et al.             Expires June 15, 2019                 [Page 1]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -61,7 +61,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 14, 2019.
+   This Internet-Draft will expire on June 15, 2019.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 2]
+Moura, et al.             Expires June 15, 2019                 [Page 2]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -165,7 +165,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 3]
+Moura, et al.             Expires June 15, 2019                 [Page 3]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -221,7 +221,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 4]
+Moura, et al.             Expires June 15, 2019                 [Page 4]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -277,7 +277,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 5]
+Moura, et al.             Expires June 15, 2019                 [Page 5]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -333,7 +333,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 6]
+Moura, et al.             Expires June 15, 2019                 [Page 6]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -389,7 +389,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 7]
+Moura, et al.             Expires June 15, 2019                 [Page 7]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -445,7 +445,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 8]
+Moura, et al.             Expires June 15, 2019                 [Page 8]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -501,7 +501,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                 [Page 9]
+Moura, et al.             Expires June 15, 2019                 [Page 9]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -557,7 +557,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                [Page 10]
+Moura, et al.             Expires June 15, 2019                [Page 10]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -613,7 +613,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                [Page 11]
+Moura, et al.             Expires June 15, 2019                [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -669,7 +669,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                [Page 12]
+Moura, et al.             Expires June 15, 2019                [Page 12]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -725,7 +725,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                [Page 13]
+Moura, et al.             Expires June 15, 2019                [Page 13]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -755,7 +755,8 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
               "The Internet at the speed of light. In Proceedings of the
               13th ACM Workshop on Hot Topics in Networks (Oct 2014)",
               ACM Workshop on Hot Topics in Networks, October 2014,
-              <https://dl.acm.org/citation.cfm?id=2673876>.
+              <http://speedierweb.web.engr.illinois.edu/cspeed/papers/
+              hotnets14.pdf>.
 
    [VerfSrc]  Vries, W., "Verfploeter source code", November 2018,
               <https://github.com/Woutifier/verfploeter>.
@@ -780,8 +781,7 @@ Authors' Addresses
 
 
 
-
-Moura, et al.             Expires June 14, 2019                [Page 14]
+Moura, et al.             Expires June 15, 2019                [Page 14]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -837,4 +837,4 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 14, 2019                [Page 15]
+Moura, et al.             Expires June 15, 2019                [Page 15]

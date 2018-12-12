@@ -146,7 +146,7 @@ informative:
     title:   The Internet at the speed of light. In Proceedings of the 13th ACM
       Workshop on Hot Topics in Networks (Oct 2014)
 
-    target: https://dl.acm.org/citation.cfm?id=2673876
+    target: http://speedierweb.web.engr.illinois.edu/cspeed/papers/hotnets14.pdf
     author:
       -
         name: Ankit Singla
