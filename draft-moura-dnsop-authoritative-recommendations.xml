@@ -245,7 +245,7 @@ PREVIous text
 --></t>
 
 <t><list style="symbols">
-  <t>It can withdraw or pre-prepend its route to some or to all of its neighbors ([RF:Issue3] or reduce the propagation of its announcements using  BGP communities<xref target="RFC1997"/>), shrinking its catchment (the number of clients that BGP maps to it), shifting both legitimate and attack traffic to other anycast sites. The other sites will hopefully have greater capacity and be able to service the queries.</t>
+  <t>It can withdraw or pre-prepend its route to some or to all of its neighbors ([RF:Issue3] or performing other traffic shifting tricks, such as reducing the propagation of its announcements using  BGP communities<xref target="RFC1997"/>) which shrinks portions of its catchment (the number of clients that BGP maps to it), shifting both legitimate and attack traffic to other anycast sites. The other sites will hopefully have greater capacity and be able to service the queries.</t>
   <t>Alternatively, it can be become a degraded absorber, continuing to operate, but with overloaded ingress routers, dropping some incoming legitimate requests due to queue overflow. However, continued operation will also absorb traffic from attackers in its catchment, protecting the other anycast sites.</t>
 </list></t>
 
