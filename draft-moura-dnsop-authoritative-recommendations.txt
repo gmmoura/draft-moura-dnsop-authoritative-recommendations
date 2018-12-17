@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: June 15, 2019                                      J. Heidemann
+Expires: June 20, 2019                                      J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                       December 12, 2018
+                                                       December 17, 2018
 
 
           Recommendations for Authoritative Servers Operators
@@ -45,7 +45,7 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 1]
+Moura, et al.             Expires June 20, 2019                 [Page 1]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -61,7 +61,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 15, 2019.
+   This Internet-Draft will expire on June 20, 2019.
 
 Copyright Notice
 
@@ -70,7 +70,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
+   (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -90,13 +90,13 @@ Table of Contents
    6.  R5: Consider longer time-to-live values whenever possible . .   9
    7.  R6: Shared Infrastructure Risks Collateral Damage During
        Attacks . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   8.  Security considerations . . . . . . . . . . . . . . . . . . .  11
+   8.  Security considerations . . . . . . . . . . . . . . . . . . .  12
    9.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
    10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  12
      11.2.  Informative References . . . . . . . . . . . . . . . . .  13
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 2]
+Moura, et al.             Expires June 20, 2019                 [Page 2]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -165,7 +165,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 3]
+Moura, et al.             Expires June 20, 2019                 [Page 3]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -221,20 +221,20 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 4]
+Moura, et al.             Expires June 20, 2019                 [Page 4]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
    Knowing how recursives choose authoritative servers is a key step to
    better engineer the deployment of authoritative servers.
-   [Mueller17b] evaluates this with a measurement study in which they
+   [Mueller17b]  evaluates this with a measurement study in which they
    deployed seven unicast authoritative name servers in different global
    locations and queried these authoritative servers from more than
    9,000 RIPE Atlas probes (Vantage Points--VPs) and their respective
    recursive resolvers.
 
-   In the wild, [Mueller17b] found that recursives query all available
+   In the wild, [Mueller17b]  found that recursives query all available
    authoritative servers, regardless of the observed latency.  But the
    distribution of queries tend to be skewed towards authoritatives with
    lower latency: the lower the latency between a recursive resolver and
@@ -254,7 +254,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    available authoritatives will be queried by most recursive resolvers.
    Since unicast cannot deliver good latency worldwide (a site in Europe
    will always have a high latency to resolvers in California, for
-   example), [Mueller17b] recommends to DNS operators that they deploy
+   example), [Mueller17b]  recommends to DNS operators that they deploy
    equally strong IP anycast in every authoritative server (and,
    consequently, to phase out unicast), so they can deliver latency
    values to global clients.  However, [Mueller17b] also notes that DNS
@@ -277,19 +277,19 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 5]
+Moura, et al.             Expires June 20, 2019                 [Page 5]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
-   However, this is not necessarily true.  In fact, [Schmidt17a] found
+   However, this is not necessarily true.  In fact, [Schmidt17a]  found
    that routing can matter more than the total number of locations.
    They analyzed the relationship between the number of anycast sites
    and the performance of a service (latency-wise, RTT) and measured the
    overall performance of four DNS Root servers, namely C, F, K and L,
    from more than 7.9K RIPE Atlas probes.
 
-   [Schmidt17a] found that C-Root, a smaller anycast deployment
+   [Schmidt17a]  found that C-Root, a smaller anycast deployment
    consisting of only 8 sites, provided a very similar overall
    performance than that of the much larger deployments of K and L, with
    33 and 144 sites respectively.  A median RTT was measured between
@@ -333,7 +333,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 6]
+Moura, et al.             Expires June 20, 2019                 [Page 6]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -389,7 +389,7 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 7]
+Moura, et al.             Expires June 20, 2019                 [Page 7]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
@@ -422,12 +422,14 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    traffic, has two options:
 
    o  It can withdraw or pre-prepend its route to some or to all of its
-      neighbors ([RF:Issue3] or reduce the propagation of its
-      announcements using BGP communities[RFC1997]), shrinking its
-      catchment (the number of clients that BGP maps to it), shifting
-      both legitimate and attack traffic to other anycast sites.  The
-      other sites will hopefully have greater capacity and be able to
-      service the queries.
+      neighbors, ([RF:Issue3]) perform other traffic shifting tricks
+      (such as reducing the propagation of its announcements using BGP
+      communities[RFC1997]) which shrinks portions of its catchment),
+      use FlowSpec or other upstream communication mechanisms to deploy
+      upstream filtering.  The goals of these techniques is to perform
+      some combination of shifting of both legitimate and attack traffic
+      to other anycast sites (with hopefully greater capacity) or to
+      block the traffic entirely.
 
    o  Alternatively, it can be become a degraded absorber, continuing to
       operate, but with overloaded ingress routers, dropping some
@@ -440,15 +442,16 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    (RTTs).  These options represent different uses of an anycast
    deployment.  The withdrawal strategy causes anycast to respond as a
    waterbed, with stress displacing queries from one site to others.
-   The absorption strategy behaves as a conventional mattress,
-   compressing under load, with some queries getting delayed or dropped.
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 8]
+Moura, et al.             Expires June 20, 2019                 [Page 8]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
+
+   The absorption strategy behaves as a conventional mattress,
+   compressing under load, with some queries getting delayed or dropped.
 
    Although described as strategies and policies, these outcomes are the
    result of several factors: the combination of operator and host ISP
@@ -495,16 +498,17 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    authoritative servers.  To investigate that, [Moura18b] evaluates the
    role of caching (and retries) in DNS resiliency to DDoS attacks.  Two
    authoritative servers were configured for a newly registered domain
-   and a series of experiments were carried out using various TTL values
-   (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent
-   from roughly 15,000 vantage points, using RIPE Atlas.
 
 
 
-Moura, et al.             Expires June 15, 2019                 [Page 9]
+Moura, et al.             Expires June 20, 2019                 [Page 9]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
+
+   and a series of experiments were carried out using various TTL values
+   (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent
+   from roughly 15,000 vantage points, using RIPE Atlas.
 
    [Moura18b] found that , under normal operations, caching works as
    expected 70% of the times in the wild.  It is believe that complex
@@ -550,17 +554,17 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    against the Roots were not noticed by most users [Moura18b] and why
    other attacks (such as Dyn 2016 [Perlroth16]) had significant impact
    on users experience: records on the Root zone have TTL values ranging
-   from 1 to 6 days, while some of unreachable Dyn clients had TTL
-   values ranging from 120 to 300s, which limit how long records ought
-   to be cached.
 
 
 
-
-Moura, et al.             Expires June 15, 2019                [Page 10]
+Moura, et al.             Expires June 20, 2019                [Page 10]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
+
+   from 1 to 6 days, while some of unreachable Dyn clients had TTL
+   values ranging from 120 to 300s, which limit how long records ought
+   to be cached.
 
    Therefore, given the important role of the TTL on user's experience
    during a DDoS attack (and in reducing ''friendly fire''), it is
@@ -602,9 +606,6 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    providers, operators should be aware of shared infrastructure risks.
    By sharing infrastructure, there is an increased attack surface.
 
-8.  Security considerations
-
-   o  to be added
 
 
 
@@ -612,11 +613,14 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-
-Moura, et al.             Expires June 15, 2019                [Page 11]
+Moura, et al.             Expires June 20, 2019                [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
+
+8.  Security considerations
+
+   o  to be added
 
 9.  IANA considerations
 
@@ -660,19 +664,19 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
               November 1993, <https://www.rfc-editor.org/info/rfc1546>.
 
    [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
-              DOI 10.17487/RFC1995, August 1996,
-              <https://www.rfc-editor.org/info/rfc1995>.
+              DOI 10.17487/RFC1995, August 1996, <https://www.rfc-
+              editor.org/info/rfc1995>.
+
+
+
+Moura, et al.             Expires June 20, 2019                [Page 12]
+
+Internet-Draft          Recomm-Authoritative-Ops           December 2018
+
 
    [RFC1997]  Chandra, R., Traina, P., and T. Li, "BGP Communities
               Attribute", RFC 1997, DOI 10.17487/RFC1997, August 1996,
               <https://www.rfc-editor.org/info/rfc1997>.
-
-
-
-Moura, et al.             Expires June 15, 2019                [Page 12]
-
-Internet-Draft          Recomm-Authoritative-Ops           December 2018
-
 
    [RFC2181]  Elz, R. and R. Bush, "Clarifications to the DNS
               Specification", RFC 2181, DOI 10.17487/RFC2181, July 1997,
@@ -680,8 +684,8 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006,
-              <https://www.rfc-editor.org/info/rfc4271>.
+              DOI 10.17487/RFC4271, January 2006, <https://www.rfc-
+              editor.org/info/rfc4271>.
 
    [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
               Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
@@ -693,8 +697,8 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
    [RFC7094]  McPherson, D., Oran, D., Thaler, D., and E. Osterweil,
               "Architectural Considerations of IP Anycast", RFC 7094,
-              DOI 10.17487/RFC7094, January 2014,
-              <https://www.rfc-editor.org/info/rfc7094>.
+              DOI 10.17487/RFC7094, January 2014, <https://www.rfc-
+              editor.org/info/rfc7094>.
 
 11.2.  Informative References
 
@@ -713,8 +717,18 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
               L., and C. Hesselman, "Anycast vs DDoS Evaluating the
               November 2015 Root DNS Events.", ACM 2016 Internet
               Measurement Conference, DOI /10.1145/2987443.2987446,
-              October 2016,
-              <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
+              October 2016, <https://www.isi.edu/~johnh/PAPERS/
+              Moura16b.pdf>.
+
+
+
+
+
+
+Moura, et al.             Expires June 20, 2019                [Page 13]
+
+Internet-Draft          Recomm-Authoritative-Ops           December 2018
+
 
    [Moura18b]
               Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
@@ -722,13 +736,6 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
               During DDos", ACM 2018 Internet Measurement Conference,
               DOI 10.1145/3278532.3278534, October 2018,
               <https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf>.
-
-
-
-Moura, et al.             Expires June 15, 2019                [Page 13]
-
-Internet-Draft          Recomm-Authoritative-Ops           December 2018
-
 
    [Mueller17b]
               Mueller, M., Moura, G., Schmidt, R., and J. Heidemann,
@@ -740,8 +747,8 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
    [Perlroth16]
               Perlroth, N., "Hackers Used New Weapons to Disrupt Major
               Websites Across U.S.", October 2016,
-              <https://www.nytimes.com/2016/10/22/business/
-              internet-problems-attack.html>.
+              <https://www.nytimes.com/2016/10/22/business/internet-
+              problems-attack.html>.
 
    [Schmidt17a]
               Schmidt, R., Heidemann, J., and J. Kuipers, "Anycast
@@ -768,6 +775,17 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
               Conference, DOI 10.1145/3131365.3131371, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Vries17b.pdf>.
 
+
+
+
+
+
+
+Moura, et al.             Expires June 20, 2019                [Page 14]
+
+Internet-Draft          Recomm-Authoritative-Ops           December 2018
+
+
 Authors' Addresses
 
    Giovane C. M. Moura
@@ -778,12 +796,6 @@ Authors' Addresses
 
    Phone: +31 26 352 5500
    Email: giovane.moura@sidn.nl
-
-
-
-Moura, et al.             Expires June 15, 2019                [Page 14]
-
-Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
    Wes Hardaker
@@ -825,16 +837,4 @@ Internet-Draft          Recomm-Authoritative-Ops           December 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Moura, et al.             Expires June 15, 2019                [Page 15]
+Moura, et al.             Expires June 20, 2019                [Page 15]
