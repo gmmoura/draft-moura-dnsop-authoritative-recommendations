@@ -286,20 +286,6 @@ The domain name system (DNS) has main two types of DNS servers: authoritative se
 
 DNS queries contribute to user's perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} and by using load balancers to support multiple servers inside a single (potentially anycasted) site. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
-<!---
-this next para is key: what are you trying to accomplish.
-you might even put it as the first para.
-BUT more importantly, we should chat if you've shopped this around,
-particularly to the DNSOP chairs.
-The question they will ask is: WHY do an RFC?  Aren't the existing technical pubs
-sufficient? - Wes
-
-XXX:
-@Wes: I think the whole idea of an RFC is to present the academic measurements results to the ops folks, who tipically are not interested in the details of the process, but on the Recommendations
-Also, in a more direct language, applied
-- givoane
--->
-
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
 \[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
 
