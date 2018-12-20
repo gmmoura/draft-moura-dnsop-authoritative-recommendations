@@ -169,8 +169,7 @@ smallish setup.
 
    * src: dwessels@verisign.com
 
-```
-The intro says "DNS queries contributes to web latency" and this rubs me the
+```The intro says "DNS queries contributes to web latency" and this rubs me the
 wrong way for a number of reasons.  (1) why call out "web" specifically here?  
 DNS does not discriminate in its latency.  (2) DNS queries *could* contribute to
 latency, but caching is designed to really reduce it.  (3) I think its unhelpful
@@ -200,7 +199,6 @@ struggling with exactly what nameserver replication refers to here.  Does it
 mean "have more than one"  or does it mean "replicate the data to all
 instances".  I guess when I see the word replication I think of data.
 ```
-
 
 ```
 Section 2 ends with a note about .nl formerly being mixed unicast/anycast.  That
