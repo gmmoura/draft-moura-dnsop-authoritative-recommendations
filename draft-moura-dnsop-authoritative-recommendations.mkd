@@ -257,11 +257,6 @@ This draft is being hosted on GitHub -- \<https://github.com/gmmoura/draft-moura
 Introduction        {#intro}
 ============
 
-<!---
-XXX: need to use DNS terminology RFC7719.
-Open an issue on github to remind us of that - GMo
--->
-
 
 The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2181}}. A recursive resolver is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client, in {{recuath}}, is shown as stub, which is shorthand for stub resolver {{RFC1034}} that is typically located within the client software.
 
