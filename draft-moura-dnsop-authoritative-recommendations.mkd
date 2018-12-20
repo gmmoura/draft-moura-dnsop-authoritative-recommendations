@@ -302,7 +302,7 @@ conclusions of the studies don't verify this fact,  the wording in this document
 
 
 
-
+ 
 
 
 # R1:  Use equaly strong IP anycast in every authoritative server to achieve even load distribution
