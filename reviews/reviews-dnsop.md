@@ -33,7 +33,7 @@ more even.
 Second, Flowspec/DOTS/selective BH/et cetera.
 ```
 
-   * Action: discuss, --  GMo 2018-11-30
+   * Action: Fixed --  GMo 2018-11-30
 
 
 ## [RF:TG2]
@@ -67,19 +67,16 @@ a) some fast servers you can afford to get brought down by a DDoS
 attack, b) a "lightning rod" — a purposefully degraded absorber,
 mentioned in (5).
 ```
-   * Action: we change the recommendation to Use IP anycast on all authoritatives
+   * Action: fixed. we changed the recommendation to Use IP anycast on all authoritatives
    an even load distribution. -- GMo 20181130
 
 ## [RF:TG4]
 
     * src: ximaera@gmail.com
-
-
 ```
    > 2: R1 [..]
 > But the distribution of queries tend to be skewed towards authoritatives with
 lower
-
 There's a reason for that that you may want to mention, namely, smoothed RTT.
 ```
 
@@ -143,6 +140,12 @@ document the result would be more pleasantly neutral
    * Action: to discuss with authors
    * Reason:  wow, he's got a point. 4 out of 5 recommendations are about anycast.
    Have to read RFC4786 and see how it relateds  to it. --  GMo 2018-11-30
+   * Action: Fixed. add par below
+   
+   ```   It is likely that these recommendations might be useful in a wider
+   context, such as for any stateless/short-duration, anycasted service.
+   Because the conclusions of the studies don't verify this fact, the
+   wording in this document discusses DNS authoritative services only.''
 
 ## [RF: JLev1]
 
@@ -177,6 +180,10 @@ doesn't matter at all.  If the DNS folks keep saying that latency is king, then
 the HTTP folks will implement resolverless DNS.
 ```
 
+  * status: removed 'web' part o fit. Latency is important as you said 'till a certain point; 
+  like when you are global DNS provider and run a unicast server, then you'll be having 120ms+ latency
+  to many clients.
+  
 ## [RF: DW2]
 
    * src: dwessels@verisign.com
@@ -212,6 +219,9 @@ are set by the zone publisher.  In many cases they are the same entity, but not
 always.   Obviously USC/ISI as operator of a root server does not set the root
 zone TTLs.
 ```
+
+   * Action: to be fixed on -02.
+   
 ## [RF: DW4]
 
    * src: dwessels@verisign.com
