@@ -4,6 +4,8 @@
    * We accept all pull requests
    * See Makefile for how to compile the source file ( 	draft-moura-dnsop-authoritative-recommendations.mkd)
    * Reviews from dnsop list are kept under reviews/
+   
+   * This draft will be presented at DNSOP during IETF104
 
 ## Editing instructions
 
