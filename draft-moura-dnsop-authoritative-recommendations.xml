@@ -243,7 +243,7 @@ PREVIous text
 
 <t>In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" <xref target="RFC1034"/>. The TTL values are set by zone owners in their zone files &#8211; either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values &#8211; one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in <xref target="RFC2181"/>.</t>
 
-<t>While set by authoritative server operators (labeled "AT"s in <xref target="recuath"/>), the TTL value in fact influences the behavior of recursive resolvers (and their operators &#8211; "Rn" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
+<t>While set at authoritative servers, (labeled "AT"s in <xref target="recuath"/>), the TTL value in fact influences the behavior of recursive resolvers (and their operators &#8211; "Rn" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
 In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times by avoiding repeated queries between recursive resolvers and authoritative.</t>
 
 <t>Besides improving performance, it has been argued that caching plays a significant role in protecting users during DDoS attacks against authoritative servers.  To investigate that, <xref target="Moura18b"/> evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.</t>
@@ -512,7 +512,7 @@ Ricardo de O Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian  Hess
   </back>
 
 <!-- ##markdown-source:
-H4sIAENzflwAA7V96XLjSJLmfz5FbJa1pdRFUqLOTPVMb6ukOlSdl0mqzjGb
+H4sIAPN1flwAA7V96XLjSJLmfz5FbJa1pdRFUqLOTPVMb6ukOlSdl0mqzjGb
 6m4DgRCJEghwEKBUrOwc23fYd9lf+2/eZJ9k/XP3CARAKuuwnhqbTooMxOHh
 x+dHBEaj0aDJm8KemWubVouFLbOkyavSmbuqNuerZl7VeUNfPVhzY+sHWzvz
 dmnrpKlqN0im09o++GdHneajt0s3yKq0TBbUe1Ynd81oUa3qZJSVrlqOkk7j
@@ -718,61 +718,61 @@ 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
-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
-M8gdTn8AAA==
+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
+88/RRn8AAA==
 
 -->
 

@@ -494,10 +494,10 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    expected to prioritize the answer according to Section 5.4.1 in
    [RFC2181].
 
-   While set by authoritative server operators (labeled "AT"s in
-   Figure 1), the TTL value in fact influences the behavior of recursive
-   resolvers (and their operators - "Rn" in the same figure), by setting
-   an upper limit on how long a record should be cached before
+   While set at authoritative servers, (labeled "AT"s in Figure 1), the
+   TTL value in fact influences the behavior of recursive resolvers (and
+   their operators - "Rn" in the same figure), by setting an upper limit
+   on how long a record should be cached before discarded.  In this
 
 
 
@@ -506,11 +506,11 @@ Moura, et al.           Expires September 6, 2019               [Page 9]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   discarded.  In this sense, caching can be seen as a sort of
-   "ephemeral replication", i.e., the contents of an authoritative
-   server are placed at a recursive resolver cache for a period of time
-   up to the TTL value.  Caching improves response times by avoiding
-   repeated queries between recursive resolvers and authoritative.
+   sense, caching can be seen as a sort of "ephemeral replication",
+   i.e., the contents of an authoritative server are placed at a
+   recursive resolver cache for a period of time up to the TTL value.
+   Caching improves response times by avoiding repeated queries between
+   recursive resolvers and authoritative.
 
    Besides improving performance, it has been argued that caching plays
    a significant role in protecting users during DDoS attacks against

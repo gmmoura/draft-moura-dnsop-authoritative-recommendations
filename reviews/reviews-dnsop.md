@@ -219,6 +219,7 @@ zone TTLs.
 ```
 
    * Action: to be fixed on -02.
+   * Fixed on -02
    
 ## [RF: DW4]
 
