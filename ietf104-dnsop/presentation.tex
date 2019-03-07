@@ -148,6 +148,8 @@ size=3em,scale=.9,solid,fill=blue!20,minimum height=1em]
 
 \begin{itemize}
 
+
+\item This is an \textbf{Informational} draft 
 \item \textbf{Today:} first time presented at DNSOP 
 
 \item Versions and mailing list discussion:
@@ -287,7 +289,7 @@ Attacks~\cite{Moura16b}
 \end{figure}
 \vspace{-0.5cm}
 \begin{itemize}
- \item\textbf{Auth goal}: server resolvers with \textit{shortest} RTT
+ \item\textbf{Auth goal}: serve resolvers with \textit{shortest} RTT
  \item Resolver \textbf{has to choose} from AT1--AT4
 \end{itemize}
 
@@ -316,6 +318,8 @@ authoritatives get \textit{more} queries -- but not all
   \item Unicast, by definition, cannot deliver good global performance 
   \item \cite{Mueller17b} recommends then use anycast in \textit{all} NS 
 records, equally strong (peering and capacity), and phase out unicast.
+
+\item This has been applied in \url{.nl}.
 \end{itemize}
 
 
@@ -324,6 +328,94 @@ records, equally strong (peering and capacity), and phase out unicast.
 
 \end{frame}
  
+
+
+\begin{frame}
+ \frametitle{R2: Routing Can Matter More Than Locations}
+ 
+ \begin{itemize}
+  \item When choosing an anycast DNS provider, people always ask ``how many 
+sites/nodes'' it has
+ \item People sometimes assume more sites/nodes lead to better client's 
+experience (lower RTT)
+ \item \cite{Schmidt17a} shows that this is not always true, and that 
+\textit{routing} can matter more than number of locations. For example:
+\begin{itemize}
+ \item \texttt{c-root}: 8 locations. 
+ \item \texttt{k-root}: 33 locations
+ \item \texttt{l-root}: 144 locations
+ \item Their median RTT: 30--32\,ms to 7.9k Atlas probes
+\end{itemize}
+
+
+ \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{R2: Routing Can Matter More Than Locations}
+ 
+\begin{itemize}
+ \item Why? BGP is agnostic to geographical distance
+ \item \cite{Schmidt17a} thus recommends to consider routing and connectivity 
+when engineering DNS anycast services
+\item They show that 12 sites is enough to provide good global latency 
+\item However, more sites may be helpful in case of DDoS~\cite{Moura16b}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{R3: Collecting Detailed Anycast Catchment Maps Ahead of Actual
+    Deployment Can Improve Engineering Designs}
+    
+    \begin{itemize}
+     \item Say you run an anycast service with $n$  nodes
+     \item  Say you want to add 1 more  node in SFO
+     \item How will that affect traffic among your other locations?
+      \begin{itemize}
+       \item Very hard to predict
+       \item BGP maps clients to locations
+      \end{itemize}
+
+    \end{itemize}
+
+    
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{R3: Collecting Detailed Anycast Catchment Maps Ahead of Actual
+    Deployment Can Improve Engineering Designs}
+    
+\begin{itemize}
+ \item Solution: detailed anycast catchment maps
+ \item \cite{Vries17b} present a tool (Verfploeter) that does that using ICMP
+ \item They run it on B-root \textit{before} moving to anycast
+ \item They were able to predict catchments and  query loads:
+ \begin{itemize}
+  \item  Load predict going to \texttt{b-root} LAX node: 81.6\% 
+  \item Actual load: 81.4\%.
+ \end{itemize}
+ \item OPs: you can use it on a test prefix, announced from the same locations 
+as your production network
+\item Run it with different configurations and make informed choices
+
+\item To date: running on a testbed, B-root, and a large unnamed operator. 
+ 
+\end{itemize}
+
+
+    
+\end{frame}
+
+\begin{frame}
+ \frametitle{R4: When under stress, employ two strategies}
+\end{frame}
+
+
 \begin{frame}
  \frametitle{Questions?}
  
@@ -334,8 +426,6 @@ records, equally strong (peering and capacity), and phase out unicast.
  \end{itemize}
 
 \end{frame}
-
-
  
  \begin{frame}[allowframebreaks] {References}
  

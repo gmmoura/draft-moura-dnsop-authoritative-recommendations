@@ -310,13 +310,13 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 4.  R3: Collecting Detailed Anycast Catchment Maps Ahead of Actual
     Deployment Can Improve Engineering Designs
 
-   An anycast DNS service may have several dozens or even hundreds nodes
-   (such as L-Root does).  Anycast leverages Internet routing to
-   distribute the incoming queries to a service's distributed anycast
-   nodes; in theory, BGP (the Internet's defacto routing protocol)
-   forwards incoming queries to a nearby anycast node (in terms of BGP
-   distance).  However, usually queries are not evenly distributed
-   across all anycast nodes, as found in the case of L-Root
+   An anycast DNS service may have several dozens or even more than one
+   hundred nodes (such as L-Root does).  Anycast leverages Internet
+   routing to distribute the incoming queries to a service's distributed
+   anycast nodes; in theory, BGP (the Internet's defacto routing
+   protocol) forwards incoming queries to a nearby anycast node (in
+   terms of BGP distance).  However, usually queries are not evenly
+   distributed across all anycast nodes, as found in the case of L-Root
    [IcannHedge18].
 
    Adding new nodes to an anycast service may change the load
