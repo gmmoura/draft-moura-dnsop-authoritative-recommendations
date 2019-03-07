@@ -209,12 +209,9 @@ explain \textit{why}
 
 
 \begin{frame}[fragile]
- \frametitle{Context}
+ \frametitle{\textbf{This draft:}}
  
  
-\textbf{This draft:}
-
-
 
  \lstset{language=Python}
  \lstset{frame=lines}
@@ -232,8 +229,8 @@ papers.append(Vries17b)
 papers.append(Moura18b)
 
 for p in papers:
-  recommendation = TLDR(p)
-  print(recommendation)
+  recommendations = TLDR(p)
+  print(recommendations)
 \end{lstlisting}
 
 \begin{itemize}
@@ -243,6 +240,59 @@ for p in papers:
 
 
 \end{frame}
+
+\begin{frame}
+ \frametitle{Recommendations in a nutshell}
+ 
+ \begin{itemize}
+  \item R1: Use equaly strong IP anycast in every authoritative server to
+    achieve even load distribution
+    
+  \item R2:  Routing Can Matter More Than Locations
+  
+  \item R3: Collecting Detailed Anycast Catchment Maps Ahead of Actual
+    Deployment Can Improve Engineering Designs
+    
+  \item R4:    When under stress, employ two strategies
+  
+  \item R5:  Consider longer time-to-live values whenever possible 
+  
+    \item R6:  Shared Infrastructure Risks Collateral Damage During Attacks
+    
+
+
+  
+
+ \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{ R1: Use equaly strong IP anycast in every authoritative server to
+    achieve even load distribution}
+    
+    
+    
+\begin{figure}
+\centering
+
+  \input{fig-setup.tex}
+  \caption{Clients, Resolver and authoritatives relationship.}
+  \label{fig:nl-deployment}
+% \end{minipage}
+
+\end{figure}
+\vspace{-0.5cm}
+\begin{itemize}
+ \item\textbf{Auth goal}: server resolvers with \textit{shortest} RTT
+ \item Resolver \textbf{has to choose} from AT1--AT4
+\end{itemize}
+
+
+
+\end{frame}
+
 
  
 \begin{frame}

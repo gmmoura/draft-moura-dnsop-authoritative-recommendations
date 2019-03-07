@@ -1,0 +1,127 @@
+% \documentclass[tikz, border=10pt]{standalone}
+% 
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}},
+}}
+%\usetikzlibrary{arrows}
+
+% \begin{document}
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, 
+thick,main node/.style={circle,fill=blue!20,draw, 
+font=\sffamily\Large\bfseries,minimum size=15mm},scale=0.5, every 
+node/.style={scale=0.5},darkstyle/.style={circle,draw,fill=gray!40,minimum 
+size=20}, resolver/.style={rectangle,fill=yellow!20,draw, 
+font=\sffamily\LARGE\bfseries,minimum size=10mm},scale=1]
+
+
+  \def\atlat{1}
+  \def\atlon{0}
+  \def\rlat{-2}
+  \def\rlon{0}
+  \def\mlat{-4}
+  \def\mlon{1}
+  \def\cllat{-6}
+  \def\cllon{0}
+  \def\colorkeylat{3}
+  \def\colorkeylon{0}
+  \def\textkeylat{-8}
+  \def\textkeylon{4}
+
+    % Authoritatives (blue and green circles)
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT1) at (\atlon,\atlat) 
+{\Large\bf AT1};
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT2) at (\atlon+2.25,\atlat) 
+{\Large\bf AT2};
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT3) at (\atlon+4.5,\atlat) 
+{\Large\bf AT3};
+    \node[circle, draw, fill=green!20, scale=1.1] (AT4) at 
+(\atlon+7,\atlat) 
+{\Large\bf AT4};
+
+    % Authoritative color code (top)
+    \node[main node, scale=0.4] (w) at (\colorkeylon,\colorkeylat) {};
+    \node[rectangle, scale=1.4] (w1) at (\colorkeylon+1.5,\colorkeylat) {\large 
+unicast};
+    \node[main node, fill=green!20, scale=0.4] (w) at 
+(\colorkeylon+4,\colorkeylat) {};
+    \node[rectangle, scale=1.4] (w2) at (\colorkeylon+5.5,\colorkeylat) {\large 
+anycast};
+
+    \node[resolver] (r1) at (\rlon+3.5,\rlat-1) {\Large Resolver};
+
+    % Connections between resolvers and authoritatives
+    \foreach \i in {1,...,1} {
+        \draw (r\i) -> (AT1);
+        \draw (r\i) -> (AT2);
+        \draw (r\i) -> (AT3);
+        \draw (r\i) -> (AT4);
+%        \draw (r\i) -> (ns5);
+%        \draw (r\i) -> (netnod);
+%        \draw (r\i) -> (nic);
+%        \draw (r\i) -> (isc);
+    }
+ 
+    %  Middle boxes (red circles)
+%     %\node[darkstyle, minimum size=25, fill=red!20] (mi1) at (\mlon,\mlat) 
+% {\large $MI_1$};
+%     \node[darkstyle, minimum size=25, fill=red!20] (mi1) at (\mlon+3,\mlat) 
+% {\large $MI_1$};
+%     \node[darkstyle, minimum size=25, fill=red!20] (mi2) at (\mlon+6,\mlat) 
+% {\large $MI_2$};
+
+
+    % Clients (orange squares)
+    \node[resolver, minimum size=25, fill=orange!80] (cl1) at 
+(\rlon+3.5,\cllat) 
+{\large Client};
+%     \node[resolver, minimum size=25, fill=orange!80] (cl2) at (\cllon+4,\cllat) 
+% {\large $CL_2$};
+%     \node[resolver, minimum size=25, fill=orange!80] (cl3) at (\cllon+7,\cllat) 
+% {\large $CL_3$};
+
+    % Connections between middle boxes and clients and resolvers
+    \draw (cl1) -> (r1);
+%     \draw (cl1) -> (r3);
+%     \draw (cl2) -> (mi1);
+%     \draw (mi1) -> (r2);
+%     \draw (mi1) -> (r4);
+%     \draw (cl3) -> (mi2);
+%     \draw (mi2) -> (r5);
+
+
+%animations
+    \node[resolver, minimum size=55,draw=blue,  dashed, minimum width=300, 
+fill=none,visible on=<3->] (z) at (\atlon+3.5,\atlat){};
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<3->] (z) at (\atlon+10.5,\atlat){\textcolor{blue}{Auth 
+OPs}};
+
+
+    \node[resolver, minimum size=55,draw=red!80,  dashed,  minimum width=100, 
+fill=none,visible on=<4->] (z1) at (\atlon+3.5,\atlat-4){};
+  
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<4->] (z) at 
+(\atlon+8.5,\atlat-4){\textcolor{red}{Resolver OPs/Dev}};
+
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<2->] (z) at 
+(\atlon+3.5,\atlat-2){\textcolor{orange}{\Huge ?}};
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<2-2>] (z) at 
+(\atlon+8.5,\atlat-2){\textcolor{orange}{\Large resolver choice depends }};
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<2-2>] (z) at 
+(\atlon+8.5,\atlat-3){\textcolor{orange}{\Large on 
+many factors}};
+
+
+\end{tikzpicture}
