@@ -10,6 +10,7 @@ notes,notheorems,noamsthm,blank]{beamer} % default is 11pt
 \usepackage{graphics, graphicx}
 \usepackage{url}
 % \usepackage{multirow}
+\usepackage{listings}
 \usepackage{epsfig}
 %  \usepackage[portuguese]{babel}
 %  \usepackage[latin1]{inputenc}  
@@ -59,6 +60,10 @@ notes,notheorems,noamsthm,blank]{beamer} % default is 11pt
 %     linkcolor=blue,%
 %     urlcolor=BrickRed
 % }
+
+
+
+
 
 \usepackage{tikz}
 \usetikzlibrary{calc,shapes.symbols,shapes.geometric,positioning,arrows,chains}
@@ -124,7 +129,7 @@ size=3em,scale=.9,solid,fill=blue!20,minimum height=1em]
 
    
    
-\date {IETF 104 - Prague, CZ\\
+\date {IETF 104 -- Prague, CZ\\
 2019-03-XX\\
 
 
@@ -167,6 +172,73 @@ size=3em,scale=.9,solid,fill=blue!20,minimum height=1em]
 
 
 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Context}
+ 
+ \begin{itemize}
+
+  \item We are a group of 13 people that have had 5 relevant research papers 
+for large Auth Server OPs:
+  \begin{itemize}
+   \item \footnotesize Draft authors + Ricardo de O Schmidt, Wouter B. de 
+Vries, Moritz M\"{u}ller, Lan Wei,  Cristian Hesselman, Jan Harm Kuipers, 
+Pieter-Tjerk de Boer and Aiko  Pras.
+  \end{itemize}
+
+ \item These papers have \textit{recommendations} backed by 
+large-scale, Internet-wide measurements presented at conferences:
+\begin{itemize}
+ \item 4x ACM IMC
+ \item 1x PAM
+\end{itemize}
+
+
+\item However, papers tend to be \textit{long}, \textit{detailed} -- they 
+explain \textit{why} 
+
+ \end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+ \frametitle{Context}
+ 
+ 
+\textbf{This draft:}
+
+
+
+ \lstset{language=Python}
+ \lstset{frame=lines}
+%  \lstset{caption={Insert code directly in your document}}
+ \lstset{label={lst:code_direct}}
+  \lstset{basicstyle=\footnotesize}
+  
+  
+\begin{lstlisting}
+papers=[]
+papers.append(Moura16b)
+papers.append(Mueller17b)
+papers.append(Schmidt17a)
+papers.append(Vries17b)
+papers.append(Moura18b)
+
+for p in papers:
+  recommendation = TLDR(p)
+  print(recommendation)
+\end{lstlisting}
+
+\begin{itemize}
+ \item Tangile,direct language to OPs folks interested on \textit{what} to do
+ \item Reader is referred to papers to understand \textit{why}
 \end{itemize}
 
 
