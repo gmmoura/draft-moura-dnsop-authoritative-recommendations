@@ -1,0 +1,197 @@
+\documentclass[11pt,show 
+notes,notheorems,noamsthm,blank]{beamer} % default is 11pt
+\usetheme{metropolis}
+% \usepackage{beamerthemeshadow}
+% \usepackage{times}
+\usepackage[utf8]{inputenc}
+\usepackage[scaled]{helvet} % ss
+\usepackage[T1]{fontenc}
+\usepackage{eurosym}
+\usepackage{graphics, graphicx}
+\usepackage{url}
+% \usepackage{multirow}
+\usepackage{epsfig}
+%  \usepackage[portuguese]{babel}
+%  \usepackage[latin1]{inputenc}  
+\usepackage{fancyvrb}
+\usepackage[prefix=tikzsym]{tikzsymbols}
+
+\usepackage{fontawesome}
+
+
+% \usepackage[marvosym]{tikzsymbols}
+% \usepackage{rotating}
+% \usepackage{subfigure}
+% \usepackage{default}
+ \usepackage{algorithmic}
+ \usepackage{algorithm}
+\usepackage{rotating}
+\usepackage{hyperref}
+\definecolor{links}{HTML}{FF5050}
+\definecolor{inlinks}{HTML}{4D94FF}
+\hypersetup{colorlinks,linkcolor=inlinks,urlcolor=links}
+\beamertemplatetransparentcovered
+%  \usepackage[portuguese]{babel}
+%  \usepackage[latin1]{inputenc}  
+\usepackage{rotating}
+\usepackage{colortbl}
+% \usepackage{moreverb}
+% \usepackage{tikz}
+% \usepackage{wrapfig}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+% \usepackage{tikz}
+% \usetikzlibrary{arrows,positioning,shapes}
+% \usetikzlibrary{shapes,calc,shadows}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+% \pagestyle{fancy}
+\pgfsetlayers{background,main,foreground}
+\usepackage{url}
+\usepackage{hyperref}
+% \usepackage{color}X
+\setbeamertemplate{navigation symbols}{}
+% \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+% % \renewcommand{\algorithmicensure}{\textbf{Output:}}
+% \hypersetup{
+%     colorlinks,%
+%     citecolor=BrickRed,%
+%     filecolor=black,%
+%     linkcolor=blue,%
+%     urlcolor=BrickRed
+% }
+
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes.symbols,shapes.geometric,positioning,arrows,chains}
+\usetikzlibrary{backgrounds,decorations,decorations.text,
+decorations.pathreplacing}
+% tiks definitions
+\usetikzlibrary{arrows.meta}
+\tikzstyle{default_rectangle} = [black, fill=white]
+\tikzset{>=stealth}
+\tikzset{every picture/.append style={font=\small}}
+\usetikzlibrary{arrows, matrix, shadows}
+\tikzset{>=stealth}
+\tikzstyle{every picture}=[line width=0.75pt]
+\tikzstyle{every node}=[font=\small]
+\tikzstyle{default_rectangle} = [black, fill=white]
+\definecolor{myblue}{RGB}{68,119,170}
+\definecolor{myred}{RGB}{204,102,119}
+\definecolor{mygreen}{RGB}{17,119,51}
+\definecolor{myyellow}{RGB}{221,204,119}
+% Definitions for figures
+\tikzstyle{server}=[circle,draw,minimum size=2em,scale=.9,solid,fill=green!20]
+\tikzstyle{site}=[circle,draw,minimum size=2em,scale=.9,solid,fill=red!20]
+\tikzstyle{root}=[circle,draw,minimum size=2em,scale=.9,solid,fill=red!20]
+\tikzstyle{user}=[circle,draw,minimum size=2em,scale=.9,solid,fill=yellow!20]
+\tikzstyle{cache}=[rectangle,draw,minimum 
+size=3em,scale=.9,solid,fill=blue!20,minimum height=1em]
+
+% Definitions for figures
+\tikzstyle{server}=[circle,draw,minimum size=2em,scale=.9,solid,fill=green!20]
+\tikzstyle{site}=[circle,draw,minimum size=2em,scale=.9,solid,fill=red!20]
+\tikzstyle{root}=[circle,draw,minimum size=2em,scale=.9,solid,fill=red!20]
+\tikzstyle{user}=[circle,draw,minimum size=2em,scale=.9,solid,fill=yellow!20]
+\tikzstyle{cache}=[rectangle,draw,minimum 
+size=3em,scale=.9,solid,fill=blue!20,minimum height=1em]
+
+
+\usepackage{pgf}
+\pgfdeclareimage[height=0.5cm]{logo}{fig/sidn-delft}
+% \addtobeamertemplate{navigation symbols}{}{%
+%     \usebeamerfont{footline}%
+%     \usebeamercolor[fg]{footline}%
+%     \hspace{1em}%
+%     \insertframenumber/\inserttotalframenumber
+% }
+
+% \setbeamercolor{footline}{fg=blue}
+\setbeamerfont{footline}{series=\bfseries}
+
+
+% \setbeamerfont{}{family=\rmfamily,series=\bfseries,size={\fontsize{12}{36}}}
+
+%  \logo{\pgfuseimage{logo}}
+
+\begin{document}
+\title{draft-moura-dnsop-authoritative-recommendations-02}  
+\author[Moura et. al]{\textbf{Giovane C. M. Moura}$^{1,2}$, Wes Hardaker$^3$, 
+\\John Heidemann$^3$, Marco Davids$^1$\\}
+\vspace{-0.3cm}
+\institute{$^1$SIDN Labs, $^2$TU Delft, $^3$USC/ISI\\
+%    \includegraphics[width=9cm]{fig/logos.png}
+}
+
+
+   
+   
+\date {IETF 104 - Prague, CZ\\
+2019-03-XX\\
+
+
+}  
+
+\frame{\titlepage} 
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Draft History}
+
+
+\begin{itemize}
+
+\item \textbf{Today:} first time presented at DNSOP 
+
+\item Versions and mailing list discussion:
+
+\begin{itemize}
+  \item \textbf{00 (2018-11-28):}   
+\href{https://mailarchive.ietf.org/arch/msg/dnsop/AMMr6dDDUmShnG90URv6AJCY_VQ}{
+ list thread}
+
+  \item \textbf{01 (2018-12-20):} 
+\href{https://mailarchive.ietf.org/arch/msg/dnsop/2R8Ab4-7sKmOY7-XcJ3yLSq6Gcc}{
+ list thread (no responses)} 
+
+
+  \item \textbf{02 (2019-03-09):}   
+\href{https://mailarchive.ietf.org/arch/msg/dnsop/}{
+ list thread }
+\end{itemize}
+
+\item Github link: \small
+\url{https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations}
+
+
+
+\end{itemize}
+
+
+\end{frame}
+
+ 
+\begin{frame}
+ \frametitle{Questions?}
+ 
+ 
+ \begin{itemize}
+  \item Draft on GitHub: \small
+\url{https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations}
+ \end{itemize}
+
+\end{frame}
+
+
+ 
+ \begin{frame}[allowframebreaks] {References}
+ 
+\bibliographystyle{plain}
+% \balance
+\small
+\bibliography{../paper,../rfc}
+\end{frame}
+ 
+\end{document}
