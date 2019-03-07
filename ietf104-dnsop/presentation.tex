@@ -153,18 +153,18 @@ size=3em,scale=.9,solid,fill=blue!20,minimum height=1em]
 \item Versions and mailing list discussion:
 
 \begin{itemize}
-  \item \textbf{00 (2018-11-28):}   
+  \item \textbf{-00 (2018-11-28):}   
 \href{https://mailarchive.ietf.org/arch/msg/dnsop/AMMr6dDDUmShnG90URv6AJCY_VQ}{
- list thread}
+ link list thread}
 
-  \item \textbf{01 (2018-12-20):} 
+  \item \textbf{-01 (2018-12-20):} 
 \href{https://mailarchive.ietf.org/arch/msg/dnsop/2R8Ab4-7sKmOY7-XcJ3yLSq6Gcc}{
- list thread (no responses)} 
+ link list thread (no responses)} 
 
 
-  \item \textbf{02 (2019-03-09):}   
+  \item \textbf{-02 (2019-03-09):}   
 \href{https://mailarchive.ietf.org/arch/msg/dnsop/}{
- list thread }
+ link  list thread }
 \end{itemize}
 
 \item Github link: \small
@@ -295,7 +295,34 @@ Attacks~\cite{Moura16b}
 
 \end{frame}
 
+\begin{frame}
+ \frametitle{R1: Use equaly strong IP anycast in every authoritative server to
+    achieve even load distribution}
+    
+\begin{itemize}
+ \item We carried large-scale measurements in~\cite{Mueller17b}, 
+using Ripe Atlas.
+\item We verified them using \url{.nl} and Root DNS (DITL) data
+\item Findings: \begin{enumerate}
+                \item Resolvers query \textit{all} available authoritatives
+                \item However, their load distribution is uneven: closer 
+authoritatives get \textit{more} queries -- but not all
+               \end{enumerate}
 
+\item Implications: 
+\begin{itemize}
+ \item For an auth operator, the latency of \textit{all} authoritative matter
+%  \item Therefore, they should be similarly capable 
+  \item Unicast, by definition, cannot deliver good global performance 
+  \item \cite{Mueller17b} recommends then use anycast in \textit{all} NS 
+records, equally strong (peering and capacity), and phase out unicast.
+\end{itemize}
+
+
+\end{itemize}
+
+
+\end{frame}
  
 \begin{frame}
  \frametitle{Questions?}
