@@ -18,6 +18,7 @@ notes,notheorems,noamsthm,blank]{beamer} % default is 11pt
 \usepackage[prefix=tikzsym]{tikzsymbols}
 
 \usepackage{fontawesome}
+% \usepackage{xcolor}
 
 
 % \usepackage[marvosym]{tikzsymbols}
@@ -77,7 +78,7 @@ decorations.pathreplacing}
 \usetikzlibrary{arrows, matrix, shadows}
 \tikzset{>=stealth}
 \tikzstyle{every picture}=[line width=0.75pt]
-\tikzstyle{every node}=[font=\small]
+\tikzstyle{every instance}=[font=\small]
 \tikzstyle{default_rectangle} = [black, fill=white]
 \definecolor{myblue}{RGB}{68,119,170}
 \definecolor{myred}{RGB}{204,102,119}
@@ -164,8 +165,8 @@ size=3em,scale=.9,solid,fill=blue!20,minimum height=1em]
  link list thread (no responses)} 
 
 
-  \item \textbf{-02 (2019-03-09):}   
-\href{https://mailarchive.ietf.org/arch/msg/dnsop/}{
+  \item \textbf{-02 (2019-03-08):}   
+\href{https://mailarchive.ietf.org/arch/msg/dnsop/u_w7KI7BkLmWQ7ii0P_PTEYBcus}{
  link  list thread }
 \end{itemize}
 
@@ -231,7 +232,7 @@ papers.append(Vries17b)
 papers.append(Moura18b)
 
 for p in papers:
-  recommendations = TLDR(p)
+  recommendations = TLDR(p) #great filter :-)
   print(recommendations)
 \end{lstlisting}
 
@@ -302,10 +303,13 @@ Attacks~\cite{Moura16b}
     achieve even load distribution}
     
 \begin{itemize}
- \item We carried large-scale measurements in~\cite{Mueller17b}, 
-using Ripe Atlas.
-\item We verified them using \url{.nl} and Root DNS (DITL) data
-\item Findings: \begin{enumerate}
+%  \item We carried large-scale measurements in~\cite{Mueller17b}, 
+% using Ripe Atlas.
+% \item We verified them using \url{.nl} and Root DNS (DITL) data
+\item Finding using Atlas, \url{.nl}, and DITL (Root DNS) 
+datas~\cite{Mueller17b} : 
+
+\begin{enumerate}
                 \item Resolvers query \textit{all} available authoritatives
                 \item However, their load distribution is uneven: closer 
 authoritatives get \textit{more} queries -- but not all
@@ -335,8 +339,8 @@ records, equally strong (peering and capacity), and phase out unicast.
  
  \begin{itemize}
   \item When choosing an anycast DNS provider, people always ask ``how many 
-sites/nodes'' it has
- \item People sometimes assume more sites/nodes lead to better client's 
+sites/instances'' it has
+ \item People sometimes assume more sites/instances lead to better client's 
 experience (lower RTT)
  \item \cite{Schmidt17a} shows that this is not always true, and that 
 \textit{routing} can matter more than number of locations. For example:
@@ -344,7 +348,7 @@ experience (lower RTT)
  \item \texttt{c-root}: 8 locations. 
  \item \texttt{k-root}: 33 locations
  \item \texttt{l-root}: 144 locations
- \item Their median RTT: 30--32\,ms to 7.9k Atlas probes
+ \item Their\textbf{ median RTT: 30--32\,ms }to 7.9k Atlas probes
 \end{itemize}
 
 
@@ -372,8 +376,8 @@ when engineering DNS anycast services
     Deployment Can Improve Engineering Designs}
     
     \begin{itemize}
-     \item Say you run an anycast service with $n$  nodes
-     \item  Say you want to add 1 more  node in SFO
+     \item Say you run an anycast service with $n$  instances
+     \item  Say you want to add 1 more  instance in SFO
      \item How will that affect traffic among your other locations?
       \begin{itemize}
        \item Very hard to predict
@@ -393,15 +397,15 @@ when engineering DNS anycast services
 \begin{itemize}
  \item Solution: detailed anycast catchment maps
  \item \cite{Vries17b} present a tool (Verfploeter) that does that using ICMP
- \item They run it on B-root \textit{before} moving to anycast
- \item They were able to predict catchments and  query loads:
+%  \item They run it on B-root \textit{before} moving to anycast
+ \item They predicted \texttt{b-root} catchments and  query loads:
  \begin{itemize}
-  \item  Load predict going to \texttt{b-root} LAX node: 81.6\% 
+  \item  Load predict going to \texttt{b-root} LAX instance: 81.6\% 
   \item Actual load: 81.4\%.
  \end{itemize}
  \item OPs: you can use it on a test prefix, announced from the same locations 
-as your production network
-\item Run it with different configurations and make informed choices
+as your production network; run it with different configurations and make 
+informed choices
 
 \item To date: running on a testbed, B-root, and a large unnamed operator. 
  
@@ -432,13 +436,89 @@ as your production network
 %  \item Often uneven distribution
  \item What to do? Depends on the attack
  \begin{enumerate}
-  \item 
- \end{enumerate}
+   \item \textcolor{red}{\textbf{Do nothing and let LAX become a degraded 
+absorber} }
 
+\pause
+   \item \textcolor{inlinks}{\textbf{Withdraw/prepend routes to shift traffic  }}
+
+ \end{enumerate}
+\pause
+ \item Best option depends on attack and NS specifics
 \end{itemize}
 
 
 \end{frame}
+
+\begin{frame}
+ \frametitle{R5: Consider longer TTL values whenever 
+possible}
+\begin{itemize}
+ \item TTLs set how long queries should remain in resolver's cache
+\begin{itemize}
+   \item Sort of ``ephemeral replication''
+\end{itemize}
+
+%  \item \cite{Moura18b} found that caching works 70\% as expected in the wild
+ \item They also emulate DDoS attacks (50-100\% packet loss)
+%  \begin{itemize}
+%   \item Caching is a \textit{key} component of resolver's resilience
+%   \item Retries as well (90\% packet loss, 27\% still get an answers, caching 
+% boots this number)
+% % \item When cache expires, only resolvers serving slate 
+% % content\footnote{\url{
+% % https://tools.ietf.org/html/draft-ietf-dnsop-serve-stale-03}} can help you
+%  \end{itemize}
+
+ 
+\end{itemize}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\columnwidth]{fig/hist.pdf}
+ \caption{TTL: 1h; 100\%  Packet loss after $t=10$min}
+\label{fig:class-valid-queries}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{R5: Consider longer TTL values whenever 
+possible}
+\begin{itemize}
+ 
+ 
+ \item Caching is a \textit{key} component of resolver's resilience
+   \item Retries as well -- to the point that resolvers may ``hammer'' 
+authoritatives
+   
+   
+ \item As such, \cite{Moura18b} recommend longer TTLs whenever possible
+ 
+ 
+ \end{itemize}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{R6:  Shared Infrastructure Risks Collateral Damage During 
+Attacks}
+ \begin{itemize}
+  \item Be careful when hiring/engineering DNS services: co-location implies 
+you shared some (parts of the) infrastructure
+
+\item \cite{Moura16b} found that co-located \url{.nl} sites suffered during 
+DDoS against Roots
+\item Dyn 2016 Attack shows the same
+
+\item OPS: be aware of shared infrastructure risk
+ \end{itemize}
+
+\end{frame}
+
 
 
 \begin{frame}
