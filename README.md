@@ -19,7 +19,7 @@
 
 ## Discussion on IETF-DNSOP list:
    
-   & Version 02 discussion thread: https://mailarchive.ietf.org/arch/msg/dnsop/u_w7KI7BkLmWQ7ii0P_PTEYBcus
+   * Version 02 discussion thread: https://mailarchive.ietf.org/arch/msg/dnsop/u_w7KI7BkLmWQ7ii0P_PTEYBcus
    * Version 01 discussion thread: https://mailarchive.ietf.org/arch/msg/dnsop/2R8Ab4-7sKmOY7-XcJ3yLSq6Gcc
    * Version 00 discussion thread: https://mailarchive.ietf.org/arch/msg/dnsop/AMMr6dDDUmShnG90URv6AJCY_VQ
    
