@@ -419,7 +419,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    An authoritative DNS server deployed using anycast will have many
    server instances distributed over many networks and instances.
    Ultimately, the relationship between the DNS provider's network and a
-   client's ISP will determine which anycast instance will answer for
+   client's ISP will determine which anycast instance will answer
    queries for a given client.  As a consequence, when an anycast
    authoritative server is under attack, the load that each anycast
    instance receives is likely to be unevenly distributed (a function of
