@@ -258,7 +258,7 @@ Introduction        {#intro}
 ============
 
 
-The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2181}}. A recursive resolver is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client, in {{recuath}}, is shown as stub, which is shorthand for stub resolver {{RFC1034}} that is typically located within the client software.
+The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server (ATn in {{recuath}}) knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2181}}. A recursive resolver (Rn) is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client (stub in {{recuath}}) refers to stub resolver {{RFC1034}} that is typically located within the client software.
 
                 +-----+   +-----+   +-----+   +-----+
                 | AT1 |   | AT2 |   | AT3 |   | AT4 |
@@ -266,7 +266,7 @@ The domain name system (DNS) has main two types of DNS servers: authoritative se
                    ^         ^          ^        ^
                    |         |          |        |
                    |      +--+--+       |        |
-                   +------+ Rn  +-------+        |
+                   +------+ R2_1+-------+        |
                    |      +--^--+                |
                    |         |                   |
                    |      +--+--+   +-----+      |
@@ -279,7 +279,9 @@ The domain name system (DNS) has main two types of DNS servers: authoritative se
                               +------+
 {: #recuath title="Relationship between recursive resolvers (R) and authoritative name servers (AT)"}
 
-DNS queries contribute to user's perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} and by using load balancers to support multiple servers inside a single (potentially anycasted) node. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
+DNS queries contribute to user's perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. 
+
+To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} and by using load balancers to support multiple servers inside a single (potentially anycasted) node. As a consequence, there are many possible ways a DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
 \[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
@@ -300,9 +302,6 @@ server operators, as the studies cited in this publication were analyzing author
   It is likely that these recommendations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
 conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only.
 
-
-
- 
 
 
 # R1:  Use equaly strong IP anycast in every authoritative server to achieve even load distribution
@@ -329,7 +328,7 @@ The hypothesis is that this behavior is a consequence of two main criteria emplo
 
 For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (NS record), in terms of number of node and peering, and, consequently, to phase out unicast, so they can deliver latency values to global clients. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
 
-This recommendation was deployed at the ".nl" TLD zone, which originally had a mixed unicast/anycast setup; since early 2018 it now has 4 anycast authoritative name servers. Moreover, many other DNS zones have been running on anycast only (e.g., .be since 2013), and most  root DNS letters (authoritative servers for the root zone). 
+This recommendation was deployed at the ".nl" TLD zone, which originally had seven authoritative severs (mixed unicast/anycast setup). .nl has moved in early 2018 to a setup with 4 anycast authoritative name servers. This is not to say that .nl was the first -- other zones, have been running anycast only authoritatives (e.g., .be since 2013). {{Mueller17b}} contribution is to show that unicast cannot deliver good latency worldwide, and that anycast has to be deployed to deliver good latency worldwide.  
 
 
 # R2: Routing Can Matter More Than Locations
@@ -442,10 +441,9 @@ This document has no IANA actions.
 
 # Acknowledgements
 
-This document is a summary of the main lessons of the research works mentioned on each recommendation here provided. As such, each author of each paper has a clear contribution.
+This document is a summary of the main recommendations of five research works referred in this document. As such, they were only possible thanks to the hard work of the authors of these research works.
 
-Here we mention the papers co-authors and  thank them for their work:
-Ricardo de O Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,   Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
+The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras. 
 
 We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, and Kristof Tuyteleers.
 
