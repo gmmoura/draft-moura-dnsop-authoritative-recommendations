@@ -469,7 +469,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    routing policies, routing implementations withdrawing under load, the
    nature of the attack, and the locations of the instances and the
    attackers.  Some policies are explicit, such as the choice of local-
-   only anycast instances, or operators removing a instance for
+   only anycast instances, or operators removing an instance for
    maintenance or modifying routing to manage load.  However, under
    stress, the choices of withdrawal and absorption can also be results
    that emerge from a mix of explicit choices and implementation
@@ -485,7 +485,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    Note that this recommendation refers to the operation of one anycast
    service, i.e., one anycast NS record.  However, DNS zones with
    multiple NS anycast services may expect load to spill from one
-   anycast server to another ,as resolvers switch from authoritative to
+   anycast server to another,as resolvers switch from authoritative to
    authoritative when attempting to resolve a name [Mueller17b].
 
 6.  R5: Consider longer time-to-live values whenever possible
@@ -496,7 +496,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    owners in their zone files - either specifically per record or by
    using default values for the entire zone.  Sometimes the same
    resource record may have different TTL values - one from the parent
-   and one from the child DNS server.  In this cases, resolvers are
+   and one from the child DNS server.  In this case, resolvers are
 
 
 

@@ -235,16 +235,16 @@ PREVIous text
 
 <t><xref target="Moura16b"/> saw both of these behaviors in practice in the Root DNS events, observed through instance reachability and route-trip time (RTTs). These options represent different uses of an anycast deployment. The withdrawal strategy causes anycast to respond as a waterbed, with stress displacing queries from one instance to others. The absorption strategy behaves as a conventional mattress,  compressing under load, with some queries getting delayed or dropped.</t>
 
-<t>Although described as strategies and policies, these outcomes are the result of several factors: the combination of operator and host ISP routing policies, routing implementations withdrawing under load, the nature of the attack, and the locations of the instances and the attackers. Some policies are explicit, such as the choice of local-only anycast instances, or operators removing a instance for maintenance or modifying routing to manage load. However, under stress, the choices of withdrawal and absorption can also be results that emerge from a mix of explicit choices and implementation details, such as BGP timeout values.</t>
+<t>Although described as strategies and policies, these outcomes are the result of several factors: the combination of operator and host ISP routing policies, routing implementations withdrawing under load, the nature of the attack, and the locations of the instances and the attackers. Some policies are explicit, such as the choice of local-only anycast instances, or operators removing an instance for maintenance or modifying routing to manage load. However, under stress, the choices of withdrawal and absorption can also be results that emerge from a mix of explicit choices and implementation details, such as BGP timeout values.</t>
 
 <t><xref target="Moura16b"/> speculates that more careful, explicit, and automated management of policies may provide stronger defenses to overload, an area currently under study. For DNS operators, that means that besides traditional filtering, two other options are available (withdraw/prepend/communities or isolate instances), and the best choice depends on the specifics of the attack.</t>
 
-<t>Note that this recommendation refers to the operation of one anycast service, i.e., one anycast NS record. However, DNS zones with multiple NS anycast services may expect load to spill from one anycast server to another ,as resolvers switch from authoritative to authoritative when attempting to resolve a name <xref target="Mueller17b"/>.</t>
+<t>Note that this recommendation refers to the operation of one anycast service, i.e., one anycast NS record. However, DNS zones with multiple NS anycast services may expect load to spill from one anycast server to another,as resolvers switch from authoritative to authoritative when attempting to resolve a name <xref target="Mueller17b"/>.</t>
 
 </section>
 <section anchor="r5-consider-longer-time-to-live-values-whenever-possible" title="R5: Consider longer time-to-live values whenever possible">
 
-<t>In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" <xref target="RFC1034"/>. The TTL values are set by zone owners in their zone files &#8211; either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values &#8211; one from the parent and one from the child DNS server. In this cases, resolvers are expected to prioritize the answer according to Section 5.4.1 in <xref target="RFC2181"/>.</t>
+<t>In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" <xref target="RFC1034"/>. The TTL values are set by zone owners in their zone files &#8211; either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values &#8211; one from the parent and one from the child DNS server. In this case, resolvers are expected to prioritize the answer according to Section 5.4.1 in <xref target="RFC2181"/>.</t>
 
 <t>While set at authoritative servers, (labeled "AT"s in <xref target="recuath"/>), the TTL value in fact influences the behavior of recursive resolvers (and their operators &#8211; "Rn" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
 In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times by avoiding repeated queries between recursive resolvers and authoritative.</t>
@@ -515,7 +515,7 @@ The drawback of setting larger TTL values is that changes on the authoritative s
   </back>
 
 <!-- ##markdown-source:
-H4sIAFyAglwAA7V963LjRpbmfz5Fbjk6SmqTlKh7aWZ6W5Z8kbtuIcldEzHu
+H4sIAKCQglwAA7V963LjRpbmfz5Fbjk6SmqTlKh7aWZ6W5Z8kbtuIcldEzHu
 7gCBFIkWCHCQoFh0uTb2HfZd9tf8mzeZJ9nznZM3gFCV7e3xxHRRJIDMPNfv
 XDIxGo0GTd4U+lzd6LRaLHSZJU1elUbdV7W6WDXzqs4b+upRq1tdP+raqDdL
 XSdNVZtBMp3W+tHdO2pdPnqzNIOsSstkQU/P6uS+GS2qVZ2MstJUy1HSurhu
@@ -711,74 +711,74 @@ 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
-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
-HmFEr03qKtX/A5pWHRZyggAA
+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
+6K1JXaX6f8UkY61xggAA
 
 -->
 
