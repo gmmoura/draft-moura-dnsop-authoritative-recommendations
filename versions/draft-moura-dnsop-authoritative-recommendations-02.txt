@@ -544,14 +544,14 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    cache at the attack time.  Given the TTL value decreases as time
    passes at the cache, it protected clients for up to its value in
    cache.  Once the TTL expires, there was some evidence of some
-   recursives serving stale content [RFC7719].  Serving stale is the
-   only viable option when TTL values expire in recursive caches and
-   authoritative servers became completely unavailable.
+   recursives serving stale content [I-D.ietf-dnsop-serve-stale].
+   Serving stale is the only viable option when TTL values expire in
+   recursive caches and authoritative servers became completely
+   unavailable.
 
    They also emulated partial-failure DDoS failures were also emulated
    (similar to Dyn 2016 [Perlroth16], by dropping packet at rates of
    50-90%, for various TTL values.  They found that:
-
 
 
 
@@ -678,6 +678,11 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 11.1.  Normative References
 
+   [I-D.ietf-dnsop-serve-stale]
+              Lawrence, D., Kumari, W., and P. Sood, "Serving Stale Data
+              to Improve DNS Resiliency", draft-ietf-dnsop-serve-
+              stale-03 (work in progress), February 2019.
+
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
               <https://www.rfc-editor.org/info/rfc1034>.
@@ -715,11 +720,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               (AXFR)", RFC 5936, DOI 10.17487/RFC5936, June 2010,
               <https://www.rfc-editor.org/info/rfc5936>.
 
-   [RFC7094]  McPherson, D., Oran, D., Thaler, D., and E. Osterweil,
-              "Architectural Considerations of IP Anycast", RFC 7094,
-              DOI 10.17487/RFC7094, January 2014,
-              <https://www.rfc-editor.org/info/rfc7094>.
-
 
 
 
@@ -730,9 +730,14 @@ Moura, et al.           Expires September 9, 2019              [Page 13]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   [RFC7719]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
-              Terminology", RFC 7719, DOI 10.17487/RFC7719, December
-              2015, <https://www.rfc-editor.org/info/rfc7719>.
+   [RFC7094]  McPherson, D., Oran, D., Thaler, D., and E. Osterweil,
+              "Architectural Considerations of IP Anycast", RFC 7094,
+              DOI 10.17487/RFC7094, January 2014,
+              <https://www.rfc-editor.org/info/rfc7094>.
+
+   [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
+              Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
+              January 2019, <https://www.rfc-editor.org/info/rfc8499>.
 
 11.2.  Informative References
 
@@ -773,11 +778,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               Websites Across U.S.", October 2016,
               <https://www.nytimes.com/2016/10/22/business/
               internet-problems-attack.html>.
-
-
-
-
-
 
 
 
