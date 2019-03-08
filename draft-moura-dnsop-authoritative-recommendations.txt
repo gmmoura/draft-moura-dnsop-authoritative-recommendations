@@ -233,9 +233,8 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    better engineer the deployment of authoritative servers.
    [Mueller17b] evaluates this with a measurement study in which they
    deployed seven unicast authoritative name servers in different global
-   locations and queried these authoritative servers from more than
-   9,000 RIPE Atlas probes (Vantage Points--VPs) and their respective
-   recursive resolvers.
+   locations and queried these authoritative servers from more than 9k
+   RIPE Atlas probes and and their respective recursive resolvers.
 
    In the wild, [Mueller17b] found that recursives query all available
    authoritative servers, regardless of the observed latency.  But the
@@ -277,6 +276,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
+
 Moura, et al.           Expires September 9, 2019               [Page 5]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
@@ -295,14 +295,14 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    They analyzed the relationship between the number of anycast
    instances and the performance of a service (latency-wise, RTT) and
    measured the overall performance of four DNS Root servers, namely C,
-   F, K and L, from more than 7.9K RIPE Atlas probes.
+   F, K and L, from more than 7.9k RIPE Atlas probes.
 
    [Schmidt17a] found that C-Root, a smaller anycast deployment
    consisting of only 8 instances (they refer to anycast instance as
    anycast site), provided a very similar overall performance than that
    of the much larger deployments of K and L, with 33 and 144 instances
-   respectively.  A median RTT was measured between 30ms and 32ms for C,
-   K and L roots, and 25ms for F.
+   respectively.  The median RTT for C, K and L Root was between
+   30-32ms.
 
    [Schmidt17a] recommendation for DNS operators when engineering
    anycast services is consider factors other than just the number of
@@ -657,7 +657,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    We would like also to thank the various reviewers of different
    versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov,
-   John Levine, Michael StJohns, and Kristof Tuyteleers.
+   John Levine, Michael StJohns, Kristof Tuyteleers, and Stefan Ubbink.
 
    Besides those, we would like thank those who have been individually
    thanked in each research work, RIPE NCC and DNS OARC for their tools

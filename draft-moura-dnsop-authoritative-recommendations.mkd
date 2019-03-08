@@ -319,8 +319,7 @@ IP anycast{{RFC1546}}{{RFC4786}}{{RFC7094}}, by announcing the same IP address f
 Most DNS operators strive to reduce latency for users of their service.
 However, because they control only their authoritative servers, and not the recursive resolvers communicating with those servers, it is difficult to ensure that recursives will be served by the closest authoritative server. Server selection is up to the recursive resolver's software implementation, and different software vendors and releases employ different criteria to chose which authoritative servers with which to communicate.
 
-Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. {{Mueller17b}}  evaluates this with a measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9,000 RIPE Atlas probes (Vantage Points---VPs) and their respective recursive resolvers.
-
+Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. {{Mueller17b}}  evaluates this with a measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9k RIPE Atlas probes and and their respective recursive resolvers.
 
 In the wild,  {{Mueller17b}}  found that recursives query all available authoritative servers, regardless of the observed latency. But the distribution of queries tend to be skewed towards authoritatives with lower latency: the lower the latency between a recursive resolver and an authoritative server, the more often the recursive will send queries to that authoritative. These results were obtained by aggregating results from all vantage points and not specific to any vendor/version.
 
@@ -336,9 +335,9 @@ This recommendation was deployed at the ".nl" TLD zone, which originally had sev
 
 A common metric when choosing an anycast DNS provider or setting up an anycast service is the number of anycast instances{{RFC4786}}, i.e., the number of global locations from which the same address is announced with BGP. Intuitively, one could think that more instances will lead to shorter response times.
 
-However, this is not necessarily true. In fact,  {{Schmidt17a}}  found   that routing can matter more than the total number of locations. They analyzed the relationship between the number of anycast instances and the performance of a service (latency-wise, RTT) and measured the overall performance of four DNS Root servers, namely C, F, K and L, from more than 7.9K RIPE Atlas probes.
+However, this is not necessarily true. In fact,  {{Schmidt17a}}  found   that routing can matter more than the total number of locations. They analyzed the relationship between the number of anycast instances and the performance of a service (latency-wise, RTT) and measured the overall performance of four DNS Root servers, namely C, F, K and L, from more than 7.9k RIPE Atlas probes.
 
-{{Schmidt17a}}  found  that C-Root, a smaller anycast deployment consisting of only 8 instances (they refer to anycast instance as anycast site), provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 instances respectively. A median RTT was measured between 30ms and 32ms for C, K and L roots, and 25ms for F.
+{{Schmidt17a}}  found  that C-Root, a smaller anycast deployment consisting of only 8 instances (they refer to anycast instance as anycast site), provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 instances respectively. The median RTT for C, K and L Root was between 30-32ms.
 
 
 {{Schmidt17a}} recommendation for DNS operators when engineering anycast services is consider factors other than just the number of instances (such as local routing connectivity) when designing for performance. They showed that 12 instances can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more instances can be useful for other reasons, such as when handling DDoS attacks {{Moura16b}}.
@@ -446,6 +445,6 @@ This document is a summary of the main recommendations of five research works re
 
 The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras. 
 
-We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, and Kristof Tuyteleers.
+We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, and Stefan Ubbink.
 
 Besides those, we would like thank those who have been individually thanked in each research work, RIPE NCC and DNS OARC for their tools and datasets used in this research, as well as the funding agencies sponsoring the individual research works.
