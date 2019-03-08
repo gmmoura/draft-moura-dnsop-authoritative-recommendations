@@ -1,7 +1,7 @@
 ---
 title: Recommendations for Authoritative Servers Operators
 abbrev: Recomm-Authoritative-Ops
-docname: draft-moura-dnsop-authoritative-recommendations-02
+docname: draft-moura-dnsop-authoritative-recommendations-03
 date:
 
 # stand_alone: true
@@ -259,7 +259,7 @@ Introduction        {#intro}
 ============
 
 
-The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server (ATn in {{recuath}}) knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  needing to query other servers {{RFC2181}}. A recursive resolver (Rn) is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client (stub in {{recuath}}) refers to stub resolver {{RFC1034}} that is typically located within the client software.
+The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server (ATn in {{recuath}}) knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  without needing to query other servers {{RFC2181}}. A recursive resolver (Re_n) is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client (stub in {{recuath}}) refers to stub resolver {{RFC1034}} that is typically located within the client software.
 
                 +-----+   +-----+   +-----+   +-----+
                 | AT1 |   | AT2 |   | AT3 |   | AT4 |
@@ -267,18 +267,18 @@ The domain name system (DNS) has main two types of DNS servers: authoritative se
                    ^         ^          ^        ^
                    |         |          |        |
                    |      +--+--+       |        |
-                   +------+ R2_1+-------+        |
+                   +------|Re_1 |-------+        |
                    |      +--^--+                |
                    |         |                   |
                    |      +--+--+   +-----+      |
-                   +------+R1_1 |   |R1_2 +------+
-                          +-+---+   +----+
+                   +------|Re_2 |   |Re_3 |------+
+                          +-+---+   +-----+
                             ^           ^
                             |           |
                             | +------+  |
-                            +-+ stub +--+
+                            +-| stub |--+
                               +------+
-{: #recuath title="Relationship between recursive resolvers (R) and authoritative name servers (AT)"}
+{: #recuath title="Relationship between recursive resolvers (Re_n) and authoritative name servers (ATn)"}
 
 DNS queries contribute to user's perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. 
 
@@ -290,7 +290,7 @@ This document summarizes recent research work exploring DNS configurations and o
 \[RF:JAb1, Issue#2\].
 These recommendations are designed for operators of "large" authoritative
 servers for domains like TLDs.
-"Large" authoritative servers mean those with a significant global user population.
+"Large" authoritative servers refers to those with a significant global user population.
 These recommendations may not be appropriate for smaller domains,
 such as those used by an organization with users in one city or region,
 where goals such as uniform low latency are less strict.
@@ -308,7 +308,7 @@ conclusions of the studies don't verify this fact,  the wording in this document
 # R1:  Use equaly strong IP anycast in every authoritative server to achieve even load distribution
 
 
-Authoritative DNS servers operators announce their authoritative servers in the form of Name Server (NS)records{ {RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
+Authoritative DNS servers operators announce their authoritative servers as NS records{{RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
 
 DNS heavily relies upon replication to support high reliability,
 capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
