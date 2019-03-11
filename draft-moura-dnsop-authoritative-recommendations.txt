@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: September 9, 2019                                  J. Heidemann
+Expires: September 12, 2019                                 J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                          March 08, 2019
+                                                          March 11, 2019
 
 
           Recommendations for Authoritative Servers Operators
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 1]
+Moura, et al.          Expires September 12, 2019               [Page 1]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -61,7 +61,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 9, 2019.
+   This Internet-Draft will expire on September 12, 2019.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 2]
+Moura, et al.          Expires September 12, 2019               [Page 2]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -146,30 +146,31 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    To reduce latency and improve resiliency against DoS attacks, DNS
    uses several types of server replication.  Replication at the
-   authoritative server level can be achieved with the deployment of
+   authoritative server level can be achieved with (i) the deployment of
    multiple servers for the same zone [RFC1035] (AT1--AT4 in Figure 1),
-   the use of IP anycast [RFC1546][RFC4786][RFC7094] that allows the
-   same IP address to be announced from multiple locations (each of them
-   referred to as anycast instance [RFC8499]) and by using load
-   balancers to support multiple servers inside a single (potentially
-   anycasted) instance.  As a consequence, there are many possible ways
-   a DNS provider can engineer its production authoritative server
-   network, with multiple viable choices and no single optimal design.
+   (ii) the use of IP anycast [RFC1546][RFC4786][RFC7094] that allows
+   the same IP address to be announced from multiple locations (each of
+   them referred to as anycast instance [RFC8499]) and (iii) by using
+   load balancers to support multiple servers inside a single
+   (potentially anycasted) instance.  As a consequence, there are many
+   possible ways an authoritative DNS provider can engineer its
+   production authoritative server network, with multiple viable choices
+   and no single optimal design.
 
    This document summarizes recent research work exploring DNS
    configurations and offers specific tangible recommendations to DNS
    authoritative servers operators (DNS operators hereafter).
    [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The recommendations (R1-R6)
    presented in this document are backed by previous research work,
-   which used wide-scale Internet measurements upon which to draw their
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 3]
+Moura, et al.          Expires September 12, 2019               [Page 3]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   which used wide-scale Internet measurements upon which to draw their
    conclusions.  This document describes the key engineering options,
    and points readers to the pertinent papers for details.
 
@@ -217,15 +218,15 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    servers, and not the recursive resolvers communicating with those
    servers, it is difficult to ensure that recursives will be served by
    the closest authoritative server.  Server selection is up to the
-   recursive resolver's software implementation, and different software
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 4]
+Moura, et al.          Expires September 12, 2019               [Page 4]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   recursive resolver's software implementation, and different software
    vendors and releases employ different criteria to chose which
    authoritative servers with which to communicate.
 
@@ -276,8 +277,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-
-Moura, et al.           Expires September 9, 2019               [Page 5]
+Moura, et al.          Expires September 12, 2019               [Page 5]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -333,7 +333,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 6]
+Moura, et al.          Expires September 12, 2019               [Page 6]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -389,7 +389,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 7]
+Moura, et al.          Expires September 12, 2019               [Page 7]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -445,7 +445,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 8]
+Moura, et al.          Expires September 12, 2019               [Page 8]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -501,7 +501,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019               [Page 9]
+Moura, et al.          Expires September 12, 2019               [Page 9]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -509,14 +509,14 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    expected to prioritize the answer according to Section 5.4.1 in
    [RFC2181].
 
-   While set at authoritative servers, (labeled "AT"s in Figure 1), the
-   TTL value in fact influences the behavior of recursive resolvers (and
-   their operators - "Rn" in the same figure), by setting an upper limit
-   on how long a record should be cached before discarded.  In this
-   sense, caching can be seen as a sort of "ephemeral replication",
-   i.e., the contents of an authoritative server are placed at a
-   recursive resolver cache for a period of time up to the TTL value.
-   Caching improves response times by avoiding repeated queries between
+   While set at authoritative servers, (ATn in Figure 1), the TTL value
+   in fact influences the behavior of recursive resolvers (and their
+   operators - "Re_n" in the same figure), by setting an upper limit on
+   how long a record should be cached before discarded.  In this sense,
+   caching can be seen as a sort of "ephemeral replication", i.e., the
+   contents of an authoritative server are placed at a recursive
+   resolver cache for a period of time up to the TTL value.  Caching
+   improves response times by avoiding repeated queries between
    recursive resolvers and authoritative.
 
    Besides improving performance, it has been argued that caching plays
@@ -528,17 +528,17 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent
    from roughly 15,000 vantage points, using RIPE Atlas.
 
-   [Moura18b] found that , under normal operations, caching works as
-   expected 70% of the times in the wild.  It is believe that complex
+   [Moura18b] found that, under normal operations, caching works as
+   expected 70% of the times in the wild.  It is believed that complex
    recursive infrastructure (such as anycast recursives with fragmented
    cache), besides cache flushing and hierarchy explains these other 30%
    of the non-cached records.  The results from the experiments were
    confirmed by analyzing authoritative traffic for the .nl TLD, which
    showed similar figures.
 
-   [Moura18b] also emulated DDoS attacks on authoritative servers were
-   emulated by dropping all incoming packets for various TTLs values.
-   For experiments when all authoritative servers were completely
+   [Moura18b] also emulated DDoS attacks on authoritative servers by
+   dropping all incoming packets for various TTLs values.  For
+   experiments when all authoritative servers were completely
    unreachable, they found that TTL value on the DNS records determined
    how long clients received responses, together with the status of the
    cache at the attack time.  Given the TTL value decreases as time
@@ -549,15 +549,15 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    recursive caches and authoritative servers became completely
    unavailable.
 
-   They also emulated partial-failure DDoS failures were also emulated
-   (similar to Dyn 2016 [Perlroth16], by dropping packet at rates of
-   50-90%, for various TTL values.  They found that:
+   They also emulated partial-failure DDoS, i.e., DDoS that cause
+   authoritative to respond to be able to respond part of the queries
+   (similar to Dyn 2016 [Perlroth16]).  They emulate such scenario by
+   dropping incoming packet at rates of 50-90%, for various TTL values.
+   They found that:
 
 
 
-
-
-Moura, et al.           Expires September 9, 2019              [Page 10]
+Moura, et al.          Expires September 12, 2019              [Page 10]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -613,7 +613,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019              [Page 11]
+Moura, et al.          Expires September 12, 2019              [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -669,7 +669,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019              [Page 12]
+Moura, et al.          Expires September 12, 2019              [Page 12]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -725,7 +725,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019              [Page 13]
+Moura, et al.          Expires September 12, 2019              [Page 13]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -781,7 +781,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019              [Page 14]
+Moura, et al.          Expires September 12, 2019              [Page 14]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -837,7 +837,7 @@ Authors' Addresses
 
 
 
-Moura, et al.           Expires September 9, 2019              [Page 15]
+Moura, et al.          Expires September 12, 2019              [Page 15]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -893,4 +893,4 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.           Expires September 9, 2019              [Page 16]
+Moura, et al.          Expires September 12, 2019              [Page 16]
