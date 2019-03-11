@@ -434,9 +434,11 @@ It is recommended, therefore, when choosing third-party DNS providers, operators
 
 # Security considerations
 
-As this document discusses research, there are no security considerations.
+This document suggests the use of {{I-D.ietf-dnsop-serve-stale}}. It be noted that usage of such methods may affect data integrity of DNS information. This document describes methods of mitigating changes of a denial of service threat within a DNS service.
 
-<!-- to be verified against RFC3552 - MD -->
+As this document discusses research, there are no further security considerations, other than the ones mentioned in the normative references.
+
+<!-- verified against RFC3552 - MD -->
 
 # Privacy Considerations
 
