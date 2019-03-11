@@ -141,11 +141,10 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
        Figure 1: Relationship between recursive resolvers (Re_n) and
                      authoritative name servers (ATn)
 
-   The DNS plays an important role on the internet.  DNS queries and
-   responses contribute to user's perceived latency and affect user
-   experience [Sigla2014], and the DNS system has been subject to
-   repeated Denial of Service (DoS) attacks (for example, in November
-   2015 [Moura16b]) in order to degrade user experience.
+   DNS queries/responses contribute to user's perceived latency and
+   affect user experience [Sigla2014], and the DNS system has been
+   subject to repeated Denial of Service (DoS) attacks (for example, in
+   November 2015 [Moura16b]) in order to degrade user experience.
 
    To reduce latency and improve resiliency against DoS attacks, DNS
    uses several types of server replication.  Replication at the
@@ -162,6 +161,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    This document summarizes recent research work exploring DNS
    configurations and offers specific tangible recommendations to DNS
+   authoritative servers operators (DNS operators hereafter).
 
 
 
@@ -170,7 +170,6 @@ Moura, et al.          Expires September 12, 2019               [Page 3]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   authoritative servers operators (DNS operators hereafter).
    [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The recommendations (R1-R6)
    presented in this document are backed by previous research work,
    which used wide-scale Internet measurements upon which to draw their
@@ -218,6 +217,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Most DNS operators strive to reduce latency for users of their
    service.  However, because they control only their authoritative
+   servers, and not the recursive resolvers communicating with those
 
 
 
@@ -226,7 +226,6 @@ Moura, et al.          Expires September 12, 2019               [Page 4]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   servers, and not the recursive resolvers communicating with those
    servers, it is difficult to ensure that recursives will be served by
    the closest authoritative server.  Server selection is up to the
    recursive resolver's software implementation, and different software
@@ -274,6 +273,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    setup). .nl has moved in early 2018 to a setup with 4 anycast
    authoritative name servers.  This is not to say that .nl was the
    first - other zones, have been running anycast only authoritatives
+   (e.g., .be since 2013).  [Mueller17b] contribution is to show that
 
 
 
@@ -282,7 +282,6 @@ Moura, et al.          Expires September 12, 2019               [Page 5]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   (e.g., .be since 2013).  [Mueller17b] contribution is to show that
    unicast cannot deliver good latency worldwide, and that anycast has
    to be deployed to deliver good latency worldwide.
 
@@ -330,6 +329,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Adding new instances to an anycast service may change the load
    distribution across all instances, leading to suboptimal usage of the
+   service or even stressing some instances while others remain
 
 
 
@@ -338,7 +338,6 @@ Moura, et al.          Expires September 12, 2019               [Page 6]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   service or even stressing some instances while others remain
    underutilized.  This is a scenario that operators constantly face
    when expanding an anycast service.  Besides, when setting up a new
    anycast service instance, operators cannot directly estimate the
@@ -386,6 +385,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    operators can make informed choices when engineering new anycast
    instances or when expending new ones by carrying out active
    measurements using Verfploeter in advance of operationally enabling
+   the fully anycast service.  Operators can spot sub-optimal routing
 
 
 
@@ -394,7 +394,6 @@ Moura, et al.          Expires September 12, 2019               [Page 7]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   the fully anycast service.  Operators can spot sub-optimal routing
    situations early, with a fine granularity, and with significantly
    better coverage than using traditional measurement platforms such as
    RIPE Atlas.
@@ -442,6 +441,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
       (such as reducing the propagation of its announcements using BGP
       communities[RFC1997]) which shrinks portions of its catchment),
       use FlowSpec [RFC5575] or other upstream communication mechanisms
+      to deploy upstream filtering.  The goals of these techniques is to
 
 
 
@@ -450,7 +450,6 @@ Moura, et al.          Expires September 12, 2019               [Page 8]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-      to deploy upstream filtering.  The goals of these techniques is to
       perform some combination of shifting of both legitimate and attack
       traffic to other anycast instances (with hopefully greater
       capacity) or to block the traffic entirely.
@@ -498,6 +497,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    In a DNS response, each resource record is accompanied by a time-to-
    live value (TTL), which "describes how long a RR can be cached before
    it should be discarded" [RFC1034].  The TTL values are set by zone
+   owners in their zone files - either specifically per record or by
 
 
 
@@ -506,7 +506,6 @@ Moura, et al.          Expires September 12, 2019               [Page 9]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   owners in their zone files - either specifically per record or by
    using default values for the entire zone.  Sometimes the same
    resource record may have different TTL values - one from the parent
    and one from the child DNS server.  In this case, resolvers are
@@ -553,7 +552,8 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    recursive caches and authoritative servers became completely
    unavailable.
 
-
+   They also emulated partial-failure DDoS, i.e., DDoS that cause
+   authoritative to respond to be able to respond part of the queries
 
 
 
@@ -562,8 +562,6 @@ Moura, et al.          Expires September 12, 2019              [Page 10]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-   They also emulated partial-failure DDoS, i.e., DDoS that cause
-   authoritative to respond to be able to respond part of the queries
    (similar to Dyn 2016 [Perlroth16]).  They emulate such scenario by
    dropping incoming packet at rates of 50-90%, for various TTL values.
    They found that:
@@ -609,6 +607,8 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    degree of shared risk, in that stress on one service may spill over
    into another, resulting in collateral damage.  Collateral damage is a
    common side-effect of DDoS, and data centers and operators strive to
+   minimize collateral damage through redundancy, overcapacity, and
+   isolation.
 
 
 
@@ -617,9 +617,6 @@ Moura, et al.          Expires September 12, 2019              [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
-
-   minimize collateral damage through redundancy, overcapacity, and
-   isolation.
 
    This has been seen in practice during the DDoS attack against the
    Root DNS system in November 2015 [Moura16b].  In this study, it was
@@ -666,6 +663,9 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    included in this document's author list for their work: Ricardo de O.
    Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian
    Hesselman, Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
+
+
+
 
 
 
