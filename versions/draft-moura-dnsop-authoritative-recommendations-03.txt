@@ -97,7 +97,7 @@ Table of Contents
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
      12.2.  Informative References . . . . . . . . . . . . . . . . .  14
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
@@ -639,8 +639,14 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 8.  Security considerations
 
-   As this document discusses research, there are no security
-   considerations.
+   This document suggests the use of [I-D.ietf-dnsop-serve-stale].  It
+   be noted that usage of such methods may affect data integrity of DNS
+   information.  This document describes methods of mitigating changes
+   of a denial of service threat within a DNS service.
+
+   As this document discusses research, there are no further security
+   considerations, other than the ones mentioned in the normative
+   references.
 
 9.  Privacy Considerations
 
@@ -660,12 +666,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    The authors of this document are also co-authors of these research
    works.  However, not all thirteen authors of these research papers
    are also authors of this document.  We would like to thank those not
-   included in this document's author list for their work: Ricardo de O.
-   Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian
-   Hesselman, Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
-
-
-
 
 
 
@@ -673,6 +673,10 @@ Moura, et al.          Expires September 12, 2019              [Page 12]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
+
+   included in this document's author list for their work: Ricardo de O.
+   Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian
+   Hesselman, Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
 
    We would like also to thank the various reviewers of different
    versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov,
@@ -716,10 +720,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               Specification", RFC 2181, DOI 10.17487/RFC2181, July 1997,
               <https://www.rfc-editor.org/info/rfc2181>.
 
-   [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
-              Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006,
-              <https://www.rfc-editor.org/info/rfc4271>.
 
 
 
@@ -729,6 +729,11 @@ Moura, et al.          Expires September 12, 2019              [Page 13]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
+
+   [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
+              Border Gateway Protocol 4 (BGP-4)", RFC 4271,
+              DOI 10.17487/RFC4271, January 2006,
+              <https://www.rfc-editor.org/info/rfc4271>.
 
    [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
               Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
@@ -772,12 +777,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               October 2016,
               <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
 
-   [Moura18b]
-              Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
-              Davids, "When the Dike Breaks: Dissecting DNS Defenses
-              During DDos", ACM 2018 Internet Measurement Conference,
-              DOI 10.1145/3278532.3278534, October 2018,
-              <https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf>.
+
 
 
 
@@ -785,6 +785,13 @@ Moura, et al.          Expires September 12, 2019              [Page 14]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
+
+   [Moura18b]
+              Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
+              Davids, "When the Dike Breaks: Dissecting DNS Defenses
+              During DDos", ACM 2018 Internet Measurement Conference,
+              DOI 10.1145/3278532.3278534, October 2018,
+              <https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf>.
 
    [Mueller17b]
               Mueller, M., Moura, G., Schmidt, R., and J. Heidemann,
@@ -824,6 +831,17 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               Conference, DOI 10.1145/3131365.3131371, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Vries17b.pdf>.
 
+
+
+
+
+
+
+Moura, et al.          Expires September 12, 2019              [Page 15]
+
+Internet-Draft          Recomm-Authoritative-Ops              March 2019
+
+
 Authors' Addresses
 
    Giovane C. M. Moura
@@ -834,12 +852,6 @@ Authors' Addresses
 
    Phone: +31 26 352 5500
    Email: giovane.moura@sidn.nl
-
-
-
-Moura, et al.          Expires September 12, 2019              [Page 15]
-
-Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
    Wes Hardaker
@@ -870,18 +882,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Phone: +31 26 352 5500
    Email: marco.davids@sidn.nl
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
