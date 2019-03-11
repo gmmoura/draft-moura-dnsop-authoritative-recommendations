@@ -91,11 +91,12 @@ Table of Contents
    7.  R6: Shared Infrastructure Risks Collateral Damage During
        Attacks . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
    8.  Security considerations . . . . . . . . . . . . . . . . . . .  12
-   9.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  14
+   9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  12
+   10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  14
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
@@ -105,7 +106,6 @@ Table of Contents
    relationship.  An authoritative server (ATn in Figure 1) knows the
    content of a DNS zone from local knowledge, and thus can answer
    queries about that zone without needing to query other servers
-   [RFC2181].  A recursive resolver (Re_n) is a program that extracts
 
 
 
@@ -114,6 +114,7 @@ Moura, et al.          Expires September 12, 2019               [Page 2]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   [RFC2181].  A recursive resolver (Re_n) is a program that extracts
    information from name servers in response to client requests
    [RFC1034].  A client (stub in Figure 1) refers to stub resolver
    [RFC1034] that is typically located within the client software.
@@ -140,7 +141,8 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
        Figure 1: Relationship between recursive resolvers (Re_n) and
                      authoritative name servers (ATn)
 
-   DNS queries contribute to user's perceived latency and affect user
+   The DNS plays an important role on the internet.  DNS queries and
+   responses contribute to user's perceived latency and affect user
    experience [Sigla2014], and the DNS system has been subject to
    repeated Denial of Service (DoS) attacks (for example, in November
    2015 [Moura16b]) in order to degrade user experience.
@@ -160,8 +162,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    This document summarizes recent research work exploring DNS
    configurations and offers specific tangible recommendations to DNS
-   authoritative servers operators (DNS operators hereafter).
-   [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The recommendations (R1-R6)
 
 
 
@@ -170,6 +170,8 @@ Moura, et al.          Expires September 12, 2019               [Page 3]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   authoritative servers operators (DNS operators hereafter).
+   [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The recommendations (R1-R6)
    presented in this document are backed by previous research work,
    which used wide-scale Internet measurements upon which to draw their
    conclusions.  This document describes the key engineering options,
@@ -216,8 +218,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Most DNS operators strive to reduce latency for users of their
    service.  However, because they control only their authoritative
-   servers, and not the recursive resolvers communicating with those
-   servers, it is difficult to ensure that recursives will be served by
 
 
 
@@ -226,6 +226,8 @@ Moura, et al.          Expires September 12, 2019               [Page 4]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   servers, and not the recursive resolvers communicating with those
+   servers, it is difficult to ensure that recursives will be served by
    the closest authoritative server.  Server selection is up to the
    recursive resolver's software implementation, and different software
    vendors and releases employ different criteria to chose which
@@ -233,12 +235,12 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Knowing how recursives choose authoritative servers is a key step to
    better engineer the deployment of authoritative servers.
-   [Mueller17b] evaluates this with a measurement study in which they
+   [Mueller17b]  evaluates this with a measurement study in which they
    deployed seven unicast authoritative name servers in different global
    locations and queried these authoritative servers from more than 9k
    RIPE Atlas probes and and their respective recursive resolvers.
 
-   In the wild, [Mueller17b] found that recursives query all available
+   In the wild, [Mueller17b]  found that recursives query all available
    authoritative servers, regardless of the observed latency.  But the
    distribution of queries tend to be skewed towards authoritatives with
    lower latency: the lower the latency between a recursive resolver and
@@ -259,7 +261,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    Since unicast cannot deliver good latency worldwide (a unicast
    authoritative server in Europe will always have high latency to
    resolvers in California, for example, given its geographical
-   distance), [Mueller17b] recommends to DNS operators that they deploy
+   distance), [Mueller17b]  recommends to DNS operators that they deploy
    equally strong IP anycast in every authoritative server (NS record),
    in terms of number of instances and peering, and, consequently, to
    phase out unicast, so they can deliver latency values to global
@@ -272,8 +274,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    setup). .nl has moved in early 2018 to a setup with 4 anycast
    authoritative name servers.  This is not to say that .nl was the
    first - other zones, have been running anycast only authoritatives
-   (e.g., .be since 2013).  [Mueller17b] contribution is to show that
-
 
 
 
@@ -282,6 +282,7 @@ Moura, et al.          Expires September 12, 2019               [Page 5]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   (e.g., .be since 2013).  [Mueller17b] contribution is to show that
    unicast cannot deliver good latency worldwide, and that anycast has
    to be deployed to deliver good latency worldwide.
 
@@ -293,14 +294,14 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    announced with BGP.  Intuitively, one could think that more instances
    will lead to shorter response times.
 
-   However, this is not necessarily true.  In fact, [Schmidt17a] found
+   However, this is not necessarily true.  In fact, [Schmidt17a]  found
    that routing can matter more than the total number of locations.
    They analyzed the relationship between the number of anycast
    instances and the performance of a service (latency-wise, RTT) and
    measured the overall performance of four DNS Root servers, namely C,
    F, K and L, from more than 7.9k RIPE Atlas probes.
 
-   [Schmidt17a] found that C-Root, a smaller anycast deployment
+   [Schmidt17a]  found that C-Root, a smaller anycast deployment
    consisting of only 8 instances (they refer to anycast instance as
    anycast site), provided a very similar overall performance than that
    of the much larger deployments of K and L, with 33 and 144 instances
@@ -329,7 +330,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Adding new instances to an anycast service may change the load
    distribution across all instances, leading to suboptimal usage of the
-   service or even stressing some instances while others remain
 
 
 
@@ -338,6 +338,7 @@ Moura, et al.          Expires September 12, 2019               [Page 6]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   service or even stressing some instances while others remain
    underutilized.  This is a scenario that operators constantly face
    when expanding an anycast service.  Besides, when setting up a new
    anycast service instance, operators cannot directly estimate the
@@ -359,7 +360,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    catchment and query load distribution for the new anycast service of
    B-Root.  Using two anycast instances in Miami (MIA) and Los Angeles
    (LAX) from the operational B-Root server, they sent ICMP echo packets
-   to IP addresses from each IPv4 /24 in on the Internet using a source
+   to IP addresses to each IPv4 /24 on the Internet using a source
    address within the anycast prefix.  Then, they recorded which
    instance the ICMP echo replies arrived at based on the Internet's BGP
    routing.  This analysis resulted in an Internet wide catchment map.
@@ -370,7 +371,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    the LAX instance.  The actual value was 81.4% of traffic going to
    LAX, showing that the estimation was pretty close and the Verfploeter
    technique was a excellent method of predicting traffic loads in
-   advance of a new anycast instance deployment ([Vries17b] also uses
+   advance of a new anycast instance deployment ([Vries17b]  also uses
    the term anycast site to refer to anycast instance).
 
    Besides that, Verfploeter can also be used to estimate how traffic
@@ -385,7 +386,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    operators can make informed choices when engineering new anycast
    instances or when expending new ones by carrying out active
    measurements using Verfploeter in advance of operationally enabling
-   the fully anycast service.  Operators can spot sub-optimal routing
 
 
 
@@ -394,6 +394,7 @@ Moura, et al.          Expires September 12, 2019               [Page 7]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   the fully anycast service.  Operators can spot sub-optimal routing
    situations early, with a fine granularity, and with significantly
    better coverage than using traditional measurement platforms such as
    RIPE Atlas.
@@ -440,8 +441,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
       neighbors, ([RF:Issue3]) perform other traffic shifting tricks
       (such as reducing the propagation of its announcements using BGP
       communities[RFC1997]) which shrinks portions of its catchment),
-      use FlowSpec or other upstream communication mechanisms to deploy
-      upstream filtering.  The goals of these techniques is to perform
+      use FlowSpec [RFC5575] or other upstream communication mechanisms
 
 
 
@@ -450,9 +450,10 @@ Moura, et al.          Expires September 12, 2019               [Page 8]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
-      some combination of shifting of both legitimate and attack traffic
-      to other anycast instances (with hopefully greater capacity) or to
-      block the traffic entirely.
+      to deploy upstream filtering.  The goals of these techniques is to
+      perform some combination of shifting of both legitimate and attack
+      traffic to other anycast instances (with hopefully greater
+      capacity) or to block the traffic entirely.
 
    o  Alternatively, it can be become a degraded absorber, continuing to
       operate, but with overloaded ingress routers, dropping some
@@ -497,7 +498,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    In a DNS response, each resource record is accompanied by a time-to-
    live value (TTL), which "describes how long a RR can be cached before
    it should be discarded" [RFC1034].  The TTL values are set by zone
-   owners in their zone files - either specifically per record or by
 
 
 
@@ -506,6 +506,7 @@ Moura, et al.          Expires September 12, 2019               [Page 9]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   owners in their zone files - either specifically per record or by
    using default values for the entire zone.  Sometimes the same
    resource record may have different TTL values - one from the parent
    and one from the child DNS server.  In this case, resolvers are
@@ -542,18 +543,17 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    [Moura18b] also emulated DDoS attacks on authoritative servers by
    dropping all incoming packets for various TTLs values.  For
    experiments when all authoritative servers were completely
-   unreachable, they found that TTL value on the DNS records determined
-   how long clients received responses, together with the status of the
-   cache at the attack time.  Given the TTL value decreases as time
-   passes at the cache, it protected clients for up to its value in
-   cache.  Once the TTL expires, there was some evidence of some
-   recursives serving stale content [I-D.ietf-dnsop-serve-stale].
+   unreachable, they found that the TTL value on the DNS records
+   determined how long clients received responses, together with the
+   status of the cache at the attack time.  Given the TTL value
+   decreases as time passes at the cache, it protected clients for up to
+   its value in cache.  Once the TTL expires, there was some evidence of
+   some recursives serving stale content [I-D.ietf-dnsop-serve-stale].
    Serving stale is the only viable option when TTL values expire in
    recursive caches and authoritative servers became completely
    unavailable.
 
-   They also emulated partial-failure DDoS, i.e., DDoS that cause
-   authoritative to respond to be able to respond part of the queries
+
 
 
 
@@ -562,6 +562,8 @@ Moura, et al.          Expires September 12, 2019              [Page 10]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   They also emulated partial-failure DDoS, i.e., DDoS that cause
+   authoritative to respond to be able to respond part of the queries
    (similar to Dyn 2016 [Perlroth16]).  They emulate such scenario by
    dropping incoming packet at rates of 50-90%, for various TTL values.
    They found that:
@@ -607,8 +609,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    degree of shared risk, in that stress on one service may spill over
    into another, resulting in collateral damage.  Collateral damage is a
    common side-effect of DDoS, and data centers and operators strive to
-   minimize collateral damage through redundancy, overcapacity, and
-   isolation.
 
 
 
@@ -617,6 +617,9 @@ Moura, et al.          Expires September 12, 2019              [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
+
+   minimize collateral damage through redundancy, overcapacity, and
+   isolation.
 
    This has been seen in practice during the DDoS attack against the
    Root DNS system in November 2015 [Moura16b].  In this study, it was
@@ -639,13 +642,18 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 8.  Security considerations
 
-   o  to be added
+   As this document discusses research, there are no security
+   considerations.
 
-9.  IANA considerations
+9.  Privacy Considerations
+
+   This document does not add any practical new privacy issues.
+
+10.  IANA considerations
 
    This document has no IANA actions.
 
-10.  Acknowledgements
+11.  Acknowledgements
 
    This document is a summary of the main recommendations of five
    research works referred in this document.  As such, they were only
@@ -659,14 +667,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian
    Hesselman, Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
 
-   We would like also to thank the various reviewers of different
-   versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov,
-   John Levine, Michael StJohns, Kristof Tuyteleers, and Stefan Ubbink.
-
-   Besides those, we would like thank those who have been individually
-   thanked in each research work, RIPE NCC and DNS OARC for their tools
-
-
 
 
 Moura, et al.          Expires September 12, 2019              [Page 12]
@@ -674,17 +674,23 @@ Moura, et al.          Expires September 12, 2019              [Page 12]
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
+   We would like also to thank the various reviewers of different
+   versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov,
+   John Levine, Michael StJohns, Kristof Tuyteleers, and Stefan Ubbink.
+
+   Besides those, we would like thank those who have been individually
+   thanked in each research work, RIPE NCC and DNS OARC for their tools
    and datasets used in this research, as well as the funding agencies
    sponsoring the individual research works.
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [I-D.ietf-dnsop-serve-stale]
               Lawrence, D., Kumari, W., and P. Sood, "Serving Stale Data
               to Improve DNS Resiliency", draft-ietf-dnsop-serve-
-              stale-03 (work in progress), February 2019.
+              stale-04 (work in progress), March 2019.
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
@@ -715,13 +721,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               DOI 10.17487/RFC4271, January 2006,
               <https://www.rfc-editor.org/info/rfc4271>.
 
-   [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
-              Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
-              December 2006, <https://www.rfc-editor.org/info/rfc4786>.
 
-   [RFC5936]  Lewis, E. and A. Hoenes, Ed., "DNS Zone Transfer Protocol
-              (AXFR)", RFC 5936, DOI 10.17487/RFC5936, June 2010,
-              <https://www.rfc-editor.org/info/rfc5936>.
 
 
 
@@ -729,6 +729,19 @@ Moura, et al.          Expires September 12, 2019              [Page 13]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
+
+   [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
+              Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
+              December 2006, <https://www.rfc-editor.org/info/rfc4786>.
+
+   [RFC5575]  Marques, P., Sheth, N., Raszuk, R., Greene, B., Mauch, J.,
+              and D. McPherson, "Dissemination of Flow Specification
+              Rules", RFC 5575, DOI 10.17487/RFC5575, August 2009,
+              <https://www.rfc-editor.org/info/rfc5575>.
+
+   [RFC5936]  Lewis, E. and A. Hoenes, Ed., "DNS Zone Transfer Protocol
+              (AXFR)", RFC 5936, DOI 10.17487/RFC5936, June 2010,
+              <https://www.rfc-editor.org/info/rfc5936>.
 
    [RFC7094]  McPherson, D., Oran, D., Thaler, D., and E. Osterweil,
               "Architectural Considerations of IP Anycast", RFC 7094,
@@ -739,7 +752,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
               January 2019, <https://www.rfc-editor.org/info/rfc8499>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [AnyTest]  Schmidt, R., "Anycast Testbed", December 2018,
               <http://www.anycast-testbed.com/>.
@@ -766,6 +779,13 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               DOI 10.1145/3278532.3278534, October 2018,
               <https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf>.
 
+
+
+Moura, et al.          Expires September 12, 2019              [Page 14]
+
+Internet-Draft          Recomm-Authoritative-Ops              March 2019
+
+
    [Mueller17b]
               Mueller, M., Moura, G., Schmidt, R., and J. Heidemann,
               "Recursives in the Wild- Engineering Authoritative DNS
@@ -778,13 +798,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
               Websites Across U.S.", October 2016,
               <https://www.nytimes.com/2016/10/22/business/
               internet-problems-attack.html>.
-
-
-
-Moura, et al.          Expires September 12, 2019              [Page 14]
-
-Internet-Draft          Recomm-Authoritative-Ops              March 2019
-
 
    [Schmidt17a]
               Schmidt, R., Heidemann, J., and J. Kuipers, "Anycast
@@ -823,6 +836,12 @@ Authors' Addresses
    Email: giovane.moura@sidn.nl
 
 
+
+Moura, et al.          Expires September 12, 2019              [Page 15]
+
+Internet-Draft          Recomm-Authoritative-Ops              March 2019
+
+
    Wes Hardaker
    USC/Information Sciences Institute
    PO Box 382
@@ -831,15 +850,6 @@ Authors' Addresses
 
    Phone: +1 (530) 404-0099
    Email: ietf@hardakers.net
-
-
-
-
-
-
-Moura, et al.          Expires September 12, 2019              [Page 15]
-
-Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
    John Heidemann
@@ -860,16 +870,6 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Phone: +31 26 352 5500
    Email: marco.davids@sidn.nl
-
-
-
-
-
-
-
-
-
-
 
 
 
