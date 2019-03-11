@@ -235,12 +235,12 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    Knowing how recursives choose authoritative servers is a key step to
    better engineer the deployment of authoritative servers.
-   [Mueller17b]  evaluates this with a measurement study in which they
+   [Mueller17b] evaluates this with a measurement study in which they
    deployed seven unicast authoritative name servers in different global
    locations and queried these authoritative servers from more than 9k
    RIPE Atlas probes and and their respective recursive resolvers.
 
-   In the wild, [Mueller17b]  found that recursives query all available
+   In the wild, [Mueller17b] found that recursives query all available
    authoritative servers, regardless of the observed latency.  But the
    distribution of queries tend to be skewed towards authoritatives with
    lower latency: the lower the latency between a recursive resolver and
@@ -261,7 +261,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    Since unicast cannot deliver good latency worldwide (a unicast
    authoritative server in Europe will always have high latency to
    resolvers in California, for example, given its geographical
-   distance), [Mueller17b]  recommends to DNS operators that they deploy
+   distance), [Mueller17b] recommends to DNS operators that they deploy
    equally strong IP anycast in every authoritative server (NS record),
    in terms of number of instances and peering, and, consequently, to
    phase out unicast, so they can deliver latency values to global
@@ -294,14 +294,14 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    announced with BGP.  Intuitively, one could think that more instances
    will lead to shorter response times.
 
-   However, this is not necessarily true.  In fact, [Schmidt17a]  found
+   However, this is not necessarily true.  In fact, [Schmidt17a] found
    that routing can matter more than the total number of locations.
    They analyzed the relationship between the number of anycast
    instances and the performance of a service (latency-wise, RTT) and
    measured the overall performance of four DNS Root servers, namely C,
    F, K and L, from more than 7.9k RIPE Atlas probes.
 
-   [Schmidt17a]  found that C-Root, a smaller anycast deployment
+   [Schmidt17a] found that C-Root, a smaller anycast deployment
    consisting of only 8 instances (they refer to anycast instance as
    anycast site), provided a very similar overall performance than that
    of the much larger deployments of K and L, with 33 and 144 instances
@@ -371,7 +371,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    the LAX instance.  The actual value was 81.4% of traffic going to
    LAX, showing that the estimation was pretty close and the Verfploeter
    technique was a excellent method of predicting traffic loads in
-   advance of a new anycast instance deployment ([Vries17b]  also uses
+   advance of a new anycast instance deployment ([Vries17b] also uses
    the term anycast site to refer to anycast instance).
 
    Besides that, Verfploeter can also be used to estimate how traffic
@@ -690,7 +690,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    [I-D.ietf-dnsop-serve-stale]
               Lawrence, D., Kumari, W., and P. Sood, "Serving Stale Data
               to Improve DNS Resiliency", draft-ietf-dnsop-serve-
-              stale-04 (work in progress), March 2019.
+              stale-03 (work in progress), February 2019.
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
