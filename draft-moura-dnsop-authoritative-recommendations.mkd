@@ -282,7 +282,7 @@ The domain name system (DNS) has main two types of DNS servers: authoritative se
                               +------+
 {: #recuath title="Relationship between recursive resolvers (Re_n) and authoritative name servers (ATn)"}
 
-The DNS plays an important role on the internet. DNS queries and responses contribute to user's perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. 
+DNS queries/responses contribute to user's perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience. 
 
 To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with (i) the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), (ii) the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} that allows the same IP address to be announced from multiple locations (each of them referred to as anycast instance {{RFC8499}}) and (iii) by using load balancers to support multiple servers inside a single (potentially anycasted) instance. As a consequence, there are many possible ways an authoritative DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
