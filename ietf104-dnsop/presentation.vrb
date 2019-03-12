@@ -1,0 +1,30 @@
+\frametitle{\textbf{This draft:}}
+
+
+
+ \lstset{language=Python}
+ \lstset{frame=lines}
+%  \lstset{caption={Insert code directly in your document}}
+ \lstset{label={lst:code_direct}}
+  \lstset{basicstyle=\footnotesize}
+
+
+\begin{lstlisting}
+papers=[]
+papers.append(Moura16b)
+papers.append(Mueller17b)
+papers.append(Schmidt17a)
+papers.append(Vries17b)
+papers.append(Moura18b)
+
+for p in papers:
+  recommendations = TLDR(p) #great filter :-)
+  print(recommendations)
+\end{lstlisting}
+
+\begin{itemize}
+ \item Tangile,direct language to OPs folks interested on \textit{what} to do
+ \item Reader is referred to papers to understand \textit{why}
+\end{itemize}
+
+

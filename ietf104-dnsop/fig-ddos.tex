@@ -1,0 +1,149 @@
+% \documentclass[tikz, border=10pt]{standalone}
+% 
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}},
+}}
+%\usetikzlibrary{arrows}
+
+% \begin{document}
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm, 
+thick,main node/.style={circle,fill=blue!20,draw, 
+font=\sffamily\Large\bfseries,minimum size=15mm},scale=0.5, every 
+node/.style={scale=0.5},darkstyle/.style={circle,draw,fill=gray!40,minimum 
+size=20}, resolver/.style={rectangle,fill=yellow!20,draw, 
+font=\sffamily\LARGE\bfseries,minimum size=10mm},scale=1]
+
+
+  \def\atlat{1}
+  \def\atlon{0}
+  \def\rlat{-2}
+  \def\rlon{0}
+  \def\mlat{-4}
+  \def\mlon{1}
+  \def\cllat{-6}
+  \def\cllon{0}
+  \def\colorkeylat{3}
+  \def\colorkeylon{0}
+  \def\textkeylat{-8}
+  \def\textkeylon{4}
+
+    % Authoritatives (blue and green circles)
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT1) at (\atlon+0.5,\atlat) 
+{\Large\bf LAX};
+
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<2->] (AT1-a) at 
+(\atlon+0.5,\atlat -2) {\huge \textcolor{red}{50\%}};
+
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT2) at (\atlon+3.5,\atlat) 
+{\Large\bf AMS};
+
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<2->] (AT2-a) at 
+(\atlon+3.5,\atlat -2) {\huge \textcolor{red}{20\%}};
+
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT3) at (\atlon+6.5,\atlat) 
+{\Large\bf NRT};
+
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<2->] (AT3-a) at 
+(\atlon+6.5,\atlat -2) {\huge \textcolor{red}{10\%}};
+
+%     \node[circle, draw=none, fill=none, scale=1.1,visible on=<2-2>] (AT1-a) at 
+% (\atlon+6.5,\atlat -2) {\huge \textcolor{red}{20%}};
+
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT4) at 
+(\atlon+9.5,\atlat) 
+{\Large\bf GRU};
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<2->] (AT4-a) at 
+(\atlon+9.5,\atlat -2) {\huge \textcolor{red}{20\%}};
+
+
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<2->] (AT4-a) at 
+(\atlon+-4.5,\atlat -2) {\huge \textcolor{red}{DDoS Load distrib}};
+
+
+
+    \node[resolver,fill=none] (r1) at (\rlon+5,\rlat-3) {\Huge 
+\textbf{\textcolor{red}{DDoS}}};
+
+
+ 
+
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<3->] (AT1-a) at 
+(\atlon+0.5,\atlat -3) {\huge \textcolor{inlinks}{25\%}};
+
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<3->] (AT2-a) at 
+(\atlon+3.5,\atlat -3) {\huge \textcolor{inlinks}{25\%}};
+    
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<3->] (AT3-a) at 
+(\atlon+6.5,\atlat -3) {\huge \textcolor{inlinks}{25\%}};
+
+
+    \node[circle, draw=none, fill=none, scale=1.1,visible on=<3->] (AT4-a) at 
+(\atlon+9.5,\atlat -3) {\huge \textcolor{inlinks}{25\%}};
+
+% 
+% 
+%     \node[circle, draw=none, fill=none, scale=1.1,visible on=<4->] (AT1-a) at 
+% (\atlon+0.5,\atlat -4) {\huge \textcolor{orange}{50\%}};
+% 
+%     \node[circle, draw=none, fill=none, scale=1.1,visible on=<4->] (AT2-a) at 
+% (\atlon+3.5,\atlat -4) {\huge \textcolor{orange}{25\%}};
+%     
+%     \node[circle, draw=none, fill=none, scale=1.1,visible on=<4->] (AT3-a) at 
+% (\atlon+6.5,\atlat -4) {\huge \textcolor{orange}{25\%}};
+% 
+% 
+%     \node[circle, draw=none, fill=none, scale=1.1,visible on=<4->] (AT4-a) at 
+% (\atlon+9.5,\atlat -4) {\huge \textcolor{orange}{0\%}};
+
+
+
+%animations
+    \node[resolver, minimum size=55,draw=blue,  dashed, minimum width=330, 
+fill=none, minimum height=120] (z2222) at (\atlon+5,\atlat-0.5){};
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none] (z) at (\atlon+4.8,\atlat+2){\huge \textcolor{blue}{Your Anycast 
+NS}};
+
+    % Connections between resolvers and authoritatives
+    \foreach \i in {1,...,1} {
+        \draw (r\i) -> (z2222);
+ 
+
+    }
+
+%     \node[resolver, minimum size=55,draw=red!80,  dashed,  minimum width=100, 
+% fill=none,visible on=<4->] (z1) at (\atlon+3.5,\atlat-4){};
+%   
+%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+% fill=none,visible on=<4->] (z) at 
+% (\atlon+8.5,\atlat-4){\textcolor{red}{Resolver OPs/Dev}};
+
+
+%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+% fill=none,visible on=<2->] (z) at 
+% (\atlon+3.5,\atlat-2){\textcolor{orange}{\Huge ?}};
+
+%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+% fill=none,visible on=<2-2>] (z) at 
+% (\atlon+8.5,\atlat-2){\textcolor{orange}{\Large resolver choice depends }};
+% 
+%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+% fill=none,visible on=<2-2>] (z) at 
+% (\atlon+8.5,\atlat-3){\textcolor{orange}{\Large on 
+% many factors}};
+% 
+% 
+%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+% fill=none,visible on=<2-2>] (z) at 
+% (\atlon+9,\atlat-5){\textcolor{orange}{\Large may lead to uneven load 
+% distrib. }};
+
+
+
+
+\end{tikzpicture}
