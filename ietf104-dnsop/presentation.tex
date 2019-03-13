@@ -443,7 +443,7 @@ when engineering DNS anycast services
     
     \begin{itemize}
      \item Say you run an anycast service with $n$  instances
-     \item  Say you want to add 1 more  instance in SFO
+     \item  Say you want to add 1 more  instance in LAX
      \item How will that affect traffic among your other locations?
       \begin{itemize}
        \item \textbf{Very hard} to predict
@@ -463,13 +463,26 @@ when engineering DNS anycast services
 \begin{itemize}
  \item Solution: detailed anycast catchment maps
  \item \cite{Vries17b} present a tool (Verfploeter) that does that using ICMP
-%  \item They run it on B-root \textit{before} moving to anycast
- \item They predicted \texttt{b-root} catchments and  query loads:
  \begin{itemize}
-  \item  Load predict going to \texttt{b-root} LAX instance: 81.6\% 
-  \item Actual load: 81.4\%.
+  \item Open-source
  \end{itemize}
-%  \item OPs: you can do it on a test prefix \textit{before} running on production
+
+%  \item They run it on B-root \textit{before} moving to anycast
+
+ \item Applied to  \texttt{b-root} to \textbf{predict} query load on LAX:
+ 
+ \begin{itemize}
+  \item Predicted: \textbf{81.6\% }
+  \item Actual: \textbf{81.4\%.}
+ \end{itemize}
+
+ 
+%  \item They predicted \texttt{b-root} catchments and  query loads:
+%  \begin{itemize}
+%   \item  Load predict going to \texttt{b-root} LAX instance: 81.6\% 
+%   \item Actual load: 81.4\%.
+%  \end{itemize}
+% %  \item OPs: you can do it on a test prefix \textit{before} running on production
 
 \item Current deployments:
 
@@ -478,6 +491,8 @@ when engineering DNS anycast services
  \item \texttt{B-root}
  \item Large unnamed operator
 \end{enumerate}
+
+
 % 
 % : running on a Anycast 
 % Testbed\footnote{\url{http://anycast-testbed.nl}}), \texttt{B-root}, and a 
