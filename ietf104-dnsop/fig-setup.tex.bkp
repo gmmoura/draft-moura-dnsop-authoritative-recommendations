@@ -91,43 +91,43 @@ anycast};
 %     \draw (mi1) -> (r4);
 %     \draw (cl3) -> (mi2);
 %     \draw (mi2) -> (r5);
-% 
-% 
-% %animations
-%     \node[resolver, minimum size=55,draw=blue,  dashed, minimum width=300, 
-% fill=none,visible on=<3->] (z) at (\atlon+3.5,\atlat){};
-% 
-%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
-% fill=none,visible on=<3->] (z) at (\atlon+10.5,\atlat){\textcolor{blue}{Auth 
-% OPs}};
-% 
-% 
-%     \node[resolver, minimum size=55,draw=red!80,  dashed,  minimum width=100, 
-% fill=none,visible on=<4->] (z1) at (\atlon+3.5,\atlat-4){};
-%   
-%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
-% fill=none,visible on=<4->] (z) at 
-% (\atlon+8.5,\atlat-4){\textcolor{red}{Resolver OPs/Dev}};
-% 
-% 
-%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
-% fill=none,visible on=<2->] (z) at 
-% (\atlon+3.5,\atlat-2){\textcolor{orange}{\Huge ?}};
-% 
-%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
-% fill=none,visible on=<2-2>] (z) at 
-% (\atlon+8.5,\atlat-2){\textcolor{orange}{\Large resolver choice depends }};
-% 
-%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
-% fill=none,visible on=<2-2>] (z) at 
-% (\atlon+8.5,\atlat-3){\textcolor{orange}{\Large on 
-% many factors}};
-% 
-% 
-%     \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
-% fill=none,visible on=<2-2>] (z) at 
-% (\atlon+9,\atlat-5){\textcolor{orange}{\Large may lead to uneven load 
-% distrib. }};
+
+
+%animations
+    \node[resolver, minimum size=55,draw=blue,  dashed, minimum width=300, 
+fill=none,visible on=<3->] (z) at (\atlon+3.5,\atlat){};
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<3->] (z) at (\atlon+10.5,\atlat){\textcolor{blue}{Auth 
+OPs}};
+
+
+    \node[resolver, minimum size=55,draw=red!80,  dashed,  minimum width=100, 
+fill=none,visible on=<4->] (z1) at (\atlon+3.5,\atlat-4){};
+  
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<4->] (z) at 
+(\atlon+8.5,\atlat-4){\textcolor{red}{Resolver OPs/Dev}};
+
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<2->] (z) at 
+(\atlon+3.5,\atlat-2){\textcolor{orange}{\Huge ?}};
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<2-2>] (z) at 
+(\atlon+8.5,\atlat-2){\textcolor{orange}{\Large resolver choice depends }};
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<2-2>] (z) at 
+(\atlon+8.5,\atlat-3){\textcolor{orange}{\Large on 
+many factors}};
+
+
+    \node[resolver, minimum size=2,draw=none,  dashed, minimum width=2, 
+fill=none,visible on=<2-2>] (z) at 
+(\atlon+9,\atlat-5){\textcolor{orange}{\Large may lead to uneven load 
+distrib. }};
 
 
 
