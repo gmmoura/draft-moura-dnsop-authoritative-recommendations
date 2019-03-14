@@ -30,17 +30,19 @@ font=\sffamily\LARGE\bfseries,minimum size=10mm},scale=1]
   \def\colorkeylon{0}
   \def\textkeylat{-8}
   \def\textkeylon{4}
+  \def\atoff{2.75}
 
     % Authoritatives (blue and green circles)
     \node[circle, draw, fill=blue!20, scale=1.1] (AT1) at (\atlon,\atlat) 
-{\Large\bf AT1};
-    \node[circle, draw, fill=blue!20, scale=1.1] (AT2) at (\atlon+2.25,\atlat) 
-{\Large\bf AT2};
-    \node[circle, draw, fill=blue!20, scale=1.1] (AT3) at (\atlon+4.5,\atlat) 
-{\Large\bf AT3};
+{\Large\bf Auth 1};
+
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT2) at (\atlon+\atoff,\atlat) 
+{\Large\bf Auth 2};
+    \node[circle, draw, fill=blue!20, scale=1.1] (AT3) at (\atlon+2*\atoff,\atlat) 
+{\Large\bf Auth 3};
     \node[circle, draw, fill=green!20, scale=1.1] (AT4) at 
-(\atlon+7,\atlat) 
-{\Large\bf AT4};
+(\atlon+3*\atoff,\atlat) 
+{\Large\bf Auth 4};
 
     % Authoritative color code (top)
     \node[main node, scale=0.4] (w) at (\colorkeylon,\colorkeylat) {};

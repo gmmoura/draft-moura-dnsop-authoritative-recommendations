@@ -248,8 +248,8 @@ for p in papers:
 \end{lstlisting}
 
 \begin{itemize}
- \item Tangible, direct language to OPs folks on \textit{what} to
-\item Reader referred to papers to know \textit{why}
+ \item Tangible, direct recommendations to OP folks on \textit{what} to do
+ \item With references to papers to know \textit{why}
 \end{itemize}
 
 
@@ -259,7 +259,7 @@ for p in papers:
  \frametitle{Recommendations in a nutshell}
  
  \begin{itemize}
-  \item R1: Use equaly strong IP anycast in every authoritative server to
+  \item R1: Use equally strong IP anycast in every authoritative server to
     achieve even load distribution~\cite{Mueller17b}
     
   \item R2:  Routing Can Matter More Than Locations~\cite{Schmidt17a}
@@ -304,10 +304,10 @@ Attacks~\cite{Moura16b}
 \item \textbf{Resolvers} will query \textbf{ALL} 
 authoritatives~\cite{Mueller17b}
 \begin{itemize}
- \item Ripe Atlas, \url{.nl} and the Roots data
+ \item (conclusions drawn from Ripe Atlas, \url{.nl} and the Roots data)
 \end{itemize}
 
-\item However, ATs nearby will get more queries
+\item However, nearby authoritative servers will receive more queries
 
 
 \end{itemize}
@@ -336,17 +336,15 @@ authoritatives~\cite{Mueller17b}
 \end{figure}
 \vspace{-0.5cm}
 \begin{itemize}
- \item For OPs: latency of \textit{all} ATs matter
+ \item For OPs: latency of \textit{all} Auth servers matter
 %  \item Therefore, they should be similarly capable 
   \item Unicast, by definition, cannot deliver good global performance 
-  \item \cite{Mueller17b} recommends then use anycast in \textit{all} NS 
-records
+  \item \cite{Mueller17b} recommends: use anycast at \textit{all} Auth servers
 \begin{itemize}
- \item equally strong (peering and capacity), and phase out unicast.
+ \item equally strong in peering and capacity; and phase out unicast.
 \end{itemize}
 
-
-\item This has been applied to \url{.nl}.
+\item This recommendation has been deployed at \url{.nl}.
 \end{itemize}
 
 
@@ -394,8 +392,8 @@ records
  \frametitle{R2: Routing Can Matter More Than Locations}
  
  \begin{itemize}
-  \item When choosing an anycast DNS provider, people always ask ``how many 
-sites/instances'' it has
+  \item When evaluating an anycast DNS provider, people always ask:
+       ``how many sites/instances'' do you have?
  \item Assumption: more sites $\rightarrow$ lower latency
  \item \cite{Schmidt17a} shows that this is not always true:
  
@@ -405,6 +403,9 @@ sites/instances'' it has
  \item \texttt{k-root}: 33 locations
  \item \texttt{l-root}: 144 locations
  \item Their\textbf{ median RTT: 30--32\,ms }to 7.9k Atlas probes
+   \begin{itemize}
+     \item Wes: I think this should be strengthened and explained further
+   \end{itemize}
 \end{itemize}
 
 
@@ -419,12 +420,12 @@ sites/instances'' it has
 \begin{itemize}
  \item Why? BGP is agnostic to geographical distance
  \begin{itemize}
-  \item A California client may be answered by a site in NRT -- even 
-though there is a site in SFO
+  \item A client in California may be answered by a site near NRT -- even 
+though there is a closer site in SFO
  \end{itemize}
 
- \item \cite{Schmidt17a} thus recommends to consider \textbf{routing} and 
-\textbf{connectivity} 
+\item \cite{Schmidt17a} thus recommends carefully considering
+  \textbf{routing} and \textbf{connectivity} 
 when engineering DNS anycast services
 
 \begin{itemize}
@@ -446,7 +447,7 @@ when engineering DNS anycast services
      \item  Say you want to add 1 more  instance in LAX
      \item How will that affect traffic among your other locations?
       \begin{itemize}
-       \item \textbf{Very hard} to predict
+       \item \textbf{Very hard} to predict without measurement
 %        \item BGP maps clients to locations
       \end{itemize}
 
@@ -461,12 +462,18 @@ when engineering DNS anycast services
     Deployment Can Improve Engineering Designs}
     
 \begin{itemize}
- \item Solution:  anycast catchment maps \textit{ahead } of deployment
+\item Solution:
+\begin{itemize}
+  \item measure anycast catchments \textit{ahead } of deployment
+  \item create anycast maps from these measurements
+\end{itemize}
+
 %  \begin{itemize}
 % %   \item 
 %  \end{itemize}
 
- \item \cite{Vries17b} present a tool (Verfploeter) that does that using ICMP
+ \item \cite{Vries17b} presents an ICMP-based tool (Verfploeter) 
+   for this solution
  \begin{itemize}
   \item \small \url{https://github.com/Woutifier/verfploeter}
 %   \item Can be run on test prefix
@@ -528,7 +535,7 @@ when engineering DNS anycast services
 \begin{itemize}
  \item BGP will map traffic to locations
 %  \item Often uneven distribution
- \item What to do? Depends on the attack
+ \item Best course of action?
  \begin{enumerate}
    \item \textcolor{red}{\textbf{Do nothing and let LAX become a degraded 
 absorber} }
@@ -554,7 +561,7 @@ possible}
 \end{itemize}
 
 %  \item \cite{Moura18b} found that caching works 70\% as expected in the wild
- \item  \cite{Moura18b}  also emulates DDoS attacks (50-100\% packet loss)
+ \item  \cite{Moura18b}  emulates DDoS attacks (50-100\% packet loss)
 %  \begin{itemize}
 %   \item Caching is a \textit{key} component of resolver's resilience
 %   \item Retries as well (90\% packet loss, 27\% still get an answers, caching 
@@ -584,10 +591,12 @@ possible}
 \begin{itemize}
  
  
- \item Caching is a \textit{key} component of resolver's resilience
+ \item Caching is a \textit{key} component of domain's resilience
    \item Retries as well -- to the point that resolvers may ``hammer'' 
 authoritatives
-   
+\begin{itemize}
+\item this needs some wording fixes, but I failed... - wes
+\end{itemize}
    
  \item As such, \cite{Moura18b} recommend longer TTLs whenever possible
  
@@ -601,23 +610,23 @@ authoritatives
  \frametitle{R6:  Shared Infrastructure Risks Collateral Damage During 
 Attacks}
  \begin{itemize}
-  \item Be careful when contracting/engineering DNS services:
+  \item Be careful when engineering DNS services:
   
   \begin{itemize}
-   \item  co-location implies you shared  (parts of the) infrastructure
+   \item  co-location implies you share (parts of the) infrastructure
   \end{itemize}
 
 
-\item \cite{Moura16b} found that when Root DNS was attacked, some \url{.nl}
-co-located sites were also down
-\item Dyn 2016 Attack shows the same  
+\item \cite{Moura16b} found that when the Root DNS was attacked, some \url{.nl}
+co-located sites also went down
+\item Dyn 2016 Attack shows similar results
 \begin{itemize}
- \item multiple zones partially reachable 
+ \item multiple zones were only partially reachable 
 when NSes were attacked
 \end{itemize}
 
 
-\item OPS: be aware of shared infrastructure risk
+\item Conclusion: be aware of shared infrastructure risk
  \end{itemize}
 
 \end{frame}
