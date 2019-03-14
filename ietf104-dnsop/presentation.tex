@@ -403,11 +403,12 @@ authoritatives~\cite{Mueller17b}
  \item \texttt{k-root}: 33 locations
  \item \texttt{l-root}: 144 locations
  \item Their\textbf{ median RTT: 30--32\,ms }to 7.9k Atlas probes
-   \begin{itemize}
-     \item Wes: I think this should be strengthened and explained further
-   \end{itemize}
-\end{itemize}
 
+%    \begin{itemize}
+%      \item Wes: I think this should be strengthened and explained further
+%    \end{itemize}
+\end{itemize}
+ \item In other words, similar latency values for different deployments
 
  \end{itemize}
 
@@ -591,11 +592,11 @@ possible}
 \begin{itemize}
  
  
- \item Caching is a \textit{key} component of domain's resilience
-   \item Retries as well -- to the point that resolvers may ``hammer'' 
-authoritatives
+ \item Caching is a \textit{key} component of DNS resilience
+ \item Resolver's retries as well 
+% authoritatives
 \begin{itemize}
-\item this needs some wording fixes, but I failed... - wes
+\item they may even ``hammer'' authoritative servers
 \end{itemize}
    
  \item As such, \cite{Moura18b} recommend longer TTLs whenever possible

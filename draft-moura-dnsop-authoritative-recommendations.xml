@@ -80,7 +80,7 @@
       </address>
     </author>
 
-    <date year="2019" month="March" day="12"/>
+    <date year="2019" month="March" day="14"/>
 
     <area>Internet</area>
     <workgroup>DNSOP Working Group</workgroup>
@@ -311,7 +311,7 @@ The drawback of setting larger TTL values is that changes on the authoritative s
 
 <t>The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.</t>
 
-<t>We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, and Stefan Ubbink.</t>
+<t>We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, and Samir Jafferali.</t>
 
 <t>Besides those, we would like thank those who have been individually thanked in each research work, RIPE NCC and DNS OARC for their tools and datasets used in this research, as well as the funding agencies sponsoring the individual research works.</t>
 
@@ -527,7 +527,7 @@ The drawback of setting larger TTL values is that changes on the authoritative s
   </back>
 
 <!-- ##markdown-source:
-H4sIAACoh1wAA7V963LjRpbmfz5Fbjk6ShqTlKh7aS7bsuSL3HULSe6aiHFP
+H4sIAJQoilwAA7V963LjRpbmfz5Fbjk6ShqTlKh7aS7bsuSL3HULSe6aiHFP
 BwimSLRAgIMERdPl2th32HfZX/tv3mSfZM93zslEAqRUtrfHE9NFkQAy81y/
 c8nEYDDo1Vmd23NzY9NyPrfFJKmzsnDmvqzMxbKelVVW01eP1tza6tFWzrxb
 2Cqpy8r1kvG4so/+3kHr8sG7hetNyrRI5vT0SZXc14N5uaySwaRw5WKQtC6u
@@ -793,9 +793,10 @@ PaqJfplnAINk1GobzuPZdqseux3GeWom2Gan28v4gGw5PI1PRcHOL4wonmEL
 FV961MeHo/p0L5l5zPuJF4n1/SvSvgovSet33mDd9y+q7jfvo25eSN035nu8
 oDp6fXF/+ys2+YXE/n2aqGK3VyqHMDXLtSFhJa+P0tMvm6KqHusW0RDveDon
 nIw3SH7gCdJcvi+tuSAJIlB195//e56Yb5PHioJMWzyUj315HeRrGgFHLb2h
-7xObm9saX9PNf8KC6fl3yzXOjg4HZt7W9p5W/cN4nBUPrR1sJYqFqzYPIwau
-ZmV06lHzEi857rp48EcySTk+PmOeSylvLy95fP8Gw4jJ/Fr5gJZ52yRvVfNS
-0lhqHFphkUvXo5mWuld+SgYWeRLO9ZQB4EZvGusq1f8DnYLDZLCFAAA=
+7xObm9saX9PNf8KC6fl3yzXOjubF3db2nlb8w3icFdrhc5vMiczfw3gThMha
+W9pKVA9XbaZGHF3NyugYpOatXnL+dfHgz2iS+nx86DzXVt5eXvIM/CsNI67z
+e+YDfOZ9lLx3zYtNY7pxioVFcl3Palrq5vkpWVwkTjj5UwbEG716rKtl/w/H
+ZdsFwYUAAA==
 
 -->
 

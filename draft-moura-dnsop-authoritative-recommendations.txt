@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: September 13, 2019                                 J. Heidemann
+Expires: September 15, 2019                                 J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                          March 12, 2019
+                                                          March 14, 2019
 
 
           Recommendations for Authoritative Servers Operators
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 1]
+Moura, et al.          Expires September 15, 2019               [Page 1]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -61,7 +61,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 13, 2019.
+   This Internet-Draft will expire on September 15, 2019.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 2]
+Moura, et al.          Expires September 15, 2019               [Page 2]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -165,7 +165,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 3]
+Moura, et al.          Expires September 15, 2019               [Page 3]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -221,7 +221,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 4]
+Moura, et al.          Expires September 15, 2019               [Page 4]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -277,7 +277,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 5]
+Moura, et al.          Expires September 15, 2019               [Page 5]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -333,7 +333,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 6]
+Moura, et al.          Expires September 15, 2019               [Page 6]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -389,7 +389,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 7]
+Moura, et al.          Expires September 15, 2019               [Page 7]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -445,7 +445,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 8]
+Moura, et al.          Expires September 15, 2019               [Page 8]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -501,7 +501,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019               [Page 9]
+Moura, et al.          Expires September 15, 2019               [Page 9]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -557,7 +557,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019              [Page 10]
+Moura, et al.          Expires September 15, 2019              [Page 10]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -613,7 +613,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019              [Page 11]
+Moura, et al.          Expires September 15, 2019              [Page 11]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -669,7 +669,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019              [Page 12]
+Moura, et al.          Expires September 15, 2019              [Page 12]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -680,7 +680,8 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
    We would like also to thank the various reviewers of different
    versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov,
-   John Levine, Michael StJohns, Kristof Tuyteleers, and Stefan Ubbink.
+   John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, and
+   Samir Jafferali.
 
    Besides those, we would like thank those who have been individually
    thanked in each research work, RIPE NCC and DNS OARC for their tools
@@ -724,8 +725,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-
-Moura, et al.          Expires September 13, 2019              [Page 13]
+Moura, et al.          Expires September 15, 2019              [Page 13]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -781,7 +781,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019              [Page 14]
+Moura, et al.          Expires September 15, 2019              [Page 14]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -837,7 +837,7 @@ Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
 
 
-Moura, et al.          Expires September 13, 2019              [Page 15]
+Moura, et al.          Expires September 15, 2019              [Page 15]
 
 Internet-Draft          Recomm-Authoritative-Ops              March 2019
 
@@ -893,4 +893,4 @@ Authors' Addresses
 
 
 
-Moura, et al.          Expires September 13, 2019              [Page 16]
+Moura, et al.          Expires September 15, 2019              [Page 16]
