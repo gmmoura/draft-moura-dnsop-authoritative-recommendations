@@ -457,6 +457,6 @@ This document is a summary of the main recommendations of five research works re
 
 The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras. 
 
-We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, and Stefan Ubbink.
+We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, and Samir Jafferali.
 
 Besides those, we would like thank those who have been individually thanked in each research work, RIPE NCC and DNS OARC for their tools and datasets used in this research, as well as the funding agencies sponsoring the individual research works.
