@@ -461,10 +461,15 @@ when engineering DNS anycast services
     Deployment Can Improve Engineering Designs}
     
 \begin{itemize}
- \item Solution: detailed anycast catchment maps
+ \item Solution:  anycast catchment maps \textit{ahead } of deployment
+%  \begin{itemize}
+% %   \item 
+%  \end{itemize}
+
  \item \cite{Vries17b} present a tool (Verfploeter) that does that using ICMP
  \begin{itemize}
-  \item Open-source
+  \item \small \url{https://github.com/Woutifier/verfploeter}
+%   \item Can be run on test prefix
  \end{itemize}
 
 %  \item They run it on B-root \textit{before} moving to anycast
@@ -549,7 +554,7 @@ possible}
 \end{itemize}
 
 %  \item \cite{Moura18b} found that caching works 70\% as expected in the wild
- \item They also emulate DDoS attacks (50-100\% packet loss)
+ \item  \cite{Moura18b}  also emulates DDoS attacks (50-100\% packet loss)
 %  \begin{itemize}
 %   \item Caching is a \textit{key} component of resolver's resilience
 %   \item Retries as well (90\% packet loss, 27\% still get an answers, caching 
@@ -596,12 +601,21 @@ authoritatives
  \frametitle{R6:  Shared Infrastructure Risks Collateral Damage During 
 Attacks}
  \begin{itemize}
-  \item Be careful when hiring/engineering DNS services: co-location implies 
-you shared some (parts of the) infrastructure
+  \item Be careful when contracting/engineering DNS services:
+  
+  \begin{itemize}
+   \item  co-location implies you shared  (parts of the) infrastructure
+  \end{itemize}
 
-\item \cite{Moura16b} found that co-located \url{.nl} sites suffered during 
-DDoS against Roots
-\item Dyn 2016 Attack shows the same
+
+\item \cite{Moura16b} found that when Root DNS was attacked, some \url{.nl}
+co-located sites were also down
+\item Dyn 2016 Attack shows the same  
+\begin{itemize}
+ \item multiple zones partially reachable 
+when NSes were attacked
+\end{itemize}
+
 
 \item OPS: be aware of shared infrastructure risk
  \end{itemize}
@@ -613,7 +627,7 @@ DDoS against Roots
 
 \begin{frame}
  \frametitle{Questions?}
- 
+
  \begin{itemize}
   \item R1: Use equaly strong IP anycast in every authoritative server to
     achieve even load distribution~\cite{Mueller17b}
@@ -631,8 +645,10 @@ possible~\cite{Moura18b}
     \item R6:  Shared Infrastructure Risks Collateral Damage During 
 Attacks~\cite{Moura16b}
     
-
-
+ \vspace{1cm}
+ \centering \textit{Thanks  reviewers of draft versions}
+ \centering \small 
+\url{https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations}
   
 
  \end{itemize}
