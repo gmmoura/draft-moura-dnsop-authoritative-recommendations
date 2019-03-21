@@ -300,15 +300,15 @@ Attacks~\cite{Moura16b}
 % \end{minipage}
 
 \end{figure}
-\vspace{-0.5cm}
+\vspace{-0.2cm}
 \begin{itemize}
 \item \textbf{Resolvers} will query \textbf{ALL} 
-authoritatives~\cite{Mueller17b}
+authoritatives (NS) ~\cite{Mueller17b}
 \begin{itemize}
  \item (conclusions drawn from Ripe Atlas, \url{.nl} and the Roots data)
 \end{itemize}
 
-\item However, nearby authoritative servers will receive more queries
+\item However, nearby authoritatives  will receive more queries
 
 
 \end{itemize}
@@ -337,12 +337,12 @@ authoritatives~\cite{Mueller17b}
 \end{figure}
 \vspace{-0.5cm}
 \begin{itemize}
- \item For OPs: latency of \textit{all} Auth servers matter (Auth = NS)
+ \item For OPs: latency of \textit{all} Auth servers matter 
 %  \item Therefore, they should be similarly capable 
-  \item Unicast, by definition, cannot deliver good global performance 
+  \item Unicast cannot deliver good global performance 
   \item \cite{Mueller17b} recommends: use anycast at \textit{all} Auth servers
 \begin{itemize}
- \item equally strong in peering and capacity; and phase out unicast.
+ \item equally strong in peering and capacity; and \textbf{phase out} unicast.
 \end{itemize}
 
 \item This recommendation has been deployed at \url{.nl}.
@@ -601,6 +601,10 @@ possible}
 \end{itemize}
    
  \item As such, \cite{Moura18b} recommend longer TTLs whenever possible
+ \begin{itemize}
+  \item There's no one-size-fits-all solution here
+ \end{itemize}
+
  
  
  \end{itemize}
@@ -620,7 +624,7 @@ Attacks}
 
 
 \item \cite{Moura16b} found that when the Root DNS was attacked, some \url{.nl}
-co-located instances also went down
+\textbf{co-located} instances also suffered
 \item Dyn 2016 Attack shows similar results
 \begin{itemize}
  \item multiple zones were only partially reachable 
@@ -638,7 +642,7 @@ when NSes were attacked
 
 \begin{frame}
  \frametitle{Questions?}
-
+ \vspace{0.5cm}
  \begin{itemize}
   \item R1: Use equaly strong IP anycast in every authoritative server to
     achieve even load distribution~\cite{Mueller17b}
@@ -656,7 +660,7 @@ possible~\cite{Moura18b}
     \item R6:  Shared Infrastructure Risks Collateral Damage During 
 Attacks~\cite{Moura16b}
     
- \vspace{1cm}
+ \vspace{0.5cm}
  \centering \textit{Thanks  reviewers of draft versions}
  \centering \small 
 \url{https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations}
@@ -681,7 +685,7 @@ Attacks~\cite{Moura16b}
 % \end{frame}
  
  \begin{frame}[allowframebreaks] {References}
- 
+ \small
 \bibliographystyle{IEEEtran}
 % \balance
 \small
