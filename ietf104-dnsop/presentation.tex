@@ -213,8 +213,6 @@ large-scale, Internet-wide measurements:
 \item However, papers tend to be \textit{long}, \textit{detailed} -- they 
 explain \textit{why} 
 
- \item \textcolor{blue}{\textbf{Target group:} large authoritative DNS ops, 
-with global traffic}
 
  \end{itemize}
 
@@ -250,6 +248,9 @@ for p in papers:
 \begin{itemize}
  \item Tangible, direct recommendations to OP folks on \textit{what} to do
  \item With references to papers to know \textit{why}
+  \item \textcolor{blue}{\textbf{Target group:} large authoritative DNS ops, 
+with global traffic}
+
 \end{itemize}
 
 
@@ -257,7 +258,7 @@ for p in papers:
 
 \begin{frame}
  \frametitle{Recommendations in a nutshell}
- 
+%  f
  \begin{itemize}
   \item R1: Use equally strong IP anycast in every authoritative server to
     achieve even load distribution~\cite{Mueller17b}
@@ -394,14 +395,14 @@ authoritatives~\cite{Mueller17b}
  \begin{itemize}
   \item When evaluating an anycast DNS provider, people always ask:
        ``how many sites/instances'' do you have?
- \item Assumption: more sites $\rightarrow$ lower latency
+ \item Assumption: more instances $\rightarrow$ lower latency
  \item \cite{Schmidt17a} shows that this is not always true:
  
 % \textit{routing} can matter more than number of locations. For example:
 \begin{itemize}
- \item \texttt{c-root}: 8 locations. 
- \item \texttt{k-root}: 33 locations
- \item \texttt{l-root}: 144 locations
+ \item \texttt{c-root}: 8 instances. 
+ \item \texttt{k-root}: 33 instances
+ \item \texttt{l-root}: 144 instances
  \item Their\textbf{ median RTT: 30--32\,ms }to 7.9k Atlas probes
 
 %    \begin{itemize}
@@ -421,8 +422,8 @@ authoritatives~\cite{Mueller17b}
 \begin{itemize}
  \item Why? BGP is agnostic to geographical distance
  \begin{itemize}
-  \item A client in California may be answered by a site near NRT -- even 
-though there is a closer site in SFO
+  \item A client in California may be answered by a instance near NRT -- even 
+though there is a closer instance in SFO
  \end{itemize}
 
 \item \cite{Schmidt17a} thus recommends carefully considering
@@ -433,7 +434,7 @@ when engineering DNS anycast services
 
 
  \item 12 sites is enough to provide good global latency 
- \item However, more sites may be helpful in case of DDoS~\cite{Moura16b}
+ \item However, more instances may be helpful in case of DDoS~\cite{Moura16b}
 \end{itemize}
 \end{itemize}
 
@@ -599,7 +600,9 @@ possible}
 \item they may even ``hammer'' authoritative servers
 \end{itemize}
    
- \item As such, \cite{Moura18b} recommend longer TTLs whene
+ \item As such, \cite{Moura18b} recommend longer TTLs whenever possible
+ 
+ 
  \end{itemize}
  
  
@@ -617,7 +620,7 @@ Attacks}
 
 
 \item \cite{Moura16b} found that when the Root DNS was attacked, some \url{.nl}
-co-located sites also went down
+co-located instances also went down
 \item Dyn 2016 Attack shows similar results
 \begin{itemize}
  \item multiple zones were only partially reachable 
