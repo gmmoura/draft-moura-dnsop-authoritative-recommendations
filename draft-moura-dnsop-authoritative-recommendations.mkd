@@ -307,12 +307,12 @@ conclusions of the studies don't verify this fact,  the wording in this document
 
 
 
-# R1:  Use equaly strong IP anycast in every authoritative server to achieve even load distribution
+# R1:  Use equaly strong IP anycast in every authoritative server instance for better load distribution
 
 
 Authoritative DNS servers operators announce their authoritative servers as NS records{{RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
 
-DNS heavily relies upon replication to support high reliability,
+DNS heavily relies upon service replication to support high reliability,
 capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
 a DNS zone through the use of multiple nameservers that each operate on different IP addresses, listed by a zone's NS records. Second, each of these network addresses can run from multiple physical locations through the use of
 IP anycast{{RFC1546}}{{RFC4786}}{{RFC7094}}, by announcing the same IP address from each instance and allowing Internet routing
@@ -328,7 +328,8 @@ In the wild,  {{Mueller17b}}  found that recursives query all available authorit
 The hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all authoritative servers to determine which is closer and to provide alternatives if one is unavailable.
 
 
-For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (NS record), in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver latency values to global clients. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (NS record), in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver latency values to global clients.
+In other words, the service providing anycast instance ns1.example.com should be as strong as the service providing ns2.example.com. Not to be confused with: all sites providing ns1.example.com should be equally strong. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
 
 This recommendation was deployed at the ".nl" TLD zone, which originally had seven authoritative severs (mixed unicast/anycast setup). .nl has moved in early 2018 to a setup with 4 anycast authoritative name servers. This is not to say that .nl was the first -- other zones, have been running anycast only authoritatives (e.g., .be since 2013). {{Mueller17b}} contribution is to show that unicast cannot deliver good latency worldwide, and that anycast has to be deployed to deliver good latency worldwide.  
 
@@ -377,9 +378,9 @@ PREVIous text
 * It can withdraw or pre-prepend its route to some or to all of its neighbors, shrinking its catchment (the number of clients that BGP maps to it), shifting both legitimate and attack traffic to other anycast instances. The other instances will hopefully have greater capacity and be able to service the queries.
 -->
 
-* It can withdraw or pre-prepend its route to some or to all of its neighbors, (\[RF:Issue3\]) perform other traffic shifting tricks (such as reducing the propagation of its announcements using  BGP communities{{RFC1997}}) which shrinks portions of its catchment), use FlowSpec {{RFC5575}} or other upstream communication mechanisms to deploy upstream filtering.  The goals of these techniques is to perform some combination of shifting of both legitimate and attack traffic to other anycast instances (with hopefully greater capacity) or to block the traffic entirely.
+* It can withdraw or pre-prepend its route to some or to all of its neighbors, (\[RF:Issue3\]) perform other traffic shifting tricks (such as reducing the propagation of its announcements using  BGP communities{{RFC1997}}) which shrinks portions of its catchment), use FlowSpec {{RFC5575}} or other upstream communication mechanisms to deploy upstream filtering.  The goals of these techniques is to perform some combination of shifting of both legitimate and attack traffic to other anycast instances (with hopefully greater capacity) or to block the traffic entirely. This makes sense when the site does not have enough capacity and other sites do have enough capacity to handle the load. Or it makes sense when traffic has to be diverted to some DDoS mitigation site.
 
-* Alternatively, it can be become a degraded absorber, continuing to operate, but with overloaded ingress routers, dropping some incoming legitimate requests due to queue overflow. However, continued operation will also absorb traffic from attackers in its catchment, protecting the other anycast instances.
+* Alternatively, it can be become a degraded absorber, continuing to operate, but with overloaded ingress routers, dropping some incoming legitimate requests due to queue overflow. However, continued operation will also absorb traffic from attackers in its catchment, protecting the other anycast instances. In this scenario null routing (BGP blackholing) can be applied to mitigate some of the burden.
 
 
 {{Moura16b}} saw both of these behaviors in practice in the Root DNS events, observed through instance reachability and route-trip time (RTTs). These options represent different uses of an anycast deployment. The withdrawal strategy causes anycast to respond as a waterbed, with stress displacing queries from one instance to others. The absorption strategy behaves as a conventional mattress,  compressing under load, with some queries getting delayed or dropped.
@@ -457,6 +458,6 @@ This document is a summary of the main recommendations of five research works re
 
 The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras. 
 
-We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, and Samir Jafferali.
+We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, Klaus Darilion and Samir Jafferali.
 
 Besides those, we would like thank those who have been individually thanked in each research work, RIPE NCC and DNS OARC for their tools and datasets used in this research, as well as the funding agencies sponsoring the individual research works.
