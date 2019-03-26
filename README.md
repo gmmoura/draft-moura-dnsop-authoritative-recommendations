@@ -13,9 +13,6 @@
    * Please edit *draft-moura-dnsop-authoritative-recommendations.mkd*
    * See Makefile 
    * Please use https://github.com/cabo/kramdown-rfc2629 to compile the draft
-
-
-   
    *  **Last change:** Fri Mar  8 08:10:35 UTC 2019
 
 ## Discussion on IETF-DNSOP list:
