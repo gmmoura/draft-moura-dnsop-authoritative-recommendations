@@ -22,7 +22,7 @@
 <?rfc sortrefs="yes"?>
 <?rfc symrefs="yes"?>
 
-<rfc ipr="trust200902" docName="draft-moura-dnsop-authoritative-recommendations-03" category="info">
+<rfc ipr="trust200902" docName="draft-moura-dnsop-authoritative-recommendations-04" category="info">
 
   <front>
     <title abbrev="Recomm-Authoritative-Ops">Recommendations for Authoritative Servers Operators</title>
@@ -528,11 +528,11 @@ The drawback of setting larger TTL values is that changes on the authoritative s
   </back>
 
 <!-- ##markdown-source:
-H4sIAMxDmlwAA7V96XLjSJLmfz5FbJa1pTRFUqLu1BzbKqkOVedlkqpzzKZ6
+H4sIAHxJmlwAA7V96XLjSJLmfz5FbJa1pTRFUqLu1BzbKqkOVedlkqpzzKZ6
 2kAwRKIFAhwEKBYrK9f2HfZd9tf+mzfZJ1n/3D0CAZBSVtX21Nh0UiSAiPDw
 4/MjHIPBoFdndW7PzY1Ny/ncFpOkzsrCmfuyMhfLelZWWU1fPVpza6tHWznz
 bmGrpC4r10vG48o++nsHrcsH7xauNynTIpnT0ydVcl8P5uWySgaTwpWLQdK6
-uGqPPtg/7NFHe97rfWFcnRSTvyZ5WdCD6mppe71sUfFHVx/s77/aP+gllU3O
+uGqPPtg/6tFHe97rfWFcnRSTvyZ5WdCD6mppe71sUfFHVx/s77/aP+gllU3O
 zXVR26qwdW81PTdXb2/fvTcfyuohK6bm26pcLozpPayaywZXmFUvTepzkxX3
 Za+XlhO6+Nws3SBxaZb1Ftm5of++MGlS0LfWJFWVrM1Odm+SPDdr63YNEWqW
 uJmZ2crSdM3A1GUqH1xZ1ZW9d/rXes5/GFxwjpvpo7/knIeZ2PtkmdeOrvC/
@@ -541,7 +541,7 @@ fHt99da8TsZu7+4Hc2VzIoz/3dEELdHojaWNsJU53h+F39KsXp+bi6qY2Xnz
 ZTmhIU/ODo7Nm6vo22VRV3T13cyat7YmeuX0QBcuWMx4i788HJmDE3N4fGCO
 j/f3w892nmT5uZnKSobMTH902aQYFvl2gnwYmu+SapI82KpDjg/Wbf7EdPjh
 9nLvmpihmjMrmts0s0VKl18XjkRlWdsNurx/Z74qfzKHZwcdslwlj5nrUOXV
-8cnolPg7vtgT5ofh7fBi2KWH+XJkdo4P93fN0f7RgPj9VZckma3v/zjT5bgh
+8cnodLDfutgT5ofh7fBi2KWH+XJkdo4P93fN0f7RgPj9VZckma3v/zjT5bgh
 JGArPb4nethsQncVRYcg35ezYsuPv5ckRyenJ+ZiMs+qJK/X5kOy7pDmTVJl
 RQJGI+2x7tJo/+DVweDk5NXxb6LR4Qg0OjobnJ3un3Vp9Dda4OyPmcuGdrL0
 v3XJxFQi+cDGNYwpFKIZp2Xnl7bk+G+3ycQzMrRVWj4nLM/Liq55jikPJzxl
@@ -801,7 +801,7 @@ hJPxRtEPPEGay/elNRfEQQSq7v7zf88T823yWJGTaYuH8rEvrwd9TSOgJdUb
 +j6xubmt8TXd/CcsmJ5/t1yjlzgv7ra297TiH8bjrCCU9ac8oTleoRGPP6V8
 m8yJ6t9DlxOiyFonAUskE1ftPY42eDUro+5RzUvfpD168eBbW0m6Pn4nAada
 3l5e8gz8Gy8jJsAxbxfQNB8/5SN/nosaTY7mHxaxdm1xtdSeA1NSwIijcCyo
-DAA4ejNdV+j+H5wBIi7ghwAA
+DAA4ejNdV+j+H2preCrghwAA
 
 -->
 
