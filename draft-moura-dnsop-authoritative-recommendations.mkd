@@ -307,7 +307,7 @@ conclusions of the studies don't verify this fact,  the wording in this document
 
 
 
-# R1:  Use equaly strong IP anycast in every authoritative server instance for better load distribution
+# R1:  Use equaly strong IP anycast in every authoritative server for better load distribution
 
 
 Authoritative DNS servers operators announce their authoritative servers as NS records{{RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
@@ -328,8 +328,7 @@ In the wild,  {{Mueller17b}}  found that recursives query all available authorit
 The hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all authoritative servers to determine which is closer and to provide alternatives if one is unavailable.
 
 
-For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (NS record), in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver latency values to global clients.
-In other words, the service providing anycast instance ns1.example.com should be as strong as the service providing ns2.example.com. Not to be confused with: all sites providing ns1.example.com should be equally strong. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+For a DNS operator, this policy means that latency of all authoritatives matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (ie.e, on each NS record), in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver good latency values to global clients. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
 
 This recommendation was deployed at the ".nl" TLD zone, which originally had seven authoritative severs (mixed unicast/anycast setup). .nl has moved in early 2018 to a setup with 4 anycast authoritative name servers. This is not to say that .nl was the first -- other zones, have been running anycast only authoritatives (e.g., .be since 2013). {{Mueller17b}} contribution is to show that unicast cannot deliver good latency worldwide, and that anycast has to be deployed to deliver good latency worldwide.  
 
@@ -373,14 +372,12 @@ DDoS attacks are becoming bigger, cheaper, and more frequent {{Moura16b}}. The m
 An authoritative DNS server deployed using anycast will have many server instances distributed over many networks and instances. Ultimately, the relationship between the DNS provider's network and a client's ISP will determine which anycast instance will answer queries for a given client. As a consequence, when an anycast authoritative server is under attack, the load that each anycast instance receives is likely to be unevenly distributed (a function of the source of the attacks), thus some instances may be more overloaded than others which is what was observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different instances may have different capacity (bandwidth, CPU, etc.), making a decision about how to react to stress becomes even more difficult.
 
 In practice, an anycast instance under stress, overloaded with incoming traffic, has two options:
-<!--
-PREVIous text
-* It can withdraw or pre-prepend its route to some or to all of its neighbors, shrinking its catchment (the number of clients that BGP maps to it), shifting both legitimate and attack traffic to other anycast instances. The other instances will hopefully have greater capacity and be able to service the queries.
--->
 
-* It can withdraw or pre-prepend its route to some or to all of its neighbors, (\[RF:Issue3\]) perform other traffic shifting tricks (such as reducing the propagation of its announcements using  BGP communities{{RFC1997}}) which shrinks portions of its catchment), use FlowSpec {{RFC5575}} or other upstream communication mechanisms to deploy upstream filtering.  The goals of these techniques is to perform some combination of shifting of both legitimate and attack traffic to other anycast instances (with hopefully greater capacity) or to block the traffic entirely. This makes sense when the site does not have enough capacity and other sites do have enough capacity to handle the load. Or it makes sense when traffic has to be diverted to some DDoS mitigation site.
 
-* Alternatively, it can be become a degraded absorber, continuing to operate, but with overloaded ingress routers, dropping some incoming legitimate requests due to queue overflow. However, continued operation will also absorb traffic from attackers in its catchment, protecting the other anycast instances. In this scenario null routing (BGP blackholing) can be applied to mitigate some of the burden.
+* It can withdraw or pre-prepend its route to some or to all of its neighbors, (\[RF:Issue3\]) perform other traffic shifting tricks (such as reducing the propagation of its announcements using  BGP communities{{RFC1997}}) which shrinks portions of its catchment), use FlowSpec {{RFC5575}} or other upstream communication mechanisms to deploy upstream filtering.  The goals of these techniques is to perform some combination of shifting of both legitimate and attack traffic to other anycast instances (with hopefully greater capacity) or to block the traffic entirely. 
+
+
+* Alternatively, it can be become a degraded absorber, continuing to operate, but with overloaded ingress routers, dropping some incoming legitimate requests due to queue overflow. However, continued operation will also absorb traffic from attackers in its catchment, protecting the other anycast instances. 
 
 
 {{Moura16b}} saw both of these behaviors in practice in the Root DNS events, observed through instance reachability and route-trip time (RTTs). These options represent different uses of an anycast deployment. The withdrawal strategy causes anycast to respond as a waterbed, with stress displacing queries from one instance to others. The absorption strategy behaves as a conventional mattress,  compressing under load, with some queries getting delayed or dropped.
