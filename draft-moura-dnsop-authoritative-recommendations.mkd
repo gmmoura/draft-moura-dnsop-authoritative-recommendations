@@ -312,7 +312,7 @@ conclusions of the studies don't verify this fact,  the wording in this document
 
 Authoritative DNS servers operators announce their authoritative servers as NS records{{RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
 
-DNS heavily relies upon service replication to support high reliability,
+DNS heavily relies upon  replication to support high reliability,
 capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
 a DNS zone through the use of multiple nameservers that each operate on different IP addresses, listed by a zone's NS records. Second, each of these network addresses can run from multiple physical locations through the use of
 IP anycast{{RFC1546}}{{RFC4786}}{{RFC7094}}, by announcing the same IP address from each instance and allowing Internet routing
@@ -369,7 +369,7 @@ The recommendation is therefore to deploy  a small test Verfploeter-enabled plat
 
 DDoS attacks are becoming bigger, cheaper, and more frequent {{Moura16b}}. The most powerful recorded DDoS attack to DNS servers to date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such attacks call for an answer for the following question: how should a DNS operator engineer its anycast authoritative DNS server react to the stress of a DDoS attack? This question is investigated in study {{Moura16b}} in which empirical observations are grounded with the following theoretical evaluation of options.
 
-An authoritative DNS server deployed using anycast will have many server instances distributed over many networks and instances. Ultimately, the relationship between the DNS provider's network and a client's ISP will determine which anycast instance will answer queries for a given client. As a consequence, when an anycast authoritative server is under attack, the load that each anycast instance receives is likely to be unevenly distributed (a function of the source of the attacks), thus some instances may be more overloaded than others which is what was observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different instances may have different capacity (bandwidth, CPU, etc.), making a decision about how to react to stress becomes even more difficult.
+An authoritative DNS server deployed using anycast will have many server instances distributed over many networks. Ultimately, the relationship between the DNS provider's network and a client's ISP will determine which anycast instance will answer queries for a given client. As a consequence, when an anycast authoritative server is under attack, the load that each anycast instance receives is likely to be unevenly distributed (a function of the source of the attacks), thus some instances may be more overloaded than others which is what was observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different instances may have different capacity (bandwidth, CPU, etc.), making a decision about how to react to stress becomes even more difficult.
 
 In practice, an anycast instance under stress, overloaded with incoming traffic, has two options:
 
