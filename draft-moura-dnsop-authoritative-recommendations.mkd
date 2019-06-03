@@ -298,7 +298,7 @@ where goals such as uniform low latency are less strict.
 
 
   It is likely that these recommendations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
-conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only.
+conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only (\[RF:Issue13\]).
 
 
 
@@ -412,8 +412,9 @@ They also emulated  partial-failure DDoS, i.e., DDoS that cause authoritative to
 Altogether, these results help to explain why previous attacks against the Roots were not noticed by most users {{Moura18b}} and why other attacks (such as Dyn 2016 {{Perlroth16}}\) had significant impact on users experience: records on the Root zone have TTL values ranging from 1 to 6 days, while some of unreachable Dyn clients had TTL values ranging from 120 to 300s, which limit how long records ought to be cached.
 
 Therefore, given the important role of the TTL on user's experience during a DDoS attack (and in reducing ''friendly fire''), it is recommended that DNS zone owners set their TTL values carefully, using reasonable TTL values (at least 1 hour) whenever possible, given its role in DNS resilience against DDoS attacks.
-However, the choice of the value depends on the specifics of each operator (CDNs are known for using TTL values in the range of few minutes).
+However, the choice of the value depends on the specifics of each operator (CDNs are known for using TTL values in the range of few minutes) and the domain names in question (\[RF:Issue17\]).
 The drawback of setting larger TTL values is that changes on the authoritative system infrastructure (e.g.: adding a new authoritative server or changing IP address) will take at least as long as the TTL to propagate among clients.
+
 
 
 # R6: Shared Infrastructure Risks Collateral Damage During Attacks
