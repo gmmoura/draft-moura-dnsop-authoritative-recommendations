@@ -289,19 +289,14 @@ To reduce latency and improve resiliency against DoS attacks, DNS uses several t
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
 \[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
 
-\[RF:JAb1, Issue#2, SJa-02\].
+\[RF:JAb1, \Issue#2, \SJa-02\].
 These recommendations are designed for operators of "large" authoritative
-servers operators for domains like TLDs.
-"Large" authoritative servers refers to those with a significant global user population.
+servers. In this context, "large" authoritative servers refers to those with a significant global user population, like TLDs, run by a single or multiple operators.
 These recommendations may not be appropriate for smaller domains,
 such as those used by an organization with users in one city or region,
 where goals such as uniform low latency are less strict.
 
-<!---
-This recommendations  provided here are for authoritative DNS zone owners and
-server operators, as the studies cited in this publication were analyzing authoritative DNS zones and services.
-#repetitive text - GMoura 20181210
--->
+
   It is likely that these recommendations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
 conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only.
 
@@ -328,7 +323,7 @@ In the wild,  {{Mueller17b}}  found that recursives query all available authorit
 The hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all authoritative servers to determine which is closer and to provide alternatives if one is unavailable.
 
 
-For a DNS operator, this policy means that latency of all authoritatives (NS records [RF:SJa-01]) matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (ie.e, on each NS record [RF:SJa-01]), in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver good latency values to global clients. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+For a DNS operator, this policy means that latency of all authoritatives (NS records \[RF:SJa-01\]) matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (ie.e, on each NS record \[RF:SJa-01\]), in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver good latency values to global clients. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
 
 This recommendation was deployed at the ".nl" TLD zone, which originally had seven authoritative severs (mixed unicast/anycast setup). .nl has moved in early 2018 to a setup with 4 anycast authoritative name servers. This is not to say that .nl was the first -- other zones, have been running anycast only authoritatives (e.g., .be since 2013). {{Mueller17b}} contribution is to show that unicast cannot deliver good latency worldwide, and that anycast has to be deployed to deliver good latency worldwide.  
 
@@ -340,6 +335,8 @@ A common metric when choosing an anycast DNS provider or setting up an anycast s
 However, this is not necessarily true. In fact,  {{Schmidt17a}}  found   that routing can matter more than the total number of locations. They analyzed the relationship between the number of anycast instances and the performance of a service (latency-wise, RTT) and measured the overall performance of four DNS Root servers, namely C, F, K and L, from more than 7.9k RIPE Atlas probes.
 
 {{Schmidt17a}}  found  that C-Root, a smaller anycast deployment consisting of only 8 instances (they refer to anycast instance as anycast site), provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 instances respectively. The median RTT for C, K and L Root was between 30-32ms.
+
+ Given that Atlas has better coverage in Europe than other regions, the authors specifically analyzed results per region and per country (Figure 5 in  {{Schmidt17a}}), and show that Atlas bias to Europe does not change the conclusion that location of anycast instances dominates latency. \[RF:Issue12\]
 
 
 {{Schmidt17a}} recommendation for DNS operators when engineering anycast services is consider factors other than just the number of instances (such as local routing connectivity) when designing for performance. They showed that 12 instances can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more instances can be useful for other reasons, such as when handling DDoS attacks {{Moura16b}}.
@@ -369,7 +366,7 @@ The recommendation is therefore to deploy  a small test Verfploeter-enabled plat
 
 DDoS attacks are becoming bigger, cheaper, and more frequent {{Moura16b}}. The most powerful recorded DDoS attack to DNS servers to date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such attacks call for an answer for the following question: how should a DNS operator engineer its anycast authoritative DNS server react to the stress of a DDoS attack? This question is investigated in study {{Moura16b}} in which empirical observations are grounded with the following theoretical evaluation of options.
 
-An authoritative DNS server deployed using anycast will have many server instances distributed over many networks. Ultimately, the relationship between the DNS provider's network and a client's ISP will determine which anycast instance will answer queries for a given client. As a consequence, when an anycast authoritative server is under attack, the load that each anycast instance receives is likely to be unevenly distributed (a function of the source of the attacks), thus some instances may be more overloaded than others which is what was observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different instances may have different capacity (bandwidth, CPU, etc.), making a decision about how to react to stress becomes even more difficult.
+An authoritative DNS server deployed using anycast will have many server instances distributed over many networks. Ultimately, the relationship between the DNS provider's network and a client's ISP will determine which anycast instance will answer queries for a given client, given that BGP is the protocol that maps clients to specific  anycast instances by using routing information \[RF:KDar02\]. As a consequence, when an anycast authoritative server is under attack, the load that each anycast instance receives is likely to be unevenly distributed (a function of the source of the attacks), thus some instances may be more overloaded than others which is what was observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different instances may have different capacity (bandwidth, CPU, etc.), making a decision about how to react to stress becomes even more difficult.
 
 In practice, an anycast instance under stress, overloaded with incoming traffic, has two options:
 
