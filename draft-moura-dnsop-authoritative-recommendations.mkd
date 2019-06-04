@@ -389,10 +389,14 @@ Note that this recommendation refers to the operation of one anycast service, i.
 
 # R5: Consider longer time-to-live values whenever possible
 
+TODO: update the entire section based on new study
+
 In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by zone owners in their zone files -- either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values -- one from the parent and one from the child DNS server. In this case, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2181}}.
 
 While set at authoritative servers, (ATn in {{recuath}}), the TTL value in fact influences the behavior of recursive resolvers (and their operators -- "Re_n" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
 In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times by avoiding repeated queries between recursive resolvers and authoritative.
+
+
 
 
 Besides improving performance, it has been argued that caching plays a significant role in protecting users during DDoS attacks against authoritative servers.  To investigate that, {{Moura18b}} evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.
