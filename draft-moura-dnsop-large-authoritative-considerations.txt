@@ -81,31 +81,31 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  C1:  Use equally strong IP anycast in every authoritative
-       server (NS) for better load distribution  . . . . . . . . . .   4
-   3.  C2: Routing Can Matter More Than Locations  . . . . . . . . .   6
-   4.  C3: Collecting Detailed Anycast Catchment Maps Ahead of
+   2.  Background  . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  C1:  Use equally strong IP anycast in every authoritative
+       server (NS) for better load distribution  . . . . . . . . . .   5
+   4.  C2: Routing Can Matter More Than Locations  . . . . . . . . .   6
+   5.  C3: Collecting Detailed Anycast Catchment Maps Ahead of
        Actual Deployment Can Improve Engineering Designs . . . . . .   7
-   5.  C4: When under stress, employ two strategies  . . . . . . . .   8
-   6.  C5: Consider longer time-to-live values whenever possible . .  10
-   7.  Security considerations . . . . . . . . . . . . . . . . . . .  12
-   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  12
-   9.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  14
+   6.  C4: When under stress, employ two strategies  . . . . . . . .   9
+   7.  C5: Consider longer time-to-live values whenever possible . .  10
+   8.  Security considerations . . . . . . . . . . . . . . . . . . .  12
+   9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  12
+   10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  14
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
-   The domain name system (DNS) has main two types of DNS servers:
-   authoritative servers and recursive resolvers.  Figure 1 shows their
-   relationship.  An authoritative server (ATn in Figure 1) knows the
-   content of a DNS zone from local knowledge, and thus can answer
-   queries about that zone without needing to query other servers
-   [RFC2181].  A recursive resolver (Re_n) is a program that extracts
-   information from name servers in response to client requests
+   This document summarizes recent research work exploring DNS
+   configurations and offers specific tangible considerations to DNS
+   authoritative servers operators (DNS operators hereafter).
+   [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The considerations (C1-C5)
+   presented in this document are backed by previous research work,
+   which used wide-scale Internet measurements upon which to draw their
 
 
 
@@ -114,8 +114,61 @@ Moura, et al.           Expires December 9, 2019                [Page 2]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
+   conclusions.  This document describes the key engineering options,
+   and points readers to the pertinent papers for details and
+   [RF:Issue15] other research works related to each consideration here
+   presented.
+
+   [RF:JAb1, Issue#2, SJa-02].  These considerations are designed for
+   operators of "large" authoritative servers.  In this context, "large"
+   authoritative servers refers to those with a significant global user
+   population, like TLDs, run by a single or multiple operators.  These
+   considerations may not be appropriate for smaller domains, such as
+   those used by an organization with users in one city or region, where
+   goals such as uniform low latency are less strict.
+
+   It is likely that these considerations might be useful in a wider
+   context, such as for any stateless/short-duration, anycasted service.
+   Because the conclusions of the studies don't verify this fact, the
+   wording in this document discusses DNS authoritative services only
+   ([RF:Issue13]).
+
+2.  Background
+
+   The domain name system (DNS) has main two types of DNS servers:
+   authoritative servers and recursive resolvers.  Figure 1 shows their
+   relationship.  An authoritative server (ATn in Figure 1) knows the
+   content of a DNS zone from local knowledge, and thus can answer
+   queries about that zone without needing to query other servers
+   [RFC2181].  A recursive resolver (Re_n) is a program that extracts
+   information from name servers in response to client requests
    [RFC1034].  A client (stub in Figure 1) refers to stub resolver
    [RFC1034] that is typically located within the client software.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Moura, et al.           Expires December 9, 2019                [Page 3]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
 
                +-----+   +-----+   +-----+   +-----+
                | AT1 |   | AT2 |   | AT3 |   | AT4 |
@@ -157,40 +210,23 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    production authoritative server network, with multiple viable choices
    and no single optimal design.
 
-   This document summarizes recent research work exploring DNS
-   configurations and offers specific tangible considerations to DNS
-   authoritative servers operators (DNS operators hereafter).
-   [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The considerations (C1-C6)
-   presented in this document are backed by previous research work,
+   In the next sections we cover specific considerations (C1-C5) for
+   large authoritative DNS servers operators.
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 3]
+
+
+
+
+
+
+Moura, et al.           Expires December 9, 2019                [Page 4]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
-   which used wide-scale Internet measurements upon which to draw their
-   conclusions.  This document describes the key engineering options,
-   and points readers to the pertinent papers for details and
-   [RF:Issue15] other research works related to each consideration here
-   presented.
-
-   [RF:JAb1, Issue#2, SJa-02].  These considerations are designed for
-   operators of "large" authoritative servers.  In this context, "large"
-   authoritative servers refers to those with a significant global user
-   population, like TLDs, run by a single or multiple operators.  These
-   considerations may not be appropriate for smaller domains, such as
-   those used by an organization with users in one city or region, where
-   goals such as uniform low latency are less strict.
-
-   It is likely that these considerations might be useful in a wider
-   context, such as for any stateless/short-duration, anycasted service.
-   Because the conclusions of the studies don't verify this fact, the
-   wording in this document discusses DNS authoritative services only
-   ([RF:Issue13]).
-
-2.  C1: Use equally strong IP anycast in every authoritative server (NS)
+3.  C1: Use equally strong IP anycast in every authoritative server (NS)
     for better load distribution
 
    Authoritative DNS servers operators announce their authoritative
@@ -217,15 +253,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    Root, most top-level domains[Moura16b] and large commercial
    enterprises, governments and other organizations.
 
-
-
-
-
-Moura, et al.           Expires December 9, 2019                [Page 4]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
    Most DNS operators strive to reduce latency for users of their
    service.  However, because they control only their authoritative
    servers, and not the recursive resolvers communicating with those
@@ -247,6 +274,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    distribution of queries tend to be skewed towards authoritatives with
    lower latency: the lower the latency between a recursive resolver and
    an authoritative server, the more often the recursive will send
+
+
+
+Moura, et al.           Expires December 9, 2019                [Page 5]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
    queries to that authoritative.  These results were obtained by
    aggregating results from all vantage points and not specific to any
    vendor/version.
@@ -274,14 +309,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
    This consideration was deployed at the ".nl" TLD zone, which
    originally had seven authoritative severs (mixed unicast/anycast
-
-
-
-Moura, et al.           Expires December 9, 2019                [Page 5]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
    setup). .nl has moved in early 2018 to a setup with 4 anycast
    authoritative name servers.  This is not to say that .nl was the
    first - other zones, have been running anycast only authoritatives
@@ -289,7 +316,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    unicast cannot deliver good latency worldwide, and that anycast has
    to be deployed to deliver good latency worldwide.
 
-3.  C2: Routing Can Matter More Than Locations
+4.  C2: Routing Can Matter More Than Locations
 
    A common metric when choosing an anycast DNS provider or setting up
    an anycast service is the number of anycast instances[RFC4786], i.e.,
@@ -303,6 +330,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    instances and the performance of a service (latency-wise, RTT) and
    measured the overall performance of four DNS Root servers, namely C,
    F, K and L, from more than 7.9k RIPE Atlas probes.
+
+
+
+Moura, et al.           Expires December 9, 2019                [Page 6]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
 
    [Schmidt17a] found that C-Root, a smaller anycast deployment
    consisting of only 8 instances (they refer to anycast instance as
@@ -325,20 +359,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    However, more instances can be useful for other reasons, such as when
    handling DDoS attacks [Moura16b].
 
-
-
-
-
-
-
-
-
-Moura, et al.           Expires December 9, 2019                [Page 6]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
-4.  C3: Collecting Detailed Anycast Catchment Maps Ahead of Actual
+5.  C3: Collecting Detailed Anycast Catchment Maps Ahead of Actual
     Deployment Can Improve Engineering Designs
 
    An anycast DNS service may have several dozens or even more than one
@@ -365,6 +386,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    which prefixes will be matched to which anycast instance).  To do
    that, [Vries17b] developed a new technique enabling operators to
    carry out active measurements, using aan open-source tool called
+
+
+
+Moura, et al.           Expires December 9, 2019                [Page 7]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
    Verfploeter (available at [VerfSrc]).  Verfploeter maps a large
    portion of the IPv4 address space, allowing DNS operators to predict
    both query distribution and clients catchment before deploying new
@@ -385,15 +414,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    the LAX instance.  The actual value was 81.4% of traffic going to
    LAX, showing that the estimation was pretty close and the Verfploeter
    technique was a excellent method of predicting traffic loads in
-
-
-
-
-Moura, et al.           Expires December 9, 2019                [Page 7]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
    advance of a new anycast instance deployment ([Vries17b] also uses
    the term anycast site to refer to anycast instance).
 
@@ -422,10 +442,18 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    enabled platform in advance at a potential anycast instance may
    reveal the realizable benefits of using that instance as an anycast
    interest, potentially saving significant financial and labor costs of
+
+
+
+Moura, et al.           Expires December 9, 2019                [Page 8]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
    deploying hardware to a new instance that was less effective than as
    had been hoped.
 
-5.  C4: When under stress, employ two strategies
+6.  C4: When under stress, employ two strategies
 
    DDoS attacks are becoming bigger, cheaper, and more frequent
    [Moura16b].  The most powerful recorded DDoS attack to DNS servers to
@@ -442,14 +470,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    will determine which anycast instance will answer queries for a given
    client, given that BGP is the protocol that maps clients to specific
    anycast instances by using routing information [RF:KDar02].  As a
-
-
-
-Moura, et al.           Expires December 9, 2019                [Page 8]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
    consequence, when an anycast authoritative server is under attack,
    the load that each anycast instance receives is likely to be unevenly
    distributed (a function of the source of the attacks), thus some
@@ -478,6 +498,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
       continued operation will also absorb traffic from attackers in its
       catchment, protecting the other anycast instances.
 
+
+
+
+Moura, et al.           Expires December 9, 2019                [Page 9]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
    [Moura16b] saw both of these behaviors in practice in the Root DNS
    events, observed through instance reachability and route-trip time
    (RTTs).  These options represent different uses of an anycast
@@ -497,15 +525,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    that emerge from a mix of explicit choices and implementation
    details, such as BGP timeout values.
 
-
-
-
-
-Moura, et al.           Expires December 9, 2019                [Page 9]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
    [Moura16b] speculates that more careful, explicit, and automated
    management of policies may provide stronger defenses to overload, an
    area currently under study.  For DNS operators, that means that
@@ -519,7 +538,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    anycast server to another,as resolvers switch from authoritative to
    authoritative when attempting to resolve a name [Mueller17b].
 
-6.  C5: Consider longer time-to-live values whenever possible
+7.  C5: Consider longer time-to-live values whenever possible
 
    [RF:Issue7]: this section has been completely rewritten.
 
@@ -534,6 +553,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    work modeled caches as a function of their TTLs [Jung03a], and recent
    work examined their interaction with DNS[Moura18b], but no research
    provides considerations about what TTL values are good.  With this
+
+
+
+
+Moura, et al.           Expires December 9, 2019               [Page 10]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
    goal Moura et. al.  [Moura19a] carried out a measurement study
    investigating TTL choices and its impact on user experience.
 
@@ -553,14 +581,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    o  Longer caching results in lower cost if DNS is metered: some DNS-
       As-A-Service providers charges are metered, with a per query cost
       (often added to a fixed monthly cost).
-
-
-
-
-Moura, et al.           Expires December 9, 2019               [Page 10]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
 
    o  Longer caching is more robust to DDoS attacks on DNS: DDoS attacks
       on a DNS service provider harmed several prominent websites
@@ -590,6 +610,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
    o  For general users, [Moura19a] recommends longer TTLs, of at least
       one hour, and ideally 4, 8, 12, or 24 hours.  Assuming planned
+
+
+
+Moura, et al.           Expires December 9, 2019               [Page 11]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
       maintenance can be scheduled at least a day in advance, long TTLs
       have little cost.
 
@@ -610,14 +638,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
    o  Use A/AAAA and NS records: TTLs of A/AAAA records should be
       shorter or equal to the TTL for NS records for in-bailiwick
-
-
-
-Moura, et al.           Expires December 9, 2019               [Page 11]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
       authoritative DNS servers, given that the authors [Moura19a] found
       that, for such scenarios, once NS record expires, their associated
       A/AAAA will also be updated (glue is sent by the parents).  For
@@ -626,7 +646,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
       In either case, short A and AAAA records may be desired if DDoS-
       mitigation services are an option.
 
-7.  Security considerations
+8.  Security considerations
 
    This document suggests the use of [I-D.ietf-dnsop-serve-stale].  It
    be noted that usage of such methods may affect data integrity of DNS
@@ -637,15 +657,24 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    considerations, other than the ones mentioned in the normative
    references.
 
-8.  Privacy Considerations
+9.  Privacy Considerations
 
    This document does not add any practical new privacy issues.
 
-9.  IANA considerations
+10.  IANA considerations
 
    This document has no IANA actions.
 
-10.  Acknowledgements
+
+
+
+
+Moura, et al.           Expires December 9, 2019               [Page 12]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
+11.  Acknowledgements
 
    This document is a summary of the main considerations of six research
    works referred in this document.  As such, they were only possible
@@ -666,20 +695,12 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
    Besides those, we would like thank those who have been individually
    thanked in each research work, RIPE NCC and DNS OARC for their tools
-
-
-
-Moura, et al.           Expires December 9, 2019               [Page 12]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
-
    and datasets used in this research, as well as the funding agencies
    sponsoring the individual research works.
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [I-D.ietf-dnsop-serve-stale]
               Lawrence, D., Kumari, W., and P. Sood, "Serving Stale Data
@@ -702,6 +723,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
               DOI 10.17487/RFC1995, August 1996,
               <https://www.rfc-editor.org/info/rfc1995>.
 
+
+
+Moura, et al.           Expires December 9, 2019               [Page 13]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
    [RFC1997]  Chandra, R., Traina, P., and T. Li, "BGP Communities
               Attribute", RFC 1997, DOI 10.17487/RFC1997, August 1996,
               <https://www.rfc-editor.org/info/rfc1997>.
@@ -718,17 +746,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
               Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
               December 2006, <https://www.rfc-editor.org/info/rfc4786>.
-
-
-
-
-
-
-
-Moura, et al.           Expires December 9, 2019               [Page 13]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
 
    [RFC5575]  Marques, P., Sheth, N., Raszuk, R., Greene, B., Mauch, J.,
               and D. McPherson, "Dissemination of Flow Specification
@@ -748,7 +765,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
               Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
               January 2019, <https://www.rfc-editor.org/info/rfc8499>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [AnyTest]  Schmidt, R., "Anycast Testbed", December 2018,
               <http://www.anycast-testbed.com/>.
@@ -759,6 +776,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    [IcannHedge18]
               ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
               <http://stats.dns.icann.org/hedgehog/>.
+
+
+
+
+
+Moura, et al.           Expires December 9, 2019               [Page 14]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
 
    [Jung03a]  Jung, J., Berger, A., and H. Balakrishnan, "Modeling TTL-
               based Internet caches", ACM 2003 IEEE INFOCOM,
@@ -772,19 +798,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
               Measurement Conference, DOI /10.1145/2987443.2987446,
               October 2016,
               <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
-
-
-
-
-
-
-
-
-
-Moura, et al.           Expires December 9, 2019               [Page 14]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
-
 
    [Moura18b]
               Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
@@ -818,19 +831,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
               Active Measurement Conference, March 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Schmidt17a.pdf>.
 
-   [Sigla2014]
-              Singla, A., Chandrasekaran, B., Godfrey, P., and B. Maggs,
-              "The Internet at the speed of light. In Proceedings of the
-              13th ACM Workshop on Hot Topics in Networks (Oct 2014)",
-              ACM Workshop on Hot Topics in Networks, October 2014,
-              <http://speedierweb.web.engr.illinois.edu/cspeed/papers/
-              hotnets14.pdf>.
-
-   [VerfSrc]  Vries, W., "Verfploeter source code", November 2018,
-              <https://github.com/Woutifier/verfploeter>.
-
-
-
 
 
 
@@ -841,6 +841,17 @@ Moura, et al.           Expires December 9, 2019               [Page 15]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
+
+   [Sigla2014]
+              Singla, A., Chandrasekaran, B., Godfrey, P., and B. Maggs,
+              "The Internet at the speed of light. In Proceedings of the
+              13th ACM Workshop on Hot Topics in Networks (Oct 2014)",
+              ACM Workshop on Hot Topics in Networks, October 2014,
+              <http://speedierweb.web.engr.illinois.edu/cspeed/papers/
+              hotnets14.pdf>.
+
+   [VerfSrc]  Vries, W., "Verfploeter source code", November 2018,
+              <https://github.com/Woutifier/verfploeter>.
 
    [Vries17b]
               Vries, W., Schmidt, R., Hardaker, W., Heidemann, J., Boer,
@@ -881,6 +892,12 @@ Authors' Addresses
    Email: johnh@isi.edu
 
 
+
+Moura, et al.           Expires December 9, 2019               [Page 16]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
+
+
    Marco Davids
    SIDN Labs
    Meander 501
@@ -893,4 +910,43 @@ Authors' Addresses
 
 
 
-Moura, et al.           Expires December 9, 2019               [Page 16]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Moura, et al.           Expires December 9, 2019               [Page 17]

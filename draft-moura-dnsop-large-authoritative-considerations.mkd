@@ -310,6 +310,22 @@ This draft is being hosted on GitHub -- \<https://github.com/gmmoura/draft-moura
 Introduction        {#intro}
 ============
 
+This document summarizes recent research work exploring DNS configurations and offers specific tangible considerations to DNS authoritative servers operators (DNS operators hereafter).
+\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The considerations (C1–C5) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details and \[RF:Issue15\] other research works related to each consideration here presented.
+
+\[RF:JAb1, Issue#2, SJa-02\].
+These considerations are designed for operators of "large" authoritative
+servers. In this context, "large" authoritative servers refers to those with a significant global user population, like TLDs, run by a single or multiple operators.
+These considerations may not be appropriate for smaller domains,
+such as those used by an organization with users in one city or region,
+where goals such as uniform low latency are less strict.
+
+
+  It is likely that these considerations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
+conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only (\[RF:Issue13\]).
+
+# Background
+
 
 The domain name system (DNS) has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server (ATn in {{recuath}}) knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone  without needing to query other servers {{RFC2181}}. A recursive resolver (Re_n) is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client (stub in {{recuath}}) refers to stub resolver {{RFC1034}} that is typically located within the client software.
 
@@ -337,23 +353,11 @@ DNS queries/responses contribute to user's perceived latency and affect user exp
 
 To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with (i) the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), (ii) the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} that allows the same IP address to be announced from multiple locations (each of them referred to as anycast instance {{RFC8499}}) and (iii) by using load balancers to support multiple servers inside a single (potentially anycasted) instance. As a consequence, there are many possible ways an authoritative DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
-This document summarizes recent research work exploring DNS configurations and offers specific tangible considerations to DNS authoritative servers operators (DNS operators hereafter).
-\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The considerations (C1–C6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details and \[RF:Issue15\] other research works related to each consideration here presented.
-
-\[RF:JAb1, Issue#2, SJa-02\].
-These considerations are designed for operators of "large" authoritative
-servers. In this context, "large" authoritative servers refers to those with a significant global user population, like TLDs, run by a single or multiple operators.
-These considerations may not be appropriate for smaller domains,
-such as those used by an organization with users in one city or region,
-where goals such as uniform low latency are less strict.
-
-
-  It is likely that these considerations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
-conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only (\[RF:Issue13\]).
+ In the next sections we cover specific considerations (C1--C5) for large authoritative DNS servers operators.
 
 
 
-# C1:  Use equally strong IP anycast in every authoritative server (NS) for better load distribution
+# C1:  Use equally strong IP anycast in every authoritative server (NS) for better load distribution {#c1}
 
 
 Authoritative DNS servers operators announce their authoritative servers as NS records{{RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
