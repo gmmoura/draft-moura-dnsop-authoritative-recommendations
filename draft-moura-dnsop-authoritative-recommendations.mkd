@@ -338,9 +338,9 @@ DNS queries/responses contribute to user's perceived latency and affect user exp
 To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with (i) the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), (ii) the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} that allows the same IP address to be announced from multiple locations (each of them referred to as anycast instance {{RFC8499}}) and (iii) by using load balancers to support multiple servers inside a single (potentially anycasted) instance. As a consequence, there are many possible ways an authoritative DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
 This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
-\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details.
+\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details and \[RF:Issue15\] other research works related to each recommendation here presented.
 
-\[RF:JAb1, \Issue#2, \SJa-02\].
+\[RF:JAb1, Issue#2, SJa-02\].
 These recommendations are designed for operators of "large" authoritative
 servers. In this context, "large" authoritative servers refers to those with a significant global user population, like TLDs, run by a single or multiple operators.
 These recommendations may not be appropriate for smaller domains,
@@ -488,6 +488,7 @@ files, NS records (and glues if in-bailiwick) of their respective domains. {{Mou
 
 
 
+
 # Security considerations
 
 This document suggests the use of {{I-D.ietf-dnsop-serve-stale}}. It be noted that usage of such methods may affect data integrity of DNS information. This document describes methods of mitigating changes of a denial of service threat within a DNS service.
@@ -501,6 +502,7 @@ As this document discusses research, there are no further security consideration
 <!-- Add some remarkt according to RFC6973. Or should we name this "Human Rights considerations" according to RFC8280 - MD -->
 
 This document does not add any practical new privacy issues.
+
 
 # IANA considerations
 
