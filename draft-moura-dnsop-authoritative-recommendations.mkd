@@ -143,6 +143,40 @@ informative:
       ACM: 2018 Internet Measurement Conference
       DOI: 10.1145/3278532.3278534
 
+  Moura19a:
+        target: https://www.isi.edu/~johnh/PAPERS/Moura19a.pdf
+        title: "TBA"
+        author:
+         -
+           name: Giovane C. M. Moura
+         -
+           name: John Heidemann
+         -
+           name: Ricardo de O. Schmidt
+         -
+           name: Wes Hardaker
+
+        date: 2019-06-10
+
+  Moura18b:
+            target: https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf
+            title: "When the Dike Breaks: Dissecting DNS Defenses During DDos"
+            author:
+             -
+               name: Giovane C. M. Moura
+             -
+               name: John Heidemann
+             -
+               name: Moritz Mueller
+             -
+               name: Ricardo de O. Schmidt
+             -
+              name: Marco Davids
+
+            date: 2018-10-31
+            seriesinfo:
+              ACM: 2018 Internet Measurement Conference
+              DOI: 10.1145/3278532.3278534
 
   Sigla2014:
     title:   The Internet at the speed of light. In Proceedings of the 13th ACM
@@ -182,6 +216,23 @@ informative:
     seriesinfo:
       ACM: 2017 Internet Measurement Conference
       DOI: 10.1145/3131365.3131371
+
+
+  Jung03a:
+      title: Modeling TTL-based Internet caches
+      target: http://www.ieee-infocom.org/2003/papers/11_01.PDF
+      author:
+       -
+          name:  Jaeyeon Jung
+       -
+          name:  Arthur W. Berger
+       -
+          name: Hari Balakrishnan       
+      date: July 2003   
+      seriesinfo:
+        ACM: 2003 IEEE INFOCOM
+        DOI: 10.1109/INFCOM.2003.1208693
+
 
   Mueller17b:
       title: Recursives in the Wild-  Engineering Authoritative DNS Servers.
@@ -389,47 +440,52 @@ Note that this recommendation refers to the operation of one anycast service, i.
 
 # R5: Consider longer time-to-live values whenever possible
 
-TODO: update the entire section based on new study
+\[RF:Issue7\]: this section has been completely rewritten.
 
-In a DNS response, each resource record is accompanied by a time-to-live value (TTL), which "describes how long  a RR can be cached before it should be discarded" {{RFC1034}}. The TTL values are set by zone owners in their zone files -- either specifically per record or by using default values for the entire zone. Sometimes the same resource record may have different TTL values -- one from the parent and one from the child DNS server. In this case, resolvers are expected to prioritize the answer according to Section 5.4.1 in {{RFC2181}}.
+Caching is the cornerstone of good DNS performance and reliability. A 15 ms response to a new DNS query is fast, but a 1 ms cache hit to a repeat query is far faster. Caching also protects users from short outages  and can mute even significant DDoS attacks {{Moura18b}}.
 
-While set at authoritative servers, (ATn in {{recuath}}), the TTL value in fact influences the behavior of recursive resolvers (and their operators -- "Re_n" in the same figure), by setting an upper limit on how long a record should be cached before discarded.
-In this sense, caching can be seen as  a sort of "ephemeral replication", i.e., the contents of an authoritative server are placed at a recursive resolver cache for a period of time up to the TTL value. Caching improves response times by avoiding repeated queries between recursive resolvers and authoritative.
+DNS record TTLs (time-to-live values) directly control cache durations {{RFC1034}}{{RFC1035}}
+and, therefore, affect latency, resilience,  and the role of DNS in CDN server selection. Some early work modeled caches as a function of their TTLs {{Jung03a}},  and recent work examined their interaction with DNS{{Moura18b}},  but no research provides recommendations  about what TTL values are good. With this goal  Moura et. al. {{Moura19a}} carried out a measurement study investigating TTL choices  and its impact on user experience.
 
+First, they identified several reasons why operators/zone owners may want to choose longer or shorter TTLs:
 
+   * Longer caching results in faster responses, given that cache hits are faster than cache misses in resolvers. {{Moura19a}} shows that the change in TTL for .uy TLD from 1 day to 5 minutes reduced the RTT from 15k Atlas vantage points significantly: the median went from 28.7ms to 8ms, while the 75%ile went from 183ms to 21ms.
 
+   * Longer caching results in lower DNS traffic: authoritative servers will experience less traffic if TTLs are extended, given that repeated queries will be answered by resolver caches.
 
-Besides improving performance, it has been argued that caching plays a significant role in protecting users during DDoS attacks against authoritative servers.  To investigate that, {{Moura18b}} evaluates the role of caching (and retries) in DNS resiliency to DDoS attacks. Two authoritative servers were configured for a newly registered domain and a series of experiments were carried out using various TTL values (60,1800, 3600, 86400s) for records.  Unique DNS queries were sent from roughly 15,000 vantage points, using RIPE Atlas.
+   * Longer caching results in lower cost if DNS is metered:  some DNS-As-A-Service providers charges are metered, with a per query cost  (often added to a fixed monthly cost).
 
-{{Moura18b}} found that, under normal operations, caching works as expected 70% of the times in the wild.  It is believed that complex recursive infrastructure (such as anycast recursives with fragmented cache), besides cache flushing and hierarchy explains these other 30% of the non-cached records. The results from the experiments were confirmed by analyzing authoritative traffic for the .nl TLD, which showed similar figures.
-
-{{Moura18b}} also emulated DDoS attacks on authoritative servers by dropping all incoming packets for various TTLs values. For experiments when all authoritative servers were completely unreachable, they found that the TTL value on the DNS records determined how long clients received responses, together with the status of the cache at the attack time.  Given the TTL value decreases as time passes at the cache, it protected clients for up to its value in cache.
-Once the TTL expires,  there was some evidence of some recursives serving stale content {{I-D.ietf-dnsop-serve-stale}}. Serving stale is the only viable option when TTL values expire in recursive caches and authoritative servers became completely unavailable.
-
-They also emulated  partial-failure DDoS, i.e., DDoS that cause authoritative to respond to be able to respond part of the queries (similar to Dyn 2016 {{Perlroth16}}). They emulate such scenario by dropping incoming packet at rates of 50--90%, for various TTL values. They found that:
-
-   *  Caching was a key component in the success of queries. For example, with a 50% packet drop rate at the authoritatives,  most clients eventually got an answer.
-
-   *  Recursives retries was also a key part of resilience: when caching could not help (for a scenario with TTL of 60s, and time in between probing of 10 minutes), recursive servers kept retrying queries to authoritatives. With 90% packet drop on both authoritatives (with TTL of 60s), 27% of clients still got an answer due to retries, at the price of increased response times. However, this came with a price for authroritative servers: a 8.1 times increase in normal traffic during a 90% packet drop with TTL of 60s, as recursives attempt to resolve queries -- thus effectively creating "friendly fire".
+   * Longer caching is more robust to DDoS attacks on DNS:  DDoS attacks on a DNS service provider harmed several prominent  websites {{Perlroth16}}.   Recent work has shown that DNS caching can greatly reduce the effects of DDoS on DNS, provided caches last longer than the attack {{Moura18b}}.
 
 
-Altogether, these results help to explain why previous attacks against the Roots were not noticed by most users {{Moura18b}} and why other attacks (such as Dyn 2016 {{Perlroth16}}\) had significant impact on users experience: records on the Root zone have TTL values ranging from 1 to 6 days, while some of unreachable Dyn clients had TTL values ranging from 120 to 300s, which limit how long records ought to be cached.
+   * Shorter caching supports operational changes:  An easy way to transition from an old server to a new one is to change the DNS records.
+  Since there is no method to remove cached DNS records,
+    the TTL duration represents a necessary transition delay to fully shift to a new server,
+      so low TTLs allow more rapid transition.
+  However, when deployments are planned in advance (that is, longer than the TTL),
+    then TTLs can be lowered ''just-before'' a major operational change,
+    and raised again once accomplished.
 
-Therefore, given the important role of the TTL on user's experience during a DDoS attack (and in reducing ''friendly fire''), it is recommended that DNS zone owners set their TTL values carefully, using reasonable TTL values (at least 1 hour) whenever possible, given its role in DNS resilience against DDoS attacks.
-However, the choice of the value depends on the specifics of each operator (CDNs are known for using TTL values in the range of few minutes) and the domain names in question (\[RF:Issue17\]).
-The drawback of setting larger TTL values is that changes on the authoritative system infrastructure (e.g.: adding a new authoritative server or changing IP address) will take at least as long as the TTL to propagate among clients.
+   * Shorter caching can with DNS-based load balancing:   Some DDoS-scrubbing services use DNS to redirect traffic during an
+attack. Since DDoS attacks arrive unannounced,
+    DNS-based traffic redirection requires the TTL be kept quite low at all times
+    to be ready to respond to a potential attack.
 
 
+As such, choice of TTL depends in part on external factors  so no single recommendation is appropriate for all. Organizations must weigh these trade-offs to find a good balance. Still, some guidelines can be used when choosing TTLs:
 
-# R6: Shared Infrastructure Risks Collateral Damage During Attacks
+   * For general users, {{Moura19a}} recommends longer TTLs, of at least one hour,
+    and ideally 4, 8, 12, or 24 hours.  Assuming planned maintenance can be scheduled at least a day in advance,   long TTLs have little cost.
 
-Co-locating services, such as authoritative servers, creates some degree of shared risk, in that stress on one service may spill over into another, resulting in collateral damage. Collateral damage is a common side-effect of DDoS, and data centers and operators strive to minimize collateral damage through redundancy, overcapacity, and isolation.
+   * For TLD operators: TLD operators that allow public registration  of domains (such as most ccTLDs and .com, .net, .org) host, in their zone
+files, NS records (and glues if in-bailiwick) of their respective domains. {{Moura19a}} shows that most resolvers will use TTL values provided by the child delegations, but some will choose the TTL provided by the parents.  As such, similarly to general users, {{Moura19a}} recommends  longer TTLs for NS records of their delegations (at least one hour, preferably more).
 
-This has been seen in practice during the DDoS attack against the Root DNS system in November 2015 {{Moura16b}}. In this study, it was shown that two services not directly targeted by the attack, namely D-Root and the .nl TLD, suffered collateral damage. These services showed reduced end-to-end performance (i.e., higher latency and reduced reachability) with timing consistent with the DDoS event, strongly suggesting a shared resource with original targets of the attack.
+   * Users of DNS-based load balancing or DDoS-prevention may require short TTLs: TTLs may be as short as 5 minutes, although 15 minutes may provide sufficient agility for many operators.
+  Shorter TTLs here help agility; they are are an exception to the recommendation for longer TTLs.
 
-Another example of collateral damage was the 1.2 Tbps attack against Dyn, a major DNS provider on October 2017 {{Perlroth16}}. As a result, many of their customers, including Airbnb, HBO, Netflix, and Twitter experienced issues with clients failing to resolve their domains, since the servers partially shared the same infrastructure.
+   * Use A/AAAA and NS records:   TTLs of A/AAAA records should be shorter or equal to the TTL for NS records for  in-bailiwick authoritative  DNS servers, given that the authors {{Moura19a}} found that, for such scenarios, once NS record expires, their associated A/AAAA will also be updated (glue is sent by the parents).   For out-of-bailiwick servers,   A and NS records are usually cached independently,    so different TTLs, if desired, will be effective.  In either case, short A and AAAA records may be desired if   DDoS-mitigation services are an option.
 
-It is recommended, therefore, when choosing third-party DNS providers, operators should be aware of shared infrastructure risks. By sharing infrastructure, there is an increased attack surface.
+
 
 
 # Security considerations
@@ -453,10 +509,10 @@ This document has no IANA actions.
 
 # Acknowledgements
 
-This document is a summary of the main recommendations of five research works referred in this document. As such, they were only possible thanks to the hard work of the authors of these research works.
+This document is a summary of the main recommendations of six research works referred in this document. As such, they were only possible thanks to the hard work of the authors of these research works.
 
 The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
 
-We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, Klaus Darilion and Samir Jafferali.
+We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, Klaus Darilion and Samir Jafferali, and comments provided at the IETF DNSOP session (IETF104).
 
 Besides those, we would like thank those who have been individually thanked in each research work, RIPE NCC and DNS OARC for their tools and datasets used in this research, as well as the funding agencies sponsoring the individual research works.
