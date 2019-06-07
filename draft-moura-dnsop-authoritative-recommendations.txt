@@ -13,7 +13,7 @@ Expires: December 9, 2019                                   J. Heidemann
 
 
       Considerations for Large Authoritative DNS Servers Operators
-        draft-moura-dnsop-large-authoritative-considerations-04
+           draft-moura-dnsop-authoritative-recommendations-04
 
 Abstract
 
@@ -26,11 +26,19 @@ Abstract
 
 Ed note
 
-   Text inside square brackets ([RF:ABC]) refers to individual comments
-   we have received about the draft, and enumerated under
-   <https://github.com/gmmoura/draft-moura-dnsop-authoritative-
-   recommendations/blob/master/reviews/reviews-dnsop.md>.  They will be
-   removed before publication.
+   This draft will be renamed to draft-moura-dnsop-large-authoritative-
+   considerations in case adpoted by the WG, to reflect the new title.
+
+   Text inside square brackets ([RF:ABC]) refers to:
+
+   o  individual comments we have received about the draft, and
+      enumerated under <https://github.com/gmmoura/draft-moura-dnsop-
+      authoritative-recommendations/blob/master/reviews/reviews-
+      dnsop.md>.
+
+   o  Issues listed on our Github respository
+
+   Both types will be removed before publication.
 
    This draft is being hosted on GitHub - <https://github.com/gmmoura/
    draft-moura-dnsop-authoritative-recommendations>, where the most
@@ -42,14 +50,6 @@ Status of This Memo
    This Internet-Draft is submitted in full conformance with the
    provisions of BCP 78 and BCP 79.
 
-   Internet-Drafts are working documents of the Internet Engineering
-   Task Force (IETF).  Note that other groups may also distribute
-   working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
-
-   Internet-Drafts are draft documents valid for a maximum of six months
-   and may be updated, replaced, or obsoleted by other documents at any
-
 
 
 
@@ -58,6 +58,13 @@ Moura, et al.           Expires December 9, 2019                [Page 1]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
@@ -80,7 +87,7 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Background  . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  C1:  Use equally strong IP anycast in every authoritative
        server (NS) for better load distribution  . . . . . . . . . .   5
@@ -98,14 +105,7 @@ Table of Contents
      12.2.  Informative References . . . . . . . . . . . . . . . . .  14
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
-1.  Introduction
 
-   This document summarizes recent research work exploring DNS
-   configurations and offers specific tangible considerations to DNS
-   authoritative servers operators (DNS operators hereafter).
-   [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The considerations (C1-C5)
-   presented in this document are backed by previous research work,
-   which used wide-scale Internet measurements upon which to draw their
 
 
 
@@ -114,6 +114,14 @@ Moura, et al.           Expires December 9, 2019                [Page 2]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
+1.  Introduction
+
+   This document summarizes recent research work exploring DNS
+   configurations and offers specific tangible considerations to DNS
+   authoritative servers operators (DNS operators hereafter).
+   [RF:JAb2]], [RF:MSJ1], [RF:DW2].  The considerations (C1-C5)
+   presented in this document are backed by previous research work,
+   which used wide-scale Internet measurements upon which to draw their
    conclusions.  This document describes the key engineering options,
    and points readers to the pertinent papers for details and
    [RF:Issue15] other research works related to each consideration here
@@ -144,14 +152,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    information from name servers in response to client requests
    [RFC1034].  A client (stub in Figure 1) refers to stub resolver
    [RFC1034] that is typically located within the client software.
-
-
-
-
-
-
-
-
 
 
 

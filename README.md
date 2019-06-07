@@ -1,8 +1,8 @@
 # draft-moura-dnsop-authoritative-recommendations
 
-## This draft will be renamed to    draft-moura-dnsop-large-authoritative-considerations
+## This draft will be renamed to  draft-moura-dnsop-large-authoritative-considerations eventually
 
-   * We are replacing the worrd *Recomendation* by *Consideration* after presentation at IETF104. See [Issue14](https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/issues/14)
+   * We are replacing the word *Recomendation* by *Consideration* after presentation at IETF104. See [Issue14](https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/issues/14)
 
 
 ## Intro   
