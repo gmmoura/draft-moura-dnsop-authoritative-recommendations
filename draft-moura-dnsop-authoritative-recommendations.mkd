@@ -1,7 +1,7 @@
 ---
-title: Recommendations for Large Authoritative Servers Operators
-abbrev: Recomm-Authoritative-Ops  
-docname: draft-moura-dnsop-large-authoritative-recommendations-04
+title: Considerations for Large Authoritative Servers Operators
+abbrev: Considerations-Large-Auth-DNS-Ops  
+docname: draft-moura-dnsop-large-authoritative-considerations-04
 date:
 
 # stand_alone: true
@@ -292,7 +292,7 @@ informative:
           date: December 2018
 --- abstract
 
-This document summarizes recent research work exploring DNS configurations and offers specific, tangible recommendations to operators for configuring authoritative servers.
+This document summarizes recent research work exploring DNS configurations and offers specific, tangible considerations to operators for configuring authoritative servers.
 
 
 <!-- should be part of 'status of this memo'-section, but was unable to figure out for now how to do that - MD -->
@@ -337,23 +337,23 @@ DNS queries/responses contribute to user's perceived latency and affect user exp
 
 To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with (i) the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), (ii) the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} that allows the same IP address to be announced from multiple locations (each of them referred to as anycast instance {{RFC8499}}) and (iii) by using load balancers to support multiple servers inside a single (potentially anycasted) instance. As a consequence, there are many possible ways an authoritative DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
 
-This document summarizes recent research work exploring DNS configurations and offers specific tangible recommendations to DNS authoritative servers operators (DNS operators hereafter).
-\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The recommendations (R1–R6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details and \[RF:Issue15\] other research works related to each recommendation here presented.
+This document summarizes recent research work exploring DNS configurations and offers specific tangible considerations to DNS authoritative servers operators (DNS operators hereafter).
+\[RF:JAb2]\],  \[RF:MSJ1\], \[RF:DW2\].  The considerations (C1–C6) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details and \[RF:Issue15\] other research works related to each consideration here presented.
 
 \[RF:JAb1, Issue#2, SJa-02\].
-These recommendations are designed for operators of "large" authoritative
+These considerations are designed for operators of "large" authoritative
 servers. In this context, "large" authoritative servers refers to those with a significant global user population, like TLDs, run by a single or multiple operators.
-These recommendations may not be appropriate for smaller domains,
+These considerations may not be appropriate for smaller domains,
 such as those used by an organization with users in one city or region,
 where goals such as uniform low latency are less strict.
 
 
-  It is likely that these recommendations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
+  It is likely that these considerations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
 conclusions of the studies don't verify this fact,  the wording in this document discusses DNS authoritative services only (\[RF:Issue13\]).
 
 
 
-# R1:  Use equally strong IP anycast in every authoritative server (NS) for better load distribution
+# C1:  Use equally strong IP anycast in every authoritative server (NS) for better load distribution
 
 
 Authoritative DNS servers operators announce their authoritative servers as NS records{{RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
@@ -376,10 +376,10 @@ The hypothesis is that this behavior is a consequence of two main criteria emplo
 
 For a DNS operator, this policy means that latency of all authoritatives (NS records \[RF:SJa-01\]) matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance),  {{Mueller17b}}  recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (ie.e, on each NS record \[RF:SJa-01\]), in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver good latency values to global clients. However,  {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
 
-This recommendation was deployed at the ".nl" TLD zone, which originally had seven authoritative severs (mixed unicast/anycast setup). .nl has moved in early 2018 to a setup with 4 anycast authoritative name servers. This is not to say that .nl was the first -- other zones, have been running anycast only authoritatives (e.g., .be since 2013). {{Mueller17b}} contribution is to show that unicast cannot deliver good latency worldwide, and that anycast has to be deployed to deliver good latency worldwide.  
+This consideration was deployed at the ".nl" TLD zone, which originally had seven authoritative severs (mixed unicast/anycast setup). .nl has moved in early 2018 to a setup with 4 anycast authoritative name servers. This is not to say that .nl was the first -- other zones, have been running anycast only authoritatives (e.g., .be since 2013). {{Mueller17b}} contribution is to show that unicast cannot deliver good latency worldwide, and that anycast has to be deployed to deliver good latency worldwide.  
 
 
-# R2: Routing Can Matter More Than Locations
+# C2: Routing Can Matter More Than Locations
 
 A common metric when choosing an anycast DNS provider or setting up an anycast service is the number of anycast instances{{RFC4786}}, i.e., the number of global locations from which the same address is announced with BGP. Intuitively, one could think that more instances will lead to shorter response times.
 
@@ -390,11 +390,11 @@ However, this is not necessarily true. In fact,  {{Schmidt17a}}  found   that ro
  Given that Atlas has better coverage in Europe than other regions, the authors specifically analyzed results per region and per country (Figure 5 in  {{Schmidt17a}}), and show that Atlas bias to Europe does not change the conclusion that location of anycast instances dominates latency. \[RF:Issue12\]
 
 
-{{Schmidt17a}} recommendation for DNS operators when engineering anycast services is consider factors other than just the number of instances (such as local routing connectivity) when designing for performance. They showed that 12 instances can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more instances can be useful for other reasons, such as when handling DDoS attacks {{Moura16b}}.
+{{Schmidt17a}} consideration for DNS operators when engineering anycast services is consider factors other than just the number of instances (such as local routing connectivity) when designing for performance. They showed that 12 instances can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more instances can be useful for other reasons, such as when handling DDoS attacks {{Moura16b}}.
 
 
 
-# R3: Collecting Detailed Anycast Catchment Maps Ahead of Actual Deployment Can Improve Engineering Designs
+# C3: Collecting Detailed Anycast Catchment Maps Ahead of Actual Deployment Can Improve Engineering Designs
 
 An anycast DNS service may have several dozens or even more than one hundred instances (such as L-Root does). Anycast leverages Internet routing to distribute the incoming queries to a service's distributed anycast instances; in theory, BGP (the Internet's defacto routing protocol) forwards incoming queries to a nearby anycast instance (in terms of BGP distance). However, usually queries are not evenly distributed across all anycast instances, as found in the case of L-Root {{IcannHedge18}}.
 
@@ -411,9 +411,9 @@ An important operational takeaway from {{Vries17b}} is that DNS operators can ma
 
  To date, Verfploeter has been deployed on B-Root{{Vries17b}}, on a operational testbed (Anycast testbed) {{AnyTest}}, and on a large unnamed operator.
 
-The recommendation is therefore to deploy  a small test Verfploeter-enabled platform in advance at a potential anycast instance may reveal the realizable benefits of using that instance as an anycast interest, potentially saving significant financial and labor costs of deploying hardware to a new instance that was less effective than as had been hoped.
+The consideration is therefore to deploy  a small test Verfploeter-enabled platform in advance at a potential anycast instance may reveal the realizable benefits of using that instance as an anycast interest, potentially saving significant financial and labor costs of deploying hardware to a new instance that was less effective than as had been hoped.
 
-# R4: When under stress, employ two strategies
+# C4: When under stress, employ two strategies
 
 DDoS attacks are becoming bigger, cheaper, and more frequent {{Moura16b}}. The most powerful recorded DDoS attack to DNS servers to date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such attacks call for an answer for the following question: how should a DNS operator engineer its anycast authoritative DNS server react to the stress of a DDoS attack? This question is investigated in study {{Moura16b}} in which empirical observations are grounded with the following theoretical evaluation of options.
 
@@ -435,17 +435,17 @@ Although described as strategies and policies, these outcomes are the result of 
 {{Moura16b}} speculates that more careful, explicit, and automated management of policies may provide stronger defenses to overload, an area currently under study. For DNS operators, that means that besides traditional filtering, two other options are available (withdraw/prepend/communities or isolate instances), and the best choice depends on the specifics of the attack.
 
 
-Note that this recommendation refers to the operation of one anycast service, i.e., one anycast NS record. However, DNS zones with multiple NS anycast services may expect load to spill from one anycast server to another,as resolvers switch from authoritative to authoritative when attempting to resolve a name {{Mueller17b}}.
+Note that this consideration refers to the operation of one anycast service, i.e., one anycast NS record. However, DNS zones with multiple NS anycast services may expect load to spill from one anycast server to another,as resolvers switch from authoritative to authoritative when attempting to resolve a name {{Mueller17b}}.
 
 
-# R5: Consider longer time-to-live values whenever possible
+# C5: Consider longer time-to-live values whenever possible
 
 \[RF:Issue7\]: this section has been completely rewritten.
 
 Caching is the cornerstone of good DNS performance and reliability. A 15 ms response to a new DNS query is fast, but a 1 ms cache hit to a repeat query is far faster. Caching also protects users from short outages  and can mute even significant DDoS attacks {{Moura18b}}.
 
 DNS record TTLs (time-to-live values) directly control cache durations {{RFC1034}}{{RFC1035}}
-and, therefore, affect latency, resilience,  and the role of DNS in CDN server selection. Some early work modeled caches as a function of their TTLs {{Jung03a}},  and recent work examined their interaction with DNS{{Moura18b}},  but no research provides recommendations  about what TTL values are good. With this goal  Moura et. al. {{Moura19a}} carried out a measurement study investigating TTL choices  and its impact on user experience.
+and, therefore, affect latency, resilience,  and the role of DNS in CDN server selection. Some early work modeled caches as a function of their TTLs {{Jung03a}},  and recent work examined their interaction with DNS{{Moura18b}},  but no research provides considerations  about what TTL values are good. With this goal  Moura et. al. {{Moura19a}} carried out a measurement study investigating TTL choices  and its impact on user experience.
 
 First, they identified several reasons why operators/zone owners may want to choose longer or shorter TTLs:
 
@@ -481,7 +481,7 @@ As such, choice of TTL depends in part on external factors  so no single recomme
 files, NS records (and glues if in-bailiwick) of their respective domains. {{Moura19a}} shows that most resolvers will use TTL values provided by the child delegations, but some will choose the TTL provided by the parents.  As such, similarly to general users, {{Moura19a}} recommends  longer TTLs for NS records of their delegations (at least one hour, preferably more).
 
    * Users of DNS-based load balancing or DDoS-prevention may require short TTLs: TTLs may be as short as 5 minutes, although 15 minutes may provide sufficient agility for many operators.
-  Shorter TTLs here help agility; they are are an exception to the recommendation for longer TTLs.
+  Shorter TTLs here help agility; they are are an exception to the consideration for longer TTLs.
 
    * Use A/AAAA and NS records:   TTLs of A/AAAA records should be shorter or equal to the TTL for NS records for  in-bailiwick authoritative  DNS servers, given that the authors {{Moura19a}} found that, for such scenarios, once NS record expires, their associated A/AAAA will also be updated (glue is sent by the parents).   For out-of-bailiwick servers,   A and NS records are usually cached independently,    so different TTLs, if desired, will be effective.  In either case, short A and AAAA records may be desired if   DDoS-mitigation services are an option.
 
@@ -511,7 +511,7 @@ This document has no IANA actions.
 
 # Acknowledgements
 
-This document is a summary of the main recommendations of six research works referred in this document. As such, they were only possible thanks to the hard work of the authors of these research works.
+This document is a summary of the main considerations of six research works referred in this document. As such, they were only possible thanks to the hard work of the authors of these research works.
 
 The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
 
