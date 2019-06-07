@@ -1,5 +1,12 @@
 # draft-moura-dnsop-authoritative-recommendations
 
+## This draft will be renamed to    draft-moura-dnsop-large-authoritative-considerations
+
+   * We are replacing the worrd *Recomendation* by *Consideration* after presentation at IETF104. See [Issue14](https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/issues/14)
+
+
+## Intro   
+
    * This repository contains the last version and historical versions of this Internet draft
    * We accept all pull requests
    * See Makefile for how to compile the source file ( 	draft-moura-dnsop-authoritative-recommendations.mkd)
