@@ -13,7 +13,7 @@ Expires: December 13, 2019                                  J. Heidemann
 
 
       Considerations for Large Authoritative DNS Servers Operators
-           draft-moura-dnsop-authoritative-recommendations-04
+           draft-moura-dnsop-authoritative-recommendations-05
 
 Abstract
 
@@ -570,10 +570,10 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
    o  Longer caching results in faster responses, given that cache hits
       are faster than cache misses in resolvers.  [Moura19a] shows that
-      the change in TTL for .uy TLD from 1 day to 5 minutes reduced the
-      RTT from 15k Atlas vantage points significantly: the median was
-      reduced from 28.7ms to 8ms, while the 75%ile decreased from 183ms
-      to 21ms.
+      the increase in the TTL for .uy TLD from 5 minutes (300s) to 1 day
+      (86400s) reduced the latency from 15k Atlas vantage points
+      significantly: the median RTT went from 28.7ms to 8ms, while the
+      75%ile decreased from 183ms to 21ms.
 
    o  Longer caching results in lower DNS traffic: authoritative servers
       will experience less traffic if TTLs are extended, given that
