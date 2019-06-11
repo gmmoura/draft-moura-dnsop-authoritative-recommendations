@@ -306,7 +306,7 @@ This draft will be renamed to draft-moura-dnsop-large-authoritative-consideratio
 Text inside square brackets (\[RF:ABC\])  refers to:
 
    * individual comments we have received about the draft, and enumerated under \<https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/blob/master/reviews/reviews-dnsop.md\>.
-   * Issues listed on our Github respository
+   * Issues listed on our Github repository
 
 Both types will be removed before publication.
 
@@ -412,7 +412,7 @@ An anycast DNS service may have several dozens or even more than one hundred ins
 
 Adding new instances to an anycast service may change the load distribution across all instances, leading to suboptimal usage of the service or even stressing some instances while others remain underutilized. This is a scenario that operators constantly face when expanding an anycast service. Besides, when setting up a new anycast service instance, operators cannot directly estimate the query distribution among the instances in advance of enabling the new instance.
 
-To estimate the query loads across instances of an expanding service or a when setting up an entirely new service, operators need detailed anycast maps and catchment estimates (i.e., operators need to know which prefixes will be matched to which anycast instance). To do that, {{Vries17b}} developed a new technique enabling operators to carry out active measurements, using aan open-source tool called Verfploeter (available at [VerfSrc]). Verfploeter maps a large portion of the IPv4 address space, allowing DNS operators to predict both query distribution and clients catchment before deploying new anycast instances.
+To estimate the query loads across instances of an expanding service or a when setting up an entirely new service, operators need detailed anycast maps and catchment estimates (i.e., operators need to know which prefixes will be matched to which anycast instance). To do that, {{Vries17b}} developed a new technique enabling operators to carry out active measurements, using an open-source tool called Verfploeter (available at [VerfSrc]). Verfploeter maps a large portion of the IPv4 address space, allowing DNS operators to predict both query distribution and clients catchment before deploying new anycast instances.
 
 
 {{Vries17b}} shows how this technique was used to predict both the catchment and query load distribution for the new anycast service of B-Root. Using two anycast instances in Miami (MIA) and Los Angeles (LAX) from the operational B-Root server, they sent ICMP echo packets to IP addresses to each IPv4 /24 on the Internet using a source address within the anycast prefix. Then, they recorded which instance the ICMP echo replies arrived at based on the Internet's BGP routing.  This analysis resulted in an Internet wide catchment map. Weighting was then applied to the incoming traffic prefixes based on of 1 day of B-Root traffic (2017-04-12, DITL datasets {{Ditl17}}).  The combination of the created catchment mapping and the load per prefix created an estimate predicting that 81.6% of the traffic would go to the LAX instance. The actual value was 81.4% of traffic going to LAX, showing that the estimation was pretty close and the Verfploeter technique was a excellent method of predicting traffic loads in advance of a new anycast instance deployment ({{Vries17b}}  also uses the term anycast site to refer to anycast instance).
@@ -461,7 +461,7 @@ and, therefore, affect latency, resilience,  and the role of DNS in CDN server s
 
 First, they identified several reasons why operators/zone owners may want to choose longer or shorter TTLs:
 
-   * Longer caching results in faster responses, given that cache hits are faster than cache misses in resolvers. {{Moura19a}} shows that the change in TTL for .uy TLD from 1 day to 5 minutes reduced the RTT from 15k Atlas vantage points significantly: the median went from 28.7ms to 8ms, while the 75%ile went from 183ms to 21ms.
+   * Longer caching results in faster responses, given that cache hits are faster than cache misses in resolvers. {{Moura19a}} shows that the change in TTL for .uy TLD from 1 day to 5 minutes reduced the RTT from 15k Atlas vantage points significantly: the median was reduced from 28.7ms to 8ms, while the 75%ile decreased from 183ms to 21ms.
 
    * Longer caching results in lower DNS traffic: authoritative servers will experience less traffic if TTLs are extended, given that repeated queries will be answered by resolver caches.
 

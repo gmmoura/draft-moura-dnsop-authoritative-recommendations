@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: December 9, 2019                                   J. Heidemann
+Expires: December 13, 2019                                  J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                           June 07, 2019
+                                                           June 11, 2019
 
 
       Considerations for Large Authoritative DNS Servers Operators
@@ -36,7 +36,7 @@ Ed note
       authoritative-recommendations/blob/master/reviews/reviews-
       dnsop.md>.
 
-   o  Issues listed on our Github respository
+   o  Issues listed on our Github repository
 
    Both types will be removed before publication.
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 1]
+Moura, et al.           Expires December 13, 2019               [Page 1]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -68,7 +68,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 9, 2019.
+   This Internet-Draft will expire on December 13, 2019.
 
 Copyright Notice
 
@@ -98,7 +98,7 @@ Table of Contents
    7.  C5: Consider longer time-to-live values whenever possible . .  10
    8.  Security considerations . . . . . . . . . . . . . . . . . . .  12
    9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  12
-   10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
+   10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  13
    11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 2]
+Moura, et al.           Expires December 13, 2019               [Page 2]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -165,7 +165,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 3]
+Moura, et al.           Expires December 13, 2019               [Page 3]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -221,7 +221,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 4]
+Moura, et al.           Expires December 13, 2019               [Page 4]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -277,7 +277,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 5]
+Moura, et al.           Expires December 13, 2019               [Page 5]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -333,7 +333,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 6]
+Moura, et al.           Expires December 13, 2019               [Page 6]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -385,11 +385,11 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    anycast maps and catchment estimates (i.e., operators need to know
    which prefixes will be matched to which anycast instance).  To do
    that, [Vries17b] developed a new technique enabling operators to
-   carry out active measurements, using aan open-source tool called
+   carry out active measurements, using an open-source tool called
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 7]
+Moura, et al.           Expires December 13, 2019               [Page 7]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -445,7 +445,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 8]
+Moura, et al.           Expires December 13, 2019               [Page 8]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -501,7 +501,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019                [Page 9]
+Moura, et al.           Expires December 13, 2019               [Page 9]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -557,7 +557,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019               [Page 10]
+Moura, et al.           Expires December 13, 2019              [Page 10]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -571,8 +571,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    o  Longer caching results in faster responses, given that cache hits
       are faster than cache misses in resolvers.  [Moura19a] shows that
       the change in TTL for .uy TLD from 1 day to 5 minutes reduced the
-      RTT from 15k Atlas vantage points significantly: the median went
-      from 28.7ms to 8ms, while the 75%ile went from 183ms to 21ms.
+      RTT from 15k Atlas vantage points significantly: the median was
+      reduced from 28.7ms to 8ms, while the 75%ile decreased from 183ms
+      to 21ms.
 
    o  Longer caching results in lower DNS traffic: authoritative servers
       will experience less traffic if TTLs are extended, given that
@@ -608,16 +609,17 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    weigh these trade-offs to find a good balance.  Still, some
    guidelines can be used when choosing TTLs:
 
-   o  For general users, [Moura19a] recommends longer TTLs, of at least
-      one hour, and ideally 4, 8, 12, or 24 hours.  Assuming planned
 
 
 
-Moura, et al.           Expires December 9, 2019               [Page 11]
+
+Moura, et al.           Expires December 13, 2019              [Page 11]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
+   o  For general users, [Moura19a] recommends longer TTLs, of at least
+      one hour, and ideally 4, 8, 12, or 24 hours.  Assuming planned
       maintenance can be scheduled at least a day in advance, long TTLs
       have little cost.
 
@@ -661,18 +663,20 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
    This document does not add any practical new privacy issues.
 
-10.  IANA considerations
-
-   This document has no IANA actions.
 
 
 
 
 
-Moura, et al.           Expires December 9, 2019               [Page 12]
+
+Moura, et al.           Expires December 13, 2019              [Page 12]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
+
+10.  IANA considerations
+
+   This document has no IANA actions.
 
 11.  Acknowledgements
 
@@ -719,16 +723,16 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
               Anycasting Service", RFC 1546, DOI 10.17487/RFC1546,
               November 1993, <https://www.rfc-editor.org/info/rfc1546>.
 
-   [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
-              DOI 10.17487/RFC1995, August 1996,
-              <https://www.rfc-editor.org/info/rfc1995>.
 
 
-
-Moura, et al.           Expires December 9, 2019               [Page 13]
+Moura, et al.           Expires December 13, 2019              [Page 13]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
+
+   [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
+              DOI 10.17487/RFC1995, August 1996,
+              <https://www.rfc-editor.org/info/rfc1995>.
 
    [RFC1997]  Chandra, R., Traina, P., and T. Li, "BGP Communities
               Attribute", RFC 1997, DOI 10.17487/RFC1997, August 1996,
@@ -773,18 +777,18 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    [Ditl17]   OARC, D., "2017 DITL data", October 2018,
               <https://www.dns-oarc.net/oarc/data/ditl/2017>.
 
-   [IcannHedge18]
-              ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
-              <http://stats.dns.icann.org/hedgehog/>.
 
 
 
 
-
-Moura, et al.           Expires December 9, 2019               [Page 14]
+Moura, et al.           Expires December 13, 2019              [Page 14]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
+
+   [IcannHedge18]
+              ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
+              <http://stats.dns.icann.org/hedgehog/>.
 
    [Jung03a]  Jung, J., Berger, A., and H. Balakrishnan, "Modeling TTL-
               based Internet caches", ACM 2003 IEEE INFOCOM,
@@ -833,11 +837,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-
-
-
-
-Moura, et al.           Expires December 9, 2019               [Page 15]
+Moura, et al.           Expires December 13, 2019              [Page 15]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -893,7 +893,7 @@ Authors' Addresses
 
 
 
-Moura, et al.           Expires December 9, 2019               [Page 16]
+Moura, et al.           Expires December 13, 2019              [Page 16]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -949,4 +949,4 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 9, 2019               [Page 17]
+Moura, et al.           Expires December 13, 2019              [Page 17]
