@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: December 13, 2019                                  J. Heidemann
+Expires: December 14, 2019                                  J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                           June 11, 2019
+                                                           June 12, 2019
 
 
       Considerations for Large Authoritative DNS Servers Operators
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 1]
+Moura, et al.           Expires December 14, 2019               [Page 1]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -68,7 +68,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 13, 2019.
+   This Internet-Draft will expire on December 14, 2019.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 2]
+Moura, et al.           Expires December 14, 2019               [Page 2]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -165,7 +165,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 3]
+Moura, et al.           Expires December 14, 2019               [Page 3]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -221,7 +221,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 4]
+Moura, et al.           Expires December 14, 2019               [Page 4]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -267,7 +267,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    [Mueller17b] evaluates this with a measurement study in which they
    deployed seven unicast authoritative name servers in different global
    locations and queried these authoritative servers from more than 9k
-   RIPE Atlas probes and and their respective recursive resolvers.
+   RIPE Atlas probes and their respective recursive resolvers.
 
    In the wild, [Mueller17b] found that recursives query all available
    authoritative servers, regardless of the observed latency.  But the
@@ -277,7 +277,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 5]
+Moura, et al.           Expires December 14, 2019               [Page 5]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -300,7 +300,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    always have high latency to resolvers in California, for example,
    given its geographical distance), [Mueller17b] recommends to DNS
    operators that they deploy equally strong IP anycast in every
-   authoritative server (ie.e, on each NS record [RF:SJa-01]), in terms
+   authoritative server (i.e., on each NS record [RF:SJa-01]), in terms
    of number of instances and peering, and, consequently, to phase out
    unicast, so they can deliver good latency values to global clients.
    However, [Mueller17b] also notes that DNS operators should also take
@@ -333,7 +333,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 6]
+Moura, et al.           Expires December 14, 2019               [Page 6]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -389,7 +389,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 7]
+Moura, et al.           Expires December 14, 2019               [Page 7]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -445,7 +445,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 8]
+Moura, et al.           Expires December 14, 2019               [Page 8]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -501,7 +501,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019               [Page 9]
+Moura, et al.           Expires December 14, 2019               [Page 9]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -557,7 +557,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 10]
+Moura, et al.           Expires December 14, 2019              [Page 10]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -568,12 +568,12 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
    First, they identified several reasons why operators/zone owners may
    want to choose longer or shorter TTLs:
 
-   o  Longer caching results in faster responses, given that cache hits
-      are faster than cache misses in resolvers.  [Moura19a] shows that
-      the increase in the TTL for .uy TLD from 5 minutes (300s) to 1 day
-      (86400s) reduced the latency from 15k Atlas vantage points
-      significantly: the median RTT went from 28.7ms to 8ms, while the
-      75%ile decreased from 183ms to 21ms.
+   o  Longer TTL leads to longer caching, which results in faster
+      responses, given that cache hits are faster than cache misses in
+      resolvers.  [Moura19a] shows that the increase in the TTL for .uy
+      TLD from 5 minutes (300s) to 1 day (86400s) reduced the latency
+      from 15k Atlas vantage points significantly: the median RTT went
+      from 28.7ms to 8ms, while the 75%ile decreased from 183ms to 21ms.
 
    o  Longer caching results in lower DNS traffic: authoritative servers
       will experience less traffic if TTLs are extended, given that
@@ -613,7 +613,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 11]
+Moura, et al.           Expires December 14, 2019              [Page 11]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -669,7 +669,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 12]
+Moura, et al.           Expires December 14, 2019              [Page 12]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -725,7 +725,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 13]
+Moura, et al.           Expires December 14, 2019              [Page 13]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -781,7 +781,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 14]
+Moura, et al.           Expires December 14, 2019              [Page 14]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -837,7 +837,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 15]
+Moura, et al.           Expires December 14, 2019              [Page 15]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -893,7 +893,7 @@ Authors' Addresses
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 16]
+Moura, et al.           Expires December 14, 2019              [Page 16]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
@@ -949,4 +949,4 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          June 2019
 
 
 
-Moura, et al.           Expires December 13, 2019              [Page 17]
+Moura, et al.           Expires December 14, 2019              [Page 17]
