@@ -28,6 +28,7 @@
        * [video](https://www.youtube.com/watch?v=l2ixYuwuaqY)
 
 ## Discussion on IETF-DNSOP list:
+   * [Version 04](https://datatracker.ietf.org/doc/draft-moura-dnsop-authoritative-recommendations/04/): [link 1 list](https://mailarchive.ietf.org/arch/msg/dnsop/fY4vuYzPUnd9XvkrhJg61ZrgIxY), [link 2 list](https://mailarchive.ietf.org/arch/msg/dnsop/qwbkhEmnTIbabUlEA_poL0RbcVM)
    * [Version 03](https://datatracker.ietf.org/doc/draft-moura-dnsop-authoritative-recommendations/03/): (not sent to list)
    * [Version 02](https://datatracker.ietf.org/doc/draft-moura-dnsop-authoritative-recommendations/02/) discussion thread: https://mailarchive.ietf.org/arch/msg/dnsop/u_w7KI7BkLmWQ7ii0P_PTEYBcus
    * [Version 01](https://datatracker.ietf.org/doc/draft-moura-dnsop-authoritative-recommendations/01/) discussion thread: https://mailarchive.ietf.org/arch/msg/dnsop/2R8Ab4-7sKmOY7-XcJ3yLSq6Gcc
