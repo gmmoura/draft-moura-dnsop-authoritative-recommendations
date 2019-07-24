@@ -7,11 +7,11 @@
 ## 1. Preparation (requirements from RFC editor)
    * See background (2.1). We need to send an email to the RFC editor with the following points:
 
-   * The file name of the published Internet-Draft that is being submitted.
+   * a)  The file name of the published Internet-Draft that is being submitted.
       * draft-moura-dns-large-auth-servers-ops-considerations
-   * The desired category (Informational or Experimental) of the RFC:  
+   * b) The desired category (Informational or Experimental) of the RFC:  
       * Informational
-   * A summary of related discussion of this document, if any, that has occurred in an IETF  working group or in the IESG.
+   * c) A summary of related discussion of this document, if any, that has occurred in an IETF  working group or in the IESG.
 
 ```
 This document describes a set of considerations for large authoritative DNS server operators.
@@ -31,19 +31,16 @@ The authors opinion is that while very relevant for DNS Operators (as some of th
 
 Overall, all the feedback obtained from DNSOP was incorporated, and it just help us to write a better document.
 
-
-
 [0] https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations
 [1] https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/issues?q=is%3Aissue+is%3Aclosed
 ```
 
 
- * An assertion that no IANA allocation in the document requires IETF Consensus or Standards Action; see RFC 5226 for more information.
+ * d) An assertion that no IANA allocation in the document requires IETF Consensus or Standards Action; see RFC 5226 for more information.
 
 ```This document has no IANA considerations given it is purely information and proposes no protocol changes```
 
-
-* Potential reviewers:  current DNSOP chairs, Warren Kumari, Peter Koch, Joe Abley, George Michaelson.
+* e) Potential reviewers:  current DNSOP chairs, Warren Kumari, Peter Koch, Joe Abley, George Michaelson.
 
 
 
