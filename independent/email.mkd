@@ -20,12 +20,12 @@ All these considerations are based on peer-reviewed academic papers that employe
 We first brought this document to DNSOP, first presented during IETF104, and then at IETF105.
 We have documented in [0] all emails threads from DNSOP  and slides, presentations as well.
 
-Summary of the discussions:  we first presented it at DNSOP during IETF104, and we have received feedback from various IETFers, which we incorporated and produced a new version and presented at IETF105.  See issues on Github repository for their feedback[1].
+Summary of the discussions:  we first presented it at DNSOP during IETF104, and we have received feedback from various IETFers, which we incorporated and produced a new version and presented at IETF105.  We broken down the feedback into issues on Github[1].
 
 During IETF104, it was pointed that the original word 'recommendation'' by 'consideration', given that recommendation may reduce authoritative servers setup heterogeneity. We fixed that.
 Also, other issue was that recommendation R5 (on -03, and renamed to C5 on -04) was too broad. We have completely rewritten it, based on a new measurement study we have just been accepted for publication (peer reviewed, IMC2019)
 
-After fixing all these issues, we presented it at DNSOP during IETF105, and the chairs  asked the room to hum to have a sense if they want the draft to be adopted. There was no concensus on it, maybe 60% in favor, 40% against.  And one comment from an attendee: that it's hard for DNSOP to improve this document, given its derived from academic paper which have been published, and the WG cannot change the findings. So our feeling is that the DNSOP members did not oppose the considerations themselves, but the adoption by the WG given they cannot change the document or contribute much.
+After fixing all these issues, we presented it at DNSOP during IETF105, and the chairs  asked the room to hum to have a sense if they want the draft to be adopted. There was no consensus on it, maybe 60% in favor, 40% against.  And one comment from an attendee: that it's hard for DNSOP to improve this document, given its derived from academic paper which have been published, and the WG cannot change the findings. So our feeling is that the DNSOP members did not oppose the considerations themselves, but the adoption by the WG given they cannot change the document or contribute much.
 
 The authors opinion is that while very relevant for DNS Operators (as some of them have deployed, and several individual from DNSOP approached us and said they like the document), the draft, given its Informational and academic nature, cannot be much improved by DNSOP, and that is why we decided to pursue a path via independent submission. Besides, an independent draft is a nice path given that RFC4806 states that, among other roles, ``Introduction of important new ideas as a bridge publication venue between academia and IETF engineering``.
 
@@ -41,7 +41,6 @@ Overall, all the feedback obtained from DNSOP was incorporated, and it just help
 ```This document has no IANA considerations given it is purely information and proposes no protocol changes```
 
 * e) Potential reviewers:  current DNSOP chairs, Warren Kumari, Peter Koch, Joe Abley, George Michaelson.
-
 
 
 ## 2. Background
