@@ -1,0 +1,75 @@
+#  Independent Draft
+
+   * We will submit this as an independent draft after presentation at DNSOP during IETF105
+   * This document describes the steps required
+
+## 1. Preparation (requirements from RFC editor)
+   * See background (2.1)
+
+   * The file name of the published Internet-Draft that is being submitted.
+      * draft-moura-dns-large-auth-servers-ops-considerations
+   * The desired category (Informational or Experimental) of the RFC:  
+      * Informational
+   * A summary of related discussion of this document, if any, that has occurred in an IETF  working group or in the IESG.
+
+```
+This document describes a set of considerations for large authoritative DNS server operators.
+All these considerations are based on peer-reviewed academic papers that employed large scale Internet measurements. Each consideration has been deployed as well, at least by one operator.
+
+We first brought this document to DNSOP, first presented during IETF104, and then at IETF105.
+We have documented in [0] all emails threads from DNSOP  and slides, presentations as well.
+
+Summary of the discussions:  we first presented it at DNSOP during IETF104, and we have received feedback from various IETFers, which we incorporated and produced a new version and presented at IETF105.  See issues on Github repository for their feedback[1].
+
+During IETF104, it was pointed that the original word 'recommendation'' by 'consideration', given that recommendation may reduce authoritative servers setup heterogeneity. We fixed that.
+Also, other issue was that recommendation R5 (on -03, and renamed to C5 on -04) was too broad. We have completely rewritten it, based on a new measurement study we have just been accepted for publication (peer reviewed, IMC2019)
+
+After fixing all these issues, we presented it at DNSOP during IETF105, and the chairs  asked the room to hum to have a sense if they want the draft to be adopted. There was no concensus on it, maybe 60% in favor, 40% against.  And one comment from an attendee: that it's hard for DNSOP to improve this document, given its derived from academic paper which have been published, and the WG cannot change the findings. So our feeling is that the DNSOP members did not oppose the considerations themselves, but the adoption by the WG given they cannot change the document or contribute much.
+
+The authors opinion is that while very relevant for DNS Operators (as some of them have deployed, and several individual from DNSOP approached us and said they like the document), the draft, given its Informational and academic nature, cannot be much improved by DNSOP, and that is why we decided to pursue a path via independent submission. Besides, an independent draft is a nice path given that RFC4806 states that, among other roles, ``Introduction of important new ideas as a bridge publication venue between academia and IETF engineering``.
+
+Overall, all the feedback obtained from DNSOP was incorporated, and it just help us to write a better document.
+
+
+
+[0] https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations
+[1] https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/issues?q=is%3Aissue+is%3Aclosed
+```
+
+
+ * An assertion that no IANA allocation in the document requires IETF Consensus or Standards Action; see RFC 5226 for more information.
+
+```This document has no IANA considerations given it is purely information and proposes no protocol changes```
+
+
+* Potential reviewers:  current DNSOP chairs, Warren Kumari, Peter Koch, Joe Abley, George Michaelson.
+
+
+
+## 2. Background
+
+### 2.1 Requirements from RFC editor:
+   ```
+       https://www.rfc-editor.org/about/independent/
+
+   For an independent submission, the author should send an email message to the Independent Submissions Editor: rfc-ise@rfc-editor.org. This message should include the following information:
+
+       * The file name of the published Internet-Draft that is being submitted.
+
+       * The desired category (Informational or Experimental) of the RFC.
+
+       * A summary of related discussion of this document, if any, that has occurred in an IETF  working group or in the IESG.
+
+       * An assertion that no IANA allocation in the document requires IETF Consensus or Standards Action; see RFC 5226 for more information. (In either case, the document cannot be published independently; it should instead be sent to the IESG).
+       Optionally, a statement of the purpose of publishing this document, its intended audience, its merits and significance.
+
+       * Optionally, suggested names and contact information for one or more competent and independent potential reviewers for the document. This can speed the review and approval process.
+   ```
+
+   ### 2.2 RFC on Independent Drafts
+
+      * https://tools.ietf.org/html/rfc4846
+      * Why our draft is good for it:
+      * Section 2: `The Role of Independent Submissions``
+          * ``Introduction of important new ideas as a bridge publication venue
+         between academia and IETF engineering.``
