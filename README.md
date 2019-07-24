@@ -1,9 +1,7 @@
 # draft-moura-dnsop-authoritative-recommendations
 
-## This draft will be renamed to  draft-moura-dnsop-large-authoritative-considerations eventually
-
-   * We are replacing the word *Recomendation* by *Consideration* after presentation at IETF104. See [Issue14](https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/issues/14)
-
+ * This draft will be submitted as an independent submission, following feedback at IETF105 DNSOP
+* The new file name will be: draft-moura-large-dns-auth-servers-ops-considerations
 
 ## Intro   
 
@@ -26,6 +24,11 @@
    1. [Version 03](https://datatracker.ietf.org/doc/draft-moura-dnsop-authoritative-recommendations/03/) @ [IETF 104](https://datatracker.ietf.org/meeting/104/session/dnsop/) on 2019-03-29, in Prague, CZ:
        * [slides](https://datatracker.ietf.org/meeting/104/materials/slides-104-dnsop-dnsop-authoritative-recommendations-01.pdf)
        * [video](https://www.youtube.com/watch?v=l2ixYuwuaqY)
+
+
+   2. [Version 04](https://datatracker.ietf.org/doc/draft-moura-dnsop-authoritative-recommendations/04/) @ [IETF 105](https://datatracker.ietf.org/meeting/105/session/dnsop/) on 2019-07-24, in Montreal, CA:
+      * [slides](https://datatracker.ietf.org/meeting/105/materials/slides-105-dnsop-sessa-draft-moura-dnsop-authoritative-recommendations-00)
+      * [video](https://www.youtube.com/watch?v=csopL0wjNw4)
 
 ## Discussion on IETF-DNSOP list:
    * [Version 04](https://datatracker.ietf.org/doc/draft-moura-dnsop-authoritative-recommendations/04/): [link 1 list](https://mailarchive.ietf.org/arch/msg/dnsop/fY4vuYzPUnd9XvkrhJg61ZrgIxY), [link 2 list](https://mailarchive.ietf.org/arch/msg/dnsop/qwbkhEmnTIbabUlEA_poL0RbcVM)
