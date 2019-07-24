@@ -1,7 +1,7 @@
 ---
 title: Considerations for Large Authoritative DNS Servers Operators
 abbrev: Considerations-Large-Auth-DNS-Ops  
-docname: draft-moura-dnsop-authoritative-recommendations-05
+docname: draft-moura-large-dns-auth-servers-ops-considerations-00
 date:
 
 # stand_alone: true
@@ -145,7 +145,7 @@ informative:
 
   Moura19a:
         target: https://www.isi.edu/~johnh/PAPERS/Moura19a.pdf
-        title: "TBA"
+        title: "Cache Me If You Can: Effects of DNS Time-to-Live"
         author:
          -
            name: Giovane C. M. Moura
@@ -301,7 +301,7 @@ This document is not an Internet Standards Track specification; it is published 
 --- note_Ed_note
 
 
-This draft will be renamed to draft-moura-dnsop-large-authoritative-considerations in case adpoted by the WG, to reflect the new title.
+This draft has been previously submitted to DNSOP as  draft-moura-dnsop-large-authoritative-consideration, but it was not adopted. We then renamed it to current name and pursue an independent submission.
 
 Text inside square brackets (\[RF:ABC\])  refers to:
 
@@ -454,7 +454,7 @@ Note that this consideration refers to the operation of one anycast service, i.e
 
 \[RF:Issue7\]: this section has been completely rewritten.
 
-Caching is the cornerstone of good DNS performance and reliability. A 15 ms response to a new DNS query is fast, but a 1 ms cache hit to a repeat query is far faster. Caching also protects users from short outages  and can mute even significant DDoS attacks {{Moura18b}}. 
+Caching is the cornerstone of good DNS performance and reliability. A 15 ms response to a new DNS query is fast, but a 1 ms cache hit to a repeat query is far faster. Caching also protects users from short outages  and can mute even significant DDoS attacks {{Moura18b}}.
 
 DNS record TTLs (time-to-live values) directly control cache durations {{RFC1034}}{{RFC1035}}
 and, therefore, affect latency, resilience,  and the role of DNS in CDN server selection. Some early work modeled caches as a function of their TTLs {{Jung03a}},  and recent work examined their interaction with DNS{{Moura18b}},  but no research provides considerations  about what TTL values are good. With this goal  Moura et. al. {{Moura19a}} carried out a measurement study investigating TTL choices  and its impact on user experience.
@@ -525,7 +525,23 @@ This document has no IANA actions.
 
 This document is a summary of the main considerations of six research works referred in this document. As such, they were only possible thanks to the hard work of the authors of these research works.
 
-The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work: Ricardo de O. Schmidt, Wouter B de Vries, Moritz Müller, Lan Wei, Cristian  Hesselman,  Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
+The authors of this document are also co-authors of these research works. However, not all thirteen authors of these research papers are also authors of this document. We would like to thank those not included in this document's author list for their work:
+
+   * Ricardo de O. Schmidt
+
+   * Wouter B de Vries
+
+   * Moritz Müller
+
+   * Lan Wei
+
+   * Cristian  Hesselman
+
+   * Jan Harm Kuipers
+
+   * Pieter-Tjerk de Boer
+
+   * Aiko Pras
 
 We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, Klaus Darilion and Samir Jafferali, and comments provided at the IETF DNSOP session (IETF104).
 

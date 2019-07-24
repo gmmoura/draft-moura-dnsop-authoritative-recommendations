@@ -1,4 +1,4 @@
 default:all
 
 all:
-	kdrfc draft-moura-dnsop-authoritative-recommendations.mkd
+	kdrfc draft-moura-large-dns-auth-servers-ops-considerations.mkd
