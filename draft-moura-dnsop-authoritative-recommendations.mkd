@@ -145,7 +145,7 @@ informative:
 
   Moura19a:
         target: https://www.isi.edu/~johnh/PAPERS/Moura19a.pdf
-        title: "TBA"
+        title: "Cache Me If You Can: Effects of DNS Time-to-Live"
         author:
          -
            name: Giovane C. M. Moura
@@ -156,7 +156,11 @@ informative:
          -
            name: Wes Hardaker
 
-        date: 2019-06-10
+        date: 2019-10-11
+        seriesinfo:
+          ACM: 2019 Internet Measurement Conference
+          DOI: TBA
+
 
   Moura18b:
             target: https://www.isi.edu/~johnh/PAPERS/Moura18b.pdf

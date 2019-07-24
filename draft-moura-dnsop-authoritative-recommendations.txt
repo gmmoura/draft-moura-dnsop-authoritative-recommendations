@@ -824,8 +824,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
    [Moura19a]
               Moura, G., Heidemann, J., Schmidt, R., and W. Hardaker,
-              "TBA", June 2019,
-              <https://www.isi.edu/~johnh/PAPERS/Moura19a.pdf>.
+              "Cache Me If You Can: Effects of DNS Time-to-Live",
+              ACM 2019 Internet Measurement Conference, DOI TBA, October
+              2019, <https://www.isi.edu/~johnh/PAPERS/Moura19a.pdf>.
 
    [Mueller17b]
               Mueller, M., Moura, G., Schmidt, R., and J. Heidemann,
@@ -833,7 +834,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
               Servers.", ACM 2017 Internet Measurement Conference,
               DOI 10.1145/3131365.3131366, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Mueller17b.pdf>.
-
 
 
 
