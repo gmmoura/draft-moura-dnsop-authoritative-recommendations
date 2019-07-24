@@ -102,7 +102,7 @@ Table of Contents
    11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  14
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  15
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 
@@ -684,12 +684,21 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
    works referred in this document.  As such, they were only possible
    thanks to the hard work of the authors of these research works.
 
-   The authors of this document are also co-authors of these research
-   works.  However, not all thirteen authors of these research papers
-   are also authors of this document.  We would like to thank those not
-   included in this document's author list for their work: Ricardo de O.
-   Schmidt, Wouter B de Vries, Moritz Mueller, Lan Wei, Cristian
-   Hesselman, Jan Harm Kuipers, Pieter-Tjerk de Boer and Aiko Pras.
+   o  Ricardo de O.  Schmidt
+
+   o  Wouter B de Vries
+
+   o  Moritz Mueller
+
+   o  Lan Wei
+
+   o  Cristian Hesselman
+
+   o  Jan Harm Kuipers
+
+   o  Pieter-Tjerk de Boer
+
+   o  Aiko Pras
 
    We would like also to thank the various reviewers of different
    versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov,
@@ -711,6 +720,16 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
               to Improve DNS Resiliency", draft-ietf-dnsop-serve-
               stale-05 (work in progress), April 2019.
 
+
+
+
+
+
+Moura, et al.           Expires January 25, 2020               [Page 13]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
+
+
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
               <https://www.rfc-editor.org/info/rfc1034>.
@@ -722,13 +741,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
    [RFC1546]  Partridge, C., Mendez, T., and W. Milliken, "Host
               Anycasting Service", RFC 1546, DOI 10.17487/RFC1546,
               November 1993, <https://www.rfc-editor.org/info/rfc1546>.
-
-
-
-Moura, et al.           Expires January 25, 2020               [Page 13]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
-
 
    [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
               DOI 10.17487/RFC1995, August 1996,
@@ -765,6 +777,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
               DOI 10.17487/RFC7094, January 2014,
               <https://www.rfc-editor.org/info/rfc7094>.
 
+
+
+
+
+Moura, et al.           Expires January 25, 2020               [Page 14]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
+
+
    [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
               Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
               January 2019, <https://www.rfc-editor.org/info/rfc8499>.
@@ -776,15 +797,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
    [Ditl17]   OARC, D., "2017 DITL data", October 2018,
               <https://www.dns-oarc.net/oarc/data/ditl/2017>.
-
-
-
-
-
-Moura, et al.           Expires January 25, 2020               [Page 14]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
-
 
    [IcannHedge18]
               ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
@@ -822,6 +834,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
               DOI 10.1145/3131365.3131366, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Mueller17b.pdf>.
 
+
+
+
+Moura, et al.           Expires January 25, 2020               [Page 15]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
+
+
    [Perlroth16]
               Perlroth, N., "Hackers Used New Weapons to Disrupt Major
               Websites Across U.S.", October 2016,
@@ -834,13 +854,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
               Passive and Active Measurement Workshop", PAM Passive and
               Active Measurement Conference, March 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Schmidt17a.pdf>.
-
-
-
-Moura, et al.           Expires January 25, 2020               [Page 15]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
-
 
    [Sigla2014]
               Singla, A., Chandrasekaran, B., Godfrey, P., and B. Maggs,
@@ -872,6 +885,19 @@ Authors' Addresses
    Email: giovane.moura@sidn.nl
 
 
+
+
+
+
+
+
+
+
+Moura, et al.           Expires January 25, 2020               [Page 16]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
+
+
    Wes Hardaker
    USC/Information Sciences Institute
    PO Box 382
@@ -892,12 +918,6 @@ Authors' Addresses
    Email: johnh@isi.edu
 
 
-
-Moura, et al.           Expires January 25, 2020               [Page 16]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
-
-
    Marco Davids
    SIDN Labs
    Meander 501
@@ -906,26 +926,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
    Phone: +31 26 352 5500
    Email: marco.davids@sidn.nl
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
