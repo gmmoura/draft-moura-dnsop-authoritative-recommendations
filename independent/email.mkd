@@ -1,10 +1,11 @@
 #  Independent Draft
 
    * We will submit this as an independent draft after presentation at DNSOP during IETF105
-   * This document describes the steps required
+   * This document describes the steps required, as specified by the independent submissino process
+
 
 ## 1. Preparation (requirements from RFC editor)
-   * See background (2.1)
+   * See background (2.1). We need to send an email to the RFC editor with the following points:
 
    * The file name of the published Internet-Draft that is being submitted.
       * draft-moura-dns-large-auth-servers-ops-considerations
