@@ -40,7 +40,7 @@ Overall, all the feedback obtained from DNSOP was incorporated, and it just help
 
 ```This document has no IANA considerations given it is purely information and proposes no protocol changes```
 
-* e) Potential reviewers:  current DNSOP chairs, Warren Kumari, Peter Koch, Joe Abley, George Michaelson.
+* e) Potential reviewers:  current DNSOP chairs, Warren Kumari, Paul Hoffman, Joe Abley, George Michaelson.
 
 
 ## 2. Background

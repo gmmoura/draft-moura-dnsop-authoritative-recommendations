@@ -159,7 +159,7 @@ informative:
         date: 2019-10-11
         seriesinfo:
           ACM: 2019 Internet Measurement Conference
-          DOI: TBA
+          DOI: "Note: ``This paper has been accepted at IMC2019 and will appear in its program. The current version referred here is the version submitted for review, and not the final version to be published at IMC2019. We are working on the final version (camera ready) and will later update this reference to include it``"
 
 
   Moura18b:

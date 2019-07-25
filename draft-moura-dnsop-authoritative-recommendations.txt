@@ -5,11 +5,11 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: January 25, 2020                                   J. Heidemann
+Expires: January 26, 2020                                   J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                           July 24, 2019
+                                                           July 25, 2019
 
 
       Considerations for Large Authoritative DNS Servers Operators
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 1]
+Moura, et al.           Expires January 26, 2020                [Page 1]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -68,7 +68,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 25, 2020.
+   This Internet-Draft will expire on January 26, 2020.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 2]
+Moura, et al.           Expires January 26, 2020                [Page 2]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -165,7 +165,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 3]
+Moura, et al.           Expires January 26, 2020                [Page 3]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -221,7 +221,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 4]
+Moura, et al.           Expires January 26, 2020                [Page 4]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -277,7 +277,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 5]
+Moura, et al.           Expires January 26, 2020                [Page 5]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -333,7 +333,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 6]
+Moura, et al.           Expires January 26, 2020                [Page 6]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -389,7 +389,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 7]
+Moura, et al.           Expires January 26, 2020                [Page 7]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -445,7 +445,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 8]
+Moura, et al.           Expires January 26, 2020                [Page 8]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -501,7 +501,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020                [Page 9]
+Moura, et al.           Expires January 26, 2020                [Page 9]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -557,7 +557,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020               [Page 10]
+Moura, et al.           Expires January 26, 2020               [Page 10]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -613,7 +613,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020               [Page 11]
+Moura, et al.           Expires January 26, 2020               [Page 11]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -669,7 +669,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020               [Page 12]
+Moura, et al.           Expires January 26, 2020               [Page 12]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -725,7 +725,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020               [Page 13]
+Moura, et al.           Expires January 26, 2020               [Page 13]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -781,7 +781,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020               [Page 14]
+Moura, et al.           Expires January 26, 2020               [Page 14]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -825,8 +825,22 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
    [Moura19a]
               Moura, G., Heidemann, J., Schmidt, R., and W. Hardaker,
               "Cache Me If You Can: Effects of DNS Time-to-Live",
-              ACM 2019 Internet Measurement Conference, DOI TBA, October
-              2019, <https://www.isi.edu/~johnh/PAPERS/Moura19a.pdf>.
+              ACM 2019 Internet Measurement Conference, DOI Note: ``This
+              paper has been accepted at IMC2019 and will appear in its
+              program. The current version referred here is the version
+              submitted for review, and not the final version to be
+              published at IMC2019. We are working on the final version
+              (camera ready) and will later update this reference to
+              include it``, October 2019,
+              <https://www.isi.edu/~johnh/PAPERS/Moura19a.pdf>.
+
+
+
+
+Moura, et al.           Expires January 26, 2020               [Page 15]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
+
 
    [Mueller17b]
               Mueller, M., Moura, G., Schmidt, R., and J. Heidemann,
@@ -834,13 +848,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
               Servers.", ACM 2017 Internet Measurement Conference,
               DOI 10.1145/3131365.3131366, October 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Mueller17b.pdf>.
-
-
-
-Moura, et al.           Expires January 25, 2020               [Page 15]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
-
 
    [Perlroth16]
               Perlroth, N., "Hackers Used New Weapons to Disrupt Major
@@ -886,14 +893,7 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-Moura, et al.           Expires January 25, 2020               [Page 16]
+Moura, et al.           Expires January 26, 2020               [Page 16]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
@@ -949,4 +949,4 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2019
 
 
 
-Moura, et al.           Expires January 25, 2020               [Page 17]
+Moura, et al.           Expires January 26, 2020               [Page 17]
