@@ -27,7 +27,7 @@ Also, from another recommendation was that R5 (on -03, and renamed to C5 on -04)
 
 After fixing all these issues, we presented it at DNSOP during IETF105, and the chairs  asked the room to hum to have a sense if they want the draft to be adopted. There was no consensus on it, maybe 60% in favor, 40% against.  A follow-on comment after the hum from an attendee: it's hard for DNSOP to improve this document, given its derived from academic paper which have been published, and the WG cannot change the findings. Our feeling is that the DNSOP members did not oppose the considerations themselves, but don't support adoption since it's functionally a report of other work that DNSOP can't easily contribute to.  We spoke with Suzanne Woolf (a DNSOP chair), and she agrees with this assessment and supports our plan to submit this through the independent submission process instead.
 
-Overall, we'r happy to have taken the document to DNSOP and appreciate the feedback obtained and allowed us to improve the document.
+Overall, we're happy to have taken the document to DNSOP and appreciate the feedback obtained and allowed us to improve the document.
 
 [0] https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations
 [1] https://github.com/gmmoura/draft-moura-dnsop-authoritative-recommendations/issues?q=is%3Aissue+is%3Aclosed
@@ -38,7 +38,7 @@ Overall, we'r happy to have taken the document to DNSOP and appreciate the feedb
 
 ```This document has no IANA considerations given it is purely information and proposes no protocol changes```
 
-* e) Potential reviewers:  current DNSOP chairs, Warren Kumari, Paul Hoffman, Joe Abley, George Michaelson, Stéphane Bortzmeyer, Andrew Sullivan. 
+* e) Potential reviewers:  current DNSOP chairs, Warren Kumari, Paul Hoffman, Joe Abley, George Michaelson, Stéphane Bortzmeyer, Andrew Sullivan.
 
 
 ## 2. Background
