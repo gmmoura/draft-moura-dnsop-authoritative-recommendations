@@ -398,7 +398,7 @@ In specific,  {{Schmidt17a}} measured the performance of C, F, K and L root lett
 
 # C3: Collecting Detailed Anycast Catchment Maps Ahead of Actual Deployment Can Improve Engineering Designs
 
-An anycast DNS service may have several dozens or even more than one hundred instances (such as L-Root does). Anycast leverages Internet routing to distribute the incoming queries to a service's distributed anycast instances; in theory, BGP (the Internet's defacto routing protocol) forwards incoming queries to a nearby anycast instance (in terms of BGP distance). However, usually queries are not evenly distributed across all anycast instances, as found in the case of L-Root {{IcannHedge18}}.
+An anycast DNS service may have several dozens or even more than one hundred instances (such as L-Root does). Anycast leverages Internet routing to distribute the incoming queries to a service's distributed anycast instances; in theory, BGP (the Internet's de facto routing protocol) forwards incoming queries to a nearby anycast instance (in terms of BGP distance). However, usually queries are not evenly distributed across all anycast instances, as found in the case of L-Root {{IcannHedge18}}.
 
 Adding new instances to an anycast service may change the load distribution across all instances, leading to suboptimal usage of the service or even stressing some instances while others remain underutilized. This is a scenario that operators constantly face when expanding an anycast service. Besides, when setting up a new anycast service instance, operators cannot directly estimate the query distribution among the instances in advance of enabling the new instance.
 
@@ -445,7 +445,7 @@ Note that this consideration refers to the operation of one anycast service, i.e
 
 Caching is the cornerstone of good DNS performance and reliability. A 15 ms response to a new DNS query is fast, but a 1 ms cache hit to a repeat query is far faster. Caching also protects users from short outages  and can mute even significant DDoS attacks {{Moura18b}}.
 
-DNS record TTLs (time-to-live values) directly control cache durations {{RFC1034}}{{RFC1035}}
+DNS record TTLs (time-to-live values) directly control cache duration {{RFC1034}}{{RFC1035}}
 and, therefore, affect latency, resilience,  and the role of DNS in CDN server selection. Some early work modeled caches as a function of their TTLs {{Jung03a}},  and recent work examined their interaction with DNS{{Moura18b}},  but no research provides considerations  about what TTL values are good. With this goal  Moura et. al. {{Moura19a}} carried out a measurement study investigating TTL choices  and its impact on user experience.
 
 First, they identified several reasons why operators/zone owners may want to choose longer or shorter TTLs:
