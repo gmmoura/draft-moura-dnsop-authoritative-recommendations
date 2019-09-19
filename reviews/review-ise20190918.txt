@@ -1,0 +1,227 @@
+
+   
+##  ISE REVIEW
+
+## [RF: ISE1]
+```
+Can we:
+OLD
+   This document is not an Internet Standards Track specification; it is
+   published for informational purposes.
+NEW
+   This document is not an IETF consensus document: it is published for
+   informational purposes.
+END
+``` 
+   * fixed
+
+## [RF: ISE2]
+```
+Ed note
+
+I'm assuming that none of this text is intende to remain in the
+published RFC, so it would be good to remove it all now. Thaat means
+addressing and removing all the [] notes in the text.
+```
+
+  * fixed
+---
+```
+
+Section 1
+
+s/authoritative servers operators/authoritative server operators/
+
+---
+
+```
+   * fixed
+```
+
+
+Expand abreviations on first use.
+
+I see:
+TLD
+RTT (although this is expanded incorrectly as 'route-trip time' in
+     Section 6)
+DDoS
+CDN
+
+I think you can get away with DNS although I see you do expand it at
+the start of Section 2. If you want to retain the expansion, you should
+move it to the first use of 'DNS'.
+
+
+```
+
+ * fixed
+ 
+
+
+
+---
+
+
+```
+
+Section 1 has...
+
+   It is likely that these considerations might be useful in a wider
+   context, such as for any stateless/short-duration, anycasted service
+
+I wonder whether that should be in the Abstract as well. Else it will
+probably never be picked up by people who might benefit from it.
+
+In the Abstract you could say:
+
+   It is possible that the considerations presented in this document
+   could be applicable in a wider context, such as for any stateless/
+   short-duration, anycasted service.
+```
+
+fixed
+---
+
+Section 1
+
+Could you please repeat the "This document is not..." paragraph from the
+Abstract at the end of the Introduction.
+
+
+ * fixed
+---
+
+Section 2
+
+s/contribute to user's perceived/contribute to a user's perceived/
+
+s/referred to as anycast instance/referred to as an anycast instance/
+
+---
+
+ * fixed
+ 
+ 
+
+Some of the section titles for Sections 3-7 are a bit long. There is
+no requirement that they are restricted to one line, but there is a sort
+of convention. And, frankly, it looks better and is easier to read.
+
+Have a think about that and see if you want to make any changes.
+
+  * TODO
+  
+----
+
+Section 3
+
+The use of 'NS' does not map easily for the reader. What is an NS?
+ * TODO
+ 
+
+s/DNS servers operators/DNS server operators/
+  * fixed
+  
+s/distribution of queries tend/distribution of queries tends/
+
+  * fixed
+s/.nl has moved in early 2018/In early 2018, .nl moved/
+  * fixed
+---
+
+Section 3 has the first mention of the Atlas probe. I think some kind of
+definition or reference is needed.
+ * fixed
+
+
+---
+
+The naming of DNS roots (C, F, K, and L in Section 4) is obvious to
+those from the DNS world, but will be a mystery to other readers. Maybe
+this needs a little extra text such as...
+
+   There are currently 17 DNS Root servers, identified by the letters A
+   through L.
+
+   
+   * fixed
+---
+
+Section 5
+
+   Adding new instances to an anycast service may change the load
+   distribution across all instances, leading to suboptimal usage of the
+   service or even stressing some instances while others remain
+   underutilized.
+
+It is not obvious to this reader how adding an instance can add stress
+to other instances. I can see that adding an instance could result in
+other instances being under-utilized, and I can see how adding an
+instance could immediately result in that new instance being stressed.
+
+  *TODO
+
+---
+
+Section 5 introduces Verfploeter, but notes that it plots for IPv4.
+Shouldn't you at least have a ocmment about IPv6 in this context?
+
+ * TODO
+
+---
+
+Section 6 has:
+
+   an area currently under study
+
+By whom? Any reference you can add?
+
+"Currently" will age poorly in the published document. Maybe "at the
+time of publication of this document".
+
+---
+
+I was surprised that Section 7 doesn't discuss cache size and the
+behavior when a cache is full. These fetaures surely interact very
+strongly with TTLs and can cause all sorts of "unexpected" results.
+
+
+ * TODO 
+---
+
+Section 7, bullet
+
+   o Shorter caching can with DNS-based load balancing:
+
+I can't parse a meaning from this. Suspect missing words.
+  * fixed
+  
+---
+
+Section 8 has...
+
+   This document suggests the use of [I-D.ietf-dnsop-serve-stale].
+   
+    * fixed
+
+Up to this point, it hasn't suggested that. Security sections usually
+either summarize the considerations from the rest of the document or
+introduce concepts with a little more structure.
+
+s/It be noted/It shold be noted/
+
+---
+
+Section 9
+
+Well, yes, hmmm. It's true what you say, but isn't it a fact that DNS is
+a big concern for very many people when looking at privacy?
+
+Isn't it possible to at least point up future research concerning
+privacy. For example, caching means that requests don't go further
+afield and that may help with some forms of aggregate privacy.
+
+ * TODO
+
+
