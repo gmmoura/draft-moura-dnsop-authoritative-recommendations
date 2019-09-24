@@ -491,7 +491,7 @@ files, NS records (and glues if in-bailiwick) of their respective domains. {{Mou
 
 As this document discusses research, there are no further security considerations, other than the ones mentioned in the normative references.
 
-
+<!-- verified against RFC3552 - MD -->
 
 # Privacy Considerations
 
