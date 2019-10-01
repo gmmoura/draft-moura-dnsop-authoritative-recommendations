@@ -508,8 +508,15 @@ using longer time-to-live values.
 
 <!-- Add some remarkt according to RFC6973. Or should we name this "Human Rights considerations" according to RFC8280 - MD -->
 
-This document does not add any practical new privacy issues.
+This document does not add any practical new privacy issues, aside
+from possible benefits in deploying longer TTLs as suggested in C5.
+Longer TTLs may help preserve a user's privacy by reducing the number
+of requests that get transmitted in both thec lient-to-resolver and
+resolver-to-authoritative cases.
 
+DNS privacy is currently under active study, and future research
+efforts by multiple organizations may produce more guidance in this
+area.
 
 # IANA considerations
 
