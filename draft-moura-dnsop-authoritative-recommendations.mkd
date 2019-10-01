@@ -489,7 +489,18 @@ files, NS records (and glues if in-bailiwick) of their respective domains. {{Mou
 
 # Security considerations
 
-As this document discusses research, there are no further security considerations, other than the ones mentioned in the normative references.
+As this document discusses applying research results to operational
+deployments, there are no further security considerations, other than
+the ones mentioned in the normative references.  Most of the
+considerations affect mostly operational practice, though a few do
+have security related impacts, which we'll summarize at high level.
+
+Specifically, C4 discusses a few strategies to employ when a service
+is under stress, providing operators with additional guidance when
+handling denial of service attacks.
+
+Similarly, C5 identifies both the operational and security benefits to
+using longer time-to-live values.
 
 <!-- verified against RFC3552 - MD -->
 
