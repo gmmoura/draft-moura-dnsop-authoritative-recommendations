@@ -476,7 +476,7 @@ First, they identified several reasons why operators/zone owners may want to cho
 As such, choice of TTL depends in part on external factors so no single recommendation is appropriate for all. Organizations must weigh these trade-offs to find a good balance. Still, some guidelines can be used when choosing TTLs:
 
   * For general users, {{Moura19a}} recommends longer TTLs, of at least one hour,
-  and ideally 4, 8, 12, or 24 hours. Assuming planned maintenance can be scheduled at least a day in advance,  long TTLs have little cost.
+  and ideally 8, 12, or 24 hours. Assuming planned maintenance can be scheduled at least a day in advance,  long TTLs have little cost.
 
   * For TLD operators: TLD operators that allow public registration of domains (such as most ccTLDs and .com, .net, .org) host, in their zone
 files, NS records (and glues if in-bailiwick) of their respective domains. {{Moura19a}} shows that most resolvers will use TTL values provided by the child delegations, but some will choose the TTL provided by the parents. As such, similarly to general users, {{Moura19a}} recommends longer TTLs for NS records of their delegations (at least one hour, preferably more).
