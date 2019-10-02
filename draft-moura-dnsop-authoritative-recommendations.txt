@@ -5,15 +5,15 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: March 27, 2020                                     J. Heidemann
+Expires: April 4, 2020                                      J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                      September 24, 2019
+                                                        October 02, 2019
 
 
       Considerations for Large Authoritative DNS Servers Operators
-           draft-moura-dnsop-authoritative-recommendations-05
+           draft-moura-dnsop-authoritative-recommendations-06
 
 Abstract
 
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 27, 2020.
+   This Internet-Draft will expire on April 4, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 1]
+Moura, et al.             Expires April 4, 2020                 [Page 1]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -81,7 +81,7 @@ Table of Contents
    8.  Security considerations . . . . . . . . . . . . . . . . . . .  12
    9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  12
    10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
      12.2.  Informative References . . . . . . . . . . . . . . . . .  14
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 2]
+Moura, et al.             Expires April 4, 2020                 [Page 2]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    It is likely that these considerations might be useful in a wider
@@ -165,9 +165,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 3]
+Moura, et al.             Expires April 4, 2020                 [Page 3]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    To reduce latency and improve resiliency against DoS attacks, DNS
@@ -221,9 +221,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 4]
+Moura, et al.             Expires April 4, 2020                 [Page 4]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    vendors and releases employ different criteria to chose which
@@ -277,9 +277,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 5]
+Moura, et al.             Expires April 4, 2020                 [Page 5]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
 4.  C2: Routing can matter more than locations
@@ -333,9 +333,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 6]
+Moura, et al.             Expires April 4, 2020                 [Page 6]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
 5.  C3: Collecting anycast catchment maps to improve design
@@ -353,12 +353,12 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
    distribution across all locations.  Given that BGP maps clients to
    locations, whenever a new location is announced, this new location
    may receive more or less traffic than it was engineered for, leading
-   to suboptimal usage of the service or even stressing some locations
-   while others remain underutilized.  This is a scenario that operators
-   constantly face when expanding an anycast service.  Besides, when
-   setting up a new anycast service location, operators cannot directly
-   estimate the query distribution among the locations in advance of
-   enabling the new location.
+   to suboptimal usage of the service or even stressing the new location
+   while leaving others underutilized.  This is a scenario that
+   operators constantly face when expanding an anycast service.
+   Besides, when setting up a new anycast service location, operators
+   cannot directly estimate the query distribution among the locations
+   in advance of enabling the new location.
 
    To estimate the query loads across locations of an expanding service
    or a when setting up an entirely new service, operators need detailed
@@ -389,9 +389,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 7]
+Moura, et al.             Expires April 4, 2020                 [Page 7]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    technique was a excellent method of predicting traffic loads in
@@ -445,9 +445,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 8]
+Moura, et al.             Expires April 4, 2020                 [Page 8]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    anycast instances by using routing information [RF:KDar02].  As a
@@ -501,9 +501,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                 [Page 9]
+Moura, et al.             Expires April 4, 2020                 [Page 9]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    [Moura16b] speculates that more careful, explicit, and automated
@@ -534,7 +534,8 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
    provides considerations about what TTL values are good.  With this
    goal Moura et. al.  [Moura19a] carried out a measurement study
    investigating TTL choices and its impact on user experience in the
-   wild, and not focused on specific resolvers, vendors, or setups.
+   wild, and not focused on specific resolvers (and their caching
+   architectures), vendors, or setups.
 
    First, they identified several reasons why operators/zone owners may
    want to choose longer or shorter TTLs:
@@ -556,10 +557,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-
-Moura, et al.            Expires March 27, 2020                [Page 10]
+Moura, et al.             Expires April 4, 2020                [Page 10]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    o  Longer caching is more robust to DDoS attacks on DNS: DDoS attacks
@@ -613,9 +613,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-Moura, et al.            Expires March 27, 2020                [Page 11]
+Moura, et al.             Expires April 4, 2020                [Page 11]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
 
 
    o  Users of DNS-based load balancing or DDoS-prevention may require
@@ -636,17 +636,43 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 8.  Security considerations
 
-   As this document discusses research, there are no further security
-   considerations, other than the ones mentioned in the normative
-   references.
+   As this document discusses applying research results to operational
+   deployments, there are no further security considerations, other than
+   the ones mentioned in the normative references.  Most of the
+   considerations affect mostly operational practice, though a few do
+   have security related impacts, which we'll summarize at high level.
+
+   Specifically, C4 discusses a few strategies to employ when a service
+   is under stress, providing operators with additional guidance when
+   handling denial of service attacks.
+
+   Similarly, C5 identifies both the operational and security benefits
+   to using longer time-to-live values.
 
 9.  Privacy Considerations
 
-   This document does not add any practical new privacy issues.
+   This document does not add any practical new privacy issues, aside
+   from possible benefits in deploying longer TTLs as suggested in C5.
+   Longer TTLs may help preserve a user's privacy by reducing the number
+   of requests that get transmitted in both thec lient-to-resolver and
+   resolver-to-authoritative cases.
+
+   DNS privacy is currently under active study, and future research
+   efforts by multiple organizations may produce more guidance in this
+   area.
 
 10.  IANA considerations
 
    This document has no IANA actions.
+
+
+
+
+
+Moura, et al.             Expires April 4, 2020                [Page 12]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
+
 
 11.  Acknowledgements
 
@@ -665,14 +691,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
    o  Cristian Hesselman
 
    o  Jan Harm Kuipers
-
-
-
-
-Moura, et al.            Expires March 27, 2020                [Page 12]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
-
 
    o  Pieter-Tjerk de Boer
 
@@ -705,6 +723,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
               Anycasting Service", RFC 1546, DOI 10.17487/RFC1546,
               November 1993, <https://www.rfc-editor.org/info/rfc1546>.
 
+
+
+Moura, et al.             Expires April 4, 2020                [Page 13]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
+
+
    [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
               DOI 10.17487/RFC1995, August 1996,
               <https://www.rfc-editor.org/info/rfc1995>.
@@ -721,14 +746,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
               DOI 10.17487/RFC4271, January 2006,
               <https://www.rfc-editor.org/info/rfc4271>.
-
-
-
-
-Moura, et al.            Expires March 27, 2020                [Page 13]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
-
 
    [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
               Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
@@ -760,6 +777,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
    [Ditl17]   OARC, D., "2017 DITL data", October 2018,
               <https://www.dns-oarc.net/oarc/data/ditl/2017>.
 
+
+
+
+
+Moura, et al.             Expires April 4, 2020                [Page 14]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
+
+
    [IcannHedge18]
               ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
               <http://stats.dns.icann.org/hedgehog/>.
@@ -776,15 +802,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
               Measurement Conference, DOI /10.1145/2987443.2987446,
               October 2016,
               <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
-
-
-
-
-
-Moura, et al.            Expires March 27, 2020                [Page 14]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
-
 
    [Moura18b]
               Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
@@ -818,6 +835,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
               Network", September 2015, <http://ipj.dreamhosters.com/wp-
               content/uploads/issues/2015/ipj18-3.pdf>.
 
+
+
+Moura, et al.             Expires April 4, 2020                [Page 15]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
+
+
    [RipeAtlas19a]
               NCC, R., "Ripe Atlas - RIPE Network Coordination Centre",
               September 2019, <https://atlas.ripe.net/>.
@@ -828,19 +852,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
               Passive and Active Measurement Workshop", PAM Passive and
               Active Measurement Conference, March 2017,
               <https://www.isi.edu/%7ejohnh/PAPERS/Schmidt17a.pdf>.
-
-
-
-
-
-
-
-
-
-Moura, et al.            Expires March 27, 2020                [Page 15]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
-
 
    [Sigla2014]
               Singla, A., Chandrasekaran, B., Godfrey, P., and B. Maggs,
@@ -872,6 +883,21 @@ Authors' Addresses
    Email: giovane.moura@sidn.nl
 
 
+
+
+
+
+
+
+
+
+
+
+Moura, et al.             Expires April 4, 2020                [Page 16]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops       October 2019
+
+
    Wes Hardaker
    USC/Information Sciences Institute
    PO Box 382
@@ -890,12 +916,6 @@ Authors' Addresses
 
    Phone: +1 (310) 448-8708
    Email: johnh@isi.edu
-
-
-
-Moura, et al.            Expires March 27, 2020                [Page 16]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
    Marco Davids
@@ -929,24 +949,4 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops     September 2019
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Moura, et al.            Expires March 27, 2020                [Page 17]
+Moura, et al.             Expires April 4, 2020                [Page 17]
