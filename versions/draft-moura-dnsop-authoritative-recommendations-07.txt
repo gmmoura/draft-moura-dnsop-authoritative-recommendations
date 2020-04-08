@@ -13,7 +13,7 @@ Expires: October 10, 2020                                   J. Heidemann
 
 
       Considerations for Large Authoritative DNS Servers Operators
-           draft-moura-dnsop-authoritative-recommendations-06
+           draft-moura-dnsop-authoritative-recommendations-07
 
 Abstract
 
@@ -133,24 +133,24 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    Figure 1) refers to stub resolver [RFC1034] that is typically located
    within the client software.
 
-       +-----+  +-----+  +-----+  +-----+
-       | AT1 |  | AT2 |  | AT3 |  | AT4 |
-       +-----+  +-----+  +-----+  +-----+
-         ^         ^        ^        ^
-         |         |        |        |
-         |      +-----+     |        |
-         +------| Re1 |----+|        |
-         |      +-----+              |
-         |         ^                 |
-         |         |                 |
-         |      +----+   +----+      |
-         +------|Re2 |   |Re3 |------+
-                +----+   +----+
-                  ^          ^
-                  |          |
-                  | +------+ |
-                  +-| stub |-+
-                    +------+
+           +-----+  +-----+  +-----+  +-----+
+           | AT1 |  | AT2 |  | AT3 |  | AT4 |
+           +-----+  +-----+  +-----+  +-----+
+             ^         ^        ^        ^
+             |         |        |        |
+             |      +-----+     |        |
+             +------| Re1 |----+|        |
+             |      +-----+              |
+             |         ^                 |
+             |         |                 |
+             |      +----+   +----+      |
+             +------|Re2 |   |Re3 |------+
+                    +----+   +----+
+                      ^          ^
+                      |          |
+                      | +------+ |
+                      +-| stub |-+
+                        +------+
 
         Figure 1: Relationship between recursive resolvers (Re) and
                      authoritative name servers (ATn)
