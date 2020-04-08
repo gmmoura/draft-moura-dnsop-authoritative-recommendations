@@ -1,7 +1,7 @@
 ---
 title: Considerations for Large Authoritative DNS Servers Operators
 abbrev: Considerations-Large-Auth-DNS-Ops  
-docname: draft-moura-dnsop-authoritative-recommendations-07
+docname: draft-moura-dnsop-authoritative-recommendations-08
 date:
 
 # stand_alone: true
@@ -327,7 +327,7 @@ conclusions of the studies don't verify this fact, the wording in this document 
 # Background
 
 
-The DNS as main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server (ATn in {{recuath}}) knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone without needing to query other servers {{RFC2181}}. A recursive resolver (Re1--Re3) is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client (stub in {{recuath}}) refers to stub resolver {{RFC1034}} that is typically located within the client software.
+The DNS has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server (ATn in {{recuath}}) knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone without needing to query other servers {{RFC2181}}. A recursive resolver (Re1--Re3) is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client (stub in {{recuath}}) refers to stub resolver {{RFC1034}} that is typically located within the client software.
 
             +-----+  +-----+  +-----+  +-----+
             | AT1 |  | AT2 |  | AT3 |  | AT4 |
