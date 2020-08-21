@@ -1,0 +1,118 @@
+> I think this draft might be useful though it could do with some work. >
+> But tbh you should probably get the opinion of someone who runs a
+> bigger DNS service than I do :-) e.g. what would an expert like Bill
+> Woodcock want readers to learn from a document like this?
+
+That's a good suggestion and I'll drop Bill a note.
+
+> The draft aims to bridge a knowledge gap between those who run large
+> anycast services (for who this was all old hat 15 years ago) and those
+> who could benefit from upping their game. Very good!
+>
+> The academic citations are OK but they are mostly measuring from
+> outside so lack practical detail about how someone on the inside might
+> address the issues that they identify. I don't expect this document to
+> be a tutorial on anycast engineering, but at least it should have
+> pointers to where readers can learn more - there is a fair amount of
+> material out there from operational sources, e.g. from some brief
+> searchengineering,
+> https://meetings.icann.org/en/marrakech55/schedule/mon-
+> tech/presentation-dns-service-provision-07mar16-en.pdf
+> https://archive.nanog.org/meetings/nanog27/presentations/suzanne.pdf
+
+That should be easy enough for you to address.
+
+> Some more suggestions for you and/or the authors:
+>
+> There seems to be a bit of repetition between sections 2 and 3 (esp.
+> second paragraph of section 3).
+
+Easy edits.
+
+> It has a wall-of-text problem. I would like to see a lot more
+> subheadings so that it's easier for a reader to pick out the main
+> points that affect each of the main considerations. Section 7 is a
+> bit better than the others, with its bulleted lists, but I would
+> prefer a pithy subheading instead of a bullet. Maybe each section
+> could have a structure like evidence; evidence; evidence; one hand;
+> other hand; gripping hand.
+
+Should be pretty simple to achieve.
+
+> The title of section 3 seems to be a bit off the mark. The argument in
+> the section seems to be about latency rather than load distribution. I
+> usually understand "better" in this context to mean "even" but the
+> argument here is that anycast allows the operator to prioritize
+> latency instead.
+
+Easy
+
+> It would be helpful to ensure all the considerations are specific and
+> actionable, e.g. "DNS operators should also take architectural
+> considerations into account when planning for deploying anycast" -
+> what architectural considerations?
+
+That might be a bit more work, but it sounds like a good idea.
+
+> Section 4 again could do with a title that matches the contents
+> better: it's about how many POPs are enough, and doesn't discuss
+> routing vs locations. It's mostly a summary of [Schmidt17a] if you
+> want a rule of thumb for adequate latency, but then says that
+> [Moura16b] has a different answer if you want adequate resilience,
+> but it doesn't say what that different answer is.
+
+Should be simple
+
+> I like that section 5 points at a practical tool.
+
+:-)
+
+> In section 6, is it one of two strategies or both of them? If they are
+> alternatives, it isn't really clear to me what exactly I should
+> consider when choosing between them.
+
+Just needs a sentence.
+
+> In section 7 I would have expected to see quite separate discussions
+> of TTLs for infrastructure records (NS, DNSKEY, DS, SOA, NS target
+> addresses) and TTLs for records that are directly queried by end
+> users. I remember being struck by an old-ish paper that measured a
+> quite startling difference in impact of TTLs for the different
+> categories of records, possibly this one:
+> https://www.cs.rutgers.edu/~badri/552dir/papers/DNS/DNSCaching02.pdf
+>
+> In particular, the "for general users" recommendation is on the short
+> side for infrastructure records (for which I like 24h), but (as an
+> enterprise DNS operator) it's on the annoyingly long side for
+> directly-queried records (for which I like 1h).
+
+Not sure about this comment. Have a think about it and make some changes
+or let me know why not.
+
+> Since one of the target audiences is TLD operators, I would expect to
+> see some discussion of delegation NS vs DS vs glue TTLs (should they
+> match or not? traps and pitfalls? specific values?).
+
+Anything you can add?
+
+> How do the considerations for negative TTLs differ?
+
+Should be something you can add quite easily.
+
+> In general this document reads a lot like an academic survey paper,
+> but I would expect an academic survey to have a much broader set of
+> citations both in terms of the diversity of authors and historical
+> depth.
+
+I'm not too worried about this. If you have more citations to add, go for
+it. Otherwise, don't bother.
+
+> There are a bunch of spelling / grammar problems which I assume will
+> be cleared up during copyediting
+
+I think Wes had promised to have a go at this. Any progress?
+
+> I think it's worth pointing out that the reference tag [Sigla2014]
+> should probably be [Singla2014] with an "n".
+
+Oh, yes. Please fix this.
