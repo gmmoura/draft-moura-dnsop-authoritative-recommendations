@@ -294,11 +294,16 @@ informative:
           date: December 2018
 --- abstract
 
-This document summarizes recent research work exploring Domain Name System (DNS) configurations and offers specific, tangible considerations to operators for configuring authoritative servers.
+Recent research work has explored the deployment characteristics and
+configuration of the Domain Name System (DNS).  This document
+summarizes the conclusions from these research efforts and offers
+specific, tangible advice to operators when configuring authoritative
+DNS servers.
 
-It is possible that the considerations presented in this document
-could be applicable in a wider context, such as for any stateless/
-short-duration, anycasted service.
+It is possible that the results presented in this document could be
+applicable in a wider context than just the DNS protocol,
+as some of the results may generically apply to
+any stateless/short-duration, anycasted service.
 
 This document is not an IETF consensus document: it is published for
 informational purposes.
@@ -309,20 +314,37 @@ informational purposes.
 Introduction    {#intro}
 ============
 
-This document summarizes recent research work exploring DNS configurations and offers specific tangible considerations to DNS authoritative server operators (DNS operators hereafter).
-The considerations (C1–C5) presented in this document are backed by previous research work, which used wide-scale Internet measurements upon which to draw their conclusions. This document describes the key engineering options, and points readers to the pertinent papers for details and other research works related to each consideration here presented.
+This document summarizes recent research work that explored the
+deployed DNS configurations and offers derived, specific tangible
+advice to DNS authoritative server operators (DNS operators
+hereafter).  The considerations (C1–C5) presented in this document are
+backed by published research work, which used wide-scale Internet
+measurements to draw their conclusions. This document summarizes the
+research results and describes the resulting key engineering options.
+In each section, it points readers to the pertinent publications where
+additional details are presented.
 
+These considerations are designed for operators of "large"
+authoritative DNS servers. In this context, "large" authoritative
+servers refers to those with a significant global user population,
+like top-level domain (TLD) operators, run by either a single or
+multiple operators.  Typically these networks are deployed on wide
+anycast networks {{rfc1546}}. These considerations may not be
+appropriate for smaller domains, such as those used by an organization
+with users in one unicast network, or in one city or region, where
+operational goals such as uniform, global low latency are less
+required.
 
-These considerations are designed for operators of "large" authoritative
-servers. In this context, "large" authoritative servers refers to those with a significant global user population, like top-level domain (TLD) operators, run by a single or multiple operators.
-These considerations may not be appropriate for smaller domains,
-such as those used by an organization with users in one city or region,
-where goals such as uniform low latency are less strict.
+It is possible that the results presented in this document could be
+applicable in a wider context than just the DNS protocol, as some of
+the results may generically apply to any stateless/short-duration,
+anycasted service.  Because the conclusions of the reviewed studies
+don't measure smaller networks, the wording in this document
+concentrates solely on disusing large-scale DNS authoritative services
+only.
 
-
-It is likely that these considerations might be useful in a wider context, such as for any stateless/short-duration, anycasted service. Because the
-conclusions of the studies don't verify this fact, the wording in this document discusses DNS authoritative services only. This document is not an IETF consensus document: it is published for informational purposes.
-
+This document is not an IETF consensus document: it is published for
+informational purposes.
 
 # Background
 
