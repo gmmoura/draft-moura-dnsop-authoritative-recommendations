@@ -349,7 +349,18 @@ informational purposes.
 # Background
 
 
-The DNS has main two types of DNS servers: authoritative servers and recursive resolvers. {{recuath}} shows their relationship. An authoritative server (ATn in {{recuath}}) knows the content of a DNS zone from local knowledge, and thus can answer queries about that zone without needing to query other servers {{RFC2181}}. A recursive resolver (Re1--Re3) is a program that extracts information from name servers in response to client requests {{RFC1034}}. A client (stub in {{recuath}}) refers to stub resolver {{RFC1034}} that is typically located within the client software.
+The DNS has main two types of DNS servers: authoritative servers and
+recursive resolvers, shown by a representational deployment model in
+{{recuath}}.  An authoritative server (shown as AT1--AT4 in
+{{recuath}}) knows the content of a DNS zone, and is responsible for
+answering queries about that zone.  It runs using local (possibly
+automatically updated) copies of the zone and does not need to query
+other servers {{RFC2181}} in order to answer requests. A recursive
+resolver (Re1--Re3) is a server that iteratively queries authoritative
+and other servers to answer queries received from client requests
+{{RFC1034}}. A client typically employs a software library called a stub
+resolver (stub in {{recuath}}) to issue its query to the upstream
+recursive resolvers {{RFC1034}}.
 
             +-----+  +-----+  +-----+  +-----+
             | AT1 |  | AT2 |  | AT3 |  | AT4 |
@@ -371,12 +382,30 @@ The DNS has main two types of DNS servers: authoritative servers and recursive r
                          +------+
 {: #recuath title="Relationship between recursive resolvers (Re) and authoritative name servers (ATn)"}
 
-DNS queries/responses contribute to a user's perceived perceived latency and affect user experience {{Sigla2014}}, and the DNS system has been subject to repeated Denial of Service (DoS) attacks (for example, in November 2015 {{Moura16b}}) in order to degrade user experience.
+DNS queries issued by a client contribute to a user's perceived
+perceived latency and affect user experience {{Sigla2014}} depending
+on how long it takes for responses to be returned.  The DNS system has
+been subject to repeated Denial of Service (DoS) attacks (for example,
+in November 2015 {{Moura16b}}) in order to specifically degrade user
+experience.
 
-To reduce latency and improve resiliency against DoS attacks, DNS uses several types of server replication. Replication at the authoritative server level can be achieved with (i) the deployment of multiple servers for the same zone {{RFC1035}} (AT1---AT4 in {{recuath}}), (ii) the use of IP anycast {{RFC1546}}{{RFC4786}}{{RFC7094}} that allows the same IP address to be announced from multiple locations (each of them referred to as an anycast instance {{RFC8499}}) and (iii) by using load balancers to support multiple servers inside a single (potentially anycasted) instance. As a consequence, there are many possible ways an authoritative DNS provider can engineer its production authoritative server network, with multiple viable choices and no single optimal design.
+To reduce latency and improve resiliency against DoS attacks, the DNS
+uses several types of service replication. Replication at the
+authoritative server level can be achieved with (i) the deployment of
+multiple servers for the same zone {{RFC1035}} (AT1---AT4 in
+{{recuath}}), (ii) the use of IP anycast
+{{RFC1546}}{{RFC4786}}{{RFC7094}} that allows the same IP address to
+be announced from multiple locations (each of referred to as an
+"anycast instance" {{RFC8499}}) and (iii) the use of load balancers to
+support multiple servers inside a single (potentially anycasted)
+instance. As a consequence, there are many possible ways an
+authoritative DNS provider can engineer its production authoritative
+server network, with multiple viable choices and no necessarily single
+optimal design.
 
-
- In the next sections we cover specific considerations (C1--C5) for large authoritative DNS server operators.
+In the next sections we cover the specific consideration (C1--C5) for
+conclusions drawn within the academic papers about large authoritative
+DNS server operators.
 
 # C1: Use anycast in every authoritative for better load distribution {#c1}
 
