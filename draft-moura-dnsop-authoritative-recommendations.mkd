@@ -407,15 +407,31 @@ In the next sections we cover the specific consideration (C1--C5) for
 conclusions drawn within the academic papers about large authoritative
 DNS server operators.
 
-# C1: Use anycast in every authoritative for better load distribution {#c1}
+# C1: Deploy anycast in every authoritative server for better load distribution {#c1}
 
-Authoritative DNS servers operators announce their authoritative servers as NS records{{RFC1034}}. Different authoritatives for a given zone should return the same content, typically by staying synchronized using DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}) to coordinate the authoritative zone data to return to their clients.
+Authoritative DNS server operators announce their service using NS
+records{{RFC1034}}. Different authoritative servers for a given zone
+should return the same content; typically they stay synchronized using
+DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}), coordinating
+the zone data they all return to their clients.
 
 DNS heavily relies upon replication to support high reliability,
-capacity and to reduce latency {{Moura16b}}. DNS has two complementary mechanisms to replicate the service. First, the protocol itself supports nameserver replication of DNS service for
-a DNS zone through the use of multiple nameservers that each operate on different IP addresses, listed by a zone's NS records. Second, each of these network addresses can run from multiple physical locations through the use of
-IP anycast{{RFC1546}}{{RFC4786}}{{RFC7094}}, by announcing the same IP address from each instance and allowing Internet routing
-(BGP{{RFC4271}}) to associate clients with their topologically nearest anycast instance. Outside the DNS protocol, replication can be achieved by deploying load balancers at each physical location. Nameserver replication is recommended for all zones (multiple NS records), and IP anycast is used by most large zones such as the DNS Root, most top-level domains{{Moura16b}} and large commercial enterprises, governments and other organizations.
+ensure capacity and to reduce latency {{Moura16b}}. DNS has two
+complementary mechanisms for service replication. First, the DNs
+protocol itself supports nameserver replication through the use of
+multiple nameserver records (NS records), each operating on different
+IP addresses. Second, each of these addresses can run at multiple
+physical locations through the use of IP
+anycast{{RFC1546}}{{RFC4786}}{{RFC7094}}, by announcing the same IP
+address from each instance at multiple locations -- Internet routing
+(BGP{{RFC4271}}) associates the service's clients with their
+topologically nearest anycast instance. Outside the DNS protocol,
+replication can also be achieved by deploying load balancers at each
+physical location. Nameserver replication is strongly recommended for
+all zones (multiple NS records). IP anycast is used by many large
+zones such as the DNS Root, most top-level domains{{Moura16b}} and
+many large commercial enterprises, governments and other
+organizations.
 
 Most DNS operators strive to reduce latency for users of their service.
 However, because they control only their authoritative servers, and not the recursive resolvers communicating with those servers, it is difficult to ensure that recursives will be served by the closest authoritative server. Server selection is up to the recursive resolver's software implementation, and different software vendors and releases employ different criteria to chose which authoritative servers with which to communicate.
