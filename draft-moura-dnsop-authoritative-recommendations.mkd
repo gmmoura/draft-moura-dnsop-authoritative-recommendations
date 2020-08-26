@@ -433,15 +433,38 @@ zones such as the DNS Root, most top-level domains{{Moura16b}} and
 many large commercial enterprises, governments and other
 organizations.
 
-Most DNS operators strive to reduce latency for users of their service.
-However, because they control only their authoritative servers, and not the recursive resolvers communicating with those servers, it is difficult to ensure that recursives will be served by the closest authoritative server. Server selection is up to the recursive resolver's software implementation, and different software vendors and releases employ different criteria to chose which authoritative servers with which to communicate.
+Most DNS operators strive to reduce service latency for users.
+However, because they only have control over their authoritative
+servers, and not over the client recursive resolvers, it is difficult
+to ensure that recursives will be served by the closest authoritative
+server. Server selection is up to the recursive resolver's software
+implementation, and different vendors and even different releases
+employ different criteria to chose the authoritative servers with
+which to communicate.
 
-Knowing how recursives choose authoritative servers is a key step to better engineer the deployment of authoritative servers. {{Mueller17b}} evaluates this with a measurement study in which they deployed seven unicast authoritative name servers in different global locations and queried these authoritative servers from more than 9k RIPE authoritative server operators and their respective recursive resolvers.
+Understanding how recursive resolvers choose authoritative servers is
+a key step in improving the effectiveness of authoritative server
+deployments. To measure and evaluate server deployments,
+{{Mueller17b}} deployed seven unicast authoritative name servers in
+different global locations and then queried them from more than 9000
+RIPE authoritative server operators and their respective recursive
+resolvers.
+<!-- wjh: this last sentence doesn't make sense -->
 
-In the wild, {{Mueller17b}} found that recursives query all available authoritative servers, regardless of the observed latency. But the distribution of queries tends to be skewed towards authoritatives with lower latency: the lower the latency between a recursive resolver and an authoritative server, the more often the recursive will send queries to that authoritative. These results were obtained by aggregating results from all vantage points and not specific to any vendor/version.
+{{Mueller17b}} found that recursive resolvers in the wild query all
+available authoritative servers, regardless of the observed
+latency. But the distribution of queries tends to be skewed towards
+authoritatives with lower latency: the lower the latency between a
+recursive resolver and an authoritative server, the more often the
+recursive will send queries to that server. These results were
+obtained by aggregating results from all of the vantage points and
+were not specific to any specific vendor or version.
 
-The hypothesis is that this behavior is a consequence of two main criteria employed by resolvers when choosing authoritatives: performance (lower latency) and diversity of authoritatives, where a resolver checks all authoritative servers to determine which is closer and to provide alternatives if one is unavailable.
-
+The authors believe this behavior is a consequence of combining the
+two main criteria employed by resolvers when selecting authoritative
+servers: resolvers regularly check all listed authoritative servers in
+an NS set to determine which is closer (the least latent) and when one
+isn't available selects one of the alternatives.
 
 For a DNS operator, this policy means that latency of all authoritatives (NS records) matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance), {{Mueller17b}} recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (i.e., on each NS record , in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver good latency values to global clients. However, {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
 
