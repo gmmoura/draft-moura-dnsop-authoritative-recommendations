@@ -466,10 +466,34 @@ servers: resolvers regularly check all listed authoritative servers in
 an NS set to determine which is closer (the least latent) and when one
 isn't available selects one of the alternatives.
 
-For a DNS operator, this policy means that latency of all authoritatives (NS records) matter, so all must be similarly capable, since all available authoritatives will be queried by most recursive resolvers. Since unicast cannot deliver good latency worldwide (a unicast authoritative server in Europe will always have high latency to resolvers in California, for example, given its geographical distance), {{Mueller17b}} recommends to DNS operators that they deploy equally strong IP anycast in every authoritative server (i.e., on each NS record , in terms of number of instances and peering, and, consequently, to phase out unicast, so they can deliver good latency values to global clients. However, {{Mueller17b}} also notes that DNS operators should also take architectural considerations into account when planning for deploying anycast {{RFC1546}}.
+For an authoritative DNS operator, this result means that the latency
+of all authoritative servers (NS records) matter, so they all must be
+similarly capable -- all available authoritatives will be queried by
+most recursive resolvers. Unicasted services, unfortunately, cannot
+deliver good latency worldwide (a unicast authoritative server in
+Europe will always have high latency to resolvers in California and
+Australia, for example, given its geographical
+distance). {{Mueller17b}} recommends that DNS operators deploy equally
+strong IP anycast instances for every authoritative server (i.e., for
+each NS record).  Each large authoritative DNS server provider should
+phase out their usage of unicast and deploy a well engineered number
+of anycast instances with good peering strategies so they can provide
+good latency to their global clients. 
+<!-- This doesn't really say anything?  what arch considerations?
+However, {{Mueller17b}} also
+notes that DNS operators should take architectural considerations
+into account when planning for deploying anycast {{RFC1546}}.
+-->
 
-This consideration was deployed at the ".nl" TLD zone, which originally had seven authoritative severs (mixed unicast/anycast setup). In early 2018, .nl moved to a setup with 4 anycast authoritative name servers. This is not to say that .nl was the first -- other zones, have been running anycast only authoritatives (e.g., .be since 2013). {{Mueller17b}} contribution is to show that unicast cannot deliver good latency worldwide, and that anycast has to be deployed to deliver good latency worldwide.
+As a case study, the ".nl" TLD zone was originally served on seven
+authoritative servers with a mixed unicast/anycast setup.  In early
+2018, .nl moved to a setup with 4 anycast authoritative
+servers. 
+<!-- XXX: NEED TO SHOW/DESCRIBE RESULTS -->
 
+{{Mueller17b}}'s contribution to DNS service engineering shows that
+because unicast cannot deliver good latency worldwide, anycast needs
+to be used to provide a low latency service worldwide.
 
 # C2: Routing can matter more than locations
 
