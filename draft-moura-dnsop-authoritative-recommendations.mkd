@@ -497,18 +497,52 @@ to be used to provide a low latency service worldwide.
 
 # C2: Routing can matter more than locations
 
-A common metric when choosing an anycast DNS provider or setting up an anycast service is the number of anycast instances{{RFC4786}}, i.e., the number of global locations from which the same address is announced with BGP. Intuitively, one could think that more instances will lead to shorter response times.
+When selecting an anycast DNS provider or setting up an anycast
+service, choosing the best number of anycast instances{{RFC4786}} to
+deploy is a challenging problem.  Selecting where and how many global
+locations to announce from using BGP is tricky.  Intuitively, one
+could naively think that the more instances the better and simply
+"more" will always lead to shorter response times.
 
-However, this is not necessarily true. In fact, {{Schmidt17a}} found that routing can matter more than the total number of locations. They analyzed the relationship between the number of anycast instances and the performance of a service (latency-wise, round-trip time (RTT)) and measured the overall performance of four DNS Root servers. The Root DNS is implemented by 13 separate DNS services, each running on a different IP address, but sharing a common master data source: the root DNS zone. These are called the 13 DNS Root Letter Services just the "Root Letters" for short), since each is assigned a letter from A to M and identified as $letter.root-servers.net.
+This is not necessarily true, however. In fact, {{Schmidt17a}} found
+that proper route engineering can matter more than the total number of
+locations. They analyzed the relationship between the number of
+anycast instances and service performance (measuring latency of the
+round-trip time (RTT)), measuring the overall performance of four DNS
+Root servers. The Root DNS servers are implemented by 12 separate
+organizations serving the DNS root zone at 13 different IPv4/IPv6
+address pairs.
 
-In specific, {{Schmidt17a}} measured the performance of C, F, K and L root letters, from more than 7.9k RIPE Atlas probes (RIPE Atlas is a measurement platform with more than 12000 global devices -- Atlas Probes -- that provide vantage points that conduct Internet measurements, and its regularly used by researchers and operators {{RipeAtlas15a}} {{RipeAtlas19a}).
+The results documented in {{Schmidt17a}} measured the performance of
+the {c,f,k,l}.root-servers.net (hereafter, "C", "F", "K" and "L")
+servers from more than 7.9k RIPE Atlas probes. RIPE Atlas is a
+Internet measurement platform with more than 12000 global vantage
+points called "Atlas Probes" -- it is used regularly by both
+researchers and operators {{RipeAtlas15a}} {{RipeAtlas19a}).
 
-{{Schmidt17a}} found that C-Root, a smaller anycast deployment consisting of only 8 instances (they refer to anycast instance as anycast site), provided a very similar overall performance than that of the much larger deployments of K and L, with 33 and 144 instances respectively. The median RTT for C, K and L Root was between 30-32ms.
+{{Schmidt17a}} found that the C server, a smaller anycast deployment
+consisting of only 8 instances, provided very similar overall
+performance in comparison to the much larger deployments of K and L,
+with 33 and 144 instances respectively. The median RTT for C, K and L
+root server were all between 30-32ms.
 
- Given that Atlas has better coverage in Europe than other regions, the authors specifically analyzed results per region and per country (Figure 5 in {{Schmidt17a}}), and show that Atlas bias to Europe does not change the conclusion that location of anycast instances dominates latency.
+XXX: what about F???  why is it mentioned above if we don't talk about it?
 
+Because RIPE Atlas is known to have better coverage in Europe than
+other regions, the authors specifically analyzed the results per
+region and per country (Figure 5 in {{Schmidt17a}}), and show that
+known Atlas bias toward Europe does not change the conclusion that
+properly selected anycast locations is more important to latency than
+the number of sites.
 
-{{Schmidt17a}} consideration for DNS operators when engineering anycast services is consider factors other than just the number of instances (such as local routing connectivity) when designing for performance. They showed that 12 instances can provide reasonable latency, given they are globally distributed and have good local interconnectivity. However, more instances can be useful for other reasons, such as when handling Denial-of-service (DoS) attacks {{Moura16b}}.
+The important conclusion of {{Schmidt17a}} is that when engineering
+anycast services for performance, factors other than just the number
+of instances (such as local routing connectivity) must be considered.
+They showed that 12 instances can provide reasonable latency, assuming
+they are globally distributed and have good local
+interconnectivity. However, additional instances can still be useful
+for other reasons, such as when handling Denial-of-service (DoS)
+attacks {{Moura16b}}.
 
 
 # C3: Collecting anycast catchment maps to improve design
