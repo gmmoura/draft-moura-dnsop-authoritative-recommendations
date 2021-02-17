@@ -65,18 +65,18 @@ author:
 
 normative:
 
-  rfc2181:
-  rfc1034:
-  rfc7094:
-  rfc1546:
-  rfc1035:
-  rfc1995:
-  rfc5575:
-  rfc5936:
-  rfc4271:
-  rfc4786:
-  rfc1997:
-  rfc8499:
+  RFC2181:
+  RFC1034:
+  RFC7094:
+  RFC1546:
+  RFC1035:
+  RFC1995:
+  RFC5575:
+  RFC5936:
+  RFC4271:
+  RFC4786:
+  RFC1997:
+  RFC8499:
   #I-D.ietf-dnsop-serve-stale:
 #have to see how to add these references on rfcs
 #https://tools.ietf.org/html/rfc7764#section-4.6
@@ -329,7 +329,7 @@ authoritative DNS servers. In this context, "large" authoritative
 servers refers to those with a significant global user population,
 like top-level domain (TLD) operators, run by either a single or
 multiple operators.  Typically these networks are deployed on wide
-anycast networks {{rfc1546}}. These considerations may not be
+anycast networks {{RFC1546}}. These considerations may not be
 appropriate for smaller domains, such as those used by an organization
 with users in one unicast network, or in one city or region, where
 operational goals such as uniform, global low latency are less

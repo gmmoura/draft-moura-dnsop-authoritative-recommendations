@@ -5,25 +5,28 @@
 DNSOP Working Group                                             G. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: October 10, 2020                                   J. Heidemann
+Expires: August 21, 2021                                    J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                          April 08, 2020
+                                                       February 17, 2021
 
 
       Considerations for Large Authoritative DNS Servers Operators
-           draft-moura-dnsop-authoritative-recommendations-07
+           draft-moura-dnsop-authoritative-recommendations-08
 
 Abstract
 
-   This document summarizes recent research work exploring Domain Name
-   System (DNS) configurations and offers specific, tangible
-   considerations to operators for configuring authoritative servers.
+   Recent research work has explored the deployment characteristics and
+   configuration of the Domain Name System (DNS).  This document
+   summarizes the conclusions from these research efforts and offers
+   specific, tangible advice to operators when configuring authoritative
+   DNS servers.
 
-   It is possible that the considerations presented in this document
-   could be applicable in a wider context, such as for any stateless/
-   short-duration, anycasted service.
+   It is possible that the results presented in this document could be
+   applicable in a wider context than just the DNS protocol, as some of
+   the results may generically apply to any stateless/short-duration,
+   anycasted service.
 
    This document is not an IETF consensus document: it is published for
    informational purposes.
@@ -43,20 +46,22 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 10, 2020.
+   This Internet-Draft will expire on August 21, 2021.
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021                [Page 1]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
-
-
-
-
-Moura, et al.           Expires October 10, 2020                [Page 1]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
@@ -72,66 +77,98 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Background  . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  C1: Use anycast in every authoritative for better load
-       distribution  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  C1: Deploy anycast in every authoritative server for better
+       load distribution . . . . . . . . . . . . . . . . . . . . . .   5
    4.  C2: Routing can matter more than locations  . . . . . . . . .   6
    5.  C3: Collecting anycast catchment maps to improve design . . .   7
-   6.  C4: When under stress, employ two strategies  . . . . . . . .   8
-   7.  C5: Consider longer time-to-live values whenever possible . .  10
-   8.  Security considerations . . . . . . . . . . . . . . . . . . .  12
-   9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  12
-   10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  12
+   6.  C4: When under stress, employ two strategies  . . . . . . . .   9
+   7.  C5: Consider longer time-to-live values whenever possible . .  11
+   8.  Security considerations . . . . . . . . . . . . . . . . . . .  13
+   9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  13
+   10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  13
    11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  14
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  14
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
 
-   This document summarizes recent research work exploring DNS
-   configurations and offers specific tangible considerations to DNS
-   authoritative server operators (DNS operators hereafter).  The
-   considerations (C1-C5) presented in this document are backed by
-   previous research work, which used wide-scale Internet measurements
-   upon which to draw their conclusions.  This document describes the
-   key engineering options, and points readers to the pertinent papers
-   for details and other research works related to each consideration
-   here presented.
+   This document summarizes recent research work that explored the
+   deployed DNS configurations and offers derived, specific tangible
+   advice to DNS authoritative server operators (DNS operators
+   hereafter).  The considerations (C1-C5) presented in this document
+   are backed by published research work, which used wide-scale Internet
+   measurements to draw their conclusions.  This document summarizes the
+   research results and describes the resulting key engineering options.
+   In each section, it points readers to the pertinent publications
+   where additional details are presented.
 
    These considerations are designed for operators of "large"
-   authoritative servers.  In this context, "large" authoritative
-   servers refers to those with a significant global user population,
-   like top-level domain (TLD) operators, run by a single or multiple
-   operators.  These considerations may not be appropriate for smaller
-   domains, such as those used by an organization with users in one city
-   or region, where goals such as uniform low latency are less strict.
+   authoritative DNS servers.  In this context, "large" authoritative
 
 
 
-Moura, et al.           Expires October 10, 2020                [Page 2]
+Moura, et al.            Expires August 21, 2021                [Page 2]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
-   It is likely that these considerations might be useful in a wider
-   context, such as for any stateless/short-duration, anycasted service.
-   Because the conclusions of the studies don't verify this fact, the
-   wording in this document discusses DNS authoritative services only.
+   servers refers to those with a significant global user population,
+   like top-level domain (TLD) operators, run by either a single or
+   multiple operators.  Typically these networks are deployed on wide
+   anycast networks [RFC1546].  These considerations may not be
+   appropriate for smaller domains, such as those used by an
+   organization with users in one unicast network, or in one city or
+   region, where operational goals such as uniform, global low latency
+   are less required.
+
+   It is possible that the results presented in this document could be
+   applicable in a wider context than just the DNS protocol, as some of
+   the results may generically apply to any stateless/short-duration,
+   anycasted service.  Because the conclusions of the reviewed studies
+   don't measure smaller networks, the wording in this document
+   concentrates solely on disusing large-scale DNS authoritative
+   services only.
+
    This document is not an IETF consensus document: it is published for
    informational purposes.
 
 2.  Background
 
-   The DNS as main two types of DNS servers: authoritative servers and
-   recursive resolvers.  Figure 1 shows their relationship.  An
-   authoritative server (ATn in Figure 1) knows the content of a DNS
-   zone from local knowledge, and thus can answer queries about that
-   zone without needing to query other servers [RFC2181].  A recursive
-   resolver (Re1-Re3) is a program that extracts information from name
-   servers in response to client requests [RFC1034].  A client (stub in
-   Figure 1) refers to stub resolver [RFC1034] that is typically located
-   within the client software.
+   The DNS has main two types of DNS servers: authoritative servers and
+   recursive resolvers, shown by a representational deployment model in
+   Figure 1.  An authoritative server (shown as AT1-AT4 in Figure 1)
+   knows the content of a DNS zone, and is responsible for answering
+   queries about that zone.  It runs using local (possibly automatically
+   updated) copies of the zone and does not need to query other servers
+   [RFC2181] in order to answer requests.  A recursive resolver
+   (Re1-Re3) is a server that iteratively queries authoritative and
+   other servers to answer queries received from client requests
+   [RFC1034].  A client typically employs a software library called a
+   stub resolver (stub in Figure 1) to issue its query to the upstream
+   recursive resolvers [RFC1034].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021                [Page 3]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
            +-----+  +-----+  +-----+  +-----+
            | AT1 |  | AT2 |  | AT3 |  | AT4 |
@@ -155,199 +192,207 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
         Figure 1: Relationship between recursive resolvers (Re) and
                      authoritative name servers (ATn)
 
-   DNS queries/responses contribute to a user's perceived perceived
-   latency and affect user experience [Sigla2014], and the DNS system
-   has been subject to repeated Denial of Service (DoS) attacks (for
-   example, in November 2015 [Moura16b]) in order to degrade user
-   experience.
+   DNS queries issued by a client contribute to a user's perceived
+   perceived latency and affect user experience [Sigla2014] depending on
+   how long it takes for responses to be returned.  The DNS system has
+   been subject to repeated Denial of Service (DoS) attacks (for
+   example, in November 2015 [Moura16b]) in order to specifically
+   degrade user experience.
 
-
-
-
-
-Moura, et al.           Expires October 10, 2020                [Page 3]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
-   To reduce latency and improve resiliency against DoS attacks, DNS
-   uses several types of server replication.  Replication at the
+   To reduce latency and improve resiliency against DoS attacks, the DNS
+   uses several types of service replication.  Replication at the
    authoritative server level can be achieved with (i) the deployment of
    multiple servers for the same zone [RFC1035] (AT1--AT4 in Figure 1),
    (ii) the use of IP anycast [RFC1546][RFC4786][RFC7094] that allows
    the same IP address to be announced from multiple locations (each of
-   them referred to as an anycast instance [RFC8499]) and (iii) by using
+   referred to as an "anycast instance" [RFC8499]) and (iii) the use of
    load balancers to support multiple servers inside a single
    (potentially anycasted) instance.  As a consequence, there are many
    possible ways an authoritative DNS provider can engineer its
    production authoritative server network, with multiple viable choices
-   and no single optimal design.
+   and no necessarily single optimal design.
 
-   In the next sections we cover specific considerations (C1-C5) for
-   large authoritative DNS server operators.
+   In the next sections we cover the specific consideration (C1-C5) for
+   conclusions drawn within the academic papers about large
+   authoritative DNS server operators.
 
-3.  C1: Use anycast in every authoritative for better load distribution
 
-   Authoritative DNS servers operators announce their authoritative
-   servers as NS records[RFC1034].  Different authoritatives for a given
-   zone should return the same content, typically by staying
-   synchronized using DNS zone transfers (AXFR[RFC5936] and
-   IXFR[RFC1995]) to coordinate the authoritative zone data to return to
-   their clients.
+
+
+
+
+Moura, et al.            Expires August 21, 2021                [Page 4]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
+
+3.  C1: Deploy anycast in every authoritative server for better load
+    distribution
+
+   Authoritative DNS server operators announce their service using NS
+   records[RFC1034].  Different authoritative servers for a given zone
+   should return the same content; typically they stay synchronized
+   using DNS zone transfers (AXFR[RFC5936] and IXFR[RFC1995]),
+   coordinating the zone data they all return to their clients.
 
    DNS heavily relies upon replication to support high reliability,
-   capacity and to reduce latency [Moura16b].  DNS has two complementary
-   mechanisms to replicate the service.  First, the protocol itself
-   supports nameserver replication of DNS service for a DNS zone through
-   the use of multiple nameservers that each operate on different IP
-   addresses, listed by a zone's NS records.  Second, each of these
-   network addresses can run from multiple physical locations through
-   the use of IP anycast[RFC1546][RFC4786][RFC7094], by announcing the
-   same IP address from each instance and allowing Internet routing
-   (BGP[RFC4271]) to associate clients with their topologically nearest
-   anycast instance.  Outside the DNS protocol, replication can be
-   achieved by deploying load balancers at each physical location.
-   Nameserver replication is recommended for all zones (multiple NS
-   records), and IP anycast is used by most large zones such as the DNS
-   Root, most top-level domains[Moura16b] and large commercial
-   enterprises, governments and other organizations.
+   ensure capacity and to reduce latency [Moura16b].  DNS has two
+   complementary mechanisms for service replication.  First, the DNs
+   protocol itself supports nameserver replication through the use of
+   multiple nameserver records (NS records), each operating on different
+   IP addresses.  Second, each of these addresses can run at multiple
+   physical locations through the use of IP
+   anycast[RFC1546][RFC4786][RFC7094], by announcing the same IP address
+   from each instance at multiple locations - Internet routing
+   (BGP[RFC4271]) associates the service's clients with their
+   topologically nearest anycast instance.  Outside the DNS protocol,
+   replication can also be achieved by deploying load balancers at each
+   physical location.  Nameserver replication is strongly recommended
+   for all zones (multiple NS records).  IP anycast is used by many
+   large zones such as the DNS Root, most top-level domains[Moura16b]
+   and many large commercial enterprises, governments and other
+   organizations.
 
-   Most DNS operators strive to reduce latency for users of their
-   service.  However, because they control only their authoritative
-   servers, and not the recursive resolvers communicating with those
-   servers, it is difficult to ensure that recursives will be served by
-   the closest authoritative server.  Server selection is up to the
-   recursive resolver's software implementation, and different software
+   Most DNS operators strive to reduce service latency for users.
+   However, because they only have control over their authoritative
+   servers, and not over the client recursive resolvers, it is difficult
+   to ensure that recursives will be served by the closest authoritative
+   server.  Server selection is up to the recursive resolver's software
+   implementation, and different vendors and even different releases
+   employ different criteria to chose the authoritative servers with
+   which to communicate.
 
-
-
-Moura, et al.           Expires October 10, 2020                [Page 4]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
-   vendors and releases employ different criteria to chose which
-   authoritative servers with which to communicate.
-
-   Knowing how recursives choose authoritative servers is a key step to
-   better engineer the deployment of authoritative servers.
-   [Mueller17b] evaluates this with a measurement study in which they
-   deployed seven unicast authoritative name servers in different global
-   locations and queried these authoritative servers from more than 9k
+   Understanding how recursive resolvers choose authoritative servers is
+   a key step in improving the effectiveness of authoritative server
+   deployments.  To measure and evaluate server deployments,
+   [Mueller17b] deployed seven unicast authoritative name servers in
+   different global locations and then queried them from more than 9000
    RIPE authoritative server operators and their respective recursive
    resolvers.
 
-   In the wild, [Mueller17b] found that recursives query all available
-   authoritative servers, regardless of the observed latency.  But the
-   distribution of queries tends to be skewed towards authoritatives
-   with lower latency: the lower the latency between a recursive
-   resolver and an authoritative server, the more often the recursive
-   will send queries to that authoritative.  These results were obtained
-   by aggregating results from all vantage points and not specific to
-   any vendor/version.
-
-   The hypothesis is that this behavior is a consequence of two main
-   criteria employed by resolvers when choosing authoritatives:
-   performance (lower latency) and diversity of authoritatives, where a
-   resolver checks all authoritative servers to determine which is
-   closer and to provide alternatives if one is unavailable.
-
-   For a DNS operator, this policy means that latency of all
-   authoritatives (NS records) matter, so all must be similarly capable,
-   since all available authoritatives will be queried by most recursive
-   resolvers.  Since unicast cannot deliver good latency worldwide (a
-   unicast authoritative server in Europe will always have high latency
-   to resolvers in California, for example, given its geographical
-   distance), [Mueller17b] recommends to DNS operators that they deploy
-   equally strong IP anycast in every authoritative server (i.e., on
-   each NS record , in terms of number of instances and peering, and,
-   consequently, to phase out unicast, so they can deliver good latency
-   values to global clients.  However, [Mueller17b] also notes that DNS
-   operators should also take architectural considerations into account
-   when planning for deploying anycast [RFC1546].
-
-   This consideration was deployed at the ".nl" TLD zone, which
-   originally had seven authoritative severs (mixed unicast/anycast
-   setup).  In early 2018, .nl moved to a setup with 4 anycast
-   authoritative name servers.  This is not to say that .nl was the
-   first - other zones, have been running anycast only authoritatives
-   (e.g., .be since 2013).  [Mueller17b] contribution is to show that
-   unicast cannot deliver good latency worldwide, and that anycast has
-   to be deployed to deliver good latency worldwide.
+   [Mueller17b] found that recursive resolvers in the wild query all
+   available authoritative servers, regardless of the observed latency.
+   But the distribution of queries tends to be skewed towards
+   authoritatives with lower latency: the lower the latency between a
 
 
 
-Moura, et al.           Expires October 10, 2020                [Page 5]
+Moura, et al.            Expires August 21, 2021                [Page 5]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
+
+   recursive resolver and an authoritative server, the more often the
+   recursive will send queries to that server.  These results were
+   obtained by aggregating results from all of the vantage points and
+   were not specific to any specific vendor or version.
+
+   The authors believe this behavior is a consequence of combining the
+   two main criteria employed by resolvers when selecting authoritative
+   servers: resolvers regularly check all listed authoritative servers
+   in an NS set to determine which is closer (the least latent) and when
+   one isn't available selects one of the alternatives.
+
+   For an authoritative DNS operator, this result means that the latency
+   of all authoritative servers (NS records) matter, so they all must be
+   similarly capable - all available authoritatives will be queried by
+   most recursive resolvers.  Unicasted services, unfortunately, cannot
+   deliver good latency worldwide (a unicast authoritative server in
+   Europe will always have high latency to resolvers in California and
+   Australia, for example, given its geographical distance).
+   [Mueller17b] recommends that DNS operators deploy equally strong IP
+   anycast instances for every authoritative server (i.e., for each NS
+   record).  Each large authoritative DNS server provider should phase
+   out their usage of unicast and deploy a well engineered number of
+   anycast instances with good peering strategies so they can provide
+   good latency to their global clients.
+
+   As a case study, the ".nl" TLD zone was originally served on seven
+   authoritative servers with a mixed unicast/anycast setup.  In early
+   2018, .nl moved to a setup with 4 anycast authoritative servers.
+
+   [Mueller17b]'s contribution to DNS service engineering shows that
+   because unicast cannot deliver good latency worldwide, anycast needs
+   to be used to provide a low latency service worldwide.
 
 4.  C2: Routing can matter more than locations
 
-   A common metric when choosing an anycast DNS provider or setting up
-   an anycast service is the number of anycast instances[RFC4786], i.e.,
-   the number of global locations from which the same address is
-   announced with BGP.  Intuitively, one could think that more instances
-   will lead to shorter response times.
+   When selecting an anycast DNS provider or setting up an anycast
+   service, choosing the best number of anycast instances[RFC4786] to
+   deploy is a challenging problem.  Selecting where and how many global
+   locations to announce from using BGP is tricky.  Intuitively, one
+   could naively think that the more instances the better and simply
+   "more" will always lead to shorter response times.
 
-   However, this is not necessarily true.  In fact, [Schmidt17a] found
-   that routing can matter more than the total number of locations.
-   They analyzed the relationship between the number of anycast
-   instances and the performance of a service (latency-wise, round-trip
-   time (RTT)) and measured the overall performance of four DNS Root
-   servers.  The Root DNS is implemented by 13 separate DNS services,
-   each running on a different IP address, but sharing a common master
-   data source: the root DNS zone.  These are called the 13 DNS Root
-   Letter Services just the "Root Letters" for short), since each is
-   assigned a letter from A to M and identified as $letter.root-
-   servers.net.
-
-   In specific, [Schmidt17a] measured the performance of C, F, K and L
-   root letters, from more than 7.9k RIPE Atlas probes (RIPE Atlas is a
-   measurement platform with more than 12000 global devices - Atlas
-   Probes - that provide vantage points that conduct Internet
-   measurements, and its regularly used by researchers and operators
-   [RipeAtlas15a] {{RipeAtlas19a}).
-
-   [Schmidt17a] found that C-Root, a smaller anycast deployment
-   consisting of only 8 instances (they refer to anycast instance as
-   anycast site), provided a very similar overall performance than that
-   of the much larger deployments of K and L, with 33 and 144 instances
-   respectively.  The median RTT for C, K and L Root was between
-   30-32ms.
-
-   Given that Atlas has better coverage in Europe than other regions,
-   the authors specifically analyzed results per region and per country
-   (Figure 5 in [Schmidt17a]), and show that Atlas bias to Europe does
-   not change the conclusion that location of anycast instances
-   dominates latency.
-
-   [Schmidt17a] consideration for DNS operators when engineering anycast
-   services is consider factors other than just the number of instances
-   (such as local routing connectivity) when designing for performance.
-   They showed that 12 instances can provide reasonable latency, given
-   they are globally distributed and have good local interconnectivity.
-   However, more instances can be useful for other reasons, such as when
-   handling Denial-of-service (DoS) attacks [Moura16b].
+   This is not necessarily true, however.  In fact, [Schmidt17a] found
+   that proper route engineering can matter more than the total number
+   of locations.  They analyzed the relationship between the number of
+   anycast instances and service performance (measuring latency of the
+   round-trip time (RTT)), measuring the overall performance of four DNS
+   Root servers.  The Root DNS servers are implemented by 12 separate
 
 
 
-
-Moura, et al.           Expires October 10, 2020                [Page 6]
+Moura, et al.            Expires August 21, 2021                [Page 6]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
+
+   organizations serving the DNS root zone at 13 different IPv4/IPv6
+   address pairs.
+
+   The results documented in [Schmidt17a] measured the performance of
+   the {c,f,k,l}.root-servers.net (hereafter, "C", "F", "K" and "L")
+   servers from more than 7.9k RIPE Atlas probes.  RIPE Atlas is a
+   Internet measurement platform with more than 12000 global vantage
+   points called "Atlas Probes" - it is used regularly by both
+   researchers and operators [RipeAtlas15a] {{RipeAtlas19a}).
+
+   [Schmidt17a] found that the C server, a smaller anycast deployment
+   consisting of only 8 instances, provided very similar overall
+   performance in comparison to the much larger deployments of K and L,
+   with 33 and 144 instances respectively.  The median RTT for C, K and
+   L root server were all between 30-32ms.
+
+   XXX: what about F???  why is it mentioned above if we don't talk
+   about it?
+
+   Because RIPE Atlas is known to have better coverage in Europe than
+   other regions, the authors specifically analyzed the results per
+   region and per country (Figure 5 in [Schmidt17a]), and show that
+   known Atlas bias toward Europe does not change the conclusion that
+   properly selected anycast locations is more important to latency than
+   the number of sites.
+
+   The important conclusion of [Schmidt17a] is that when engineering
+   anycast services for performance, factors other than just the number
+   of instances (such as local routing connectivity) must be considered.
+   They showed that 12 instances can provide reasonable latency,
+   assuming they are globally distributed and have good local
+   interconnectivity.  However, additional instances can still be useful
+   for other reasons, such as when handling Denial-of-service (DoS)
+   attacks [Moura16b].
 
 5.  C3: Collecting anycast catchment maps to improve design
 
-   An anycast DNS service may have several dozens or even more than one
-   hundred locations (such as L-Root does).  Anycast leverages Internet
-   routing to distribute the incoming queries to a service's distributed
-   anycast locations; in theory, BGP (the Internet's de facto routing
-   protocol) forwards incoming queries to a nearby anycast location (in
-   terms of BGP distance).  However, usually queries are not evenly
-   distributed across all anycast locations, as found in the case of
-   L-Root [IcannHedge18].
+   An anycast DNS service may be deployed from several to more than one
+   hundred locations (for example, l.root-servers.net has over 150
+   anycast instances at the time this was written).  Anycast leverages
+   Internet routing to distribute the incoming queries to a service's
+   distributed anycast locations; in theory, BGP (the Internet's de
+   facto routing protocol) forwards incoming queries to a nearby anycast
+   location (in terms of BGP distance).  However, usually queries are
+   not evenly distributed across all anycast locations, as found in the
+   case of L-Root [IcannHedge18].
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021                [Page 7]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    Adding locations to an anycast service may change the load
    distribution across all locations.  Given that BGP maps clients to
@@ -386,14 +431,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    created an estimate predicting that 81.6% of the traffic would go to
    the LAX location.  The actual value was 81.4% of traffic going to
    LAX, showing that the estimation was pretty close and the Verfploeter
-
-
-
-Moura, et al.           Expires October 10, 2020                [Page 7]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    technique was a excellent method of predicting traffic loads in
    advance of a new anycast instance deployment ([Vries17b] also uses
    the term anycast site to refer to anycast location).
@@ -405,6 +442,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    configuration configuration: no prepending, and prepending with 1, 2
    or 3 hops at each instance.  Then, [Vries17b] shows that this mapping
    can accurately estimate the load distribution for each configuration.
+
+
+
+Moura, et al.            Expires August 21, 2021                [Page 8]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    An important operational takeaway from [Vries17b] is that DNS
    operators can make informed choices when engineering new anycast
@@ -442,14 +486,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    relationship between the DNS provider's network and a client's ISP
    will determine which anycast instance will answer queries for a given
    client, given that BGP is the protocol that maps clients to specific
-
-
-
-Moura, et al.           Expires October 10, 2020                [Page 8]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    anycast instances by using routing information [RF:KDar02].  As a
    consequence, when an anycast authoritative server is under attack,
    the load that each anycast instance receives is likely to be unevenly
@@ -462,6 +498,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
 
    In practice, an anycast instance under stress, overloaded with
    incoming traffic, has two options:
+
+
+
+Moura, et al.            Expires August 21, 2021                [Page 9]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    o  It can withdraw or pre-prepend its route to some or to all of its
       neighbors, perform other traffic shifting tricks (such as reducing
@@ -498,14 +541,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    that emerge from a mix of explicit choices and implementation
    details, such as BGP timeout values.
 
-
-
-
-Moura, et al.           Expires October 10, 2020                [Page 9]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    [Moura16b] speculates that more careful, explicit, and automated
    management of policies may provide stronger defenses to overload.
    For DNS operators, that means that besides traditional filtering, two
@@ -518,6 +553,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    multiple authoritative anycast servers may expect load to spill from
    one anycast server to another, as resolvers switch from authoritative
    to authoritative when attempting to resolve a name [Mueller17b].
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 10]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
 7.  C5: Consider longer time-to-live values whenever possible
 
@@ -555,13 +598,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
       As-A-Service providers charges are metered, with a per query cost
       (often added to a fixed monthly cost).
 
-
-
-Moura, et al.           Expires October 10, 2020               [Page 10]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    o  Longer caching is more robust to DDoS attacks on DNS: DDoS attacks
       on a DNS service provider harmed several prominent websites
       [Perlroth16].  Recent work has shown that DNS caching can greatly
@@ -574,6 +610,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
       the TTL duration represents a necessary transition delay to fully
       shift to a new server, so low TTLs allow more rapid transition.
       However, when deployments are planned in advance (that is, longer
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 11]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
+
       than the TTL), then TTLs can be lowered ''just-before'' a major
       operational change, and raised again once accomplished.
 
@@ -609,15 +653,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
       users, [Moura19a] recommends longer TTLs for NS records of their
       delegations (at least one hour, preferably more).
 
-
-
-
-
-Moura, et al.           Expires October 10, 2020               [Page 11]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    o  Users of DNS-based load balancing or DDoS-prevention may require
       short TTLs: TTLs may be as short as 5 minutes, although 15 minutes
       may provide sufficient agility for many operators.  Shorter TTLs
@@ -631,6 +666,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
       A/AAAA will also be updated (glue is sent by the parents).  For
       out-of-bailiwick servers, A and NS records are usually cached
       independently, so different TTLs, if desired, will be effective.
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 12]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
+
       In either case, short A and AAAA records may be desired if DDoS-
       mitigation services are an option.
 
@@ -665,15 +708,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
 
    This document has no IANA actions.
 
-
-
-
-
-Moura, et al.           Expires October 10, 2020               [Page 12]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
 11.  Acknowledgements
 
    This document is a summary of the main considerations of six research
@@ -687,6 +721,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    o  Moritz Mueller
 
    o  Lan Wei
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 13]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    o  Cristian Hesselman
 
@@ -723,13 +765,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
               Anycasting Service", RFC 1546, DOI 10.17487/RFC1546,
               November 1993, <https://www.rfc-editor.org/info/rfc1546>.
 
-
-
-Moura, et al.           Expires October 10, 2020               [Page 13]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    [RFC1995]  Ohta, M., "Incremental Zone Transfer in DNS", RFC 1995,
               DOI 10.17487/RFC1995, August 1996,
               <https://www.rfc-editor.org/info/rfc1995>.
@@ -741,6 +776,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    [RFC2181]  Elz, R. and R. Bush, "Clarifications to the DNS
               Specification", RFC 2181, DOI 10.17487/RFC2181, July 1997,
               <https://www.rfc-editor.org/info/rfc2181>.
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 14]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
@@ -777,15 +821,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
    [Ditl17]   OARC, D., "2017 DITL data", October 2018,
               <https://www.dns-oarc.net/oarc/data/ditl/2017>.
 
-
-
-
-
-Moura, et al.           Expires October 10, 2020               [Page 14]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    [IcannHedge18]
               ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
               <http://stats.dns.icann.org/hedgehog/>.
@@ -794,6 +829,18 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
               based Internet caches", ACM 2003 IEEE INFOCOM,
               DOI 10.1109/INFCOM.2003.1208693, July 2003,
               <http://www.ieee-infocom.org/2003/papers/11_01.PDF>.
+
+
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 15]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    [Moura16b]
               Moura, G., Schmidt, R., Heidemann, J., Mueller, M., Wei,
@@ -835,16 +882,21 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
               Network", September 2015, <http://ipj.dreamhosters.com/wp-
               content/uploads/issues/2015/ipj18-3.pdf>.
 
-
-
-Moura, et al.           Expires October 10, 2020               [Page 15]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    [RipeAtlas19a]
               NCC, R., "Ripe Atlas - RIPE Network Coordination Centre",
               September 2019, <https://atlas.ripe.net/>.
+
+
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 16]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    [Schmidt17a]
               Schmidt, R., Heidemann, J., and J. Kuipers, "Anycast
@@ -883,21 +935,6 @@ Authors' Addresses
    Email: giovane.moura@sidn.nl
 
 
-
-
-
-
-
-
-
-
-
-
-Moura, et al.           Expires October 10, 2020               [Page 16]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
-
-
    Wes Hardaker
    USC/Information Sciences Institute
    PO Box 382
@@ -906,6 +943,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
 
    Phone: +1 (530) 404-0099
    Email: ietf@hardakers.net
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 17]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
    John Heidemann
@@ -949,4 +995,14 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops         April 2020
 
 
 
-Moura, et al.           Expires October 10, 2020               [Page 17]
+
+
+
+
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 18]
