@@ -83,14 +83,16 @@ Table of Contents
    5.  C3: Collecting anycast catchment maps to improve design . . .   7
    6.  C4: When under stress, employ two strategies  . . . . . . . .   9
    7.  C5: Consider longer time-to-live values whenever possible . .  11
-   8.  Security considerations . . . . . . . . . . . . . . . . . . .  13
-   9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  13
-   10. IANA considerations . . . . . . . . . . . . . . . . . . . . .  13
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  14
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+   8.  C6: Leverage DNS TCP traffic improve design and detect
+       routing leaks . . . . . . . . . . . . . . . . . . . . . . . .  13
+   9.  Security considerations . . . . . . . . . . . . . . . . . . .  14
+   10. Privacy Considerations  . . . . . . . . . . . . . . . . . . .  14
+   11. IANA considerations . . . . . . . . . . . . . . . . . . . . .  15
+   12. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  15
+     13.2.  Informative References . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -104,8 +106,6 @@ Table of Contents
    In each section, it points readers to the pertinent publications
    where additional details are presented.
 
-   These considerations are designed for operators of "large"
-   authoritative DNS servers.  In this context, "large" authoritative
 
 
 
@@ -114,6 +114,8 @@ Moura, et al.            Expires August 21, 2021                [Page 2]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
+   These considerations are designed for operators of "large"
+   authoritative DNS servers.  In this context, "large" authoritative
    servers refers to those with a significant global user population,
    like top-level domain (TLD) operators, run by either a single or
    multiple operators.  Typically these networks are deployed on wide
@@ -148,8 +150,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    [RFC1034].  A client typically employs a software library called a
    stub resolver (stub in Figure 1) to issue its query to the upstream
    recursive resolvers [RFC1034].
-
-
 
 
 
@@ -677,7 +677,77 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
       In either case, short A and AAAA records may be desired if DDoS-
       mitigation services are an option.
 
-8.  Security considerations
+8.  C6: Leverage DNS TCP traffic improve design and detect routing leaks
+
+   XXX: @Wes: I added this section based on the new tech report, but
+   have not changed it in the rest of the text, so if we decide to keep
+   it, we need to include it in the intro and other places - giovane
+   2021-02-17
+
+   RFC1035 [RFC1035] states that DNS servers should support both UDP and
+   TCP as transport protocols.  DNS traffic over TCP (DNS/TCP hereafter)
+   is typically used for DNS zone transfers [RFC5936] and to transmit
+   large DNS responses, such as when they are large than the client's
+   advertised EDNS(0) buffer[RFC6891] ( authoritative servers truncate
+   UDP responses if they are large than the resolver's EDNS(0) buffer
+   size, and the resolvers are expected to re-query using TCP, which has
+   built-in mechanisms that allows to handle large messages).
+
+   DNS/TCP traffic it still can be useful in the design of authoritative
+   services: it provides the authoritative server with the chance to
+   measure round-trip times between to resolvers - which is not
+   available using DNS/UDP.  For example, the RTT can be measured during
+   the TCP handshake, by calculating the time in between the arrival of
+   the SYN packet, and the ACK packet that ACKS thet SYN-ACK response.
+
+   Currenlty, most of DNS traffic between resolvers and authoritative
+   servers is still UDP [Moura20a].  For example, for the .nl country-
+   code top-level domain (ccTLD), 2-6% of the traffic is TPC, depending
+   on which authoritative server and if it is over IPv4 or IPv6.
+   However, this traffic comes from 20-23% of all resolvers, and 45% of
+   the Autonomous Systems.  As such, the coverage is large in terms of
+   resolvers and ASes than in terms of individual queries.
+
+   Still, given the DNS traffic at authoritative servers is heavily
+   skewed - 1/3 of traffic to .nl and .nz come from 5 cloud/content
+   providers [Moura20b] - it may not be needed to measure all prefixes
+   on the Internet (as Verfploeter[Vries17b] does with IPv4): only the
+   ones that send most queries.  For .nl, 96% of DNS queries come from
+   ASes that also use DNS/TCP [Moura20a].
+
+   Given that, [Moura20a] shows that DNS/TCP provides enough coverage to
+   measure most clients ASes of the .nl ccTLD authoritative servers.
+   They have also shown that DNS/UDP and DNS/TCP RTT area comparable for
+   the same servers, and extracted in near-real time RTT from DNS/TCP
+   traffic.  Then, they applied it to analyze traffic per anycast server
+   and location and per client AS.
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 13]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
+
+   By doing that, they were able to identify that Google (AS15169) and
+   Microsoft (AS8075) were polarized, i.e., they could only reach one
+   anycast site of one of their anycast servers.  They found this by
+   observing DNS/TCP RTTs between these ASes and the authoritative
+   servers.  That trigger then to carry out BGP manipulations to remove
+   this polarization, ultimately reducing the latency in 90% for Google.
+
+   Also, by monitoring RTTs, they were able to detect route leaks when
+   suddenly one of the anycast sites start to experience a surge in RTT,
+   given EU traffic was sent to Australia after a Tier1 ISP propagated
+   by mistake.
+
+   DNS/TCP RTT also works well with IPv6 (while Verfploeter does not)
+   and measure real clients.  As such, we recomment authoritative server
+   operators to leverage RTT measurements from DNS/TCP to troubleshoot
+   and improve design of their services.
+
+9.  Security considerations
 
    As this document discusses applying research results to operational
    deployments, there are no further security considerations, other than
@@ -692,7 +762,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    Similarly, C5 identifies both the operational and security benefits
    to using longer time-to-live values.
 
-9.  Privacy Considerations
+10.  Privacy Considerations
 
    This document does not add any practical new privacy issues, aside
    from possible benefits in deploying longer TTLs as suggested in C5.
@@ -704,11 +774,23 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    efforts by multiple organizations may produce more guidance in this
    area.
 
-10.  IANA considerations
+
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 14]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
+
+11.  IANA considerations
 
    This document has no IANA actions.
 
-11.  Acknowledgements
+12.  Acknowledgements
 
    This document is a summary of the main considerations of six research
    works referred in this document.  As such, they were only possible
@@ -721,14 +803,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    o  Moritz Mueller
 
    o  Lan Wei
-
-
-
-
-Moura, et al.            Expires August 21, 2021               [Page 13]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
-
 
    o  Cristian Hesselman
 
@@ -749,9 +823,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    and datasets used in this research, as well as the funding agencies
    sponsoring the individual research works.
 
-12.  References
+13.  References
 
-12.1.  Normative References
+13.1.  Normative References
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
@@ -760,6 +834,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
               November 1987, <https://www.rfc-editor.org/info/rfc1035>.
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 15]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    [RFC1546]  Partridge, C., Mendez, T., and W. Milliken, "Host
               Anycasting Service", RFC 1546, DOI 10.17487/RFC1546,
@@ -776,15 +857,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    [RFC2181]  Elz, R. and R. Bush, "Clarifications to the DNS
               Specification", RFC 2181, DOI 10.17487/RFC2181, July 1997,
               <https://www.rfc-editor.org/info/rfc2181>.
-
-
-
-
-
-Moura, et al.            Expires August 21, 2021               [Page 14]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
-
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
@@ -804,6 +876,11 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               (AXFR)", RFC 5936, DOI 10.17487/RFC5936, June 2010,
               <https://www.rfc-editor.org/info/rfc5936>.
 
+   [RFC6891]  Damas, J., Graff, M., and P. Vixie, "Extension Mechanisms
+              for DNS (EDNS(0))", STD 75, RFC 6891,
+              DOI 10.17487/RFC6891, April 2013,
+              <https://www.rfc-editor.org/info/rfc6891>.
+
    [RFC7094]  McPherson, D., Oran, D., Thaler, D., and E. Osterweil,
               "Architectural Considerations of IP Anycast", RFC 7094,
               DOI 10.17487/RFC7094, January 2014,
@@ -813,7 +890,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
               January 2019, <https://www.rfc-editor.org/info/rfc8499>.
 
-12.2.  Informative References
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 16]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
+
+13.2.  Informative References
 
    [AnyTest]  Schmidt, R., "Anycast Testbed", December 2018,
               <http://www.anycast-testbed.com/>.
@@ -829,18 +914,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               based Internet caches", ACM 2003 IEEE INFOCOM,
               DOI 10.1109/INFCOM.2003.1208693, July 2003,
               <http://www.ieee-infocom.org/2003/papers/11_01.PDF>.
-
-
-
-
-
-
-
-
-Moura, et al.            Expires August 21, 2021               [Page 15]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
-
 
    [Moura16b]
               Moura, G., Schmidt, R., Heidemann, J., Mueller, M., Wei,
@@ -864,6 +937,30 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               DOI 10.1145/3355369.3355568, October 2019,
               <https://www.isi.edu/~johnh/PAPERS/Moura19b.pdf>.
 
+   [Moura20a]
+              Moura, G., Heidemann, J., Hardaker, W., Bulten, J., Ceron,
+              J., and C. Hesselman, "Old but Gold: Prospecting TCP to
+              Engineer DNS Anycast (extended)", Technical Report ISI-
+              TR-740 USC/Information Sciences Institute. , June 2020,
+              <https://www.isi.edu/~johnh/PAPERS/Moura20a.pdf>.
+
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 17]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
+
+   [Moura20b]
+              Moura, G., Castro, S., Hardaker, W., Wullink, M., and C.
+              Hesselman, "Clouding up the Internet: how centralized is
+              DNS traffic becoming?", ACM 2020 Internet Measurement
+              Conference, DOI 10.1145/3419394.3423625, October 2020,
+              <http://giovane-moura.nl/resources/paper/Moura20b.pdf>.
+
    [Mueller17b]
               Mueller, M., Moura, G., Schmidt, R., and J. Heidemann,
               "Recursives in the Wild- Engineering Authoritative DNS
@@ -886,18 +983,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               NCC, R., "Ripe Atlas - RIPE Network Coordination Centre",
               September 2019, <https://atlas.ripe.net/>.
 
-
-
-
-
-
-
-
-Moura, et al.            Expires August 21, 2021               [Page 16]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
-
-
    [Schmidt17a]
               Schmidt, R., Heidemann, J., and J. Kuipers, "Anycast
               Latency - How Many Sites Are Enough. In Proceedings of the
@@ -915,6 +1000,15 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
    [VerfSrc]  Vries, W., "Verfploeter source code", November 2018,
               <https://github.com/Woutifier/verfploeter>.
+
+
+
+
+
+Moura, et al.            Expires August 21, 2021               [Page 18]
+
+Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
+
 
    [Vries17b]
               Vries, W., Schmidt, R., Hardaker, W., Heidemann, J., Boer,
@@ -945,15 +1039,6 @@ Authors' Addresses
    Email: ietf@hardakers.net
 
 
-
-
-
-
-Moura, et al.            Expires August 21, 2021               [Page 17]
-
-Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
-
-
    John Heidemann
    USC/Information Sciences Institute
    4676 Admiralty Way
@@ -976,33 +1061,4 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Moura, et al.            Expires August 21, 2021               [Page 18]
+Moura, et al.            Expires August 21, 2021               [Page 19]
