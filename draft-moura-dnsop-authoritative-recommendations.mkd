@@ -661,24 +661,46 @@ accurately measure the benefits and potential issues ahead of time.
 # C4: When under stress, employ two strategies
 
 DDoS attacks are becoming bigger, cheaper, and more frequent
-{{Moura16b}}. The most powerful recorded DDoS attack to DNS servers to
-date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such
-attacks call for an answer for the following question: how should a
-DNS operator engineer its anycast authoritative DNS server react to
-the stress of a DDoS attack? This question is investigated in study
-{{Moura16b}} in which empirical observations are grounded with the
-following theoretical evaluation of options.
+{{Moura16b}}. The most powerful recorded DDoS attack against DNS
+servers to date reached 1.2 Tbps by using IoT devices
+{{Perlroth16}}. How should a DNS operator engineer its anycast
+authoritative DNS server react to such a DDoS attack?  {{Moura16b}}
+investigates this question using empirical observations grounded with
+theoretical option evaluations.
 
-An authoritative DNS server deployed using anycast will have many server instances distributed over many networks. Ultimately, the relationship between the DNS provider's network and a client's ISP will determine which anycast instance will answer queries for a given client, given that BGP is the protocol that maps clients to specific anycast instances by using routing information \[RF:KDar02\]. As a consequence, when an anycast authoritative server is under attack, the load that each anycast instance receives is likely to be unevenly distributed (a function of the source of the attacks), thus some instances may be more overloaded than others which is what was observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different instances may have different capacity (bandwidth, CPU, etc.), making a decision about how to react to stress becomes even more difficult.
+An authoritative DNS server deployed using anycast will have many
+server instances distributed over many networks. Ultimately, the
+relationship between the DNS provider's network and a client's ISP
+will determine which anycast instance will answer queries for a given
+client, given that BGP is the protocol that maps clients to specific
+anycast instances by using routing information \[RF:KDar02\]. As a
+consequence, when an anycast authoritative server is under attack, the
+load that each anycast instance receives is likely to be unevenly
+distributed (a function of the source of the attacks), thus some
+instances may be more overloaded than others which is what was
+observed analyzing the Root DNS events of Nov. 2015
+{{Moura16b}}. Given the fact that different instances may have
+different capacity (bandwidth, CPU, etc.), making a decision about how
+to react to stress becomes even more difficult.
 
-In practice, an anycast instance under stress, overloaded with incoming traffic, has two options:
+In practice, an anycast instance is overloaded with incoming traffic,
+operators have two options:
+
+* They can withdraw its routes, pre-prepend its AS route to some or
+  all of its neighbors, perform other traffic shifting tricks (such as
+  reducing route announcement propagation using BGP
+  communities{{RFC1997}}), or by communicating with its upstream
+  network providers to apply filtering (potentially using FlowSpec
+  {{RFC5575}}). These techniques shift both legitimate and attack
+  traffic to other anycast instances (with hopefully greater capacity)
+  or to block traffic entirely.
 
 
-* It can withdraw or pre-prepend its route to some or to all of its neighbors, perform other traffic shifting tricks (such as reducing the propagation of its announcements using BGP communities{{RFC1997}}) which shrinks portions of its catchment), use FlowSpec {{RFC5575}} or other upstream communication mechanisms to deploy upstream filtering. The goals of these techniques is to perform some combination of shifting of both legitimate and attack traffic to other anycast instances (with hopefully greater capacity) or to block the traffic entirely.
-
-
-* Alternatively, it can be become a degraded absorber, continuing to operate, but with overloaded ingress routers, dropping some incoming legitimate requests due to queue overflow. However, continued operation will also absorb traffic from attackers in its catchment, protecting the other anycast instances.
-
+* Alternatively, operators can be become a degraded absorber by
+  continuing to operate, knowing dropping incoming legitimate requests
+  due to queue overflow. However, this approach will also absorb
+  attack traffic directed toward its catchment, hopefully protecting
+  the other anycast instances.
 
 {{Moura16b}} saw both of these behaviors in practice in the Root DNS events, observed through instance reachability and route-trip time (RTTs). These options represent different uses of an anycast deployment. The withdrawal strategy causes anycast to respond as a waterbed, with stress displacing queries from one instance to others. The absorption strategy behaves as a conventional mattress, compressing under load, with some queries getting delayed or dropped.
 
