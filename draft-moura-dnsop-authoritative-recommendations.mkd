@@ -591,33 +591,83 @@ attacks {{Moura16b}}.
 
 # C3: Collecting anycast catchment maps to improve design
 
-An anycast DNS service may be deployed from several to more than one
-hundred locations (for example, l.root-servers.net has over 150
-anycast instances at the time this was written). Anycast leverages
-Internet routing to distribute the incoming queries to a service's
-distributed anycast locations; in theory, BGP (the Internet's de facto
-routing protocol) forwards incoming queries to a nearby anycast
-location (in terms of BGP distance). However, usually queries are not
-evenly distributed across all anycast locations, as found in the case
-of L-Root {{IcannHedge18}}.
+An anycast DNS service may be deployed from anywhere from several
+locations to hundreds of locations (for example, l.root-servers.net
+has over 150 anycast instances at the time this was written). Anycast
+leverages Internet routing to distribute incoming queries to a
+service's hop-nearest distributed anycast locations.  However, usually
+queries are not evenly distributed across all anycast locations, as
+found in the case of L-Root {{IcannHedge18}}.
 
-Adding locations to an anycast service may change the load distribution across all locations. Given that BGP maps clients to locations, whenever a new location is announced, this new location may receive more or less traffic than it was engineered for, leading to suboptimal usage of the service or even stressing the new location while leaving others underutilized. This is a scenario that operators constantly face when expanding an anycast service. Besides, when setting up a new anycast service location, operators cannot directly estimate the query distribution among the locations in advance of enabling the new location.
+Adding locations to or removing locations from a deployed anycast
+network changes the load distribution across all of its
+locations. When a new location is announced by BGP, locations may
+receive more or less traffic than it was engineered for, leading to
+suboptimal service performance or even stressing some locations while
+leaving others underutilized.  Operators constantly face this scenario
+that when expanding an anycast service. Operators cannot easily
+directly estimate future query distributions based on proposed anycast
+network engineering decisions.
 
-To estimate the query loads across locations of an expanding service or a when setting up an entirely new service, operators need detailed anycast maps and catchment estimates (i.e., operators need to know which prefixes will be matched to which anycast instance). To do that, {{Vries17b}} developed a new technique enabling operators to carry out active measurements, using an open-source tool called Verfploeter (available at [VerfSrc]). Verfploeter maps a large portion of the IPv4 address space, allowing DNS operators to predict both query distribution and clients catchment before deploying new anycast instances. At the moment of this writing, Verfploeter still does not support IPv6.
+To address this need and estimate the query loads based on changing,
+in particular expanding, anycast service changes {{Vries17b}}
+developed a new technique enabling operators to carry out active
+measurements, using an open-source tool called Verfploeter (available
+at [VerfSrc]).  The results allow the creation of detailed anycast
+maps and catchment estimates.  By running verfploeter combined with a
+published IPv4 "hit list", DNS can precisely calculate which remote
+prefixes will be matched to each anycast instance in a network.  At
+the moment of this writing, Verfploeter still does not support IPv6 as
+the IPv4 hit lists used are generated via frequent large scale ICMP
+echo scans, which is not possible using IPv6.
 
-{{Vries17b}} shows how this technique was used to predict both the catchment and query load distribution for the new anycast service of B-Root. Using two anycast instances in Miami (MIA) and Los Angeles (LAX) from the operational B-Root server, they sent ICMP echo packets to IP addresses to each IPv4 /24 on the Internet using a source address within the anycast prefix. Then, they recorded which instance the ICMP echo replies arrived at based on the Internet's BGP routing. This analysis resulted in an Internet wide catchment map. Weighting was then applied to the incoming traffic prefixes based on of 1 day of B-Root traffic (2017-04-12, DITL datasets {{Ditl17}}). The combination of the created catchment mapping and the load per prefix created an estimate predicting that 81.6% of the traffic would go to the LAX location. The actual value was 81.4% of traffic going to LAX, showing that the estimation was pretty close and the Verfploeter technique was a excellent method of predicting traffic loads in advance of a new anycast instance deployment ({{Vries17b}} also uses the term anycast site to refer to anycast location).
+As proof of concept, {{Vries17b}} documents how it verfploeter was
+used to predict both the catchment and query load distribution for a
+new anycast instance deployed for b.root-servers.net.  Using two
+anycast test instances in Miami (MIA) and Los Angeles (LAX), an ICMP
+echo query was sent from an IP anycast addresses to each IPv4 /24
+network routing block on the Internet.
 
-Besides that, Verfploeter can also be used to estimate how traffic shifts among locations when BGP manipulations are executed, such as AS Path prepending that is frequently used by production networks during DDoS attacks. A new catchment mapping for each prepending configuration configuration: no prepending, and prepending with 1, 2 or 3 hops at each instance. Then, {{Vries17b}} shows that this mapping can accurately estimate the load distribution for each configuration.
+The ICMP echo responses were recorded at both sites and analyzed and
+overlayed onto a graphical world map, resulting in an Internet scale
+catchment map.  To calculate expected load once the production network
+was enabled, the quantity of traffic received by b.root-servers.net's
+single site at LAX was recorded based on a single day's traffic
+(2017-04-12, DITL datasets {{Ditl17}}).  {{Vries17b}} predicted that
+81.6% of the traffic load would remain at the LAX site.  This estimate
+by verfploeter turned out to be very accurate; the actual measured
+traffic volume when production service at MIA was enabled was 81.4%.
 
-An important operational takeaway from {{Vries17b}} is that DNS operators can make informed choices when engineering new anycast locations or when expending new ones by carrying out active measurements using Verfploeter in advance of operationally enabling the fully anycast service. Operators can spot sub-optimal routing situations early, with a fine granularity, and with significantly better coverage than using traditional measurement platforms such as RIPE Atlas.
+Verfploeter can also be used to estimate traffic shifts based on other
+BGP route engineering techniques (for example, AS path prepending or
+BGP community use) in advance of operational deployment.  {{Vries17b}}
+studied this using prepending with 1-3 hops at each instance and
+compared the results against real operational changes to validate the
+techniques accuracy.
 
- To date, Verfploeter has been deployed on B-Root{{Vries17b}}, on a operational testbed (Anycast testbed) {{AnyTest}}, and on a large unnamed operator.
+An important operational takeaway {{Vries17b}} provides is how DNS
+operators can make informed engineering choices when changing DNS
+anycast network deployments by using Verfploeter in advance.
+Operators can identify sub-optimal routing situations in advance with
+significantly better coverage than using other active measurement
+platforms such as RIPE Atlas.  To date, Verfploeter has been deployed
+on a operational testbed (Anycast testbed) {{AnyTest}}, on a large
+unnamed operator and is run daily at b.root-servers.net{{Vries17b}}.
 
-The consideration is therefore to deploy a small test Verfploeter-enabled platform in advance at a potential anycast locations may reveal the realizable benefits of using that location as an anycast interest, potentially saving significant financial and labor costs of deploying hardware to a new location that was less effective than as had been hoped.
+Operators are encouraged to use active measurement techniques like
+Verfploeter in advance of potential anycast network changes to
+accurately measure the benefits and potential issues ahead of time.
 
 # C4: When under stress, employ two strategies
 
-DDoS attacks are becoming bigger, cheaper, and more frequent {{Moura16b}}. The most powerful recorded DDoS attack to DNS servers to date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such attacks call for an answer for the following question: how should a DNS operator engineer its anycast authoritative DNS server react to the stress of a DDoS attack? This question is investigated in study {{Moura16b}} in which empirical observations are grounded with the following theoretical evaluation of options.
+DDoS attacks are becoming bigger, cheaper, and more frequent
+{{Moura16b}}. The most powerful recorded DDoS attack to DNS servers to
+date reached 1.2 Tbps, by using IoT devices {{Perlroth16}}. Such
+attacks call for an answer for the following question: how should a
+DNS operator engineer its anycast authoritative DNS server react to
+the stress of a DDoS attack? This question is investigated in study
+{{Moura16b}} in which empirical observations are grounded with the
+following theoretical evaluation of options.
 
 An authoritative DNS server deployed using anycast will have many server instances distributed over many networks. Ultimately, the relationship between the DNS provider's network and a client's ISP will determine which anycast instance will answer queries for a given client, given that BGP is the protocol that maps clients to specific anycast instances by using routing information \[RF:KDar02\]. As a consequence, when an anycast authoritative server is under attack, the load that each anycast instance receives is likely to be unevenly distributed (a function of the source of the attacks), thus some instances may be more overloaded than others which is what was observed analyzing the Root DNS events of Nov. 2015 {{Moura16b}}. Given the fact that different instances may have different capacity (bandwidth, CPU, etc.), making a decision about how to react to stress becomes even more difficult.
 
