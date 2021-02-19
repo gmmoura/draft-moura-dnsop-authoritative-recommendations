@@ -354,9 +354,6 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    with 33 and 144 instances respectively.  The median RTT for C, K and
    L root server were all between 30-32ms.
 
-   XXX: what about F???  why is it mentioned above if we don't talk
-   about it?
-
    Because RIPE Atlas is known to have better coverage in Europe than
    other regions, the authors specifically analyzed the results per
    region and per country (Figure 5 in [Schmidt17a]), and show that
@@ -386,6 +383,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    Adding locations to or removing locations from a deployed anycast
    network changes the load distribution across all of its locations.
    When a new location is announced by BGP, locations may receive more
+   or less traffic than it was engineered for, leading to suboptimal
+   service performance or even stressing some locations while leaving
+   others underutilized.  Operators constantly face this scenario that
 
 
 
@@ -394,9 +394,6 @@ Moura, et al.            Expires August 23, 2021                [Page 7]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
-   or less traffic than it was engineered for, leading to suboptimal
-   service performance or even stressing some locations while leaving
-   others underutilized.  Operators constantly face this scenario that
    when expanding an anycast service.  Operators cannot easily directly
    estimate future query distributions based on proposed anycast network
    engineering decisions.
@@ -442,6 +439,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    operators can make informed engineering choices when changing DNS
    anycast network deployments by using Verfploeter in advance.
    Operators can identify sub-optimal routing situations in advance with
+   significantly better coverage than using other active measurement
+   platforms such as RIPE Atlas.  To date, Verfploeter has been deployed
+
 
 
 
@@ -450,8 +450,6 @@ Moura, et al.            Expires August 23, 2021                [Page 8]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
-   significantly better coverage than using other active measurement
-   platforms such as RIPE Atlas.  To date, Verfploeter has been deployed
    on a operational testbed (Anycast testbed) [AnyTest], on a large
    unnamed operator and is run daily at b.root-servers.net[Vries17b].
 
@@ -498,6 +496,8 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
    o  Alternatively, operators can be become a degraded absorber by
       continuing to operate, knowing dropping incoming legitimate
+      requests due to queue overflow.  However, this approach will also
+
 
 
 
@@ -506,7 +506,6 @@ Moura, et al.            Expires August 23, 2021                [Page 9]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
-      requests due to queue overflow.  However, this approach will also
       absorb attack traffic directed toward its catchment, hopefully
       protecting the other anycast instances.
 
@@ -554,6 +553,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
    interaction with DNS[Moura18b], but until [Moura19a] no research
    provided considerations about the benefits of various TTL value
    choices.  To study this, Moura et. al.  [Moura19a] carried out a
+   measurement study investigating TTL choices and their impact on user
 
 
 
@@ -562,7 +562,6 @@ Moura, et al.            Expires August 23, 2021               [Page 10]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
-   measurement study investigating TTL choices and their impact on user
    experiences in the wild.  They performed this study independent of
    specific resolvers (and their caching architectures), vendors, or
    setups.
@@ -610,6 +609,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
    o  Shorter caching helps DNS-based load balancing.  Many large
       services are known to rotate traffic among their servers using
+      DNS-based load balancing.  Each arriving DNS request provides an
 
 
 
@@ -618,7 +618,6 @@ Moura, et al.            Expires August 23, 2021               [Page 11]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
-      DNS-based load balancing.  Each arriving DNS request provides an
       opportunity to adjust service load by rotating IP address records
       (A and AAAA) to the lowest unused server.  Shorter TTLs may be
       desired in these architectures to react more quickly to traffic
@@ -663,6 +662,7 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
       all cached independently, so different TTLs can be used
       effectively if desired.  In either case, short A and AAAA records
       may still be desired if DDoS-mitigation services are required.
+
 
 
 
