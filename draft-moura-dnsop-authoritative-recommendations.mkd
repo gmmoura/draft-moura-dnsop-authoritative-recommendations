@@ -735,79 +735,116 @@ point to another when attempting to resolve a name {{Mueller17b}}.
 # C5: Consider longer time-to-live values whenever possible
 
 
-Caching is the cornerstone of good DNS performance and reliability. A 15 ms response to a new DNS query is fast, but a 1 ms cache hit to a repeat query is far faster. Caching also protects users from short outages and can mute even significant DDoS attacks {{Moura18b}}.
+Caching is the cornerstone of good DNS performance and reliability. A
+50 ms response to a new DNS query may be considered fast, but a less
+than 1 ms response to a cached entry is far faster. {{Moura18b}}
+showed that caching also protects users from short outages and even
+significant DDoS attacks.
 
-DNS record TTLs (time-to-live values) directly control cache duration {{RFC1034}}{{RFC1035}}
-and, therefore, affect latency, resilience, and the role of DNS in CDN server selection. Some early work modeled caches as a function of their TTLs {{Jung03a}}, and recent work examined their interaction with DNS{{Moura18b}}, but no research provides considerations about what TTL values are good. With this goal Moura et. al. {{Moura19a}} carried out a measurement study investigating TTL choices and its impact on user experience in the wild, and not focused on specific resolvers (and their caching architectures), vendors, or setups.
+DNS record TTLs (time-to-live values) {{RFC1034}}{{RFC1035}} directly
+control cache durations and affect latency, resilience, and the role
+of DNS in CDN server selection. Some early work modeled caches as a
+function of their TTLs {{Jung03a}}, and recent work has examined their
+interaction with DNS{{Moura18b}}, but until {{Moura19a}} no research
+provided considerations about the benefits of various TTL value
+choices. To study this, Moura et. al. {{Moura19a}} carried out a
+measurement study investigating TTL choices and their impact on user
+experiences in the wild.  They performed this study independent of
+specific resolvers (and their caching architectures), vendors, or
+setups.
 
-First, they identified several reasons why operators/zone owners may want to choose longer or shorter TTLs:
+First, they identified several reasons why operators and zone-owners may
+want to choose longer or shorter TTLs:
 
-  * Longer TTL leads to longer caching, which results in faster responses, given that cache hits are faster than cache misses in resolvers. {{Moura19a}} shows that the increase in the TTL for .uy TLD from 5 minutes (300s) to 1 day (86400s) reduced the latency from 15k Atlas vantage points significantly: the median RTT went from 28.7ms to 8ms, while the 75%ile decreased from 183ms to 21ms.
+  * As discussed, longer TTLs lead to a longer cache life, resulting
+    in faster responses. {{Moura19a}} measured this in the wild and
+    showed that by increasing the TTL for .uy TLD from 5 minutes
+    (300s) to 1 day (86400s) the latency measured from 15k Atlas
+    vantage points changed significantly: the median RTT decreased
+    from 28.7ms to 8ms, and the 75%ile decreased from 183ms to 21ms.
 
-  * Longer caching results in lower DNS traffic: authoritative servers will experience less traffic if TTLs are extended, given that repeated queries will be answered by resolver caches.
+  * Longer caching times also results in lower DNS traffic:
+    authoritative servers will experience less traffic with extended
+    TTLs, as repeated queries are answered by resolver caches.
 
-  * Longer caching results in lower cost if DNS is metered: some DNS-As-A-Service providers charges are metered, with a per query cost (often added to a fixed monthly cost).
+  * Consequently, longer caching results in a lower overall cost if
+    DNS is metered: some DNS-As-A-Service providers charge a per query
+    (metered) cost (often in addition to a fixed monthly cost).
 
-  * Longer caching is more robust to DDoS attacks on DNS: DDoS attacks on a DNS service provider harmed several prominent websites {{Perlroth16}}. Recent work has shown that DNS caching can greatly reduce the effects of DDoS on DNS, provided caches last longer than the attack {{Moura18b}}.
-
-
-  * Shorter caching supports operational changes: An easy way to transition from an old server to a new one is to change the DNS records.
- Since there is no method to remove cached DNS records,
-  the TTL duration represents a necessary transition delay to fully shift to a new server,
-   so low TTLs allow more rapid transition.
- However, when deployments are planned in advance (that is, longer than the TTL),
-  then TTLs can be lowered ''just-before'' a major operational change,
-  and raised again once accomplished.
-
-  * Shorter caching can help with a DNS-based response to DDoS attacks: Some DDoS-scrubbing services use DNS to redirect traffic during an attack. Since DDoS attacks arrive unannounced, DNS-based traffic redirection requires the TTL be keptquite low at all times to be ready to respond to a potential attack.
-
-
-  * Shorter caching helps DNS-based load balancing: Many large services use DNS-based load balancing. Each arriving DNS request provides an opportunity to adjust load, so short TTLs may be desired to react more quickly to traffic dynamics. (Although many recursive resolvers have minimum caching times of tens of seconds, placing a limit on agility.)
+  * Longer caching is more robust to DDoS attacks on DNS
+    infrastructure.  {{Moura18b}} also measured and show that DNS
+    caching can greatly reduce the effects of a DDoS on DNS, provided
+    that caches last longer than the attack.
 
 
-As such, choice of TTL depends in part on external factors so no single recommendation is appropriate for all. Organizations must weigh these trade-offs to find a good balance. Still, some guidelines can be used when choosing TTLs:
+  * However, shorter caching supports deployments that may require
+    rapid operational changes: An easy way to transition from an old
+    server to a new one is to simply change the DNS records.  Since
+    there is no method to remotely remove cached DNS records, the TTL
+    duration represents a necessary transition delay to fully shift
+    from one server to another.  Thus, low TTLs allow for more rapid
+    transitions.  However, when deployments are planned in advance
+    (that is, longer than the TTL), it is possible to lower the TTLs
+    just-before a major operational change and raise them again
+    afterward.
 
-  * For general users, {{Moura19a}} recommends longer TTLs, of at least one hour,
-  and ideally 8, 12, or 24 hours. Assuming planned maintenance can be scheduled at least a day in advance,  long TTLs have little cost.
+  * Shorter caching can also help with a DNS-based response to DDoS
+    attacks. Specifically, some DDoS-scrubbing services use the DNS to
+    redirect traffic during an attack. Since DDoS attacks arrive
+    unannounced, DNS-based traffic redirection requires the TTL be
+    kept quite low at all times to allow operators to suddenly have
+    their zone served by a DDoS-scrubbing service.
 
-  * For TLD operators: TLD operators that allow public registration of domains (such as most ccTLDs and .com, .net, .org) host, in their zone
-files, NS records (and glues if in-bailiwick) of their respective domains. {{Moura19a}} shows that most resolvers will use TTL values provided by the child delegations, but some will choose the TTL provided by the parents. As such, similarly to general users, {{Moura19a}} recommends longer TTLs for NS records of their delegations (at least one hour, preferably more).
+  * Shorter caching helps DNS-based load balancing. Many large
+    services are known to rotate traffic among their servers using
+    DNS-based load balancing. Each arriving DNS request provides an
+    opportunity to adjust service load by rotating IP address records
+    (A and AAAA) to the lowest unused server.  Shorter TTLs may be
+    desired in these architectures to react more quickly to traffic
+    dynamics.  Many recursive resolvers, however, have minimum caching
+    times of tens of seconds, placing a limit on this form of agility.
 
-  * Users of DNS-based load balancing or DDoS-prevention may require short TTLs: TTLs may be as short as 5 minutes, although 15 minutes may provide sufficient agility for many operators.
- Shorter TTLs here help agility; they are are an exception to the consideration for longer TTLs.
 
-  * Use A/AAAA and NS records:  TTLs of A/AAAA records should be shorter or equal to the TTL for NS records for in-bailiwick authoritative DNS servers, given that the authors {{Moura19a}} found that, for such scenarios, once NS record expires, their associated A/AAAA will also be updated (glue is sent by the parents).  For out-of-bailiwick servers,  A and NS records are usually cached independently,  so different TTLs, if desired, will be effective. In either case, short A and AAAA records may be desired if  DDoS-mitigation services are an option.
+Given these considerations, the proper choice for a TTL depends in
+part on multiple external factors -- no single recommendation is
+appropriate for all scenarios. Organizations must weigh these
+trade-offs and find a good balance for their situation. Still, some
+guidelines can be reached when choosing TTLs:
+
+  * For general DNS zone owners, {{Moura19a}} recommends a longer TTL
+    of at least one hour, and ideally 8, 12, or 24 hours. Assuming
+    planned maintenance can be scheduled at least a day in advance, long
+    TTLs have little cost and may, even, literally provide a cost savings.
+
+  * For registry operators: TLD and other public registration
+    operators (for example most ccTLDs and .com, .net, .org) that host
+    many delegations (NS records, DS records and "glue" records),
+    {{Moura19a}} demonstrates that most resolvers will use the TTL
+    values provided by the child delegations while the others some
+    will choose the TTL provided by the parent's copy of the
+    record. As such, {{Moura19a}} recommends longer TTLs (at least an
+    hour or more) for registry operators as well for child NS and
+    other records.
+
+  * Users of DNS-based load balancing or DDoS-prevention services may
+    require shorter TTLs: TTLs may even need to be as short as 5
+    minutes, although 15 minutes may provide sufficient agility for
+    many operators.  There is always a tussle between shorter TTLs
+    providing more agility against all the benefits listed above for
+    using longer TTLs.
+
+  * Use of A/AAAA and NS records: The TTLs for A/AAAA records should
+    be shorter to or equal to the TTL for the corresponding NS records
+    for in-bailiwick authoritative DNS servers, since {{Moura19a}}
+    finds that once an NS record expires, their associated A/AAAA will
+    also be re-queried when glue is required to be sent by the
+    parents.  For out-of-bailiwick servers, A, AAAA and NS records are
+    usually all cached independently, so different TTLs can be used
+    effectively if desired. In either case, short A and AAAA records
+    may still be desired if DDoS-mitigation services are required.
 
   
   
-# C6: Leverage DNS TCP traffic improve design and detect routing leaks
-
-   XXX: @Wes: I added this section based on the new tech report, but have not changed it in the rest of the text, so if we decide to keep it, we need to include it in the intro and other places -- giovane 2021-02-17
-   
-   
-RFC1035 {{RFC1035}}  states that DNS  servers should support both UDP and TCP as transport protocols.
-DNS traffic over TCP (DNS/TCP hereafter) is typically used for DNS  zone transfers {{RFC5936}} and to transmit large  DNS responses, such as when they are large than the client's advertised EDNS(0) buffer{{RFC6891}} ( authoritative servers truncate UDP responses if  they are large than the resolver's EDNS(0) buffer size, and the resolvers are expected to re-query using TCP, which has built-in mechanisms that allows to handle large messages).
-
-DNS/TCP traffic  it still can be useful in the design of authoritative services: it provides the authoritative server with the chance to measure round-trip times between to resolvers -- which is not available using  DNS/UDP. For example, the RTT can be measured during the TCP handshake, by calculating the time in between the arrival of the SYN packet, and the ACK  packet  that ACKS thet SYN-ACK response.
-
-
-Currenlty, most of DNS traffic between resolvers and authoritative servers is still UDP {{Moura20a}}. For example, for the .nl country-code top-level domain (ccTLD), 2-6% of the traffic is TPC, depending on which authoritative server and if it is over IPv4 or IPv6.  However, this traffic comes from 20--23% of all resolvers, and 45% of the Autonomous Systems.  As such, the coverage is large in terms of resolvers and ASes than in terms of individual queries. 
-
-
-Still, given the DNS traffic at authoritative servers is heavily skewed  -- 1/3 of traffic to .nl and .nz come from 5 cloud/content providers {{Moura20b}} -- it may not be needed to measure all prefixes  on the Internet (as Verfploeter{{Vries17b}} does with IPv4): only the ones that send most queries. For .nl, 96% of DNS queries come from ASes that also use DNS/TCP {{Moura20a}}.
-
-Given that, {{Moura20a}} shows that DNS/TCP provides enough coverage to measure most clients ASes of the .nl ccTLD authoritative servers. They have also shown that DNS/UDP and DNS/TCP RTT area comparable for the same servers, and extracted in near-real time RTT from DNS/TCP traffic. Then, they applied it to analyze traffic per anycast server and location and per client AS. 
-
-By doing that, they were able to identify that Google (AS15169) and Microsoft (AS8075) were polarized, i.e., they could only reach one anycast site of one of their anycast servers. They found this by observing DNS/TCP RTTs between these ASes and the authoritative servers. That trigger then to carry out BGP manipulations to remove this polarization, ultimately reducing the latency in 90% for Google.
-
-Also, by monitoring RTTs, they were able to detect route leaks when suddenly one of the anycast sites start to experience a surge in RTT, given EU traffic was sent to Australia after a Tier1 ISP propagated by mistake.
-
-DNS/TCP RTT also works well with IPv6 (while Verfploeter  does not) and measure real clients. 
-As such, we recomment authoritative server operators to leverage RTT measurements from DNS/TCP to troubleshoot and improve design of their services. 
-
-
-
-
 # Security considerations
 
 As this document discusses applying research results to operational
