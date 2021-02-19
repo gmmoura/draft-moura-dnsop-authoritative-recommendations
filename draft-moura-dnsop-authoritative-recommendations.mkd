@@ -570,6 +570,8 @@ performance in comparison to the much larger deployments of K and L,
 with 33 and 144 instances respectively. The median RTT for C, K and L
 root server were all between 30-32ms.
 
+<!-- XXX: what about F???  why is it mentioned above if we don't talk -->
+
 Because RIPE Atlas is known to have better coverage in Europe than
 other regions, the authors specifically analyzed the results per
 region and per country (Figure 5 in {{Schmidt17a}}), and show that
