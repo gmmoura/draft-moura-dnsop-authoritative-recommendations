@@ -702,14 +702,34 @@ operators have two options:
   attack traffic directed toward its catchment, hopefully protecting
   the other anycast instances.
 
-{{Moura16b}} saw both of these behaviors in practice in the Root DNS events, observed through instance reachability and route-trip time (RTTs). These options represent different uses of an anycast deployment. The withdrawal strategy causes anycast to respond as a waterbed, with stress displacing queries from one instance to others. The absorption strategy behaves as a conventional mattress, compressing under load, with some queries getting delayed or dropped.
+{{Moura16b}} saw both of these behaviors deployed in practice by
+studying instance reachability and route-trip time (RTTs) in the DNS
+root events.  When withdraw strategies were deployed, the stress of
+increased query loads were displaced from one instance to multiple
+other sites.  In other observed events, one site was left to absorb
+the brunt of an attack leaving the other sites to remain relatively
+less affected.
 
-Although described as strategies and policies, these outcomes are the result of several factors: the combination of operator and host ISP routing policies, routing implementations withdrawing under load, the nature of the attack, and the locations of the instances and the attackers. Some policies are explicit, such as the choice of local-only anycast instances, or operators removing an instance for maintenance or modifying routing to manage load. However, under stress, the choices of withdrawal and absorption can also be results that emerge from a mix of explicit choices and implementation details, such as BGP timeout values.
 
-{{Moura16b}} speculates that more careful, explicit, and automated management of policies may provide stronger defenses to overload. For DNS operators, that means that besides traditional filtering, two other options are available (withdraw/prepend/communities or isolate instances), and the best choice depends on the specifics of the attack.
+Operators should consider having both a anycast site withdraw strategy
+and a absorption strategy ready to be used before a network overload
+occurs.  Ideally, these should be encoded into operating playbooks
+with defined site measurement guidelines for which strategy to employ
+based on measured data from past events.
 
+{{Moura16b}} speculates that careful, explicit, and automated
+management policies may provide stronger defenses to overload
+events. DNS operators should be ready to employ both traditional
+filtering approaches and other routing load balancing techniques
+(withdraw/prepend/communities or isolate instances),
+where the best choice depends on the specifics of the attack.
 
-Note that this consideration refers to the operation of one anycast service, i.e., one anycast NS record. However, DNS zones with multiple authoritative anycast servers may expect load to spill from one anycast server to another, as resolvers switch from authoritative to authoritative when attempting to resolve a name {{Mueller17b}}.
+Note that this consideration refers to the operation of just one
+anycast service point, i.e., just one anycasted IP address block
+covering one NS record. However, DNS zones with multiple authoritative
+anycast servers may also expect loads to shift from one anycasted
+server to another, as resolvers switch from on authoritative service
+point to another when attempting to resolve a name {{Mueller17b}}.
 
 
 # C5: Consider longer time-to-live values whenever possible
