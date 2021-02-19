@@ -562,7 +562,7 @@ the {c,f,k,l}.root-servers.net (hereafter, "C", "F", "K" and "L")
 servers from more than 7.9k RIPE Atlas probes. RIPE Atlas is a
 Internet measurement platform with more than 12000 global vantage
 points called "Atlas Probes" -- it is used regularly by both
-researchers and operators {{RipeAtlas15a}} {{RipeAtlas19a}).
+researchers and operators {{RipeAtlas15a}} {{RipeAtlas19a}}.
 
 {{Schmidt17a}} found that the C server, a smaller anycast deployment
 consisting of only 8 instances, provided very similar overall
