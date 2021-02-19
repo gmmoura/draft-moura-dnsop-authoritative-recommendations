@@ -13,7 +13,7 @@ Expires: August 23, 2021                                    J. Heidemann
 
 
       Considerations for Large Authoritative DNS Servers Operators
-           draft-moura-dnsop-authoritative-recommendations-08
+           draft-moura-dnsop-authoritative-recommendations-09
 
 Abstract
 
@@ -676,30 +676,25 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 8.  Security considerations
 
-   As this document discusses applying research results to operational
-   deployments, there are no further security considerations, other than
-   the ones mentioned in the normative references.  Most of the
-   considerations affect mostly operational practice, though a few do
-   have security related impacts, which we'll summarize at high level.
+   This document discusses applying measured research results to
+   operational deployments.  Most of the considerations affect mostly
+   operational practice, though a few do have security related impacts.
 
-   Specifically, C4 discusses a few strategies to employ when a service
-   is under stress, providing operators with additional guidance when
-   handling denial of service attacks.
+   Specifically, C4 discusses a couple of strategies to employ when a
+   service is under stress from DDoS attacks and offers operators
+   additional guidance when handling excess traffic.
 
-   Similarly, C5 identifies both the operational and security benefits
-   to using longer time-to-live values.
+   Similarly, C5 identifies the trade-offs with respect to the
+   operational and security benefits of using longer time-to-live
+   values.
 
 9.  Privacy Considerations
 
    This document does not add any practical new privacy issues, aside
    from possible benefits in deploying longer TTLs as suggested in C5.
    Longer TTLs may help preserve a user's privacy by reducing the number
-   of requests that get transmitted in both thec lient-to-resolver and
+   of requests that get transmitted in both the client-to-resolver and
    resolver-to-authoritative cases.
-
-   DNS privacy is currently under active study, and future research
-   efforts by multiple organizations may produce more guidance in this
-   area.
 
 10.  IANA considerations
 
@@ -708,8 +703,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 11.  Acknowledgements
 
    This document is a summary of the main considerations of six research
-   works referred in this document.  As such, they were only possible
-   thanks to the hard work of the authors of these research works.
+   works performed by the authors and others.  This document would not
+   have been possible without the hard work of these authors and co-
+   authors:
 
    o  Ricardo de O.  Schmidt
 
@@ -723,6 +719,10 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
    o  Jan Harm Kuipers
 
+   o  Pieter-Tjerk de Boer
+
+   o  Aiko Pras
+
 
 
 Moura, et al.            Expires August 23, 2021               [Page 13]
@@ -730,20 +730,17 @@ Moura, et al.            Expires August 23, 2021               [Page 13]
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
 
-   o  Pieter-Tjerk de Boer
-
-   o  Aiko Pras
-
-   We would like also to thank the various reviewers of different
-   versions of this draft: Duane Wessels, Joe Abley, Toema Gavrichenkov,
+   We would like also to thank the reviewers of this draft that offered
+   valuable suggestions: Duane Wessels, Joe Abley, Toema Gavrichenkov,
    John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink,
    Klaus Darilion and Samir Jafferali, and comments provided at the IETF
    DNSOP session (IETF104).
 
-   Besides those, we would like thank those who have been individually
-   thanked in each research work, RIPE NCC and DNS OARC for their tools
-   and datasets used in this research, as well as the funding agencies
-   sponsoring the individual research works.
+   Besides those, we would like thank those acknowledged in the papers
+   this document summarizes for helping produce the results: RIPE NCC
+   and DNS OARC for their tools and datasets used in this research, as
+   well as the funding agencies sponsoring the individual research
+   works.
 
 12.  References
 
@@ -778,6 +775,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               DOI 10.17487/RFC4271, January 2006,
               <https://www.rfc-editor.org/info/rfc4271>.
 
+   [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
+              Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
+              December 2006, <https://www.rfc-editor.org/info/rfc4786>.
 
 
 
@@ -785,10 +785,6 @@ Moura, et al.            Expires August 23, 2021               [Page 14]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
-
-   [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
-              Services", BCP 126, RFC 4786, DOI 10.17487/RFC4786,
-              December 2006, <https://www.rfc-editor.org/info/rfc4786>.
 
    [RFC5575]  Marques, P., Sheth, N., Raszuk, R., Greene, B., Mauch, J.,
               and D. McPherson, "Dissemination of Flow Specification
@@ -830,9 +826,13 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               DOI 10.1109/INFCOM.2003.1208693, July 2003,
               <http://www.ieee-infocom.org/2003/papers/11_01.PDF>.
 
-
-
-
+   [Moura16b]
+              Moura, G., Schmidt, R., Heidemann, J., Mueller, M., Wei,
+              L., and C. Hesselman, "Anycast vs DDoS Evaluating the
+              November 2015 Root DNS Events.", ACM 2016 Internet
+              Measurement Conference, DOI /10.1145/2987443.2987446,
+              October 2016,
+              <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
 
 
 
@@ -841,14 +841,6 @@ Moura, et al.            Expires August 23, 2021               [Page 15]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
-
-   [Moura16b]
-              Moura, G., Schmidt, R., Heidemann, J., Mueller, M., Wei,
-              L., and C. Hesselman, "Anycast vs DDoS Evaluating the
-              November 2015 Root DNS Events.", ACM 2016 Internet
-              Measurement Conference, DOI /10.1145/2987443.2987446,
-              October 2016,
-              <https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf>.
 
    [Moura18b]
               Moura, G., Heidemann, J., Mueller, M., Schmidt, R., and M.
@@ -891,17 +883,20 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
               <https://www.nytimes.com/2016/10/22/business/internet-
               problems-attack.html>.
 
+   [RipeAtlas15a]
+              Staff, R., "RIPE Atlas A Global Internet Measurement
+              Network", September 2015, <http://ipj.dreamhosters.com/wp-
+              content/uploads/issues/2015/ipj18-3.pdf>.
+
+
+
+
 
 
 Moura, et al.            Expires August 23, 2021               [Page 16]
 
 Internet-Draft      Considerations-Large-Auth-DNS-Ops      February 2021
 
-
-   [RipeAtlas15a]
-              Staff, R., "RIPE Atlas A Global Internet Measurement
-              Network", September 2015, <http://ipj.dreamhosters.com/wp-
-              content/uploads/issues/2015/ipj18-3.pdf>.
 
    [RipeAtlas19a]
               NCC, R., "Ripe Atlas - RIPE Network Coordination Centre",
@@ -942,6 +937,11 @@ Authors' Addresses
 
    Phone: +31 26 352 5500
    Email: giovane.moura@sidn.nl
+
+
+
+
+
 
 
 
