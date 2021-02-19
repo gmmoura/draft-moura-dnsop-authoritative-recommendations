@@ -847,18 +847,16 @@ guidelines can be reached when choosing TTLs:
   
 # Security considerations
 
-As this document discusses applying research results to operational
-deployments, there are no further security considerations, other than
-the ones mentioned in the normative references.  Most of the
-considerations affect mostly operational practice, though a few do
-have security related impacts, which we'll summarize at high level.
+This document discusses applying measured research results to
+operational deployments.  Most of the considerations affect mostly
+operational practice, though a few do have security related impacts.
 
-Specifically, C4 discusses a few strategies to employ when a service
-is under stress, providing operators with additional guidance when
-handling denial of service attacks.
+Specifically, C4 discusses a couple of strategies to employ when a
+service is under stress from DDoS attacks and offers operators
+additional guidance when handling excess traffic.
 
-Similarly, C5 identifies both the operational and security benefits to
-using longer time-to-live values.
+Similarly, C5 identifies the trade-offs with respect to the
+operational and security benefits of using longer time-to-live values.
 
 <!-- verified against RFC3552 - MD -->
 
@@ -869,12 +867,8 @@ using longer time-to-live values.
 This document does not add any practical new privacy issues, aside
 from possible benefits in deploying longer TTLs as suggested in C5.
 Longer TTLs may help preserve a user's privacy by reducing the number
-of requests that get transmitted in both thec lient-to-resolver and
+of requests that get transmitted in both the client-to-resolver and
 resolver-to-authoritative cases.
-
-DNS privacy is currently under active study, and future research
-efforts by multiple organizations may produce more guidance in this
-area.
 
 # IANA considerations
 
@@ -883,8 +877,9 @@ This document has no IANA actions.
 
 # Acknowledgements
 
-This document is a summary of the main considerations of six research works referred in this document. As such, they were only possible thanks to the hard work of the authors of these research works.
-
+This document is a summary of the main considerations of six research
+works performed by the authors and others. This document would not
+have been possible without the hard work of these authors and co-authors:
 
    * Ricardo de O. Schmidt
 
@@ -902,6 +897,13 @@ This document is a summary of the main considerations of six research works refe
 
    * Aiko Pras
 
-We would like also to thank the various reviewers of different versions of this draft: Duane Wessels, Joe Abley, Töma Gavrichenkov, John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, Klaus Darilion and Samir Jafferali, and comments provided at the IETF DNSOP session (IETF104).
+We would like also to thank the reviewers of this draft that offered
+valuable suggestions: Duane Wessels, Joe Abley, Töma Gavrichenkov,
+John Levine, Michael StJohns, Kristof Tuyteleers, Stefan Ubbink, Klaus
+Darilion and Samir Jafferali, and comments provided at the IETF DNSOP
+session (IETF104).
 
-Besides those, we would like thank those who have been individually thanked in each research work, RIPE NCC and DNS OARC for their tools and datasets used in this research, as well as the funding agencies sponsoring the individual research works.
+Besides those, we would like thank those acknowledged in the papers
+this document summarizes for helping produce the results: RIPE NCC and
+DNS OARC for their tools and datasets used in this research, as well
+as the funding agencies sponsoring the individual research works.
