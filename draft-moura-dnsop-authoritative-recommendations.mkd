@@ -144,7 +144,7 @@ informative:
       ACM: 2018 Internet Measurement Conference
       DOI: 10.1145/3278532.3278534
 
-  Moura19a:
+  Moura19b:
         target: https://www.isi.edu/~johnh/PAPERS/Moura19b.pdf
         title: "Cache Me If You Can: Effects of DNS Time-to-Live"
         author:
@@ -297,7 +297,7 @@ informative:
         ACM: 2017 Internet Measurement Conference
         DOI: 10.1145/3131365.3131366
 
-  Moura19a:
+  Moura19b:
       title: Cache Me If You Can: Effects of DNS Time-to-Live
       target: https://www.isi.edu/~hardaker/papers/2019-10-cache-me-ttls.pdf
       author:
@@ -884,20 +884,20 @@ record.
 
 Because some information exists in both the parent and a child, it is
 possible for the TTL values to differ between the parent's copy and
-the child's.  {{Moura19a}} examines resolver behaviors when these
+the child's.  {{Moura19b}} examines resolver behaviors when these
 values differ in the wild, as they frequently do -- often parent zones
 have defacto TTL values that a child has no control over.  For
 example, NS records for TLDs in the root zone are all set to 2 days
 (48 hours), but some TLD's have lower values within their published
 records (the TTLs for .cl's NS records from their authoritative
-servers is 1 hour).  {{Moura19a}} also examines the differences in the
+servers is 1 hour).  {{Moura19b}} also examines the differences in the
 TTLs between the NS records and the corresponding A/AAAA records for
 the addresses of a nameserver.  RIPE Atlas nodes are used to determine
 what resolvers in the wild do with different information, and whether
 the parent's TTL is used for cache life-times ("parent-centric") or
 the child's is used ("child-centric").
 
-{{Moura19a}} finds that roughly 90% of resolvers follow the child's
+{{Moura19b}} finds that roughly 90% of resolvers follow the child's
 view of the TTL, while 10% appear parent-centric.  It additionally
 finds that resolvers behave differently for cache lifetimes for
 in-bailiwick vs out-of-bailiwick NS/A/AAAA TTL combinations.
