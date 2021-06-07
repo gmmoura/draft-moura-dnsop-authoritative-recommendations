@@ -477,32 +477,25 @@ should return the same content; typically they stay synchronized using
 DNS zone transfers (AXFR{{RFC5936}} and IXFR{{RFC1995}}), coordinating
 the zone data they all return to their clients.
 
-DNS heavily relies upon replication to support high reliability,
-ensure capacity and to reduce latency {{Moura16b}}. DNS has two
-complementary mechanisms for service replication. First, the DNs
-protocol itself supports nameserver replication through the use of
-multiple nameserver records (NS records), each operating on different
-IP addresses. Second, each of these addresses can run at multiple
-physical locations through the use of IP
-anycast{{RFC1546}}{{RFC4786}}{{RFC7094}}, by announcing the same IP
-address from each instance at multiple locations -- Internet routing
-(BGP{{RFC4271}}) associates the service's clients with their
-topologically nearest anycast instance. Outside the DNS protocol,
-replication can also be achieved by deploying load balancers at each
-physical location. Nameserver replication is strongly recommended for
-all zones (multiple NS records). IP anycast is used by many large
-zones such as the DNS Root{{AnyFRoot}}, most top-level domains{{Moura16b}} and
-many large commercial enterprises, governments and other
-organizations.
+As discussed above, the DNS heavily relies upon replication to support
+high reliability, ensure capacity and to reduce latency {{Moura16b}}.
+DNS has two complementary mechanisms for service replication:
+nameserver replication (multiple NS records) and anycast (multiple
+physical locations).  Nameserver replication is strongly recommended
+for all zones (multiple NS records), and IP anycast is used by many
+larger zones such as the DNS Root{{AnyFRoot}}, most top-level
+domains{{Moura16b}} and many large commercial enterprises, governments
+and other organizations.
 
-Most DNS operators strive to reduce service latency for users.
-However, because they only have control over their authoritative
-servers, and not over the client recursive resolvers, it is difficult
-to ensure that recursives will be served by the closest authoritative
-server. Server selection is up to the recursive resolver's software
-implementation, and different vendors and even different releases
-employ different criteria to chose the authoritative servers with
-which to communicate.
+Most DNS operators strive to reduce service latency for users, which
+is greatly affected by both of these replication techniques.  However,
+because operators only have control over their authoritative servers,
+and not over the client's recursive resolvers, it is difficult to
+ensure that recursives will be served by the closest authoritative
+server. Server selection is ultimately up to the recursive resolver's
+software implementation, and different vendors and even different
+releases employ different criteria to chose the authoritative servers
+with which to communicate.
 
 Understanding how recursive resolvers choose authoritative servers is
 a key step in improving the effectiveness of authoritative server
