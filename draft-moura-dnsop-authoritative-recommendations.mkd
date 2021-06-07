@@ -297,6 +297,22 @@ informative:
         ACM: 2017 Internet Measurement Conference
         DOI: 10.1145/3131365.3131366
 
+  Moura19a:
+      title: Cache Me If You Can: Effects of DNS Time-to-Live
+      target: https://www.isi.edu/~hardaker/papers/2019-10-cache-me-ttls.pdf
+      author:
+        - 
+          name: Giovane Moura
+        -
+          name: Wes Hardaker
+        -
+          name: John Heidemann
+        -
+          name: Ricardo de O. Schmidt
+      seriesinfo:
+        ACM: 2019 Internet Measurement Conference
+        DOI: 10.1145/3355369.3355568
+
   IcannHedge18:
           title: DNS-STATS -  Hedgehog 2.4.1
           target: http://stats.dns.icann.org/hedgehog/
@@ -855,7 +871,50 @@ guidelines can be reached when choosing TTLs:
     effectively if desired. In either case, short A and AAAA records
     may still be desired if DDoS-mitigation services are required.
 
-  
+## C6: Consider the TTL differences between parents and children
+
+Multiple record types exist or are related between the parent of a
+zone and the child.  At a minimum, NS records are supposed to be
+identical in the parent (but often are not) as or corresponding IP
+address in "glue" A/AAAA records that must exist for in-bailiwick
+authoritative servers.  Additionally, if DNSSEC ({{RFC4033}}
+{{RFC4034}} {{RFC4035}} {{RFC4509}}) is deployed for a zone the
+parent's DS record must cryptographically refer to a child's DNSKEY
+record.
+
+Because some information exists in both the parent and a child, it is
+possible for the TTL values to differ between the parent's copy and
+the child's.  {{Moura19a}} examines resolver behaviors when these
+values differ in the wild, as they frequently do -- often parent zones
+have defacto TTL values that a child has no control over.  For
+example, NS records for TLDs in the root zone are all set to 2 days
+(48 hours), but some TLD's have lower values within their published
+records (the TTLs for .cl's NS records from their authoritative
+servers is 1 hour).  {{Moura19a}} also examines the differences in the
+TTLs between the NS records and the corresponding A/AAAA records for
+the addresses of a nameserver.  RIPE Atlas nodes are used to determine
+what resolvers in the wild do with different information, and whether
+the parent's TTL is used for cache life-times ("parent-centric") or
+the child's is used ("child-centric").
+
+{{Moura19a}} finds that roughly 90% of resolvers follow the child's
+view of the TTL, while 10% appear parent-centric.  It additionally
+finds that resolvers behave differently for cache lifetimes for
+in-bailiwick vs out-of-bailiwick NS/A/AAAA TTL combinations.
+Specifically, when NS TTLs are shorter than the corresponding address
+records, most resolvers will re-query for A/AAAA records for
+in-bailiwick resolvers and switch to new address records even if the
+cache indicates the original A/AAAA records could be kept longer.  On
+the other hand, the inverse is true for out-of-bailiwick resolvers: If
+the NS record expires first resolvers will honor the original cache
+time of the nameserver's address.
+
+The important conclusion from this study is that operators cannot
+depend on their published TTL values alone -- the parent's values are
+also used for timing cache entries in the wild.  Operators that are
+planning on infrastructure changes should assume that older
+infrastructure must be left on and operational for at least the
+maximum of both the parent and child's TTLs.
   
 # Security considerations
 

@@ -31,7 +31,7 @@ That should be easy enough for you to address.
 
 Easy edits.
 
-## MABYEDONE: most of all of it has been rewritten -- need to check
+## MABYEDONE: duplication removed -- needs more verification
 
 > It has a wall-of-text problem. I would like to see a lot more
 > subheadings so that it's easier for a reader to pick out the main
@@ -62,7 +62,7 @@ Easy
 
 That might be a bit more work, but it sounds like a good idea.
 
-## TODO:
+## TODO: (combine with above)
 
 > Section 4 again could do with a title that matches the contents
 > better: it's about how many POPs are enough, and doesn't discuss
@@ -104,7 +104,9 @@ both of these strategies rapidly.
 Not sure about this comment. Have a think about it and make some changes
 or let me know why not.
 
-## TODO
+## TODO:
+* note -- that paper is missing
+    https://vdocuments.us/dns-performance-and-the-effectiveness-of-caching-badri552dirpapersdnsdnscaching02pdf.html
 
 > Since one of the target audiences is TLD operators, I would expect to
 > see some discussion of delegation NS vs DS vs glue TTLs (should they
@@ -112,13 +114,14 @@ or let me know why not.
 
 Anything you can add?
 
-## TODO
+## TODO: cache me if you can
 
 > How do the considerations for negative TTLs differ?
 
 Should be something you can add quite easily.
 
-## TODO
+## DONE: fortunately, a new paper actually addresses this so I've
+   added it.
 
 > In general this document reads a lot like an academic survey paper,
 > but I would expect an academic survey to have a much broader set of
