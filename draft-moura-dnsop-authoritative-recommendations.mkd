@@ -1,7 +1,7 @@
 ---
 title: Considerations for Large Authoritative DNS Servers Operators
 abbrev: Considerations-Large-Auth-DNS-Ops  
-docname: draft-moura-dnsop-authoritative-recommendations-09
+docname: draft-moura-dnsop-authoritative-recommendations-08
 date:
 
 # stand_alone: true
@@ -207,7 +207,7 @@ informative:
           DOI: 10.1145/3419394.3423625
 
 
-  Sigla2014:
+  Singla2014:
     title:   The Internet at the speed of light. In Proceedings of the 13th ACM
       Workshop on Hot Topics in Networks (Oct 2014)
 
@@ -336,6 +336,24 @@ informative:
             -
                 name: Ricardo de O. Schmidt
           date: December 2018
+
+  
+  AnyBest:
+          title: Best Practices in DNS Service-Provision Architecture
+          author:
+            -
+                name: Bill Woodcock
+          date: March 2016
+          target: https://meetings.icann.org/en/marrakech55/schedule/mon-tech/presentation-dns-service-provision-07mar16-en.pdf
+
+  AnyFRoot:
+          title: Anycasting f.root-serers.net
+          author:
+            - 
+                name: Suzanne Woolf
+          target: https://archive.nanog.org/meetings/nanog27/presentations/suzanne.pdf
+          date: January 2003
+          
 --- abstract
 
 Recent research work has explored the deployment characteristics and
@@ -373,7 +391,7 @@ authoritative DNS servers. In this context, "large" authoritative
 servers refers to those with a significant global user population,
 like top-level domain (TLD) operators, run by either a single or
 multiple operators.  Typically these networks are deployed on wide
-anycast networks {{RFC1546}}. These considerations may not be
+anycast networks {{RFC1546}}{{AnyBest}}. These considerations may not be
 appropriate for smaller domains, such as those used by an organization
 with users in one unicast network, or in one city or region, where
 operational goals such as uniform, global low latency are less
@@ -427,7 +445,7 @@ recursive resolvers {{RFC1034}}.
 {: #recuath title="Relationship between recursive resolvers (Re) and authoritative name servers (ATn)"}
 
 DNS queries issued by a client contribute to a user's perceived
-perceived latency and affect user experience {{Sigla2014}} depending
+perceived latency and affect user experience {{Singla2014}} depending
 on how long it takes for responses to be returned.  The DNS system has
 been subject to repeated Denial of Service (DoS) attacks (for example,
 in November 2015 {{Moura16b}}) in order to specifically degrade user
@@ -451,7 +469,7 @@ In the next sections we cover the specific consideration (C1--C5) for
 conclusions drawn within the academic papers about large authoritative
 DNS server operators.
 
-# C1: Deploy anycast in every authoritative server for better load distribution {#c1}
+# C1: Deploy anycast in every authoritative server to enhance distribution and latency {#c1}
 
 Authoritative DNS server operators announce their service using NS
 records{{RFC1034}}. Different authoritative servers for a given zone
@@ -473,7 +491,7 @@ topologically nearest anycast instance. Outside the DNS protocol,
 replication can also be achieved by deploying load balancers at each
 physical location. Nameserver replication is strongly recommended for
 all zones (multiple NS records). IP anycast is used by many large
-zones such as the DNS Root, most top-level domains{{Moura16b}} and
+zones such as the DNS Root{{AnyFRoot}}, most top-level domains{{Moura16b}} and
 many large commercial enterprises, governments and other
 organizations.
 
@@ -539,7 +557,7 @@ servers.
 because unicast cannot deliver good latency worldwide, anycast needs
 to be used to provide a low latency service worldwide.
 
-# C2: Routing can matter more than locations
+# C2: Optimizing routing is more important than location count and diversity
 
 When selecting an anycast DNS provider or setting up an anycast
 service, choosing the best number of anycast instances{{RFC4786}} to
@@ -713,9 +731,10 @@ less affected.
 
 Operators should consider having both a anycast site withdraw strategy
 and a absorption strategy ready to be used before a network overload
-occurs.  Ideally, these should be encoded into operating playbooks
-with defined site measurement guidelines for which strategy to employ
-based on measured data from past events.
+occurs.  Operators should be able to deploy one or both of these
+strategies rapidly.  Ideally, these should be encoded into operating
+playbooks with defined site measurement guidelines for which strategy
+to employ based on measured data from past events.
 
 {{Moura16b}} speculates that careful, explicit, and automated
 management policies may provide stronger defenses to overload

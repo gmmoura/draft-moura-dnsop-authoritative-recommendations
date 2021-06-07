@@ -22,12 +22,16 @@ That's a good suggestion and I'll drop Bill a note.
 
 That should be easy enough for you to address.
 
+## DONE: added links to those two
+
 > Some more suggestions for you and/or the authors:
 >
 > There seems to be a bit of repetition between sections 2 and 3 (esp.
 > second paragraph of section 3).
 
 Easy edits.
+
+## MABYEDONE: most of all of it has been rewritten -- need to check
 
 > It has a wall-of-text problem. I would like to see a lot more
 > subheadings so that it's easier for a reader to pick out the main
@@ -39,6 +43,8 @@ Easy edits.
 
 Should be pretty simple to achieve.
 
+## TODO
+
 > The title of section 3 seems to be a bit off the mark. The argument in
 > the section seems to be about latency rather than load distribution. I
 > usually understand "better" in this context to mean "even" but the
@@ -47,12 +53,16 @@ Should be pretty simple to achieve.
 
 Easy
 
+## DONE: changed section 3 title
+
 > It would be helpful to ensure all the considerations are specific and
 > actionable, e.g. "DNS operators should also take architectural
 > considerations into account when planning for deploying anycast" -
 > what architectural considerations?
 
 That might be a bit more work, but it sounds like a good idea.
+
+## TODO:
 
 > Section 4 again could do with a title that matches the contents
 > better: it's about how many POPs are enough, and doesn't discuss
@@ -63,6 +73,8 @@ That might be a bit more work, but it sounds like a good idea.
 
 Should be simple
 
+## DONE: changed the title to talk about optimization
+
 > I like that section 5 points at a practical tool.
 
 :-)
@@ -72,6 +84,9 @@ Should be simple
 > consider when choosing between them.
 
 Just needs a sentence.
+
+## DONE: sentence added: Operators should be able to deploy one or
+both of these strategies rapidly.
 
 > In section 7 I would have expected to see quite separate discussions
 > of TTLs for infrastructure records (NS, DNSKEY, DS, SOA, NS target
@@ -89,15 +104,21 @@ Just needs a sentence.
 Not sure about this comment. Have a think about it and make some changes
 or let me know why not.
 
+## TODO
+
 > Since one of the target audiences is TLD operators, I would expect to
 > see some discussion of delegation NS vs DS vs glue TTLs (should they
 > match or not? traps and pitfalls? specific values?).
 
 Anything you can add?
 
+## TODO
+
 > How do the considerations for negative TTLs differ?
 
 Should be something you can add quite easily.
+
+## TODO
 
 > In general this document reads a lot like an academic survey paper,
 > but I would expect an academic survey to have a much broader set of
@@ -107,12 +128,19 @@ Should be something you can add quite easily.
 I'm not too worried about this. If you have more citations to add, go for
 it. Otherwise, don't bother.
 
+## DONE - the papers individually have references, and I don't think
+   we want to duplicate them all in our draft.
+
 > There are a bunch of spelling / grammar problems which I assume will
 > be cleared up during copyediting
 
 I think Wes had promised to have a go at this. Any progress?
 
+## DONE - heavy rewriting
+
 > I think it's worth pointing out that the reference tag [Sigla2014]
 > should probably be [Singla2014] with an "n".
 
 Oh, yes. Please fix this.
+
+## DONE: fixed
