@@ -73,17 +73,18 @@ normative:
   RFC1995:
   RFC5575:
   RFC5936:
-  RFC4271:
+#  RFC4271:
   RFC4786:
   RFC1997:
   RFC8499:
-  RFC6891:
-  #I-D.ietf-dnsop-serve-stale:
-#have to see how to add these references on rfcs
-#https://tools.ietf.org/html/rfc7764#section-4.6
+#  RFC6891:
+
 informative:
 
-
+  RFC4033:
+  RFC4034:
+  RFC4035:
+  RFC4509:
   Moura16b:
       target: https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf
       title: Anycast vs DDoS Evaluating the November 2015 Root DNS Events.
@@ -143,69 +144,6 @@ informative:
     seriesinfo:
       ACM: 2018 Internet Measurement Conference
       DOI: 10.1145/3278532.3278534
-
-  Moura19b:
-        target: https://www.isi.edu/~johnh/PAPERS/Moura19b.pdf
-        title: "Cache Me If You Can: Effects of DNS Time-to-Live"
-        author:
-         -
-           name: Giovane C. M. Moura
-         -
-           name: John Heidemann
-         -
-           name: Ricardo de O. Schmidt
-         -
-           name: Wes Hardaker
-
-        date: 2019-10-11
-        seriesinfo:
-          ACM: 2019 Internet Measurement Conference
-          DOI: 10.1145/3355369.3355568
-
-  Moura20a:
-        target: https://www.isi.edu/~johnh/PAPERS/Moura20a.pdf
-        title: "Old but Gold: Prospecting TCP to Engineer DNS Anycast (extended)"
-        author:
-         -
-           name: Giovane C. M. Moura
-         -
-           name: John Heidemann
-         -
-           name: Wes Hardaker
-         -
-           name: Jeroen Bulten
-         -
-           name: Joao Ceron
-         -
-           name: Cristian Hesselman
-           
-
-        date: 2020-06-01
-        seriesinfo:
-          Technical Report ISI-TR-740
-          USC/Information Sciences Institute.
-
-          
-  Moura20b:
-        target: http://giovane-moura.nl/resources/paper/Moura20b.pdf
-        title: " Clouding up the Internet: how centralized is DNS traffic becoming?"
-        author:
-         -
-           name: Giovane C. M. Moura
-         -
-           name: Sebastian Castro
-         -
-           name: Wes Hardaker
-         -
-           name: Maarten Wullink
-         -
-           name: Cristian Hesselman
-
-        date: 2020-10-27
-        seriesinfo:
-          ACM: 2020 Internet Measurement Conference
-          DOI: 10.1145/3419394.3423625
-
 
   Singla2014:
     title:   The Internet at the speed of light. In Proceedings of the 13th ACM
@@ -298,7 +236,7 @@ informative:
         DOI: 10.1145/3131365.3131366
 
   Moura19b:
-      title: Cache Me If You Can: Effects of DNS Time-to-Live
+      title: "Cache Me If You Can: Effects of DNS Time-to-Live"
       target: https://www.isi.edu/~hardaker/papers/2019-10-cache-me-ttls.pdf
       author:
         - 
