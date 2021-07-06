@@ -419,11 +419,13 @@ authoritative DNS provider can engineer its production authoritative
 server network, with multiple viable choices and no necessarily single
 optimal design.
 
-In the next sections we cover the specific consideration (C1--C5) for
+# Recommendations
+
+In the next sections we cover the specific consideration (C1--C6) for
 conclusions drawn within the academic papers about large authoritative
 DNS server operators.
 
-# C1: Deploy anycast in every authoritative server to enhance distribution and latency {#c1}
+## C1: Deploy anycast in every authoritative server to enhance distribution and latency {#c1}
 
 Authoritative DNS server operators announce their service using NS
 records{{RFC1034}}. Different authoritative servers for a given zone
@@ -504,7 +506,7 @@ servers.
 because unicast cannot deliver good latency worldwide, anycast needs
 to be used to provide a low latency service worldwide.
 
-# C2: Optimizing routing is more important than location count and diversity
+## C2: Optimizing routing is more important than location count and diversity
 
 When selecting an anycast DNS provider or setting up an anycast
 service, choosing the best number of anycast instances{{RFC4786}} to
@@ -554,7 +556,7 @@ for other reasons, such as when handling Denial-of-service (DoS)
 attacks {{Moura16b}}.
 
 
-# C3: Collecting anycast catchment maps to improve design
+## C3: Collecting anycast catchment maps to improve design
 
 An anycast DNS service may be deployed from anywhere from several
 locations to hundreds of locations (for example, l.root-servers.net
@@ -623,7 +625,7 @@ Operators are encouraged to use active measurement techniques like
 Verfploeter in advance of potential anycast network changes to
 accurately measure the benefits and potential issues ahead of time.
 
-# C4: When under stress, employ two strategies
+## C4: When under stress, employ two strategies
 
 DDoS attacks are becoming bigger, cheaper, and more frequent
 {{Moura16b}}. The most powerful recorded DDoS attack against DNS
@@ -698,7 +700,7 @@ server to another, as resolvers switch from on authoritative service
 point to another when attempting to resolve a name {{Mueller17b}}.
 
 
-# C5: Consider longer time-to-live values whenever possible
+## C5: Consider longer time-to-live values whenever possible
 
 
 Caching is the cornerstone of good DNS performance and reliability. A
