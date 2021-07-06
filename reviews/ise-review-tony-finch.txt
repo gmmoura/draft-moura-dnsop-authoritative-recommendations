@@ -44,6 +44,9 @@ Easy edits.
 Should be pretty simple to achieve.
 
 ## TODO
+   (requires putting a lot of stuff in bullets or sub-sections, which
+   is a good thing to do but will take work -- maybe "background" and
+   "recommendation" subsections to each C*?)
 
 > The title of section 3 seems to be a bit off the mark. The argument in
 > the section seems to be about latency rather than load distribution. I
@@ -114,7 +117,7 @@ or let me know why not.
 
 Anything you can add?
 
-## TODO: cache me if you can
+## TODO: cache me if you can -- but...  that's adding a whole new section
 
 > How do the considerations for negative TTLs differ?
 
