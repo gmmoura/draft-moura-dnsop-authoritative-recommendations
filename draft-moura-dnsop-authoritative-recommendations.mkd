@@ -711,9 +711,9 @@ DNS record TTLs (time-to-live values) {{RFC1034}}{{RFC1035}} directly
 control cache durations and affect latency, resilience, and the role
 of DNS in CDN server selection. Some early work modeled caches as a
 function of their TTLs {{Jung03a}}, and recent work has examined their
-interaction with DNS{{Moura18b}}, but until {{Moura19a}} no research
+interaction with DNS{{Moura18b}}, but until {{Moura19b}} no research
 provided considerations about the benefits of various TTL value
-choices. To study this, Moura et. al. {{Moura19a}} carried out a
+choices. To study this, Moura et. al. {{Moura19b}} carried out a
 measurement study investigating TTL choices and their impact on user
 experiences in the wild.  They performed this study independent of
 specific resolvers (and their caching architectures), vendors, or
@@ -723,7 +723,7 @@ First, they identified several reasons why operators and zone-owners may
 want to choose longer or shorter TTLs:
 
   * As discussed, longer TTLs lead to a longer cache life, resulting
-    in faster responses. {{Moura19a}} measured this in the wild and
+    in faster responses. {{Moura19b}} measured this in the wild and
     showed that by increasing the TTL for .uy TLD from 5 minutes
     (300s) to 1 day (86400s) the latency measured from 15k Atlas
     vantage points changed significantly: the median RTT decreased
@@ -777,7 +777,7 @@ appropriate for all scenarios. Organizations must weigh these
 trade-offs and find a good balance for their situation. Still, some
 guidelines can be reached when choosing TTLs:
 
-  * For general DNS zone owners, {{Moura19a}} recommends a longer TTL
+  * For general DNS zone owners, {{Moura19b}} recommends a longer TTL
     of at least one hour, and ideally 8, 12, or 24 hours. Assuming
     planned maintenance can be scheduled at least a day in advance, long
     TTLs have little cost and may, even, literally provide a cost savings.
@@ -785,10 +785,10 @@ guidelines can be reached when choosing TTLs:
   * For registry operators: TLD and other public registration
     operators (for example most ccTLDs and .com, .net, .org) that host
     many delegations (NS records, DS records and "glue" records),
-    {{Moura19a}} demonstrates that most resolvers will use the TTL
+    {{Moura19b}} demonstrates that most resolvers will use the TTL
     values provided by the child delegations while the others some
     will choose the TTL provided by the parent's copy of the
-    record. As such, {{Moura19a}} recommends longer TTLs (at least an
+    record. As such, {{Moura19b}} recommends longer TTLs (at least an
     hour or more) for registry operators as well for child NS and
     other records.
 
@@ -801,7 +801,7 @@ guidelines can be reached when choosing TTLs:
 
   * Use of A/AAAA and NS records: The TTLs for A/AAAA records should
     be shorter to or equal to the TTL for the corresponding NS records
-    for in-bailiwick authoritative DNS servers, since {{Moura19a}}
+    for in-bailiwick authoritative DNS servers, since {{Moura19b}}
     finds that once an NS record expires, their associated A/AAAA will
     also be re-queried when glue is required to be sent by the
     parents.  For out-of-bailiwick servers, A, AAAA and NS records are
