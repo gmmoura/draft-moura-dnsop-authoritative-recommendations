@@ -558,11 +558,12 @@ the number of sites.
 The important conclusion of {{Schmidt17a}} is that when engineering
 anycast services for performance, factors other than just the number
 of instances (such as local routing connectivity) must be considered.
-They showed that 12 instances can provide reasonable latency, assuming
-they are globally distributed and have good local
-interconnectivity. However, additional instances can still be useful
-for other reasons, such as when handling Denial-of-service (DoS)
-attacks {{Moura16b}}.
+Specifically, optimizing routing policies is more important than
+simply adding new instances.  They showed that 12 instances can
+provide reasonable latency, assuming they are globally distributed and
+have good local interconnectivity. However, additional instances can
+still be useful for other reasons, such as when handling
+Denial-of-service (DoS) attacks {{Moura16b}}.
 
 
 ## C3: Collecting anycast catchment maps to improve design
@@ -634,9 +635,9 @@ platforms such as RIPE Atlas.  To date, Verfploeter has been deployed
 on a operational testbed (Anycast testbed) {{AnyTest}}, on a large
 unnamed operator and is run daily at b.root-servers.net{{Vries17b}}.
 
-Operators are encouraged to use active measurement techniques like
-Verfploeter in advance of potential anycast network changes to
-accurately measure the benefits and potential issues ahead of time.
+Operators should use active measurement techniques like Verfploeter in
+advance of potential anycast network changes to accurately measure the
+benefits and potential issues ahead of time.
 
 ## C4: When under stress, employ two strategies
 
