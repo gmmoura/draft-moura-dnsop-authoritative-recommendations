@@ -5,11 +5,11 @@
 DNSOP Working Group                                         G.C.M. Moura
 Internet-Draft                                        SIDN Labs/TU Delft
 Intended status: Informational                               W. Hardaker
-Expires: 10 January 2022                                    J. Heidemann
+Expires: 24 February 2022                                   J. Heidemann
                                       USC/Information Sciences Institute
                                                                M. Davids
                                                                SIDN Labs
-                                                             9 July 2021
+                                                          23 August 2021
 
 
       Considerations for Large Authoritative DNS Servers Operators
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 January 2022.
+   This Internet-Draft will expire on 24 February 2022.
 
 
 
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 1]
+Moura, et al.           Expires 24 February 2022                [Page 1]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 2]
+Moura, et al.           Expires 24 February 2022                [Page 2]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  17
@@ -165,9 +165,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 3]
+Moura, et al.           Expires 24 February 2022                [Page 3]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    client typically employs a software library called a stub resolver
@@ -221,9 +221,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 4]
+Moura, et al.           Expires 24 February 2022                [Page 4]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
 3.  Recommendations
@@ -277,9 +277,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 5]
+Moura, et al.           Expires 24 February 2022                [Page 5]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    authoritatives with lower latency: the lower the latency between a
@@ -333,9 +333,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 6]
+Moura, et al.           Expires 24 February 2022                [Page 6]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    This is not necessarily true, however.  In fact, [Schmidt17a] found
@@ -372,11 +372,12 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
    The important conclusion of [Schmidt17a] is that when engineering
    anycast services for performance, factors other than just the number
    of instances (such as local routing connectivity) must be considered.
-   They showed that 12 instances can provide reasonable latency,
-   assuming they are globally distributed and have good local
-   interconnectivity.  However, additional instances can still be useful
-   for other reasons, such as when handling Denial-of-service (DoS)
-   attacks [Moura16b].
+   Specifically, optimizing routing policies is more important than
+   simply adding new instances.  They showed that 12 instances can
+   provide reasonable latency, assuming they are globally distributed
+   and have good local interconnectivity.  However, additional instances
+   can still be useful for other reasons, such as when handling Denial-
+   of-service (DoS) attacks [Moura16b].
 
 3.3.  C3: Collecting anycast catchment maps to improve design
 
@@ -388,10 +389,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-
-Moura, et al.            Expires 10 January 2022                [Page 7]
+Moura, et al.           Expires 24 February 2022                [Page 7]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
 3.3.1.  Research background
@@ -445,9 +445,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 8]
+Moura, et al.           Expires 24 February 2022                [Page 8]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    The ICMP echo responses were recorded at both sites and analyzed and
@@ -479,9 +479,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
    on a operational testbed (Anycast testbed) [AnyTest], on a large
    unnamed operator and is run daily at b.root-servers.net[Vries17b].
 
-   Operators are encouraged to use active measurement techniques like
-   Verfploeter in advance of potential anycast network changes to
-   accurately measure the benefits and potential issues ahead of time.
+   Operators should use active measurement techniques like Verfploeter
+   in advance of potential anycast network changes to accurately measure
+   the benefits and potential issues ahead of time.
 
 3.4.  C4: When under stress, employ two strategies
 
@@ -501,9 +501,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022                [Page 9]
+Moura, et al.           Expires 24 February 2022                [Page 9]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    will determine which anycast instance will answer queries for a given
@@ -557,9 +557,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 10]
+Moura, et al.           Expires 24 February 2022               [Page 10]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    [Moura16b] speculates that careful, explicit, and automated
@@ -613,9 +613,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 11]
+Moura, et al.           Expires 24 February 2022               [Page 11]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    *  Longer caching times also results in lower DNS traffic:
@@ -669,9 +669,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 12]
+Moura, et al.           Expires 24 February 2022               [Page 12]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    *  For general DNS zone owners, [Moura19b] recommends a longer TTL of
@@ -725,9 +725,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 13]
+Moura, et al.           Expires 24 February 2022               [Page 13]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    values differ in the wild, as they frequently do -- often parent
@@ -781,9 +781,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 14]
+Moura, et al.           Expires 24 February 2022               [Page 14]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
 5.  Privacy Considerations
@@ -837,9 +837,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 15]
+Moura, et al.           Expires 24 February 2022               [Page 15]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
 8.1.  Normative References
@@ -893,9 +893,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 16]
+Moura, et al.           Expires 24 February 2022               [Page 16]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
 8.2.  Informative References
@@ -949,9 +949,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 17]
+Moura, et al.           Expires 24 February 2022               [Page 17]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    [Mueller17b]
@@ -1005,9 +1005,9 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-Moura, et al.            Expires 10 January 2022               [Page 18]
+Moura, et al.           Expires 24 February 2022               [Page 18]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    [Singla2014]
@@ -1033,7 +1033,8 @@ Authors' Addresses
    Giovane C. M. Moura
    SIDN Labs/TU Delft
    Meander 501
-   Arnhem
+   6825 MD Arnhem
+   Netherlands
 
    Phone: +31 26 352 5500
    Email: giovane.moura@sidn.nl
@@ -1042,7 +1043,8 @@ Authors' Addresses
    Wes Hardaker
    USC/Information Sciences Institute
    PO Box 382
-   Davis
+   Davis,  95617-0382
+   United States of America
 
    Phone: +1 (530) 404-0099
    Email: ietf@hardakers.net
@@ -1051,25 +1053,24 @@ Authors' Addresses
    John Heidemann
    USC/Information Sciences Institute
    4676 Admiralty Way
-   Marina Del Rey
+   Marina Del Rey,  90292-6695
+   United States of America
 
    Phone: +1 (310) 448-8708
    Email: johnh@isi.edu
 
 
 
-
-
-
-Moura, et al.            Expires 10 January 2022               [Page 19]
+Moura, et al.           Expires 24 February 2022               [Page 19]
 
-Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
+Internet-Draft      Considerations-Large-Auth-DNS-Ops        August 2021
 
 
    Marco Davids
    SIDN Labs
    Meander 501
-   Arnhem
+   6825 MD Arnhem
+   Netherlands
 
    Phone: +31 26 352 5500
    Email: marco.davids@sidn.nl
@@ -1116,5 +1117,4 @@ Internet-Draft      Considerations-Large-Auth-DNS-Ops          July 2021
 
 
 
-
-Moura, et al.            Expires 10 January 2022               [Page 20]
+Moura, et al.           Expires 24 February 2022               [Page 20]
