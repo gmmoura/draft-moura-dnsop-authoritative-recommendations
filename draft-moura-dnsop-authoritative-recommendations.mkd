@@ -427,6 +427,8 @@ DNS server operators.
 
 ## C1: Deploy anycast in every authoritative server to enhance distribution and latency {#c1}
 
+### Research background
+
 Authoritative DNS server operators announce their service using NS
 records{{RFC1034}}. Different authoritative servers for a given zone
 should return the same content; typically they stay synchronized using
@@ -460,7 +462,6 @@ deployments. To measure and evaluate server deployments,
 different global locations and then queried them from more than 9000
 RIPE authoritative server operators and their respective recursive
 resolvers.
-<!-- wjh: this last sentence doesn't make sense -->
 
 {{Mueller17b}} found that recursive resolvers in the wild query all
 available authoritative servers, regardless of the observed
@@ -477,6 +478,8 @@ servers: resolvers regularly check all listed authoritative servers in
 an NS set to determine which is closer (the least latent) and when one
 isn't available selects one of the alternatives.
 
+### Resulting considerations
+
 For an authoritative DNS operator, this result means that the latency
 of all authoritative servers (NS records) matter, so they all must be
 similarly capable -- all available authoritatives will be queried by
@@ -484,7 +487,9 @@ most recursive resolvers. Unicasted services, unfortunately, cannot
 deliver good latency worldwide (a unicast authoritative server in
 Europe will always have high latency to resolvers in California and
 Australia, for example, given its geographical
-distance). {{Mueller17b}} recommends that DNS operators deploy equally
+distance).
+
+{{Mueller17b}} recommends that DNS operators deploy equally
 strong IP anycast instances for every authoritative server (i.e., for
 each NS record).  Each large authoritative DNS server provider should
 phase out their usage of unicast and deploy a well engineered number
@@ -507,6 +512,8 @@ because unicast cannot deliver good latency worldwide, anycast needs
 to be used to provide a low latency service worldwide.
 
 ## C2: Optimizing routing is more important than location count and diversity
+
+### Research background
 
 When selecting an anycast DNS provider or setting up an anycast
 service, choosing the best number of anycast instances{{RFC4786}} to
@@ -546,6 +553,8 @@ known Atlas bias toward Europe does not change the conclusion that
 properly selected anycast locations is more important to latency than
 the number of sites.
 
+### Resulting considerations
+
 The important conclusion of {{Schmidt17a}} is that when engineering
 anycast services for performance, factors other than just the number
 of instances (such as local routing connectivity) must be considered.
@@ -557,6 +566,8 @@ attacks {{Moura16b}}.
 
 
 ## C3: Collecting anycast catchment maps to improve design
+
+### Research background
 
 An anycast DNS service may be deployed from anywhere from several
 locations to hundreds of locations (for example, l.root-servers.net
@@ -612,6 +623,8 @@ studied this using prepending with 1-3 hops at each instance and
 compared the results against real operational changes to validate the
 techniques accuracy.
 
+### Resulting considerations
+
 An important operational takeaway {{Vries17b}} provides is how DNS
 operators can make informed engineering choices when changing DNS
 anycast network deployments by using Verfploeter in advance.
@@ -626,6 +639,8 @@ Verfploeter in advance of potential anycast network changes to
 accurately measure the benefits and potential issues ahead of time.
 
 ## C4: When under stress, employ two strategies
+
+### Research background
 
 DDoS attacks are becoming bigger, cheaper, and more frequent
 {{Moura16b}}. The most powerful recorded DDoS attack against DNS
@@ -678,6 +693,8 @@ the brunt of an attack leaving the other sites to remain relatively
 less affected.
 
 
+### Resulting considerations
+
 Operators should consider having both a anycast site withdraw strategy
 and a absorption strategy ready to be used before a network overload
 occurs.  Operators should be able to deploy one or both of these
@@ -702,6 +719,8 @@ point to another when attempting to resolve a name {{Mueller17b}}.
 
 ## C5: Consider longer time-to-live values whenever possible
 
+
+### Research background
 
 Caching is the cornerstone of good DNS performance and reliability. A
 50 ms response to a new DNS query may be considered fast, but a less
@@ -773,6 +792,8 @@ want to choose longer or shorter TTLs:
     times of tens of seconds, placing a limit on this form of agility.
 
 
+### Resulting considerations
+
 Given these considerations, the proper choice for a TTL depends in
 part on multiple external factors -- no single recommendation is
 appropriate for all scenarios. Organizations must weigh these
@@ -813,6 +834,8 @@ guidelines can be reached when choosing TTLs:
 
 ## C6: Consider the TTL differences between parents and children
 
+### Research background
+
 Multiple record types exist or are related between the parent of a
 zone and the child.  At a minimum, NS records are supposed to be
 identical in the parent (but often are not) as or corresponding IP
@@ -848,6 +871,8 @@ cache indicates the original A/AAAA records could be kept longer.  On
 the other hand, the inverse is true for out-of-bailiwick resolvers: If
 the NS record expires first resolvers will honor the original cache
 time of the nameserver's address.
+
+### Resulting considerations
 
 The important conclusion from this study is that operators cannot
 depend on their published TTL values alone -- the parent's values are
