@@ -29,7 +29,7 @@ author:
         street: Meander 501
         city: Arnhem
         code: 6825 MD
-        country: The Netherlands
+        country: NL
         phone: +31 26 352 5500
         email: giovane.moura@sidn.nl
       -
@@ -39,7 +39,7 @@ author:
         street: PO Box 382
         city: Davis
         code: 95617-0382
-        country: U.S.A.
+        country: US
         phone:  +1 (530) 404-0099
         email: ietf@hardakers.net
       -
@@ -49,7 +49,7 @@ author:
         street: 4676 Admiralty Way
         city: Marina Del Rey
         code: 90292-6695
-        country: U.S.A.
+        country: UL
         phone:  +1 (310) 448-8708
         email: johnh@isi.edu        
       -
@@ -59,7 +59,7 @@ author:
        city: Arnhem
        street: Meander 501
        code: 6825 MD
-       country: The Netherlands
+       country: NL
        phone: +31 26 352 5500
        email: marco.davids@sidn.nl        
 
