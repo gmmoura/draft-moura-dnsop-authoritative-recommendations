@@ -49,7 +49,7 @@ author:
         street: 4676 Admiralty Way
         city: Marina Del Rey
         code: 90292-6695
-        country: UL
+        country: US
         phone:  +1 (310) 448-8708
         email: johnh@isi.edu        
       -
