@@ -334,7 +334,7 @@ This document summarizes recent research work that explored the
 deployed DNS configurations and offers derived, specific tangible
 advice to DNS authoritative server operators (DNS operators
 hereafter).  The considerations (C1–C5) presented in this document are
-backed by published research work, which used wide-scale Internet
+backed by peer-reviewed research works, which used wide-scale Internet
 measurements to draw their conclusions. This document summarizes the
 research results and describes the resulting key engineering options.
 In each section, it points readers to the pertinent publications where
@@ -516,7 +516,7 @@ to be used to provide a low latency service worldwide.
 ### Research background
 
 When selecting an anycast DNS provider or setting up an anycast
-service, choosing the best number of anycast instances{{RFC4786}} to
+service, choosing the best number of anycast instances{{RFC4786}}{{RFC7094}}  to
 deploy is a challenging problem.  Selecting where and how many global
 locations to announce from using BGP is tricky.  Intuitively, one
 could naively think that the more instances the better and simply
