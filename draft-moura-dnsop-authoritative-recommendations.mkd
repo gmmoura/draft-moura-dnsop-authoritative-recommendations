@@ -419,11 +419,15 @@ authoritative DNS provider can engineer its production authoritative
 server network, with multiple viable choices and no necessarily single
 optimal design.
 
-# Recommendations
+# Considerations
 
 In the next sections we cover the specific consideration (C1--C6) for
 conclusions drawn within the academic papers about large authoritative
-DNS server operators.
+DNS server operators.  These considerations are conclusions reached
+from academic works that authoritative server operators may wish to
+consider in order to improve their DNS service.  Each consideration
+offers different improvements that may impact service latency,
+routing, anycast deployment, and defensive strategies for example.
 
 ## C1: Deploy anycast in every authoritative server to enhance distribution and latency {#c1}
 
