@@ -71,12 +71,12 @@ normative:
   RFC1546:
   RFC1035:
   RFC1995:
-  RFC5575:
   RFC5936:
 #  RFC4271:
   RFC4786:
   RFC1997:
   RFC8499:
+  RFC8955:
 #  RFC6891:
 
 informative:
@@ -674,7 +674,7 @@ operators have two options:
   reducing route announcement propagation using BGP
   communities{{RFC1997}}), or by communicating with its upstream
   network providers to apply filtering (potentially using FlowSpec
-  {{RFC5575}}). These techniques shift both legitimate and attack
+  {{RFC8955}}). These techniques shift both legitimate and attack
   traffic to other anycast instances (with hopefully greater capacity)
   or to block traffic entirely.
 
