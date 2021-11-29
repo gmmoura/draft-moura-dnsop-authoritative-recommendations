@@ -313,8 +313,9 @@ informative:
 Recent research work has explored the deployment characteristics and
 configuration of the Domain Name System (DNS).  This document
 summarizes the conclusions from these research efforts and offers
-specific, tangible advice to operators when configuring authoritative
-DNS servers.
+specific, tangible considerations or advice to authoritative DNS
+server operators.  Authoritative server operators may wish to  follow
+these considerations to improve their DNS services.
 
 It is possible that the results presented in this document could be
 applicable in a wider context than just the DNS protocol,
