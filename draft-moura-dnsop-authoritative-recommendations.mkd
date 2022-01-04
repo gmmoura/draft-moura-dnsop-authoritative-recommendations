@@ -76,6 +76,8 @@ normative:
   RFC4786:
   RFC1997:
   RFC8499:
+  RFC8782:
+  RFC8783:
   RFC8955:
 #  RFC6891:
 
@@ -85,6 +87,7 @@ informative:
   RFC4034:
   RFC4035:
   RFC4509:
+  RFC8811:
   Moura16b:
       target: https://www.isi.edu/~johnh/PAPERS/Moura16b.pdf
       title: Anycast vs DDoS Evaluating the November 2015 Root DNS Events.
@@ -679,9 +682,10 @@ operators have two options:
   reducing route announcement propagation using BGP
   communities{{RFC1997}}), or by communicating with its upstream
   network providers to apply filtering (potentially using FlowSpec
-  {{RFC8955}}). These techniques shift both legitimate and attack
-  traffic to other anycast instances (with hopefully greater capacity)
-  or to block traffic entirely.
+  {{RFC8955}} or DOTS protocol ({{RFC8811}}, {{RFC8782}}, {{RFC8783}}). These
+  techniques shift both legitimate and attack traffic to other anycast
+  instances (with hopefully greater capacity) or to block traffic
+  entirely.
 
 
 * Alternatively, operators can be become a degraded absorber by
