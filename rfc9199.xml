@@ -139,12 +139,14 @@ Perhaps B:
    those used by an organization with users in one unicast network or in
    a single city or region, where operational goals such as uniform, global
    low latency are not as necessary.
+
+ACTION: B is correct and replaced below
 -->
-These considerations may not be
-appropriate for smaller domains, such as those used by an organization
-with users in one unicast network, or in one city or region, where
-operational goals such as uniform, global low latency are less
-required.</t>
+These considerations may not be appropriate for smaller domains, such as
+those used by an organization with users in one unicast network or in
+a single city or region, where operational goals such as uniform, global
+low latency are not as necessary.
+</t>
       <t>It is possible that the results presented in this document could be
 applicable in a wider context than just the DNS protocol, as some of
 the results may generically apply to any stateless/short-duration
