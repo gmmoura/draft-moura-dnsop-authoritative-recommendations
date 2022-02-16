@@ -865,6 +865,8 @@ Original:
 Perhaps:
    [Moura16b] saw both of these behaviors deployed in practice by
    studying instance reachability and RTTs in the DNS root events.
+
+ACTION: good catch; route-trip time is very wrong :-)  Thanks.
 -->
 
 	    <xref target="Moura16b" format="default"/> saw both of these behaviors deployed in practice by
