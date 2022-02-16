@@ -533,6 +533,7 @@ to be used to provide a low-latency service worldwide.</t>
           <t>When selecting an anycast DNS provider or setting up an anycast
 service, choosing the best number of anycast instances <xref target="RFC4786" format="default"/> <xref target="RFC7094" format="default"/>  to
 deploy is a challenging problem.
+
 <!-- [rfced] May we update "from using BGP" to "when using BGP" for clarity?
 
 Original:
@@ -542,6 +543,16 @@ Original:
 Perhaps:
    Selecting where and how many global locations 
    to announce when using BGP is tricky.
+
+ACTION: No, that doesn't work.  The sentence is describing what
+physical points should be sending announcements (hence the "from").
+Does this rephrasing work better:?
+
+   Selecting the right quantity and set of global locations 
+   that should send BGP announcements is tricky.
+
+[I did not do a replacement]
+
 -->
 
 <!-- [rfced] Would "more instances are better" be an accurate

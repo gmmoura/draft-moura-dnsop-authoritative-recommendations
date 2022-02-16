@@ -256,6 +256,16 @@ Original:
 Perhaps:
    Selecting where and how many global locations 
    to announce when using BGP is tricky.
+
+ACTION: No, that doesn't work.  The sentence is describing what
+physical points should be sending announcements (hence the "from").
+Does this rephrasing work better:?
+
+   Selecting the right quantity and set of global locations 
+   that should send BGP announcements is tricky.
+
+[I did not do a replacement]
+
 -->
 
 
