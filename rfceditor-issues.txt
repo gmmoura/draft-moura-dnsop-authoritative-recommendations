@@ -279,6 +279,8 @@ Original:
 Perhaps:
   Intuitively, one could naively think that more instances are better and
   that simply "more" will always lead to shorter response times.
+
+ACTION: yes, that works.  Replaced.
 -->
 
 

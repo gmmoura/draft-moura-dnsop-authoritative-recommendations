@@ -565,12 +565,14 @@ Original:
 Perhaps:
   Intuitively, one could naively think that more instances are better and
   that simply "more" will always lead to shorter response times.
+
+ACTION: yes, that works.  Replaced.
 -->
 
 
 Selecting where and how many global
 locations to announce from using BGP is tricky.  Intuitively, one
-could naively think that the more instances the better and simply
+could naively think that more instances are better and that simply
 "more" will always lead to shorter response times.</t>
           <t>This is not necessarily true, however. In fact, <xref target="Schmidt17a" format="default"/> found
 that proper route engineering can matter more than the total number of
