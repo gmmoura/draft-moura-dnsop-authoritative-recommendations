@@ -380,6 +380,9 @@ Original:
 Perhaps:
    ...given that BGP is the protocol that maps clients to specific anycast
    instances by using routing information.
+
+ACTION: I changed the wording a bit for clarity and removed the
+reference.  I'm not sure what it was from.
 -->
 
 

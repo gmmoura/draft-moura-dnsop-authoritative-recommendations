@@ -799,13 +799,16 @@ Original:
 Perhaps:
    ...given that BGP is the protocol that maps clients to specific anycast
    instances by using routing information.
+
+ACTION: I changed the wording a bit for clarity and removed the
+reference.  I'm not sure what it was from.
 -->
           <t>An authoritative DNS server deployed using anycast will have many
 server instances distributed over many networks. Ultimately, the
 relationship between the DNS provider's network and a client's ISP
 will determine which anycast instance will answer queries for a given
-client, given that BGP is the protocol that maps clients to specific
-anycast instances by using routing information [RF:KDar02]. As a
+client, given that the BGP protocol maps clients to specific
+anycast instances using routing information. As a
 consequence, when an anycast authoritative server is under attack, the
 load that each anycast instance receives is likely to be unevenly
 distributed (a function of the source of the attacks); thus, some
