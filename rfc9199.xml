@@ -940,6 +940,8 @@ Current:
    Time-to-live (TTL) values [RFC1034][RFC1035] for DNS records directly 
    control cache durations and affect latency, resilience, and the role 
    of DNS in Content Delivery Network (CDN) server selection. 
+
+ACTION: looks good, thanks
 -->
 
           <t>Time-to-live (TTL) values <xref target="RFC1034" format="default"/> <xref target="RFC1035" format="default"/> for DNS records directly
@@ -954,7 +956,10 @@ Original:
 
 Perhaps:
    Some early work modeled caches as a function of their TTLs [Jung03a],
-   and recent work has examined cache interactions with DNS [Moura18b]...
+   and recent work has examined cache interactions with DNS
+   [Moura18b]...
+
+ACTION: that works, yes.  Thanks.
 -->
 
 Some early work modeled caches as a
