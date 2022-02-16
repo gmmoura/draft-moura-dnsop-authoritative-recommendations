@@ -830,6 +830,8 @@ Perhaps:
    ...by communicating with its upstream network providers to apply filtering
    (potentially using FlowSpec [RFC8955] or the DDoS Open Threat Signaling (DOTS)
    protocol [RFC8783][RFC8811][RFC9132]).
+
+ACTION: yes, replacing it it is fine.
 -->
           <t>In practice, when an anycast instance is overloaded with incoming traffic,
 operators have two options:</t>
@@ -840,7 +842,7 @@ all of its neighbors, perform other traffic-shifting tricks (such as
 reducing route announcement propagation using BGP
 communities <xref target="RFC1997" format="default"/>), or communicate with its upstream
 network providers to apply filtering (potentially using FlowSpec <xref target="RFC8955" format="default"/> or the DDoS Open Threat Signaling (DOTS) protocol <xref target="RFC8811"
-format="default"/> <xref target="RFC8782" format="default"/> <xref target="RFC8783" format="default"/>). These techniques shift both legitimate and attack traffic to other anycast instances (with hopefully greater capacity) or block traffic
+format="default"/> <xref target="RFC9132" format="default"/> <xref target="RFC8783" format="default"/>). These techniques shift both legitimate and attack traffic to other anycast instances (with hopefully greater capacity) or block traffic
 entirely.</li>
             <li>Alternatively, operators can become degraded absorbers by
 continuing to operate, knowing dropping incoming legitimate requests
@@ -1190,7 +1192,7 @@ resolver-to-authoritative cases.</t>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4786.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8499.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8782.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9132.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8783.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8955.xml"/>
       </references>

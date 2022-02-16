@@ -398,6 +398,9 @@ Perhaps:
    ...by communicating with its upstream network providers to apply filtering
    (potentially using FlowSpec [RFC8955] or the DDoS Open Threat Signaling (DOTS)
    protocol [RFC8783][RFC8811][RFC9132]).
+
+ACTION: yes, replacing it it is fine.
+
 -->
 
 
