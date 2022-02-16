@@ -900,11 +900,17 @@ Perhaps:
    DNS operators should be ready to employ both traditional filtering
    approaches and other routing load-balancing techniques (withdraw/prepend
    communities or isolate instances)
+
+ACTION: no, that doesn't work.  Inserted a proposed, more verbose, replacement:
+
+  (such as withdrawing routes, prepending ASes, adding communities or
+  isolating instances)
 -->
 
 
-(withdraw/prepend/communities or isolate instances),
-where the best choice depends on the specifics of the attack.</t>
+(such as withdrawing routes, prepending ASes, adding communities or
+isolating instances), where the best choice depends on the specifics
+of the attack.</t>
           <t>Note that this consideration refers to the operation of just one
 anycast service point, i.e., just one anycasted IP address block
 covering one NS record. However, DNS zones with multiple authoritative
