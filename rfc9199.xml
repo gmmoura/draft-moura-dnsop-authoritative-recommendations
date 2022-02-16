@@ -163,11 +163,14 @@ Perhaps:
    Because the conclusions of the reviewed studies don't measure smaller
    networks, the wording in this document concentrates solely on discussing
    large-scale DNS authoritative services.
+
+ACTION: agreed, discussing is better.  Technically, it could be
+dropped to if you'd prefer that.
 -->
 
 Because the conclusions of the reviewed studies
 don't measure smaller networks, the wording in this document
-concentrates solely on disusing large-scale DNS authoritative services
+concentrates solely on discussing large-scale DNS authoritative services
 only.</t>
       <t>This document is not an IETF consensus document: it is published for
 informational purposes.</t>

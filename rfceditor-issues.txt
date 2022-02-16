@@ -1,0 +1,554 @@
+1) <!-- [rfced] Please insert any keywords (beyond those that appear in the title) for use on https://www.rfc-editor.org/search. -->
+
+
+2) <!--[rfced] Should "C1-C5" perhaps be "C1-C6" in this sentence?
+
+Current:
+   The considerations (C1-C5) presented in this document
+   are backed by peer-reviewed research, which used 
+   wide-scale Internet measurements to draw their 
+   conclusions. 
+-->
+
+ACTION: Agreed and changed
+
+3) <!-- [rfced] Does "in one city or region" refer to "domains" (Perhaps A) or "users" (Perhaps B)? Also, please clarify "less required"; does this perhaps mean "not as necessary"?
+
+Original:
+   These considerations may not be appropriate for smaller domains, such as
+   those used by an organization with users in one unicast network, or in one
+   city or region, where operational goals such as uniform, global low latency
+   are less required.
+   
+Perhaps A:
+   These considerations may not be appropriate for smaller domains, such as
+   those used by an organization with users in one unicast network or those in
+   a single city or region, where operational goals such as uniform, global
+   low latency are not as necessary.
+
+Perhaps B:
+   These considerations may not be appropriate for smaller domains, such as
+   those used by an organization with users in one unicast network or in
+   a single city or region, where operational goals such as uniform, global
+   low latency are not as necessary.
+-->
+
+ACTION: B is correct and replaced below
+
+4) <!-- [rfced] Should "disusing" be "discussing"?
+
+Original:
+   Because the conclusions of the reviewed studies don't measure smaller
+   networks, the wording in this document concentrates solely on disusing
+   large-scale DNS authoritative services only.
+   
+Perhaps:
+   Because the conclusions of the reviewed studies don't measure smaller
+   networks, the wording in this document concentrates solely on discussing
+   large-scale DNS authoritative services.
+
+ACTION: agreed, discussing is better.  Technically, it could be
+dropped to if you'd prefer that.
+
+-->
+
+
+5)  <!--[rfced] We made the following text into an ordered list. Please
+let us know of any concerns or if any further updates are desired.
+
+Original:
+   Replication at the
+   authoritative server level can be achieved with (i) the deployment of
+   multiple servers for the same zone [RFC1035] (AT1-AT4 in Figure 1),
+   (ii) the use of IP anycast [RFC1546][RFC4786][RFC7094] that allows
+   the same IP address to be announced from multiple locations (each of
+   referred to as an "anycast instance" [RFC8499]) and (iii) the use of
+   load balancers to support multiple servers inside a single
+   (potentially anycasted) instance. 
+
+Current:
+   Replication at the authoritative server level can be achieved with 
+   the following:
+
+   i.    the deployment of multiple servers for the same zone [RFC1035]
+         (AT1-AT4 in Figure 1);
+
+   ii.   the use of IP anycast [RFC1546] [RFC4786] [RFC7094] that allows
+         the same IP address to be announced from multiple locations
+         (each of referred to as an "anycast instance" [RFC8499]); and
+
+   iii.  the use of load balancers to support multiple servers inside a
+         single (potentially anycasted) instance.  As a consequence,
+         there are many possible ways an authoritative DNS provider can
+         engineer its production authoritative server network with
+         multiple viable choices, and there is not necessarily a single
+         optimal design.
+-->     
+
+
+6) <!-- [rfced] Should the section titles be updated for parallel construction?
+
+Original:
+   C1: Deploy anycast in every authoritative server to enhance distribution
+   and latency
+   C2: Optimizing routing is more important than location count and diversity
+   C3: Collecting anycast catchment maps to improve design
+   C4: When under stress, employ two strategies
+   C5: Consider longer time-to-live values whenever possible
+   C6: Consider the TTL differences between parents and children
+   
+Perhaps:
+   C1: Deploying Anycast in Every Authoritative Server to Enhance Distribution
+       and Latency
+   C2: Optimizing Routing More Important than Location Count and Diversity
+   C3: Collecting Anycast Catchment Maps to Improve Design
+   C4: Employing Two Strategies When under Stress 
+   C5: Considering Longer TTL Values Whenever Possible
+   C6: Considering the TTL Differences between Parents and Children
+-->
+
+
+7) <!--[rfced] Throughout the document, we note a number of sentences
+that use a citation tag as a subject or an actor of the sentence
+(i.e., uses the tag as almost a shorthand for the author’s
+names).  These sentences are problematic for readers because
+documents themselves have no volition, the subject may be
+unclear, and the tense shifts between present and past when
+describing these situations (e.g., The document defined vs. The
+document defines).  We will update these sentences as follows
+unless we hear objection.
+
+1)
+Current:
+   [Mueller17b] deployed seven unicast authoritative name servers in
+   different global locations...
+
+Perhaps:
+   [Mueller17b] describes the deployment of seven unicast authoritative 
+   name servers in different global locations...
+
+2)
+Current:
+   [Mueller17b] found that recursive resolvers in the wild query all...
+
+Perhaps:
+   It was found in [Mueller17b] that recursive resolvers in the wild 
+   query all...
+
+3)
+Current:
+   In fact, [Schmidt17a] found that proper route engineering can matter more 
+   than the total number of locations. They analyzed the relationship...
+
+Perhaps:
+   In fact, proper route engineering can matter more than the total number 
+   of locations, as found in [Schmidt17a], where the authors analyzed the 
+   relationship...
+
+4)
+Current:
+   [Schmidt17a] found that the C server, a smaller anycast deployment
+   consisting of only 8 instances,...
+
+Perhaps:
+   In [Schmidt17a], the authors found that the C server, a smaller 
+   anycast deployment consisting of only 8 instances,...
+
+5)
+Current:
+   [Vries17b]developed a new technique enabling operators to carry out 
+   active measurements using an open-source tool...
+
+Perhaps:
+   [Vries17b]describes the development of a new technique enabling 
+   operators to carry out active measurements using an open-source
+   tool... 
+
+6)
+Current:
+   [Vries17b] predicted that 81.6% of the traffic load would remain 
+   at the LAX site.  
+
+Perhaps:
+   In [Vries17b], it was predicted that 81.6% of the traffic load 
+   would remain at the LAX site.  
+
+7)
+Current:
+   [Vries17b] studied this using prepending with 1-3 hops at each 
+   instance and compared the results against real...
+
+Perhaps:
+   This was studied in [Vries17b] using prepending with 1-3 hops at each 
+   instance, and the results were compared against real...
+
+8)
+Current:
+   [Moura16b] saw both of these behaviors deployed in practice 
+   by studying...
+
+Perhaps:
+   [Moura16b] describes seeing both of these behaviors deployed 
+   in practice when studying...
+
+9)
+Current:
+   [Moura19b] carried out a measurement study investigating TTL 
+   choices... 
+
+Perhaps:
+   In [Moura19b], a measurement study was carried out to 
+   investigate TTL choices... 
+
+10)
+Current:
+   [Moura19b] measured this in the wild and showed that by 
+   increasing the TTL for the .uy TLD from 5 minutes...
+
+Perhaps:
+   In [Moura19b], this was measured in the wild, and it showed 
+   that by increasing the TTL for the .uy TLD from 5 minutes...
+
+11)
+Current:
+   [Moura18b] showed that caching also protects users from 
+   short outages...
+
+Perhaps:
+   In [Moura18b], it was shown that caching also protects 
+   users from short outages...
+
+12)
+Current:
+   [Moura18b] also measured DNS caching and showed
+   that it can greatly reduce the effects of a DDoS 
+   on DNS, provided that...
+
+Perhaps:
+   DNS caching was also measured in [Moura18b], and it 
+   showed that the effects of a DDoS on DNS can be greatly
+   reduced, provided that...
+-->
+
+
+8) <!-- [rfced] May we update "from using BGP" to "when using BGP" for clarity?
+
+Original:
+   Selecting where and how many global locations 
+   to announce from using BGP is tricky.
+
+Perhaps:
+   Selecting where and how many global locations 
+   to announce when using BGP is tricky.
+-->
+
+
+9) <!-- [rfced] Would "more instances are better" be an accurate
+rephrasing of "the more instances the better"?
+
+Original:
+   Intuitively, one could naively think that the more instances the
+   better and simply "more" will always lead to shorter response times.
+
+Perhaps:
+  Intuitively, one could naively think that more instances are better and
+  that simply "more" will always lead to shorter response times.
+-->
+
+
+10) <!--[rfced] Is the overall performance of the DNS Root servers being
+measured? If so, may we update the sentence as suggested for clarity?
+
+Original:
+   They analyzed the relationship between the number of
+   anycast instances and service performance (measuring latency of
+   the round-trip time (RTT)), measuring the overall performance of four
+   DNS Root servers. 
+
+Perhaps:
+   To measure the overall performance of four DNS Root servers, 
+   they analyzed the relationship between the number of
+   anycast instances and service performance (i.e., latency of
+   the round-trip time (RTT)).
+-->
+
+
+11) <!--[rfced] Should "RTT" and "server" perhaps be plural here per the context?
+
+Original:
+   The median RTT for C, K and L root server were all 
+   between 30-32ms.
+
+Perhaps:
+   The median RTTs for the C, K, and L root servers were 
+   all between 30-32ms.
+-->
+
+
+12) <!-- [rfced] Please clarify "service's hop-nearest distributed anycast locations".
+
+Original:
+   Anycast leverages Internet routing to distribute incoming queries to
+   a service's hop-nearest distributed anycast locations.  
+
+Perhaps:
+   Anycast leverages Internet routing to distribute incoming queries to 
+   the service's nearest distributed anycast locations.  
+-->
+
+
+13) <!--[rfced] Please clarify if the intended meaning is based on
+"changing anycast service changes" or "changing anycast services".
+
+Original:
+   To address this need and estimate the query loads based on changing,
+   in particular expanding, anycast service changes [Vries17b] developed
+   a new technique enabling operators to carry out active measurements,
+   using an open-source tool called Verfploeter (available at
+   [VerfSrc]).  
+
+Perhaps:
+   To address this need and estimate the query loads based on changing,
+   and in particular expanding, anycast services, [Vries17b] developed
+   a new technique enabling operators to carry out active measurements
+   using an open-source tool called Verfploeter (available at
+   [VerfSrc]).  
+-->
+
+
+14) <!-- [rfced] Is "[RF:KDar02]" a reference to a document or comments
+within GitHub? If so, please let us know if you would like to
+delete it or list it as an informative reference (if keeping it,
+please provide the reference entry information).
+
+Original:
+   ...given that BGP is the protocol that maps clients to specific anycast
+   instances by using routing information [RF:KDar02].  
+
+Perhaps:
+   ...given that BGP is the protocol that maps clients to specific anycast
+   instances by using routing information.
+-->
+
+
+15)  <!-- [rfced] RFC 8782 has been obsoleted by RFC 9132. May we replace
+"[RFC8782]" with "[RFC9132]"?
+
+Original:
+   ...by communicating with its upstream network providers to apply filtering
+   (potentially using FlowSpec [RFC8955] or DOTS protocol ([RFC8811],
+   [RFC8782], [RFC8783]).
+
+Perhaps:
+   ...by communicating with its upstream network providers to apply filtering
+   (potentially using FlowSpec [RFC8955] or the DDoS Open Threat Signaling (DOTS)
+   protocol [RFC8783][RFC8811][RFC9132]).
+-->
+
+
+16) <!--[rfced] "RTT" was expanded earlier in the text as "round-trip time
+(RTT)"; we assume that "round-trip time" is also intended here
+(instead of "route-trip time"), so we simply removed the
+expansion. Please let us know if that is not correct.
+
+Original:
+   [Moura16b] saw both of these behaviors deployed in practice by
+   studying instance reachability and route-trip time (RTTs) in the DNS
+   root events.
+
+Perhaps:
+   [Moura16b] saw both of these behaviors deployed in practice by
+   studying instance reachability and RTTs in the DNS root events.
+-->
+
+
+17) <!-- [rfced] Should "withdraw/prepend/communities" be "withdraw/prepend communities"?
+
+Original:
+   DNS operators should be ready to employ both traditional filtering
+   approaches and other routing load balancing techniques
+   (withdraw/prepend/communities or isolate instances)
+
+Perhaps:
+   DNS operators should be ready to employ both traditional filtering
+   approaches and other routing load-balancing techniques (withdraw/prepend
+   communities or isolate instances)
+-->
+
+
+18) <!-- [rfced] We rephrased this sentence slightly to improve
+readability; please let us know of any concerns.
+
+Original:
+   DNS record TTLs (time-to-live values) [RFC1034][RFC1035] directly
+   control cache durations and affect latency, resilience, and the role
+   of DNS in CDN server selection. 
+
+Current:
+   Time-to-live (TTL) values [RFC1034][RFC1035] for DNS records directly 
+   control cache durations and affect latency, resilience, and the role 
+   of DNS in Content Delivery Network (CDN) server selection. 
+-->
+
+
+19) <!-- [rfced] Does "their interaction" refer to "caches"?
+
+Original:
+   Some early work modeled caches as a function of their TTLs [Jung03a], and
+   recent work has examined their interaction with DNS[Moura18b]...
+
+Perhaps:
+   Some early work modeled caches as a function of their TTLs [Jung03a],
+   and recent work has examined cache interactions with DNS [Moura18b]...
+-->
+
+
+20) <!-- [rfced] Should "8, 12, or 24 hours" be "4, 8, or 24 hours" per
+Section 6.3 of [Moura19b]?
+
+Original:
+   For general DNS zone owners, [Moura19b] recommends a longer TTL of at least
+   one hour, and ideally 8, 12, or 24 hours.
+
+Perhaps:
+   For general DNS zone owners, [Moura19b] recommends a longer TTL of at least
+   one hour and ideally 4, 8, or 24 hours.
+-->
+
+
+21) <!--[rfced] Is there a tussle between using shorter TTLs versus longer
+TTLs? Please let us know if the suggested text captures the
+intended meaning.
+
+Original:
+   There is always a tussle between shorter TTLs
+   providing more agility against all the benefits listed above for
+   using longer TTLs.
+
+Perhaps:
+   There is always a tussle between using shorter TTLs that
+   provide more agility and using longer TTLs that include 
+   all the benefits listed above.
+-->
+
+
+22) <!-- [rfced] We assume that "as or" should be "as are" and "address"
+should be "addresses" in the following. We made these updates;
+please let us know of any objections.
+
+Original:
+   At a minimum, NS records are supposed to be identical in 
+   the parent (but often are not) as or corresponding IP 
+   address in "glue" A/AAAA records that must exist for 
+   in-bailiwick authoritative servers.
+   
+Current:
+   At a minimum, NS records are supposed to be identical in 
+   the parent (but often are not), as are corresponding IP 
+   addresses in "glue" A/AAAA records that must exist for 
+   in-bailiwick authoritative servers.
+-->
+
+
+23) <!-- [rfced] Regarding [RipeAtlas19a], please confirm if the intention
+ is to point to the RIPE Atlas page (https://atlas.ripe.net) or
+ the RIPE Network Coordination Centre (https://www.ripe.net/).
+
+Original:
+    [RipeAtlas19a]
+         NCC, R., "Ripe Atlas - RIPE Network Coordination Centre",
+         September 2019, <https://atlas.ripe.net/>.
+
+Perhaps:
+A   [RipeAtlas19a]
+         RIPE NCC, "Ripe Atlas",
+         <https://atlas.ripe.net/.
+or
+
+B   [RipeAtlas19a]
+         RIPE NCC, "RIPE Network Coordination Centre",
+         <https://www.ripe.net/>.
+ -->
+
+
+24) <!-- [rfced] We were unable to find the page entitled "Hedgehog 2.4.1"
+as the URL below redirects to
+"https://stats.dns.icann.org/stats/d/wom-ext-main/traffic-menu?orgId=1".
+Should the reference be updated as follows? If not, please provide a new
+URL and the corresponding reference information.
+
+Original:
+   [IcannHedge18] ICANN, ., "DNS-STATS - Hedgehog 2.4.1", October 2018,
+   <http://stats.dns.icann.org/hedgehog/>. 
+
+Perhaps:
+   [IcannHedge18]
+   ICANN, "ICANN's New Hedgehog", October 2014,
+   <https://www.icann.org/en/blogs/details/icanns-new-hedgehog-6-10-2014-en>. 
+-->
+
+
+25) <!-- [rfced] FYI: We have changed the date of this reference to
+correspond to the submission date on this page. Please let us
+know if there are any objections.
+
+Original:
+   [Ditl17] OARC, D., "2017 DITL data", October 2018,
+            <https://www.dns-oarc.net/oarc/data/ditl/2017>. 
+
+Current:
+   [Ditl17] DNS-OARC, "2017 DITL Data", April 2017,
+            <https://www.dns-oarc.net/oarc/data/ditl/2017>. 
+-->
+
+
+26) <!--[rfced] Since the Acknowledgements section refers to some
+individuals as "coauthors", we created a Contributors section and
+added the related text accordingly; please see Section 4.11 of
+RFC 7322 (the RFC Style Guide) for more information on
+"Contributors".  If you have any objections to this change,
+please let us know.
+
+New:
+
+Contributors
+
+   This document is a summary of the main considerations of six
+   research papers written by the authors and the following people who
+   contributed substantially to the content and should be
+   considered coauthors; this document would not have been possible
+   without their hard work:
+
+   *  Ricardo de O. Schmidt
+
+   *  Wouter B. de Vries
+
+   *  Moritz Mueller
+
+   *  Lan Wei
+
+   *  Cristian Hesselman
+
+   *  Jan Harm Kuipers
+
+   *  Pieter-Tjerk de Boer
+
+   *  Aiko Pras
+-->
+
+
+27)   <!-- [rfced] Please review the "Inclusive Language" portion of the online 
+Style Guide <https://www.rfc-editor.org/styleguide/part2/#inclusive_language>
+and let us know if any changes are needed.
+
+Specifically, please review the use of "traditional".
+-->
+
+
+28) <!-- [rfced] Some author comments are present in the XML. Please confirm that no updates related to these comments are outstanding. Note that the comments will be deleted prior to publication.
+-->
+
+
+Thank you.
+
+RFC Editor/ms/kc
