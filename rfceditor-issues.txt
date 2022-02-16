@@ -333,6 +333,12 @@ Original:
 Perhaps:
    Anycast leverages Internet routing to distribute incoming queries to 
    the service's nearest distributed anycast locations.  
+
+ACTION: how about this:
+
+  Anycast leverages Internet routing to distribute incoming queries to
+  a service's nearest distributed anycast locations measured by the
+  number of routing hops.
 -->
 
 

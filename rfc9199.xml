@@ -670,13 +670,21 @@ Original:
 Perhaps:
    Anycast leverages Internet routing to distribute incoming queries to 
    the service's nearest distributed anycast locations.  
+
+ACTION: how about this:
+
+  Anycast leverages Internet routing to distribute incoming queries to
+  a service's nearest distributed anycast locations measured by the
+  number of routing hops.
+
 -->
 
           <t>An anycast DNS service may be deployed from anywhere and from several
 locations to hundreds of locations (for example, l.root-servers.net
 has over 150 anycast instances at the time this was written). Anycast
 leverages Internet routing to distribute incoming queries to a
-service's hop-nearest distributed anycast locations.  However, queries are usually not evenly distributed across all anycast locations, as
+service's nearest distributed anycast locations measured by the number
+of routing hops.  However, queries are usually not evenly distributed across all anycast locations, as
 found in the case of L-Root <xref target="IcannHedge18" format="default"/>.</t>
           <t>Adding locations to or removing locations from a deployed anycast
 network changes the load distribution across all of its
