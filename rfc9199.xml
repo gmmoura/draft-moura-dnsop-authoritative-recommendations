@@ -630,7 +630,7 @@ DoS attacks <xref target="Moura16b" format="default"/>.</t>
         </section>
       </section>
       <section anchor="c3" numbered="true" toc="default">
-        <name>C3: Collecting Anycast Catchment Maps to Improve Design</name>
+        <name>C3: Collect Anycast Catchment Maps to Improve Design</name>
         <section anchor="research-background-2" numbered="true" toc="default">
           <name>Research Background</name>
 <!-- [rfced] Please clarify "service's hop-nearest distributed anycast locations".
@@ -725,7 +725,7 @@ benefits and potential issues ahead of time.</t>
         </section>
       </section>
       <section anchor="c4" numbered="true" toc="default">
-        <name>C4: When under Stress, Employ Two Strategies</name>
+        <name>C4: Employ Two Strategies When under Stress</name>
         <section anchor="research-background-3" numbered="true" toc="default">
           <name>Research Background</name>
           <t>DDoS attacks are becoming bigger, cheaper, and more frequent
@@ -1020,7 +1020,7 @@ may still be desired if DDoS mitigation services are required.</li>
         </section>
       </section>
       <section anchor="c6" numbered="true" toc="default">
-        <name>C6: Consider the TTL Differences between Parents and Children</name>
+        <name>C6: Consider the Difference in Parent and Children's TTL values</name>
         <section anchor="research-background-5" numbered="true" toc="default">
           <name>Research Background</name>
 	  
@@ -1039,6 +1039,13 @@ Current:
    the parent (but often are not), as are corresponding IP 
    addresses in "glue" A/AAAA records that must exist for 
    in-bailiwick authoritative servers.
+
+ACTION: C1 should be "deploy" as it's a recommendation/consideration
+that supposed to be an "action" to take.  In fact, I changed C3 to be
+"Collect" instead.  And C4: Employ Two Strategies When under Stress.
+And C6: Consider the Difference in Parent and Children's TTL values.
+Feel free to argue with me/us on these though.
+
 -->
 
           <t>Multiple record types exist or are related between the parent of a
