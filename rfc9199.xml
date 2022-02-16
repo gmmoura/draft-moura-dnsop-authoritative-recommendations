@@ -105,9 +105,11 @@ Current:
    are backed by peer-reviewed research, which used 
    wide-scale Internet measurements to draw their 
    conclusions. 
+
+ACTION: Agreed and changed
 -->
 
-The considerations (<xref target="considerations" format="none">C1-C5</xref>) presented in this document are
+The considerations (<xref target="considerations" format="none">C1-C6</xref>) presented in this document are
 backed by peer-reviewed research, which used wide-scale Internet
 measurements to draw their conclusions. This document summarizes the
 research results and describes the resulting key engineering options.
