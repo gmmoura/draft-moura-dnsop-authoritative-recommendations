@@ -239,6 +239,11 @@ Perhaps:
    DNS caching was also measured in [Moura18b], and it 
    showed that the effects of a DDoS on DNS can be greatly
    reduced, provided that...
+
+ACTION: this suggestion makes sense and the replacements look
+reasonable.  Leaving as is, but feel free to replace them with your
+proposed wording
+
 -->
 
 
