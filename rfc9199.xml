@@ -1035,11 +1035,13 @@ Original:
 Perhaps:
    For general DNS zone owners, [Moura19b] recommends a longer TTL of at least
    one hour and ideally 4, 8, or 24 hours.
+
+ACTION: Wow you guys are good :-)
 -->
 
 
             <li>For general DNS zone owners, <xref target="Moura19b" format="default"/> recommends a longer TTL
-of at least one hour and ideally 8, 12, or 24 hours. Assuming
+of at least one hour, and ideally 4, 12, or 24 hours. Assuming
 planned maintenance can be scheduled at least a day in advance, long
 TTLs have little cost and may even literally provide cost savings.</li>
             <li>For TLD and other public registration

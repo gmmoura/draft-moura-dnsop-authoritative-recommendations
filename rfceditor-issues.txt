@@ -484,6 +484,8 @@ Original:
 Perhaps:
    For general DNS zone owners, [Moura19b] recommends a longer TTL of at least
    one hour and ideally 4, 8, or 24 hours.
+
+ACTION: Wow you guys are good :-)
 -->
 
 
