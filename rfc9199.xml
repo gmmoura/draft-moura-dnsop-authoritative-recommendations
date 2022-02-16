@@ -712,17 +712,30 @@ Perhaps:
    a new technique enabling operators to carry out active measurements
    using an open-source tool called Verfploeter (available at
    [VerfSrc]).  
+
+ACTION: How about this:
+
+  To address this need and estimate the query loads 
+  of an anycast service undergoing changes (in particular
+  expanding), ...
+
 -->
 	  
-          <t>To address this need and estimate the query loads based on changing, and in particular expanding, anycast service changes, <xref target="Vries17b" format="default"/> developed a new technique enabling operators to carry out active
-measurements using an open-source tool called Verfploeter (available
-at <xref target="VerfSrc" format="default"/>).  The results allow the creation of detailed anycast
-maps and catchment estimates.  By running Verfploeter combined with a
-published IPv4 "hit list", the DNS can precisely calculate which remote
-prefixes will be matched to each anycast instance in a network.  At
-the time of this writing, Verfploeter still does not support IPv6 as
-the IPv4 hit lists used are generated via frequent large-scale ICMP
-echo scans, which is not possible using IPv6.</t>
+          <t>To address this need and estimate the query loads 
+          of an anycast service undergoing changes (in particular
+          expanding), <xref target="Vries17b"
+          format="default"/> developed a new technique enabling
+          operators to carry out active measurements using an
+          open-source tool called Verfploeter (available at <xref
+          target="VerfSrc" format="default"/>).  The results allow the
+          creation of detailed anycast maps and catchment estimates.
+          By running Verfploeter combined with a published IPv4 "hit
+          list", the DNS can precisely calculate which remote prefixes
+          will be matched to each anycast instance in a network.  At
+          the time of this writing, Verfploeter still does not support
+          IPv6 as the IPv4 hit lists used are generated via frequent
+          large-scale ICMP echo scans, which is not possible using
+          IPv6.</t>
           <t>As proof of concept, <xref target="Vries17b" format="default"/> documents how Verfploeter was used to predict both the catchment and query load distribution for a new anycast instance deployed for b.root-servers.net.  Using two
 anycast test instances in Miami (MIA) and Los Angeles (LAX), an ICMP
 echo query was sent from an IP anycast address to each IPv4 /24

@@ -358,6 +358,13 @@ Perhaps:
    a new technique enabling operators to carry out active measurements
    using an open-source tool called Verfploeter (available at
    [VerfSrc]).  
+
+ACTION: How about this:
+
+  To address this need and estimate the query loads 
+  of an anycast service undergoing changes (in particular
+  expanding), ...
+
 -->
 
 
