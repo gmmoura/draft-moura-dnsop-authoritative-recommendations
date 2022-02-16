@@ -592,6 +592,14 @@ Perhaps:
    they analyzed the relationship between the number of
    anycast instances and service performance (i.e., latency of
    the round-trip time (RTT)).
+
+ACTION: agreed that is awkward as is -- here's a proposed replacement
+that I think is more clear:
+
+  To study the relationship between the number of anycast instances
+  and the associated service performance, they measured the round-trip
+  time (RTT) latency of four DNS root servers.
+
 -->
 
 They analyzed the relationship between the number of
@@ -620,11 +628,13 @@ Original:
 Perhaps:
    The median RTTs for the C, K, and L root servers were 
    all between 30-32ms.
+
+ACTION: agreed, and fixed
 -->
 
 
-The median RTT for the C, K, and L
-root server were all between 30-32 ms.</t>
+The median RTTs for the C, K, and L
+root servers were all between 30-32 ms.</t>
  <!-- XXX: what about F???  why is it mentioned above if we don't talk -->
 
 <t>Because RIPE Atlas is known to have better coverage in Europe than
