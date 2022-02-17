@@ -1390,12 +1390,17 @@ or
 B   [RipeAtlas19a]
          RIPE NCC, "RIPE Network Coordination Centre",
          <https://www.ripe.net/>.
+
+ACTION: it should be atlas, but I changed the organization/author to               <organization>RIPE Network Coordination Centre (RIPE NCC)</organization>
+
+and capitalized "RIPE"
  -->
 
         <reference anchor="RipeAtlas19a" target="https://atlas.ripe.net">
           <front>
-            <title>Ripe Atlas - RIPE Network Coordination Centre</title>
-            <author><organization>RIPE NCC</organization>
+            <title>RIPE Atlas</title>
+            <author>
+              <organization>RIPE Network Coordination Centre (RIPE NCC)</organization>
             </author>
             <date/>
           </front>
@@ -1457,6 +1462,18 @@ Perhaps:
    [IcannHedge18]
    ICANN, "ICANN's New Hedgehog", October 2014,
    <https://www.icann.org/en/blogs/details/icanns-new-hedgehog-6-10-2014-en>. 
+
+ACTION: So hedgehog has been dropped from support, but maybe the best
+reference for it is the github page that will likely never go away:
+
+   https://github.com/dns-stats/hedgehog
+
+thoughts?
+
+And likely change the sentence with the reference to:
+
+   found in the case of L-Root ***when analyzed using Hedgehog***
+
 -->
         <reference anchor="IcannHedge18" target="http://stats.dns.icann.org/hedgehog/">
           <front>
