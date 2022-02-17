@@ -611,7 +611,7 @@ Perhaps:
    anycast instances and service performance (i.e., latency of
    the round-trip time (RTT)).
 
-ACTION: agreed that is awkward as is -- here's a proposed replacement
+ACTION: agreed that is awkward as is - here's a proposed replacement
 that I think is more clear:
 
   To study the relationship between the number of anycast instances
