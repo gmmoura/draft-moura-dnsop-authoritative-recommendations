@@ -73,7 +73,19 @@ version="3">
     <area>Internet</area>
     <workgroup>DNSOP Working Group</workgroup>
 
-<!-- [rfced] Please insert any keywords (beyond those that appear in the title) for use on https://www.rfc-editor.org/search. -->
+<!-- [rfced] Please insert any keywords (beyond those that appear in the title) for use on https://www.rfc-editor.org/search. 
+
+ACTION: added keywords
+
+-->
+
+<keyword>Routing</keyword>
+<keyword>DNS</keyword>
+<keyword>Anycast</keyword>
+<keyword>Domain</keyword>
+<keyword>Name</keyword>
+<keyword>System</keyword>
+<keyword>BGP</keyword>
 
     <abstract>
       <t>Recent research work has explored the deployment characteristics and

@@ -1,4 +1,8 @@
-1) <!-- [rfced] Please insert any keywords (beyond those that appear in the title) for use on https://www.rfc-editor.org/search. -->
+1) <!-- [rfced] Please insert any keywords (beyond those that appear in the title) for use on https://www.rfc-editor.org/search. 
+
+ACTION: added keywords
+
+-->
 
 
 2) <!--[rfced] Should "C1-C5" perhaps be "C1-C6" in this sentence?
@@ -654,6 +658,13 @@ ACTION: they can be deleted.  They are simply old dialog between
 authors or removed text.
 
 -->
+
+29 NEW:
+
+The document currently has "<workgroup>DNSOP Working
+Group</workgroup>" in it, but this is being published as an
+independent submission.  I believe that the workgroup should be
+dropped because of this? - Wes
 
 
 Thank you.
