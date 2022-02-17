@@ -307,6 +307,12 @@ Perhaps:
    C4: Employing Two Strategies When under Stress 
    C5: Considering Longer TTL Values Whenever Possible
    C6: Considering the TTL Differences between Parents and Children
+
+ACTION: C1 should be "deploy" as it's a recommendation/consideration
+that supposed to be an "action" to take.  In fact, I changed C3 to be
+"Collect" instead.  And C4: Employ Two Strategies When under Stress.
+And C6: Consider the Difference in Parent and Children's TTL values.
+Feel free to argue with me/us on these though.
 -->
     <section anchor="considerations" numbered="true" toc="default">
       <name>Considerations</name>
@@ -1111,11 +1117,7 @@ Current:
    addresses in "glue" A/AAAA records that must exist for 
    in-bailiwick authoritative servers.
 
-ACTION: C1 should be "deploy" as it's a recommendation/consideration
-that supposed to be an "action" to take.  In fact, I changed C3 to be
-"Collect" instead.  And C4: Employ Two Strategies When under Stress.
-And C6: Consider the Difference in Parent and Children's TTL values.
-Feel free to argue with me/us on these though.
+ACTION: Agreed, the suggestion is good 
 
 -->
 

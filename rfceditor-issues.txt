@@ -522,6 +522,8 @@ Current:
    the parent (but often are not), as are corresponding IP 
    addresses in "glue" A/AAAA records that must exist for 
    in-bailiwick authoritative servers.
+
+ACTION: Agreed, the suggestion is good 
 -->
 
 
