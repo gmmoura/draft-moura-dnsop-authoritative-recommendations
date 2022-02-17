@@ -641,10 +641,18 @@ Style Guide <https://www.rfc-editor.org/styleguide/part2/#inclusive_language>
 and let us know if any changes are needed.
 
 Specifically, please review the use of "traditional".
+
+ACTION: I could find no discussion in the NIST document about
+traditional...  that being said, I changed the word to "common" which
+I think works too.
 -->
 
 
 28) <!-- [rfced] Some author comments are present in the XML. Please confirm that no updates related to these comments are outstanding. Note that the comments will be deleted prior to publication.
+
+ACTION: they can be deleted.  They are simply old dialog between
+authors or removed text.
+
 -->
 
 
