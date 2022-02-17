@@ -659,7 +659,7 @@ authors or removed text.
 
 -->
 
-29 NEW:
+29) NEW:
 
 The document currently has "<workgroup>DNSOP Working
 Group</workgroup>" in it, but this is being published as an
